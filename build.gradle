@@ -1,20 +1,17 @@
+import java.util.stream.Collectors
+
 buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "http://artifactory.reform.hmcts.net/artifactory/libs-release" }
-        maven { url "http://repo1.maven.org/maven2/" }
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
     dependencies {
         classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '2.5'
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.5.2")
     }
-
 }
 
 plugins {
     id 'application'
-    id 'org.springframework.boot' version '1.5.8.RELEASE'
-    id 'org.owasp.dependencycheck' version '3.0.2'
+    id 'pmd'
+    id 'org.springframework.boot' version '1.5.13.RELEASE'
+    id 'org.owasp.dependencycheck' version '3.2.1'
     id 'com.github.ben-manes.versions' version '0.15.0'
     id 'com.gorylenko.gradle-git-properties' version '1.4.21'
 }
@@ -22,6 +19,7 @@ plugins {
 apply plugin: 'org.sonarqube'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
+apply plugin: 'net.serenity-bdd.aggregator'
 
 gitProperties {
 	gitPropertiesDir = new File("${project.rootDir}/src/main/resources/uk/gov/hmcts/probate/services/business")
@@ -58,9 +56,6 @@ tasks.withType(FindBugs) {
     }
 }
 
-dependencyCheck {
-    suppressionFiles = ['dependency-check-suppressions.xml']
-}
 
 findbugs{
     ignoreFailures=true
@@ -69,6 +64,7 @@ findbugs{
 
 sonarqube {
     properties {
+        property "sonar.projectName", "Probate :: Business Service"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
         property "sonar.host.url", "https://sonar.reform.hmcts.net/"
     }
@@ -76,24 +72,75 @@ sonarqube {
 
 test.finalizedBy jacocoTestReport
 
-// https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/configuration.html
 dependencyCheck {
-    // Specifies if the build should be failed if a CVSS score above a specified level is identified.
-    // range of 0-10 fails the build, anything greater and it doesn't fail the build
     failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
-    suppressionFile = 'dependency-check-suppressions.xml'
+    suppressionFiles = ['config/owasp/suppressions.xml']
+    analyzers {
+        assemblyEnabled = false
+    }
+    scanConfigurations = ['compile']
+}
+
+sourceSets {
+  testFunctional {
+    java {
+      compileClasspath += main.output
+      runtimeClasspath += main.output
+      srcDir file('src/functionalTest/java')
+    }
+    resources.srcDir file('src/functionalTest/resources')
+  }
+
+  testSmoke {
+    java {
+      compileClasspath += main.output
+      runtimeClasspath += main.output
+      srcDir file('src/smokeTest/java')
+    }
+    resources.srcDir file('src/smokeTest/resources')
+  }
+}
+
+task smoke(type: Test) {
+  description = "Runs Smoke Tests"
+  testClassesDirs = sourceSets.testSmoke.output.classesDirs
+  classpath = sourceSets.testSmoke.runtimeClasspath
+}
+
+task functional(type: Test) {
+    description = "Runs functional Tests"
+    testClassesDirs = sourceSets.testFunctional.output.classesDirs
+    classpath = sourceSets.testFunctional.runtimeClasspath
+    finalizedBy aggregate
+}
+
+pmd {
+    toolVersion = "6.3.0"
+    ignoreFailures = true
+    sourceSets = [sourceSets.main, sourceSets.test, sourceSets.testFunctional, sourceSets.testSmoke]
+    reportsDir = file("$project.buildDir/reports/pmd")
+    ruleSetFiles = files("config/pmd/ruleset.xml")
+}
+
+jacocoTestReport {
+    executionData(test)
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
 }
 
 
 repositories {
     mavenLocal()
-    mavenCentral()
+    maven {
+      url "https://dl.bintray.com/hmcts/hmcts-maven"
+    }
+    maven {
+      url 'https://repo.spring.io/libs-milestone'
+    }
     jcenter()
-    maven { url "http://artifactory.reform.hmcts.net/artifactory/libs-release" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { url "http://repo1.maven.org/maven2/" }
-    maven { url "https://plugins.gradle.org/m2/" }
-    maven { url  "https://dl.bintray.com/hmcts/hmcts-maven" }
 }
 
 def versions = [
@@ -115,7 +162,20 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'     
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'
+    testFunctionalCompile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+    testFunctionalCompile sourceSets.main.runtimeClasspath
+    testFunctionalCompile sourceSets.test.runtimeClasspath
+
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.7'
+    testSmokeCompile sourceSets.main.runtimeClasspath
+    testSmokeCompile sourceSets.test.runtimeClasspath
+
 }
 
 compileJava {
@@ -123,11 +183,12 @@ compileJava {
 }
 
 jar {
-    manifest {
+  archiveName = 'business-service.jar'
+  manifest {
 
-        attributes 'Implementation-Title': project.name,
-                'Implementation-Version': project.version
-    }
+    attributes 'Implementation-Title': project.name,
+      'Implementation-Version': project.version
+  }
 }
 
 task printVersion {
