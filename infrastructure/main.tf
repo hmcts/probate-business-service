@@ -1,3 +1,8 @@
+resource "azurerm_resource_group" "resource_group" {
+  name     = "${var.product}-${var.microservice}-${var.env}"
+  location = "UK South"
+}
+
 provider "vault" {
   //  # It is strongly recommended to configure this provider through the
   //  # environment variables described above, so that each user can have
@@ -31,12 +36,12 @@ locals {
 module "probate-business-service" {
   source              = "git@github.com:hmcts/moj-module-webapp.git?ref=infra_versions"
   product             = "${var.product}-${var.microservice}"
-  resource_group_name = "probate-shared-infrastructure"
+  resource_group_name = "${azurerm_resource_group.resource_group.name}"
   location            = "${var.location}"
   env                 = "${var.env}"
   ilbIp               = "${var.ilbIp}"
   subscription        = "${var.subscription}"
-  asp_id              = "${var.product}-${var.env}-asp"
+  asp_id              = "${data.terraform_remote_state.core_apps_infrastructure.aspA}"
   deploymentTag       = "${var.product}"
 
   app_settings = {
@@ -68,6 +73,6 @@ module "probate-business-service-vault" {
   env                     = "${var.env}"
   tenant_id               = "${var.tenant_id}"
   object_id               = "${var.jenkins_AAD_objectId}"
-  resource_group_name     = "${module.probate-business-service.resource_group_name}"
+  resource_group_name     = "${azurerm_resource_group.resource_group.name}"
   product_group_object_id = "33ed3c5a-bd38-4083-84e3-2ba17841e31e"
 }
