@@ -54,21 +54,21 @@ module "probate-business-service" {
 
     //JAVA_OPTS = "${local.java_proxy_variables}"
 
-    SERVICES_PERSISTENCE_INVITEDATA_URL   = "${var.business_services_persistence_invitedata_url}"
-    SERVICES_PERSISTENCE_FORMDATA_URL     = "${var.business_services_persistence_formdata_url}"
+    SERVICES_PERSISTENCE_BASEURL          = "${var.business_services_persistence_baseUrl}"
     SERVICES_NOTIFY_APIKEY                = "${data.vault_generic_secret.probate_notify_invite_apikey.data["value"]}"
     SERVICES_NOTIFY_INVITEDATA_TEMPLATEID = "${data.vault_generic_secret.business_services_notify_invitedata_templateId.data["value"]}"
     SERVICES_NOTIFY_INVITEDATA_INVITELINK = "${var.business_services_notify_invitedata_inviteLink}"
     SERVICES_NOTIFY_PIN_TEMPLATEID        = "${data.vault_generic_secret.business_services_notify_pin_templateId.data["value"]}"
     java_app_name                         = "${var.microservice}"
     LOG_LEVEL                             = "${var.log_level}"
-    ROOT_APPENDER                         = "JSON_CONSOLE"
+
+    //ROOT_APPENDER = "JSON_CONSOLE"  //remove json output
   }
 }
 
 module "probate-business-service-vault" {
   source                  = "git@github.com:hmcts/moj-module-key-vault?ref=master"
-  name                    = "pro-business-ser-${var.env}"
+  name                    = "${local.vaultName}"
   product                 = "${var.product}"
   env                     = "${var.env}"
   tenant_id               = "${var.tenant_id}"
