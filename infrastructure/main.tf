@@ -35,13 +35,13 @@ locals {
 
 module "probate-business-service" {
   source              = "git@github.com:hmcts/moj-module-webapp.git?ref=infra_versions"
-  product             = "${var.product}-${var.microservice}"
+  product             = "${var.product}-${var.microservice}-${var.env}"
   resource_group_name = "${azurerm_resource_group.resource_group.name}"
   location            = "${var.location}"
   env                 = "${var.env}"
   ilbIp               = "${var.ilbIp}"
   subscription        = "${var.subscription}"
-  asp_id              = "${data.terraform_remote_state.core_apps_infrastructure.aspA}"
+  asp_id              = "${${data.terraform_remote_state.probate_infrastructure.aspA}}"
   deploymentTag       = "${var.product}"
 
   app_settings = {
