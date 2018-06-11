@@ -23,14 +23,7 @@ apply plugin: 'net.serenity-bdd.aggregator'
 
 
 gitProperties {
-	gitPropertiesDir = new File("${project.rootDir}/src/main/resources/uk/gov/hmcts/probate/services/business")
-    keys = ['git.commit.id','git.commit.time']
-    dateFormat = "yyyy-MM-dd'T'HH:mmZ"
-    dateFormatTimeZone = "GMT"
-}
-
-gitProperties {
-	gitPropertiesDir = new File("${project.rootDir}/src/main/resources/uk/gov/hmcts/probate/services/business")
+    gitPropertiesDir = new File("${project.rootDir}/src/main/resources/uk/gov/hmcts/probate/services/business")
     keys = ['git.commit.id','git.commit.time']
     dateFormat = "yyyy-MM-dd'T'HH:mmZ"
     dateFormatTimeZone = "GMT"

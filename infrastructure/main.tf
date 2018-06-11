@@ -31,6 +31,13 @@ locals {
   //java_proxy_variables: "-Dhttp.proxyHost=${var.proxy_host} -Dhttp.proxyPort=${var.proxy_port} -Dhttps.proxyHost=${var.proxy_host} -Dhttps.proxyPort=${var.proxy_port}"
 
   //probate_frontend_hostname = "probate-frontend-aat.service.core-compute-aat.internal"
+  previewVaultName = "pro-business-ser"
+  nonPreviewVaultName = "pro-business-ser-${var.env}"
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
+
+  nonPreviewVaultUri = "${module.probate-business-service-vault.key_vault_uri}"
+  previewVaultUri = "https://pro-business-ser-aat.vault.azure.net/"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
 }
 
 module "probate-business-service" {
@@ -54,13 +61,14 @@ module "probate-business-service" {
 
     //JAVA_OPTS = "${local.java_proxy_variables}"
 
-    SERVICES_PERSISTENCE_BASEURL          = "${var.business_services_persistence_baseUrl}"
-    SERVICES_NOTIFY_APIKEY                = "${data.vault_generic_secret.probate_notify_invite_apikey.data["value"]}"
+    SERVICES_PERSISTENCE_BASEURL = "${var.business_services_persistence_baseUrl}"
+    SERVICES_NOTIFY_APIKEY = "${data.vault_generic_secret.probate_notify_invite_apikey.data["value"]}"
     SERVICES_NOTIFY_INVITEDATA_TEMPLATEID = "${data.vault_generic_secret.business_services_notify_invitedata_templateId.data["value"]}"
     SERVICES_NOTIFY_INVITEDATA_INVITELINK = "${var.business_services_notify_invitedata_inviteLink}"
-    SERVICES_NOTIFY_PIN_TEMPLATEID        = "${data.vault_generic_secret.business_services_notify_pin_templateId.data["value"]}"
-    java_app_name                         = "${var.microservice}"
-    LOG_LEVEL                             = "${var.log_level}"
+    SERVICES_NOTIFY_PIN_TEMPLATEID = "${data.vault_generic_secret.business_services_notify_pin_templateId.data["value"]}"
+    java_app_name = "${var.microservice}"
+    LOG_LEVEL = "${var.log_level}"
+    //ROOT_APPENDER = "JSON_CONSOLE"  //remove json output
 
     //ROOT_APPENDER = "JSON_CONSOLE"  //remove json output
   }

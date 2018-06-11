@@ -52,12 +52,8 @@ variable "no_proxy" {
   default = "localhost,127.0.0.0/8,127.0.0.1,127.0.0.1*,local.home,reform.hmcts.net,*.reform.hmcts.net,betaDevBprobateApp01.reform.hmcts.net,betaDevBprobateApp02.reform.hmcts.net,betaDevBccidamAppLB.reform.hmcts.net,*.internal,*.platform.hmcts.net"
 }
 
-variable "business_services_persistence_invitedata_url" {
-  default = "./invitedata"
-}
-
-variable "business_services_persistence_formdata_url" {
-  default = "./formdata"
+variable "business_services_persistence_baseUrl" {
+  default = "/"
 }
 
 variable "business_services_notify_invitedata_inviteLink" {

@@ -16,6 +16,5 @@ proxy_port = "8080"
 
 log_level = "INFO"
 
-business_services_persistence_invitedata_url  = "http://probate-persistence-service-sandbox-staging.service.core-compute-sandbox.internal/invitedata"
-business_services_persistence_formdata_url  = "http://probate-persistence-service-sandbox-staging.service.core-compute-sandbox.internal/formdata"
+business_services_persistence_baseUrl  = "http://probate-persistence-service-sandbox-staging.service.core-compute-sandbox.internal"
 business_services_notify_invitedata_inviteLink = "https://probate-frontend-sandbox-staging.service.core-compute-sandbox.internal/executors/invitation/"

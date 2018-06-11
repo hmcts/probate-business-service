@@ -97,7 +97,7 @@ node {
 
         if(storeRPMToArtifactory) {
             stage('Package (RPM)') {
-                probateBackendbusinessServiceRPMVersion = packager.javaRPM('business-service', 'build/libs/business-service-$(./gradlew -q printVersion).jar',
+                probateBackendbusinessServiceRPMVersion = packager.javaRPM('business-service', 'build/libs/business-service.jar',
                         'springboot', 'src/main/resources/application.yml')
                 sh "echo $probateBackendbusinessServiceRPMVersion"
                 version = "{probate_business_buildnumber: ${probateBackendbusinessServiceRPMVersion} }"
@@ -109,18 +109,18 @@ node {
             packager.publishJavaRPM(app)
         }
 
-        if ("develop"  == "${env.BRANCH_NAME}") {
+        if ("master"  == "${env.BRANCH_NAME}") {
             
-            stage('Install (Dev)') {
-                ansible.runInstallPlaybook(version, 'dev')
+            stage('Install (Test)') {
+                ansible.runInstallPlaybook(version, 'test')
             }
 
-            stage('Deploy (Dev)') {
-                ansible.runDeployPlaybook(version, 'dev')
+            stage('Deploy (test)') {
+                ansible.runDeployPlaybook(version, 'test')
             }
 
-            stage('Tag Deploy success (Dev)') {
-                rpmTagger.tagDeploymentSuccessfulOn('dev')
+            stage('Tag Deploy success (test)') {
+                rpmTagger.tagDeploymentSuccessfulOn('test')
             }
 
             stage('Smoke Test') {
@@ -128,14 +128,14 @@ node {
                     git url: 'git@git.reform.hmcts.net:probate/smoke-tests.git'
                     sh '''
                         npm install 
-                        npm run test-service -- --ENV dev --SERVICE business-service
+                        npm run test-service -- --ENV test --SERVICE business-service
                     '''
                     deleteDir()
                 }
             }
 
-            stage('Tag Smoke Test success (Dev)') {
-                rpmTagger.tagTestingPassedOn('dev')
+            stage('Tag Smoke Test success (test)') {
+                rpmTagger.tagTestingPassedOn('test')
             }
         }
         deleteDir()

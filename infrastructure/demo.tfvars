@@ -16,6 +16,5 @@ proxy_port = "8080"
 
 log_level = "INFO"
 
-business_services_persistence_invitedata_url  = "http://betaPreProdprobateApp01.reform.hmcts.net:4103/invitedata"
-business_services_persistence_formdata_url  = "http://betaPreProdprobateApp01.reform.hmcts.net:4103/formdata"
+business_services_persistence_baseUrl  = "http://betaPreProdprobateApp01.reform.hmcts.net:4103"
 business_services_notify_invitedata_inviteLink = "https://probate-frontend-demo.service.core-compute-demo.internal/executors/invitation/"

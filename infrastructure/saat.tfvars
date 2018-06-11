@@ -16,6 +16,5 @@ proxy_port = "8080"
 
 log_level = "INFO"
 
-business_services_persistence_invitedata_url  = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal/invitedata"
-business_services_persistence_formdata_url  = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal/formdata"
+business_services_persistence_baseUrl  = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal"
 business_services_notify_invitedata_inviteLink = "http://probate-frontend-saat-staging.service.core-compute-saat.internal/executors/invitation/"

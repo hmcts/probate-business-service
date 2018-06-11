@@ -1,7 +1,7 @@
 output "vaultUri" {
-  value = "${module.probate-business-service-vault.key_vault_uri}"
+  value = "${local.vaultUri}"
 }
 
 output "vaultName" {
-  value = "${module.probate-business-service-vault.key_vault_name}"
+  value = "${local.vaultName}"
 }
