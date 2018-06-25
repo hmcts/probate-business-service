@@ -5,9 +5,6 @@ vault_section = "test"
 
 packages_environment = "test"
 packages_version = "3.0.0"
-
-probate_frontend_hostname = "probate-frontend-saat-staging.service.core-compute-saat.internal"
-
 log_level = "INFO"
 
 business_services_persistence_baseUrl  = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal"
