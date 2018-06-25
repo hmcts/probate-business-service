@@ -5,9 +5,6 @@ vault_section = "preprod"
 
 packages_environment = "preprod"
 packages_version = "3.0.0"
-
-probate_frontend_hostname = "probate-frontend-aat.service.core-compute-aat.internal"
-
 capacity = "2"
 log_level = "INFO"
 
