@@ -47,6 +47,11 @@ public class InvitationService {
 
     public boolean checkAllInvitedAgreed(String formdataId) {
         JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId);
+        JsonNode formdata = persistenceClient.getFormdata(formdataId);
+        JsonNode executorList = formdata.findPath("executors").findPath("list");
+    //        executorList.elements()
+    //                .forEachRemaining();
+
         List<String> invitesStatusList = invitesByFormdataId.findValuesAsText("agreed");
 
         return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
