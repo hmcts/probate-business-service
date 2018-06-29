@@ -64,7 +64,7 @@ public class InvitationService {
         List<String> invitesStatusList = StreamSupport.stream(invitesByFormdataId.findPath("invitedata").spliterator(), false)
                 .filter(e -> e.has("id"))
                 .filter(e -> inviteIdList.contains(e.get("id").asText()))
-                .map(e -> e.get("inviteId").asText())
+                .map(e -> e.get("agreed").asText())
                 .collect(Collectors.toList());
         
         return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
