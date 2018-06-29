@@ -10,8 +10,11 @@ import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class InvitationService {
@@ -49,11 +52,21 @@ public class InvitationService {
         JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId);
         JsonNode formdata = persistenceClient.getFormdata(formdataId);
         JsonNode executorList = formdata.findPath("executors").findPath("list");
-    //        executorList.elements()
-    //                .forEachRemaining();
 
-        List<String> invitesStatusList = invitesByFormdataId.findValuesAsText("agreed");
+        List<String> inviteIdList = StreamSupport.stream(executorList.spliterator(), false)
+                .filter(e -> e.has("isApplying"))
+                .filter(e -> e.get("isApplying").asBoolean() == true)
+                .filter(e -> e.has("inviteId"))
+                .map(e -> e.get("inviteId").asText())
+                .collect(Collectors.toList());
 
+
+        List<String> invitesStatusList = StreamSupport.stream(invitesByFormdataId.findPath("invitedata").spliterator(), false)
+                .filter(e -> e.has("id"))
+                .filter(e -> inviteIdList.contains(e.get("id").asText()))
+                .map(e -> e.get("inviteId").asText())
+                .collect(Collectors.toList());
+        
         return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
     }
 
