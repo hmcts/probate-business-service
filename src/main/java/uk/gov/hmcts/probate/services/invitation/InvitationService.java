@@ -54,12 +54,17 @@ public class InvitationService {
 
         List<String> inviteIdList = StreamSupport.stream(executorList.spliterator(), false)
                 .filter(e -> e.findPath("isApplying").asBoolean())
+                .filter(e -> !e.has("isApplicant"))
                 .map(e -> e.findPath("inviteId").asText())
                 .collect(Collectors.toList());
 
-        return StreamSupport.stream(invitesByFormdataId.spliterator(), false)
-                .filter(e -> inviteIdList.contains(e.findPath("id").asText()))
-                .map(e -> e.findPath("agreed").asBoolean())
+        List<String> agreedList = StreamSupport.stream(invitesByFormdataId.spliterator(), false)
+                .filter(e -> e.findPath("agreed").asBoolean())
+                .map(e -> e.findPath("id").asText())
+                .collect(Collectors.toList());
+
+        return StreamSupport.stream(inviteIdList.spliterator(), false)
+                .map(e -> agreedList.contains(e))
                 .reduce(Boolean::logicalAnd)
                 .orElse(false);
     }
