@@ -220,4 +220,57 @@ public class InvitationServiceTest {
         assertTrue(invitationService.checkAllInvitedAgreed(""));
 
     }
+
+    @Test
+    public void checkAllInvitedAgreedInviteIdsFoundAgreedTrueMultipleApplicants() throws IOException {
+
+
+        formData =  mapper.readTree("{\"formdata\":{\"executors\":{\"list\":[{\"isApplying\":true,\"inviteId\":\"invite-id-1\"},{\"isApplying\":true,\"inviteId\":\"invite-id-2\"}]}}}");
+        inviteList = mapper.readTree("{\"invitedata\":[{\"id\":\"invite-id-2\",\"agreed\":true},{\"id\":\"invite-id-1\",\"agreed\":true}]}");
+
+        when(persistenceClient.getFormdata(anyString()))
+                .thenReturn(formData);
+
+        when(persistenceClient.getInvitesByFormdataId(anyString()))
+                .thenReturn(inviteList);
+
+        assertTrue(invitationService.checkAllInvitedAgreed(""));
+
+    }
+
+
+    @Test
+    public void checkAllInvitedAgreedInviteIdFoundAgreedTruePrimaryApplicant() throws IOException {
+
+
+        formData =  mapper.readTree("{\"formdata\":{\"executors\":{\"list\":[{\"isApplying\":true,\"isApplicant\": true},{\"isApplying\":true,\"inviteId\":\"invite-id-1\"}]}}}");
+        inviteList = mapper.readTree("{\"invitedata\":[{\"id\":\"invite-id-1\",\"agreed\":true}]}");
+
+        when(persistenceClient.getFormdata(anyString()))
+                .thenReturn(formData);
+
+        when(persistenceClient.getInvitesByFormdataId(anyString()))
+                .thenReturn(inviteList);
+
+        assertTrue(invitationService.checkAllInvitedAgreed(""));
+
+    }
+
+    @Test
+    public void checkAllInvitedAgreedInviteIdsFoundAgreedTruePreviouslyAgreedNoLongerPresent() throws IOException {
+
+
+        formData =  mapper.readTree("{\"formdata\":{\"executors\":{\"list\":[{\"isApplying\":true,\"inviteId\":\"invite-id-1\"}]}}}");
+        inviteList = mapper.readTree("{\"invitedata\":[{\"id\":\"invite-id-1\",\"agreed\":true},{\"id\":\"invite-id-2\",\"agreed\":true}]},{\"id\":\"invite-id-3\",\"agreed\":true}]}");
+
+        when(persistenceClient.getFormdata(anyString()))
+                .thenReturn(formData);
+
+        when(persistenceClient.getInvitesByFormdataId(anyString()))
+                .thenReturn(inviteList);
+
+        assertTrue(invitationService.checkAllInvitedAgreed(""));
+
+    }
+
 }
