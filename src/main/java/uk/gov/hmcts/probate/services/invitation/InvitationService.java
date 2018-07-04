@@ -10,7 +10,6 @@ import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,25 +48,20 @@ public class InvitationService {
     }
 
     public boolean checkAllInvitedAgreed(String formdataId) {
-        JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId);
         JsonNode formdata = persistenceClient.getFormdata(formdataId);
         JsonNode executorList = formdata.findPath("executors").findPath("list");
+        JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId).findPath("invitedata");
 
         List<String> inviteIdList = StreamSupport.stream(executorList.spliterator(), false)
-                .filter(e -> e.has("isApplying"))
-                .filter(e -> e.get("isApplying").asBoolean() == true)
-                .filter(e -> e.has("inviteId"))
-                .map(e -> e.get("inviteId").asText())
+                .filter(e -> e.findPath("isApplying").asBoolean())
+                .map(e -> e.findPath("inviteId").asText())
                 .collect(Collectors.toList());
 
-
-        List<String> invitesStatusList = StreamSupport.stream(invitesByFormdataId.findPath("invitedata").spliterator(), false)
-                .filter(e -> e.has("id"))
-                .filter(e -> inviteIdList.contains(e.get("id").asText()))
-                .map(e -> e.get("agreed").asText())
-                .collect(Collectors.toList());
-        
-        return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
+        return StreamSupport.stream(invitesByFormdataId.spliterator(), false)
+                .filter(e -> inviteIdList.contains(e.findPath("id").asText()))
+                .map(e -> e.findPath("agreed").asBoolean())
+                .reduce(Boolean::logicalAnd)
+                .orElse(false);
     }
 
     public boolean checkMainApplicantAgreed(String formdataId) {
