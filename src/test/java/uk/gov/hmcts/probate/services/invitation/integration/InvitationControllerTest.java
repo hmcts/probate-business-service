@@ -1,7 +1,8 @@
 package uk.gov.hmcts.probate.services.invitation.integration;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.TextNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,8 +88,11 @@ public class InvitationControllerTest {
 
     @Test
     public void checkAllAgreed() throws Exception {
-        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("agreed", true));
-        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("declarationCheckbox", "true"));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode executors =  mapper.readTree("{\"list\":[{\"isApplying\":true,\"inviteId\":\"invite-id-1\"}]}");
+        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("declarationCheckbox", "true").set("executors", executors));
+        JsonNode invitedata =  mapper.readTree("{\"invitedata\":[{\"agreed\":true,\"id\":\"invite-id-1\"}]}");
+        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(invitedata);
 
         ResultActions resultActions = mockMvc.perform(get("/invites/allAgreed/123")
                 .header("Session-Id", "1234567890")
