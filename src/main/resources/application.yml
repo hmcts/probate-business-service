@@ -9,7 +9,7 @@
 
   server:
     port: 8080
-          
+
   spring:
     application:
       name: probate-business-service
@@ -43,4 +43,4 @@
     intrumentationkey: false
 
   azure:
-    app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
+app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
