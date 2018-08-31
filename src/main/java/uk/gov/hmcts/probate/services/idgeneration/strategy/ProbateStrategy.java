@@ -10,6 +10,8 @@ public class ProbateStrategy implements IdGenerationStrategy {
     private static final String HYPHEN = "-";
     private static final String APPLICANT_FIRST_NAME = "firstName";
     private static final String APPLICANT_LAST_NAME = "lastName";
+    private static final String SPECIAL_CHARACTERS = "[^-\\s\\w\\d]";
+
 
     @Override
     public String generate(Map<String, String> data) {
@@ -18,7 +20,7 @@ public class ProbateStrategy implements IdGenerationStrategy {
         if (firstName == null || lastName == null) {
             throw new IllegalArgumentException("Applicant first name or last name cannot be null.");
         }
-        return generateUniqueString(firstName, lastName);
+        return generateUniqueString(firstName.replaceAll(SPECIAL_CHARACTERS, ""), lastName.replaceAll(SPECIAL_CHARACTERS, ""));
     }
 
     private String generateUniqueString(String firstName, String lastName) {
