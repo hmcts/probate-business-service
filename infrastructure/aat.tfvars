@@ -9,4 +9,4 @@ capacity = "2"
 log_level = "INFO"
 
 business_services_persistence_baseUrl  = "http://probate-persistence-service-aat.service.core-compute-aat.internal"
-business_services_notify_invitedata_inviteLink = "https://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/"
+business_services_notify_invitedata_inviteLink = "https://pr-260-probate-frontend-preview.service.core-compute-preview.internal/executors/invitation/"
