@@ -40,7 +40,7 @@ public class IdGeneratorServiceTest {
         IdGeneratorService idGeneratorService = new IdGeneratorService(new ProbateStrategy());
         Map<String, String> data = new HashMap<>();
         data.put("firstName", "Fred!£$%^&*():@~");
-        data.put("lastName", "Wood-Wood");
+        data.put("lastName", "Woody-Woody");
 
         String id = idGeneratorService.generate(data);
 
