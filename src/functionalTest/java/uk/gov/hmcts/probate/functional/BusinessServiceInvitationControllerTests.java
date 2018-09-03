@@ -50,6 +50,16 @@ public class BusinessServiceInvitationControllerTests extends IntegrationTestBas
     }
 
     @Test
+    public void testInviteResendSuccess() {
+        validateInviteResendSuccess(SESSION_ID, "inviteDataValid.json");
+    }
+
+    @Test
+    public void testInviteResendFailure() {
+        validateInviteResendFailure("invalid_id", "inviteDataInvalid.json");
+    }
+
+    @Test
     public void testInvitesAllAgreedSuccess() {
         validateInvitesAllAgreedSuccess(SESSION_ID);
     }
@@ -72,6 +82,26 @@ public class BusinessServiceInvitationControllerTests extends IntegrationTestBas
                 .headers(utils.getHeaders(sessionId))
                 .body(utils.getJsonFromFile(jsonFileName))
                 .when().post(businessServiceUrl + "/invite")
+                .thenReturn();
+
+        response.then().assertThat().statusCode(500)
+                .and().body("error", equalTo("Internal Server Error"))
+                .and().body("message", equalTo("500 null"));
+    }
+
+    private void validateInviteResendSuccess(String sessionId, String jsonFileName) {
+        SerenityRest.given().relaxedHTTPSValidation()
+                .headers(utils.getHeaders(sessionId))
+                .body(utils.getJsonFromFile(jsonFileName))
+                .when().post(businessServiceUrl + "/invite/" + sessionId)
+                .then().assertThat().statusCode(200);
+    }
+
+    private void validateInviteResendFailure(String sessionId, String jsonFileName) {
+        Response response = SerenityRest.given().relaxedHTTPSValidation()
+                .headers(utils.getHeaders(sessionId))
+                .body(utils.getJsonFromFile(jsonFileName))
+                .when().post(businessServiceUrl + "/invite/invalid_id")
                 .thenReturn();
 
         response.then().assertThat().statusCode(500)

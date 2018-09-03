@@ -33,6 +33,10 @@ public class InvitationService {
         notificationClient.sendEmail(templateId, invitation.getEmail(), createPersonalisation(linkId, invitation), linkId);
     }
 
+    public void resendEmail(String linkId, Invitation invitation) throws NotificationClientException {
+        notificationClient.sendEmail(templateId, invitation.getEmail(), createPersonalisation(linkId, invitation), linkId);
+    }
+
     private Map<String, String> createPersonalisation(String linkId, Invitation inviteData) {
         HashMap<String, String> personalisation = new HashMap<>();
 

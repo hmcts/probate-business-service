@@ -45,6 +45,16 @@ public class InvitationController {
         return linkId;
     }
 
+    @RequestMapping(path = "/invite/{inviteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    public String invite(@PathVariable("inviteId") String inviteId,
+                         @Valid @RequestBody Invitation invitation,
+                         BindingResult bindingResult,
+                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
+        invitationService.resendEmail(inviteId, invitation);
+        return inviteId;
+    }
+
     @GetMapping(path = "/invites/allAgreed/{formdataId:.+}")
     public Boolean invitesAllAgreed(@PathVariable String formdataId) {
 
