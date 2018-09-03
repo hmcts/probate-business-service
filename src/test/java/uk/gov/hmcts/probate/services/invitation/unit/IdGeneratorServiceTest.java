@@ -44,6 +44,6 @@ public class IdGeneratorServiceTest {
 
         String id = idGeneratorService.generate(data);
 
-        assertThat(id, containsString("fred-wood-wood"));
+        assertThat(id, containsString("fred-woody-woody"));
     }
 }
