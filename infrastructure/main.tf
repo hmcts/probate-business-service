@@ -9,30 +9,39 @@ provider "vault" {
 }
 
 
-data "vault_generic_secret" "probate_notify_invite_apikey" {
-  path = "secret/${var.vault_section}/probate/probate_notify_invite_apikey"
-}
-
-data "vault_generic_secret" "business_services_notify_invitedata_templateId" {
-  path = "secret/${var.vault_section}/probate/business_services_notify_invitedata_templateId"
-}
-
-data "vault_generic_secret" "business_services_notify_pin_templateId" {
-  path = "secret/${var.vault_section}/probate/business_services_notify_pin_templateId"
-}
-
-
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+  app_full_name = "${var.product}-${var.microservice}"
 
-  previewVaultName = "pro-bus-ser"
-  nonPreviewVaultName = "pro-bus-ser-${var.env}"
+  local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
+  local_ase = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "core-compute-aat" : "core-compute-saat" : local.aseName}"
+
+  previewVaultName = "${var.raw_product}-aat"
+  nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
-  nonPreviewVaultUri = "${module.probate-business-service-vault.key_vault_uri}"
-  previewVaultUri = "https://pro-bus-ser-aat.vault.azure.net/"
-  vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
 }
+
+data "azurerm_key_vault" "probate_key_vault" {
+  name = "${local.vaultName}"
+  resource_group_name = "${local.vaultName}"
+}
+
+data "azurerm_key_vault_secret" "probate_notify_invite_apikey" {
+  name = "probate-notify-invite-apikey"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "business_services_notify_invitedata_templateId" {
+  name = "business-services-notify-invitedata-templateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "business_services_notify_pin_templateId" {
+  name = "business-services-notify-pin-templateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
 
 module "probate-business-service" {
   source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
@@ -42,9 +51,11 @@ module "probate-business-service" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = false
   subscription = "${var.subscription}"
-  asp_name     = "${var.product}-${var.env}-asp"
+  asp_name     = "${var.product}-${var.env}"
   capacity     = "${var.capacity}"
   common_tags  = "${var.common_tags}"
+  asp_rg       = "${var.asp_rg}"
+  appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   
   app_settings = {
 
@@ -59,10 +70,10 @@ module "probate-business-service" {
 
 
     SERVICES_PERSISTENCE_BASEURL = "${var.business_services_persistence_baseUrl}"
-    SERVICES_NOTIFY_APIKEY = "${data.vault_generic_secret.probate_notify_invite_apikey.data["value"]}"
-    SERVICES_NOTIFY_INVITEDATA_TEMPLATEID = "${data.vault_generic_secret.business_services_notify_invitedata_templateId.data["value"]}"
+    SERVICES_NOTIFY_APIKEY = "${data.azurerm_key_vault_secret.probate_notify_invite_apikey.value}"
+    SERVICES_NOTIFY_INVITEDATA_TEMPLATEID = "${data.azurerm_key_vault_secret.business_services_notify_invitedata_templateId.value}"
     SERVICES_NOTIFY_INVITEDATA_INVITELINK = "${var.business_services_notify_invitedata_inviteLink}"
-    SERVICES_NOTIFY_PIN_TEMPLATEID = "${data.vault_generic_secret.business_services_notify_pin_templateId.data["value"]}"
+    SERVICES_NOTIFY_PIN_TEMPLATEID = "${data.azurerm_key_vault_secret.business_services_notify_pin_templateId.value}"
     java_app_name = "${var.microservice}"
     LOG_LEVEL = "${var.log_level}"
     //ROOT_APPENDER = "JSON_CONSOLE"  //remove json output
@@ -70,13 +81,3 @@ module "probate-business-service" {
   }
 }
 
-module "probate-business-service-vault" {
-  source              = "git@github.com:hmcts/moj-module-key-vault?ref=master"
-  name                = "${local.vaultName}"
-  product             = "${var.product}"
-  env                 = "${var.env}"
-  tenant_id           = "${var.tenant_id}"
-  object_id           = "${var.jenkins_AAD_objectId}"
-  resource_group_name = "${module.probate-business-service.resource_group_name}"
-  product_group_object_id = "33ed3c5a-bd38-4083-84e3-2ba17841e31e"
-}

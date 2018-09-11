@@ -1,8 +1,10 @@
 // Infrastructural variables
+variable "product" {}  /get from jenkins file
 
-variable "product" {
-  default = "probate"
+variable "raw_product" {
+  default = "probate" // jenkins-library overrides product for PRs and adds e.g. pr-118-cmc
 }
+
 
 variable "microservice" {
   default = "business-service"
@@ -62,4 +64,12 @@ variable "capacity" {
 
 variable "common_tags" {
   type = "map"
+}
+
+variable "asp_rg" {
+  
+}
+
+variable "asp_name" {
+  
 }

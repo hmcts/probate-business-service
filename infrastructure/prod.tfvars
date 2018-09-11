@@ -8,3 +8,5 @@ business_services_notify_invitedata_inviteLink = "https://www.apply-for-probate.
 outbound_proxy = ""
 log_level = "INFO"
 capacity = "2"
+asp_name = "probate-prod-asp-prod-asp"
+asp_rg = "mgmt-asp-prod"
