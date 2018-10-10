@@ -54,3 +54,8 @@
 
   azure:
     app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
+
+  document:
+    fileupload:
+      extensions: ".pdf .jpeg .bmp .tif .tiff .png .pdf"
+      mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
