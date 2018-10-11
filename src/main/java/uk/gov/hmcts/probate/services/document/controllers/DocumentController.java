@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
+import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
+import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
 
 import java.util.List;
@@ -38,12 +40,17 @@ public class DocumentController {
             @RequestHeader("user-id") String userID,
             @RequestParam("file") List<MultipartFile> files
     ) {
+        if (files == null || files.isEmpty()) {
+            LOGGER.error("Incorrect file format or too many files passed to the API endpoint.");
+            throw new DocumentsMissingException();
+        }
+
         boolean validFiles = files.stream()
                 .allMatch(f -> documentValidation.isValid(f));
 
-        if (files == null || files.isEmpty() || !validFiles || files.size() > 10) {
-            LOGGER.error("Incorrect file format or too many files passed to the API endpoint.");
-            throw new RuntimeException();
+        if (!validFiles || files.size() > 10) {
+            LOGGER.error("Invalid file type or quantity passed to the API endpoint.");
+            throw new UnSupportedDocumentTypeException();
         }
 
         LOGGER.info("Uploading document");

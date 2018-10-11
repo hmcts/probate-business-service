@@ -28,19 +28,11 @@ public class DocumentService {
 
     public UploadResponse upload(List<MultipartFile> files,
                                  String authorizationToken, String userID) {
-        try {
-            return documentUploadClientApi.upload(
-                    authorizationToken,
-                    authTokenGenerator.generate(),
-                    userID,
-                    files
-            );
-        } catch (HttpClientErrorException httpClientErrorException) {
-            throw new UnSupportedDocumentTypeException(httpClientErrorException);
-        }
+        return documentUploadClientApi.upload(
+                authorizationToken,
+                authTokenGenerator.generate(),
+                userID,
+                files
+        );
     }
 }
-
-
-
-
