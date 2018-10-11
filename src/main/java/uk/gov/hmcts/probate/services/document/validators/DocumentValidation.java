@@ -10,10 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @Component
 public class DocumentValidation {
-    @Value("${document.fileupload.extensions}")
+    @Value("${document_management.fileupload.extensions}")
     private String allowedFileExtensions;
 
-    @Value("${document.fileupload.mimetypes}")
+    @Value("${document_management.fileupload.mimetypes}")
     private String allowedMimeTypes;
 
     public boolean isValid(MultipartFile file) {

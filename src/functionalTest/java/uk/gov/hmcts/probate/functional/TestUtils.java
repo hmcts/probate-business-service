@@ -30,4 +30,10 @@ public class TestUtils {
                 new Header("Content-Type", ContentType.JSON.toString()),
                 new Header("Session-ID", sessionId));
     }
+
+    public Headers getDocumentManagementHeaders(String authToken, String userId) {
+        return Headers.headers(
+                new Header("ServiceAuthorization", authToken),
+                new Header("user-id", userId));
+    }
 }
