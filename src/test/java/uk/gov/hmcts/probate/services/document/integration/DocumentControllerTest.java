@@ -9,9 +9,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
+import uk.gov.hmcts.probate.services.document.clients.PersistenceClient;
 import uk.gov.hmcts.probate.services.document.controllers.DocumentController;
 import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
 import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
+import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
 
 import java.util.ArrayList;
@@ -25,6 +27,10 @@ public class DocumentControllerTest {
     private DocumentService documentService;
     @Mock
     private DocumentValidation documentValidation;
+    @Mock
+    private PersistenceClient persistenceClient;
+    @Mock
+    private DocumentUtils documentUtils;
 
     private DocumentController documentController;
 
@@ -33,7 +39,7 @@ public class DocumentControllerTest {
 
     @Before
     public void setUp() {
-        documentController = new DocumentController(documentService, documentValidation);
+        documentController = new DocumentController(documentService, documentValidation, persistenceClient, documentUtils);
     }
 
     @Test(expected = DocumentsMissingException.class)
