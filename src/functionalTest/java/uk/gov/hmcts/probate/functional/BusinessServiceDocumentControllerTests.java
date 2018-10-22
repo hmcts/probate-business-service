@@ -1,20 +1,19 @@
 package uk.gov.hmcts.probate.functional;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SerenityRunner.class)
 public class BusinessServiceDocumentControllerTests extends IntegrationTestBase {
@@ -34,13 +33,43 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
-    public void testValidDocument() {}
+    public void testValidDocument() {
+        List<File> files = new ArrayList<>();
+        File validDocument = new File("valid file");
+        files.add(validDocument);
+
+        SerenityRest.given().relaxedHTTPSValidation()
+                .headers(utils.getDocumentManagementHeaders(DUMMY_OAUTH_2_TOKEN, USER_ID))
+                .body(files)
+                .when().post(businessServiceUrl + "/documents/upload")
+                .then().assertThat().statusCode(200);
+    }
 
     @Test
-    public void testInvalidDocumentType() {}
+    public void testInvalidDocumentType() {
+        List<File> files = new ArrayList<>();
+        File invalidDocument = new File("invalid for any reason");
+        files.add(invalidDocument);
+
+        SerenityRest.given().relaxedHTTPSValidation()
+                .headers(utils.getDocumentManagementHeaders(DUMMY_OAUTH_2_TOKEN, USER_ID))
+                .body(files)
+                .when().post(businessServiceUrl + "/documents/upload")
+                .then().assertThat().statusCode(404);
+    }
 
     @Test
-    public void testInvalidDocumentSize() {}
+    public void testInvalidDocumentSize() {
+        List<File> files = new ArrayList<>();
+        File invalidDocument = new File("too large");
+        files.add(invalidDocument);
+
+        SerenityRest.given().relaxedHTTPSValidation()
+                .headers(utils.getDocumentManagementHeaders(DUMMY_OAUTH_2_TOKEN, USER_ID))
+                .body(files)
+                .when().post(businessServiceUrl + "/documents/upload")
+                .then().assertThat().statusCode(404);
+    }
 
     @Test
     public void testInvalidToken() {}
