@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
@@ -19,6 +20,11 @@ import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DocumentControllerTest {
@@ -68,5 +74,15 @@ public class DocumentControllerTest {
         List<MultipartFile> files = new ArrayList<>();
         files.add(file);
         documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, files);
+    }
+
+    @Test
+    public void shouldDeleteFile() {
+        ResponseEntity response = mock(ResponseEntity.class);
+        when(documentService.delete("file")).thenReturn(response);
+        when(documentController.delete("file")).thenReturn(response);
+
+        ResponseEntity actualResponse = documentController.delete("file");
+        assertThat(actualResponse, equalTo(response));
     }
 }

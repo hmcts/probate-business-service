@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
@@ -25,6 +27,8 @@ public class DocumentServiceTest {
     private AuthTokenGenerator authTokenGenerator;
     @Mock
     private DocumentUploadClientApi documentUploadClientApi;
+    @Mock
+    private RestTemplate restTemplate;
 
     private DocumentService documentService;
 
@@ -34,7 +38,7 @@ public class DocumentServiceTest {
 
     @Before
     public void setUp() {
-        documentService = new DocumentService(authTokenGenerator, documentUploadClientApi);
+        documentService = new DocumentService(authTokenGenerator, documentUploadClientApi, restTemplate);
     }
 
     @Test
@@ -47,5 +51,15 @@ public class DocumentServiceTest {
 
         UploadResponse actualUploadResponseEmbedded = documentService.upload(files, DUMMY_OAUTH_2_TOKEN, USER_ID);
         assertThat(actualUploadResponseEmbedded, equalTo(uploadResponse));
+    }
+
+    @Test
+    public void shouldDeleteDocumentFromEvidenceManagement() {
+        ResponseEntity response = mock(ResponseEntity.class);
+        when(authTokenGenerator.generate()).thenReturn(AUTH_TOKEN);
+        when(documentService.delete("file")).thenReturn(response);
+
+        ResponseEntity actualResponse = documentService.delete("file");
+        assertThat(actualResponse, equalTo(response));
     }
 }

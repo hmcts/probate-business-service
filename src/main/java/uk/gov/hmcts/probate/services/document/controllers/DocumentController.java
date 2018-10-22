@@ -1,17 +1,16 @@
 package uk.gov.hmcts.probate.services.document.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
 import uk.gov.hmcts.probate.services.document.clients.PersistenceClient;
+import uk.gov.hmcts.probate.services.document.exception.DocumentDeletionException;
 import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
 import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
 import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Api
 @RestController
-@RequestMapping("/documents")
+@RequestMapping("/document")
 public class DocumentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
@@ -46,6 +45,7 @@ public class DocumentController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
+    @ResponseBody
     public Map<String, String> upload(
             @RequestHeader(value = "Authorization", required = false) String authorizationToken,
             @RequestHeader("user-id") String userID,
@@ -76,22 +76,19 @@ public class DocumentController {
         persistenceClient.updateFormData(userID, documentUtils.populateDocumentObject(documentData));
         return documentData;
     }
-}
 
-//      Required return format to both frontend and Persistence Patch:
-//      documents: {
-//        uploads: [
-//          {
-//              filename: 'will.pdf',
-//              url: ''
-//          },
-//          {
-//              filename: 'death-certificate.pdf',
-//              url: ''
-//          },
-//          {
-//              filename: 'death-certificate.pdf',
-//              url: ''
-//          }
-//        ]
-//      }
+    @DeleteMapping(value = "/delete/{documentId}")
+    @ResponseBody
+    public ResponseEntity<?> delete(
+            @PathVariable("documentId") String documentId
+    ) {
+        ResponseEntity response =  documentService.delete(documentId);
+
+        if (response.getStatusCode().is4xxClientError()) {
+            LOGGER.error("An error occurred whilst trying to delete document. Check the document is valid or try again later.");
+            throw new DocumentDeletionException();
+        }
+
+        return response;
+    }
+}

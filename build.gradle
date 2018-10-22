@@ -159,16 +159,17 @@ processResources {
 }
 
 def versions = [
-    logging: '3.0.1'
+    logging: '2.0.2'
 ]
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.retry', name: 'spring-retry'
+    compile group: 'org.hibernate', name: 'hibernate-validator'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     compile group: 'org.springframework.hateoas', name: 'spring-hateoas'
-    compile group: 'org.hibernate.validator', name: 'hibernate-validator' 
+    compile group: 'org.hibernate.validator', name: 'hibernate-validator'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     compile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.8.0-RELEASE'
     compile group: 'uk.gov.hmcts.reform', name: 'java-logging', version: versions.logging
@@ -191,7 +192,7 @@ dependencies {
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'    
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'
     testFunctionalCompile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
     testFunctionalCompile sourceSets.main.runtimeClasspath
     testFunctionalCompile sourceSets.test.runtimeClasspath

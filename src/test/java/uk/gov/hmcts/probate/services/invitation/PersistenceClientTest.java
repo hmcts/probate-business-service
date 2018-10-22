@@ -36,7 +36,7 @@ public class PersistenceClientTest {
         ReflectionTestUtils.setField(persistenceClient, "restTemplate", restTemplate);
         mapper = new ObjectMapper();
     }
-    
+
 
     @Test
     public void saveInviteData() {

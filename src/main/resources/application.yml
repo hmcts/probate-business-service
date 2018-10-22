@@ -41,6 +41,8 @@
         url: ${services.persistence.baseUrl}/invitedata
       formdata:
         url: ${services.persistence.baseUrl}/formdata
+    documentmanagement:
+      baseUrl: http://localhost:4603
     notify:
       apiKey: "dummykey"
       invitedata:
