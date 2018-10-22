@@ -10,12 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
-import uk.gov.hmcts.probate.services.document.clients.PersistenceClient;
 import uk.gov.hmcts.probate.services.document.controllers.DocumentController;
 import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
 import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
 import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
+import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 
 import java.util.ArrayList;
 import java.util.Collections;

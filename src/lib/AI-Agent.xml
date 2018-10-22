@@ -49,7 +49,7 @@
             <Method name="checkAllInvitedAgreed" reportExecutionTime="true"/>
             <Method name="invitesAllAgreed" reportExecutionTime="true"/>
         </Class>
-        <Class name="uk.gov.hmcts.probate.services.invitation.PersistenceClient">
+        <Class name="uk.gov.hmcts.probate.services.persistence.PersistenceClient">
             <Method name="saveInviteData" reportExecutionTime="true"/>
             <Method name="getInvitesByFormdataId" reportExecutionTime="true"/>
             <Method name="checkMainApplicantAgreed" reportExecutionTime="true"/>

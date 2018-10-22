@@ -10,8 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.hmcts.probate.services.document.clients.PersistenceClient;
 import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
+import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 
 import static org.mockito.Matchers.endsWith;
 import static org.mockito.Matchers.eq;

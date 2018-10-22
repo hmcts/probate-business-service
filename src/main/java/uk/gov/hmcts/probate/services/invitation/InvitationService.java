@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.services.invitation.model.Invitation;
 import uk.gov.hmcts.probate.services.invitation.model.InviteData;
+import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 

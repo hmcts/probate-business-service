@@ -1,7 +1,6 @@
 package uk.gov.hmcts.probate.services.invitation.integration;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.TextNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
-import uk.gov.hmcts.probate.services.invitation.PersistenceClient;
+import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.service.notify.NotificationClient;
 
 import java.nio.charset.Charset;

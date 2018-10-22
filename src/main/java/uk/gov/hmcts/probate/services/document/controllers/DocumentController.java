@@ -9,12 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
-import uk.gov.hmcts.probate.services.document.clients.PersistenceClient;
 import uk.gov.hmcts.probate.services.document.exception.DocumentDeletionException;
 import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
 import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
 import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
+import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 
 import java.util.List;
 import java.util.Map;
