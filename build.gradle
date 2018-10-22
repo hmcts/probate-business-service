@@ -76,11 +76,11 @@ sonarqube {
     }
 }
 pitest {
-     targetClasses = ['uk.gov.hmcts.probate.*']
-     threads = 4
-     outputFormats = ['XML', 'HTML']
-     timestampedReports = false
-     mutationThreshold = 50
+    targetClasses = ['uk.gov.hmcts.probate.*']
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+    mutationThreshold = 50
 }
 
 test.finalizedBy jacocoTestReport
@@ -95,29 +95,29 @@ dependencyCheck {
 }
 
 sourceSets {
-  testFunctional {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/functionalTest/java')
+    testFunctional {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDir file('src/functionalTest/java')
+        }
+        resources.srcDir file('src/functionalTest/resources')
     }
-    resources.srcDir file('src/functionalTest/resources')
-  }
 
-  testSmoke {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/smokeTest/java')
+    testSmoke {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDir file('src/smokeTest/java')
+        }
+        resources.srcDir file('src/smokeTest/resources')
     }
-    resources.srcDir file('src/smokeTest/resources')
-  }
 }
 
 task smoke(type: Test) {
-  description = "Runs Smoke Tests"
-  testClassesDirs = sourceSets.testSmoke.output.classesDirs
-  classpath = sourceSets.testSmoke.runtimeClasspath
+    description = "Runs Smoke Tests"
+    testClassesDirs = sourceSets.testSmoke.output.classesDirs
+    classpath = sourceSets.testSmoke.runtimeClasspath
 }
 
 task functional(type: Test) {
@@ -159,15 +159,14 @@ processResources {
 }
 
 def versions = [
-    logging: '2.0.2'
+        logging: '3.0.1'
 ]
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.retry', name: 'spring-retry'
-    compile group: 'org.hibernate', name: 'hibernate-validator'
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     compile group: 'org.springframework.hateoas', name: 'spring-hateoas'
     compile group: 'org.hibernate.validator', name: 'hibernate-validator'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
@@ -207,12 +206,12 @@ compileJava {
 }
 
 jar {
-  archiveName = 'business-service.jar'
-  manifest {
+    archiveName = 'business-service.jar'
+    manifest {
 
-    attributes 'Implementation-Title': project.name,
-      'Implementation-Version': project.version
-  }
+        attributes 'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+    }
 }
 
 task printVersion {
