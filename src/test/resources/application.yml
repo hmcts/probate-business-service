@@ -31,6 +31,8 @@
         url: ${services.persistence.baseUrl}/invitedata
       formdata:
         url: ${services.persistence.baseUrl}/formdata
+    documentmanagement:
+      baseUrl: http://localhost:8383
     notify:
       apiKey: "probate_test_key-fce47f9c-7bbe-4f41-829e-5144a3820768-4b461773-72e0-465e-868a-91482cfc8aa4"
       invitedata:
@@ -51,3 +53,17 @@
 
   azure:
     app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
+
+  document_management:
+    url: http://localhost:8383
+    fileupload:
+      extensions: ".pdf .jpeg .bmp .tif .tiff .png .pdf"
+      mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
+
+  auth.provider.service.client:
+    baseUrl: http://localhost:4502
+    microservice: 'probate_backend'
+    key: 'AAAAAAAAAAAAAAAA'
+    tokenTimeToLiveInSeconds: '900'
+
+  idam.s2s-auth.url: ${auth.provider.service.client.baseUrl}

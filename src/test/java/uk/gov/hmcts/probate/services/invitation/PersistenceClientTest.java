@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
+import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.invitation.model.InviteData;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 
@@ -28,13 +29,15 @@ public class PersistenceClientTest {
     @Mock
     private RestTemplate restTemplate;
 
+    @Mock
+    private DocumentUtils documentUtils;
+
     private PersistenceClient persistenceClient;
 
     @Before
     public void setUp() {
-        persistenceClient = new PersistenceClient();
+        persistenceClient = new PersistenceClient(documentUtils, restTemplate);
         ReflectionTestUtils.setField(persistenceClient, "inviteDataPersistenceUrl", INVITE_URL);
-        ReflectionTestUtils.setField(persistenceClient, "restTemplate", restTemplate);
         mapper = new ObjectMapper();
     }
     
