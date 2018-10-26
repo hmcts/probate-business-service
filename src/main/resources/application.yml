@@ -42,7 +42,7 @@
       formdata:
         url: ${services.persistence.baseUrl}/formdata
     documentmanagement:
-      baseUrl: http://localhost:4603
+      baseUrl: http://localhost:8383
     notify:
       apiKey: "dummykey"
       invitedata:
@@ -60,7 +60,7 @@
   document_management:
     url: http://localhost:8383
     fileupload:
-      extensions: ".pdf .jpeg .bmp .tif .tiff .png .pdf"
+      extensions: ".pdf .jpeg .jpg .bmp .tif .tiff .png"
       mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
 
   auth.provider.service.client:

@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.invitation;
+package uk.gov.hmcts.probate.services.persistence.unit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.invitation.model.InviteData;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 
@@ -29,14 +28,11 @@ public class PersistenceClientTest {
     @Mock
     private RestTemplate restTemplate;
 
-    @Mock
-    private DocumentUtils documentUtils;
-
     private PersistenceClient persistenceClient;
 
     @Before
     public void setUp() {
-        persistenceClient = new PersistenceClient(documentUtils, restTemplate);
+        persistenceClient = new PersistenceClient(restTemplate);
         ReflectionTestUtils.setField(persistenceClient, "inviteDataPersistenceUrl", INVITE_URL);
         mapper = new ObjectMapper();
     }

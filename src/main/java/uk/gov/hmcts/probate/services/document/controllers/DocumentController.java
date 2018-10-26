@@ -9,15 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uk.gov.hmcts.probate.services.document.DocumentService;
-import uk.gov.hmcts.probate.services.document.exception.DocumentDeletionException;
-import uk.gov.hmcts.probate.services.document.exception.DocumentsMissingException;
-import uk.gov.hmcts.probate.services.document.exception.UnSupportedDocumentTypeException;
-import uk.gov.hmcts.probate.services.document.utils.DocumentUtils;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
-import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
+import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Api
@@ -28,16 +24,16 @@ public class DocumentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
     private DocumentService documentService;
     private DocumentValidation documentValidation;
-    private PersistenceClient persistenceClient;
-    private DocumentUtils documentUtils;
+    private final AuthTokenGenerator authTokenGenerator;
 
     @Autowired
-    public DocumentController(DocumentService documentService, DocumentValidation documentValidation,
-                                PersistenceClient persistenceClient, DocumentUtils documentUtils) {
+    public DocumentController(DocumentService documentService,
+                              DocumentValidation documentValidation,
+                              AuthTokenGenerator authTokenGenerator
+    ) {
         this.documentService = documentService;
         this.documentValidation = documentValidation;
-        this.persistenceClient = persistenceClient;
-        this.documentUtils = documentUtils;
+        this.authTokenGenerator = authTokenGenerator;
     }
 
     @PostMapping(
@@ -46,49 +42,61 @@ public class DocumentController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public Map<String, String> upload(
+    public List<String> upload(
             @RequestHeader(value = "Authorization", required = false) String authorizationToken,
             @RequestHeader("user-id") String userID,
             @RequestParam("file") List<MultipartFile> files
     ) {
+        List<String> result = new ArrayList<>();
         if (files == null || files.isEmpty()) {
-            LOGGER.error("Incorrect file format or too many files passed to the API endpoint.");
-            throw new DocumentsMissingException();
+            LOGGER.error("Zero files received by the API endpoint.");
+            result.add("Error: no files passed");
+            return result;
         }
 
-        boolean validFiles = files.stream()
-                .allMatch(f -> documentValidation.isValid(f));
-
-        if (!validFiles || files.size() > 10) {
-            LOGGER.error("Invalid file type or quantity passed to the API endpoint.");
-            throw new UnSupportedDocumentTypeException();
+        if (files.size() > 10) {
+            LOGGER.error("Too many files passed to the API endpoint");
+            result.add("Error: too many files");
+            return result;
         }
+
+        boolean noValidFilesReceived = files.stream()
+                .noneMatch(f -> documentValidation.isValid(f));
+
+        if (noValidFilesReceived) {
+            LOGGER.error("No valid file types passed to the API endpoint.");
+            return files.stream()
+                    .map(f -> "Error: invalid file type")
+                    .collect(Collectors.toList());
+        }
+
+        List<String> invalidFiles = files.stream()
+                .filter(f -> !documentValidation.isValid(f))
+                .map(f -> "Error: invalid file type")
+                .collect(Collectors.toList());
+
+        files = files.stream()
+                .filter(f -> documentValidation.isValid(f))
+                .collect(Collectors.toList());
 
         LOGGER.info("Uploading document");
-        Map<String, String> documentData =
-                documentService
-                    .upload(files, authorizationToken, userID)
-                    .getEmbedded()
-                    .getDocuments()
-                    .stream()
-                    .collect(Collectors.toMap(f -> f.originalDocumentName, f -> f.links.self.href));
-
-        persistenceClient.updateFormData(userID, documentUtils.populateDocumentObject(documentData));
-        return documentData;
+        result = documentService
+                .upload(authorizationToken, authTokenGenerator.generate(), userID, files)
+                .getEmbedded()
+                .getDocuments()
+                .stream()
+                .map(f -> f.links.self.href)
+                .collect(Collectors.toList());
+        result.addAll(invalidFiles);
+        return result;
     }
 
     @DeleteMapping(value = "/delete/{documentId}")
     @ResponseBody
     public ResponseEntity<?> delete(
+            @RequestHeader("user-id") String userID,
             @PathVariable("documentId") String documentId
     ) {
-        ResponseEntity response =  documentService.delete(documentId);
-
-        if (response.getStatusCode().is4xxClientError()) {
-            LOGGER.error("An error occurred whilst trying to delete document. Check the document is valid or try again later.");
-            throw new DocumentDeletionException();
-        }
-
-        return response;
+        return documentService.delete(userID, documentId);
     }
 }
