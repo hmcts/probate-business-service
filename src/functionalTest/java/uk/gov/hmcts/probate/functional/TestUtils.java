@@ -10,6 +10,8 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 
 @ContextConfiguration(classes = TestContextConfiguration.class)
 @Component
@@ -31,9 +33,19 @@ public class TestUtils {
                 new Header("Session-ID", sessionId));
     }
 
-    public Headers getDocumentManagementHeaders(String authToken, String userId) {
-        return Headers.headers(
-                new Header("ServiceAuthorization", authToken),
-                new Header("user-id", userId));
+    public Map<String, Object> getDocumentUploadHeaders(String auth, String authToken, String userId) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("Authorization", auth);
+        headers.put("ServiceAuthorization", authToken);
+        headers.put("user-id", userId);
+        headers.put("Content-Type", "multipart/form-data;boundary=\"12312313132132\"");
+        return headers;
+    }
+
+    public Map<String, Object> getDocumentDeleteHeaders(String authToken, String userId) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("ServiceAuthorization", authToken);
+        headers.put("user-id", userId);
+        return headers;
     }
 }

@@ -45,7 +45,7 @@ public class DocumentController {
     public List<String> upload(
             @RequestHeader(value = "Authorization", required = false) String authorizationToken,
             @RequestHeader("user-id") String userID,
-            @RequestParam("file") List<MultipartFile> files
+            @RequestPart("file") List<MultipartFile> files
     ) {
         List<String> result = new ArrayList<>();
         if (files == null || files.isEmpty()) {

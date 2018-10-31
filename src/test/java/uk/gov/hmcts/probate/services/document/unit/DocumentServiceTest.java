@@ -33,6 +33,8 @@ public class DocumentServiceTest {
     private AuthTokenGenerator authTokenGenerator;
     @Mock
     private RestTemplate restTemplate;
+    @Mock
+    private ObjectMapper objectMapper;
 
     private DocumentService documentService;
 
@@ -55,6 +57,8 @@ public class DocumentServiceTest {
         when(authTokenGenerator.generate()).thenReturn(AUTH_TOKEN);
         UploadResponse uploadResponse = mock(UploadResponse.class);
         HttpEntity httpEntity = mock(HttpEntity.class);
+        when(restTemplate.postForObject("url", httpEntity, String.class)).thenReturn("response");
+        when(objectMapper.readValue(any(String.class), eq(UploadResponse.class))).thenReturn(uploadResponse);
         when(documentService.upload(DUMMY_OAUTH_2_TOKEN, AUTH_TOKEN, USER_ID, files)).thenReturn(uploadResponse);
 
         UploadResponse actualUploadResponseEmbedded = documentService.upload(DUMMY_OAUTH_2_TOKEN, AUTH_TOKEN, USER_ID, files);

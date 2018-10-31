@@ -126,7 +126,6 @@ public class DocumentService {
     }
 
     private HttpEntity<Object> deleteDocumentHeaders(String userID) {
-
         HttpHeaders headers = new HttpHeaders();
         headers.add(SERVICE_AUTHORIZATION, authTokenGenerator.generate());
         headers.add(USER_ID, userID);
