@@ -1,23 +1,12 @@
-FROM gradle:jdk8 as builder
+FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.4
 
-COPY . /home/gradle/src
-USER root
-RUN chown -R gradle:gradle /home/gradle/src
-USER gradle
+# Mandatory!
+ENV APP business-service.jar
+ENV APPLICATION_TOTAL_MEMORY 1024M
+ENV APPLICATION_SIZE_ON_DISK_IN_MB 66
 
-WORKDIR /home/gradle/src
-RUN gradle test
-RUN gradle assemble
+COPY build/libs/$APP /opt/app/
 
-FROM openjdk:8-alpine
+HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy="" wget -q --spider http://localhost:8080/health || exit 1
 
-RUN mkdir -p /usr/local/bin
-
-COPY docker/entrypoint.sh /
-COPY --from=builder /home/gradle/src/build/libs/business-service*.jar /business-service.jar
-
-HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy= curl --silent --fail http://localhost:8081/health
-
-EXPOSE 8081
-
-ENTRYPOINT [ "/entrypoint.sh" ]
+EXPOSE 8080

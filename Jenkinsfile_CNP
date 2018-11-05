@@ -7,7 +7,10 @@ String component = "business-service"
 
 List<LinkedHashMap<String, Object>> secrets = [
     secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
-    secret('probateNotifyMobile', 'TEST_MOBILE')
+    secret('probateNotifyMobile', 'TEST_MOBILE'),
+    secret('probate-notify-invite-apikey', 'PRO_SERVICES_NOTIFY_APIKEY'),
+    secret('business-services-notify-invitedata-templateId', 'PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID'),
+    secret('business-services-notify-pin-templateId', 'PRO_SERVICES_NOTIFY_PIN_TEMPLATEID')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -20,14 +23,17 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("java", product, component) {
+  setVaultName('probate')
+  enableDockerBuild()
+  enableDeployToAKS()
   loadVaultSecrets(secrets)
-  //enableSlackNotifications('#probate-jenkins')
+  enableSlackNotifications('#probate-jenkins')
   after('test') {
-    try {
-      sh './gradlew pitest'
-    } finally {
-      steps.archiveArtifacts "build/reports/pitest/**/*.*"
-    }
+  //   try {
+  //     sh './gradlew pitest'
+  //   } finally {
+  //     steps.archiveArtifacts "build/reports/pitest/**/*.*"
+  //   }
   
     publishHTML target: [
             alwaysLinkToLastBuild: true,
