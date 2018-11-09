@@ -19,7 +19,6 @@ import uk.gov.hmcts.reform.document.domain.UploadResponse;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
