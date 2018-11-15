@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.businessvalidation.model;
+package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;

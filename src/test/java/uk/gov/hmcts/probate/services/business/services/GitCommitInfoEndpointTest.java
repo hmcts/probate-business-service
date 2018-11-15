@@ -28,9 +28,6 @@ public class GitCommitInfoEndpointTest {
 	@Autowired
     private MockMvc mockMvc;
 
-	@MockBean
-	private BusinessApplication businessApplication;
-
 	@Test
 	public void shouldGetGitCommitInfoEndpoint() throws Exception {
 		mockMvc.perform(get("/info"))

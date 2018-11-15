@@ -25,6 +25,11 @@
         unwrap_root_value: true
 
   services:
+    auth:
+      provider:
+        totp_secret: "AAAAAAAAAAAAAAAA"
+        baseUrl: http://localhost:4502
+        microservice: "probate_backend"
     persistence:
       baseUrl: http://localhost:8282
       invitedata:
@@ -39,12 +44,13 @@
       pin:
         templateId: "c0e11486-b8b3-4c22-a1ae-805a0ad2f641"
 
-  pdf.service:
-    url: http://localhost:5500
-    pdfApi: /pdfs
-    templatesDirectory: templates/pdf/
-    defaultDisplayFilename: dummy.pdf
-    grantSignatureBase64: dummy_hash
+    pdf:
+      service:
+        url: http://localhost:5500
+        pdfApi: /api/v2/pdf-generator/html
+        templatesDirectory: templates/pdf/
+        defaultDisplayFilename: dummy.pdf
+        grantSignatureBase64: dummy_hash
 
   logging:
     level:

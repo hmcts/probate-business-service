@@ -25,6 +25,11 @@
         unwrap_root_value: true
 
   services:
+    auth:
+      provider:
+        totp_secret: "AAAAAAAAAAAAAAAA"
+        baseUrl: http://localhost:4502
+        microservice: "probate_backend"
     persistence:
       baseUrl: http://localhost:8282
       invitedata:

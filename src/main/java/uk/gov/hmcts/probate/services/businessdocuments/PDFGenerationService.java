@@ -5,37 +5,32 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestOperations;
-import uk.gov.hmcts.probate.services.businessvalidation.model.CheckAnswersSummary;
+import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
+import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
 import uk.gov.hmcts.probate.services.exceptions.PDFGenerationException;
 import uk.gov.hmcts.reform.pdf.service.client.PDFServiceClient;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class PDFGenerationService {
-    public static final MediaType API_VERSION = MediaType
-            .valueOf("application/vnd.uk.gov.hmcts.pdf-service.v2+json;charset=UTF-8");
-    public static final String SERVICE_AUTHORIZATION_HEADER = "ServiceAuthorization";
-    private final RestOperations restOperations;
+    public static final String HTML = ".html";
     private final FileSystemResourceService fileSystemResourceService;
     private final PDFServiceConfiguration pdfServiceConfiguration;
     private final ObjectMapper objectMapper;
+    private final PDFServiceClient pdfServiceClient;
 
-    public byte[] generatePdf(String serviceAuthToken, CheckAnswersSummary checkAnswersSummary, DocumentType documentType) {
+    public byte[] generatePdf(CheckAnswersSummary checkAnswersSummary, DocumentType documentType) {
 
         byte[] postResult;
 
         try {
-            postResult = generateFromHtml(serviceAuthToken, checkAnswersSummary, documentType.getTemplateName());
+            postResult = generateFromHtml(checkAnswersSummary, documentType.getTemplateName());
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
             throw new PDFGenerationException(e.getMessage(), e);
@@ -43,17 +38,13 @@ public class PDFGenerationService {
         return postResult;
     }
 
-    private byte[] generateFromHtml(String serviceAuthToken, CheckAnswersSummary checkAnswersSummary, String templateName) throws JsonProcessingException {
-        URI uri = URI.create(String.format("%s%s", pdfServiceConfiguration.getUrl(), pdfServiceConfiguration.getPdfApi()));
+    private byte[] generateFromHtml(CheckAnswersSummary checkAnswersSummary, String templateName) throws JsonProcessingException {
 
-        Supplier<String> supplier = () -> serviceAuthToken;
-
-        PDFServiceClient pdfServiceClient = new PDFServiceClient(restOperations, objectMapper, supplier, uri);
-
-        String templatePath = pdfServiceConfiguration.getTemplatesDirectory() + templateName + ".html";
+        String templatePath = pdfServiceConfiguration.getTemplatesDirectory() + templateName + HTML;
         String templateAsString = fileSystemResourceService.getFileFromResourceAsString(templatePath);
 
         Map<String, Object> paramMap = asMap(objectMapper.writeValueAsString(checkAnswersSummary));
+
         return pdfServiceClient.generateFromHtml(templateAsString.getBytes(), paramMap);
     }
 

@@ -177,6 +177,7 @@ dependencies {
     compile group: 'uk.gov.hmcts.reform', name: 'java-logging-httpcomponents', version: versions.logging
     compile group: 'uk.gov.hmcts.reform.auth', name: 'auth-checker-lib', version: '2.1.2'
     compile group: 'uk.gov.hmcts.reform', name: 'pdf-service-client', version: '6.0.0'
+    compile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '0.6.0'
 
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
 

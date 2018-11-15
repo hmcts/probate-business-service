@@ -9,15 +9,14 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import uk.gov.hmcts.probate.services.businessvalidation.model.CheckAnswersSummary;
-import uk.gov.hmcts.probate.services.businessvalidation.model.QuestionAndAnswerRow;
+import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
+import uk.gov.hmcts.probate.services.businessdocuments.model.QuestionAndAnswerRow;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -68,23 +67,23 @@ public class CheckSummaryAnswerPDFTest extends IntegrationTestBase {
         });
     }
 
-    private void assertQuestionsAndAnswers(String pdfContentAsString, List<QuestionAndAnswerRow> questionsAndAnswers) {
-        questionsAndAnswers.forEach(questionAndAnswer -> {
-            assertThat(pdfContentAsString, containsString(parsedString(questionAndAnswer.getQuestion())));
-            assertAnswers(pdfContentAsString, questionAndAnswer);
+    private void assertQuestionsAndAnswers(String pdfContentAsString, List<QuestionAndAnswerRow> questionAndAnswerRows) {
+        questionAndAnswerRows.forEach(questionAndAnswerRow -> {
+            assertThat(pdfContentAsString, containsString(parsedString(questionAndAnswerRow.getQuestion())));
+            assertAnswers(pdfContentAsString, questionAndAnswerRow);
         });
     }
 
-    private void assertAnswers(String pdfContentAsString, QuestionAndAnswerRow questionAndAnswer) {
-        String question = questionAndAnswer.getQuestion();
+    private void assertAnswers(String pdfContentAsString, QuestionAndAnswerRow questionAndAnswerRow) {
+        StringBuilder question = new StringBuilder(questionAndAnswerRow.getQuestion());
 
-        for (String answer : questionAndAnswer.getAnswers()) {
-            question = question + answer;
-            assertThat(pdfContentAsString, containsString(parsedString(question)));
+        for (String answer : questionAndAnswerRow.getAnswers()) {
+            question.append(answer);
+            assertThat(pdfContentAsString, containsString(parsedString(question.toString())));
         };
     }
 
-    private CheckAnswersSummary getCheckAnswersSummaryFromJSON(String JSONFileName) throws Exception{
+    private CheckAnswersSummary getCheckAnswersSummaryFromJSON(String JSONFileName) throws IOException {
         String jsonString = utils.getJsonFromFile(JSONFileName);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE,true);
