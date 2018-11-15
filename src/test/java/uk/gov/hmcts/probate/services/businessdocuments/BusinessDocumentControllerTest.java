@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +27,6 @@ public class BusinessDocumentControllerTest {
 
     @Test
     public void shouldGenerateACheckAnswersSummaryPDF() {
-        byte[] result = businessDocumentController.generateCheckAnswersSummaryPDF(checkAnswersSummary, "authorisation");
+        ResponseEntity<byte[]> result = businessDocumentController.generateCheckAnswersSummaryPDF(checkAnswersSummary, "authorisation");
     }
 }
