@@ -5,5 +5,5 @@ metadata:
   namespace: ${NAMESPACE}
 data:
   SERVICES_PERSISTENCE_BASEURL : "http://probate-persistence-service-aat.service.core-compute-aat.internal"
-  SERVICES_NOTIFY_INVITEDATA_INVITELINK : "http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/"
+  SERVICES_NOTIFY_INVITEDATA_INVITELINK : "http://probate-frontend-pr-414.service.core-compute-preview.internal/executors/invitation/"
 
