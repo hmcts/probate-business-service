@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.business.health;
+package uk.gov.hmcts.probate.health;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,15 +8,15 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class BusinessHealthConfiguration
-{	
+{
     @Autowired
     private RestTemplate restTemplate;
-    
-    @Value("${services.persistence.baseUrl}")    
+
+    @Value("${services.persistence.baseUrl}")
     private String servicePersistenceBaseUrl;
-    
+
     @Bean
     public BusinessHealthIndicator persistenceServiceHealthIndicator() {
-    	return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate); 
-    }    
+    	return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate);
+    }
 }

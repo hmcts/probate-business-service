@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.exceptions.handler;
+package uk.gov.hmcts.probate.handlers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,10 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.WebRequest;
-import uk.gov.hmcts.probate.services.exceptions.BusinessDocumentException;
-import uk.gov.hmcts.probate.services.exceptions.FileSystemException;
-import uk.gov.hmcts.probate.services.exceptions.PDFGenerationException;
-import uk.gov.hmcts.probate.services.exceptions.model.ErrorResponse;
+import uk.gov.hmcts.probate.handlers.BusinessExceptionHandler;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.BusinessDocumentException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
+import uk.gov.hmcts.probate.services.businessdocuments.model.ErrorResponse;
 import uk.gov.hmcts.reform.pdf.service.client.exception.PDFServiceClientException;
 
 import static org.hamcrest.Matchers.is;

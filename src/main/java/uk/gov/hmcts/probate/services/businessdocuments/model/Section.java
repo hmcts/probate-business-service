@@ -1,17 +1,23 @@
 package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class Section implements Serializable {
 
+    @NotBlank
     @JsonProperty("title")
     private String title;
 
+    @NotBlank
     @JsonProperty("type")
     private String type;
 
+    @NotEmpty
     @JsonProperty("questionAndAnswers")
     private List<QuestionAndAnswerRow> questionsAndAnswers;
 

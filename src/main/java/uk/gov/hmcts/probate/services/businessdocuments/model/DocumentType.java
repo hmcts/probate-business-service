@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.businessdocuments;
+package uk.gov.hmcts.probate.services.businessdocuments.model;
 import lombok.Getter;
 
 @Getter

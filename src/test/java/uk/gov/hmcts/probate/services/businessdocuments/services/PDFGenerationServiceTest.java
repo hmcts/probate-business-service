@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.businessdocuments;
+package uk.gov.hmcts.probate.services.businessdocuments.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -10,8 +10,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestOperations;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
-import uk.gov.hmcts.probate.services.exceptions.FileSystemException;
-import uk.gov.hmcts.probate.services.exceptions.PDFGenerationException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
+import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
+import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
+import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
 import uk.gov.hmcts.reform.pdf.service.client.PDFServiceClient;
 
 import static org.mockito.Mockito.verify;

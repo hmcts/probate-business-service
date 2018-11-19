@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.business.health;
+package uk.gov.hmcts.probate.health;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class BusinessHealthIndicator implements HealthIndicator {
-	
+
 	private final static String EXCEPTION_KEY = "exception";
 	private final static String MESSAGE_KEY = "message";
     private final static String URL_KEY = "url";
 
     private final String url;
     private RestTemplate restTemplate;
-    
+
     @Override
     public Health health() {
     	ResponseEntity<String> responseEntity;

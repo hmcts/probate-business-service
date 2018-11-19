@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.exceptions;
+package uk.gov.hmcts.probate.services.businessdocuments.exceptions;
 
 public class FileSystemException extends RuntimeException {
 

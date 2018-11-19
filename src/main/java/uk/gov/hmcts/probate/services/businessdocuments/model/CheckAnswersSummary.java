@@ -3,6 +3,8 @@ package uk.gov.hmcts.probate.services.businessdocuments.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,9 +15,11 @@ public class CheckAnswersSummary implements Serializable {
     @JsonProperty("pageTitle")
     private String pageTitle;
 
+    @NotBlank
     @JsonProperty("mainParagraph")
     private String mainParagraph;
 
+    @NotEmpty
     @JsonProperty("sections")
     private List<Section> sections;
 

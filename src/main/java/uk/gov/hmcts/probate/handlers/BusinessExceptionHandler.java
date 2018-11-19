@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.exceptions.handler;
+package uk.gov.hmcts.probate.handlers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import uk.gov.hmcts.probate.services.exceptions.BusinessDocumentException;
-import uk.gov.hmcts.probate.services.exceptions.FileSystemException;
-import uk.gov.hmcts.probate.services.exceptions.PDFGenerationException;
-import uk.gov.hmcts.probate.services.exceptions.model.ErrorResponse;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.BusinessDocumentException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
+import uk.gov.hmcts.probate.services.businessdocuments.model.ErrorResponse;
 import uk.gov.hmcts.reform.pdf.service.client.exception.PDFServiceClientException;
 
 @Slf4j

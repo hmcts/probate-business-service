@@ -1,11 +1,11 @@
-package uk.gov.hmcts.probate.services.businessdocuments;
+package uk.gov.hmcts.probate.services.businessdocuments.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.exceptions.FileSystemException;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
 
 import java.io.File;
 import java.io.FileOutputStream;
