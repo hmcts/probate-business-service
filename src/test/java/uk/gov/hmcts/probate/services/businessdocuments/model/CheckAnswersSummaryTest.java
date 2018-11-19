@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.services.businessdocuments.model;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -22,8 +21,8 @@ import static org.junit.Assert.fail;
 
 public class CheckAnswersSummaryTest {
 
-    public static final String VALID_CHECK_ANSWERS_SUMMARY_JSON = "documents/validCheckAnswersSummary.json";
-    public static final String INVALID_CHECK_ANSWERS_SUMMARY_JSON = "documents/invalidCheckAnswersSummary.json";
+    public static final String VALID_CHECK_ANSWERS_SUMMARY_JSON = "businessdocuments/validCheckAnswersSummary.json";
+    public static final String INVALID_CHECK_ANSWERS_SUMMARY_JSON = "businessdocuments/invalidCheckAnswersSummary.json";
     private ObjectMapper objectMapper;
 
     private FileSystemResourceService fileSystemResourceService;
