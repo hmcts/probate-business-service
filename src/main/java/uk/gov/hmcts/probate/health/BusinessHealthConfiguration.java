@@ -7,16 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class BusinessHealthConfiguration
-{
-    @Autowired
-    private RestTemplate restTemplate;
+public class BusinessHealthConfiguration {
 
     @Value("${services.persistence.baseUrl}")
     private String servicePersistenceBaseUrl;
 
     @Bean
-    public BusinessHealthIndicator persistenceServiceHealthIndicator() {
-    	return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate);
+    public BusinessHealthIndicator persistenceServiceHealthIndicator(@Autowired RestTemplate restTemplate) {
+        return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate);
     }
 }

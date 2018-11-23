@@ -36,15 +36,12 @@ public class BusinessApplication {
     @Value("${services.notify.apiKey}")
     String notificationApiKey;
     
-    @Autowired
-    private ValidationRule dobBeforeDodRule, netIHTLessThanGrossRule;
-
     public static void main(String[] args) {
         SpringApplication.run(BusinessApplication.class, args);
     }
 
     @Bean
-    List<ValidationRule> validationRules() {
+    List<ValidationRule> validationRules(@Autowired ValidationRule dobBeforeDodRule, @Autowired ValidationRule netIHTLessThanGrossRule) {
         List<ValidationRule> validationRules = new ArrayList<>();
         validationRules.add(dobBeforeDodRule);
         validationRules.add(netIHTLessThanGrossRule);

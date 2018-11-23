@@ -42,7 +42,6 @@ data "azurerm_key_vault_secret" "business_services_notify_pin_templateId" {
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
-
 module "probate-business-service" {
   source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"

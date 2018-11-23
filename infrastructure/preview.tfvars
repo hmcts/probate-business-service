@@ -12,3 +12,4 @@ business_services_notify_invitedata_inviteLink = "http://probate-frontend-aat.se
 pdf_service_url = "http://cmc-pdf-service-aat.service.core-compute-aat.internal"
 asp_name = "probate-preview"
 asp_rg = "probate-preview"
+

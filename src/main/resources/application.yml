@@ -3,12 +3,19 @@
     basic:
       enabled: false
 
-  management:
-    security:
-      enabled: false
-
   server:
     port: 8080
+        
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: '*'
+        base-path: /
+    endpoint:
+      health:
+        show-details: always
+
 
   spring:
     application:
