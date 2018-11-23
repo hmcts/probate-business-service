@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.business.health;
+package uk.gov.hmcts.probate.health;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

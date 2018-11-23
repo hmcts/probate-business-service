@@ -1,0 +1,158 @@
+{
+  "checkAnswersSummary": {
+    "sections": [
+      {
+        "title": "About the person who died",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "First name(s)",
+            "answers": [
+              "Mike"
+            ]
+          },
+          {
+            "question": "Last name(s)",
+            "answers": [
+              "Samuels"
+            ]
+          },
+          {
+            "question": "Did Mike Samuels have assets in another name?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Names used by the deceased",
+            "answers": [
+              "\n                Deceased Alias\n            "
+            ]
+          },
+          {
+            "question": "Did Mike Samuels get married or enter into a civil partnership after the will was signed?",
+            "answers": [
+              "No"
+            ]
+          },
+          {
+            "question": "What was the date that they died?",
+            "answers": [
+              "20 October 2018"
+            ]
+          },
+          {
+            "question": "What was their date of birth?",
+            "answers": [
+              "1 January 1977"
+            ]
+          },
+          {
+            "question": "What was the permanent address at the time of their death?",
+            "answers": [
+              "nrtnt"
+            ]
+          },
+          {
+            "question": "Were any updates (‘codicils’) made to the will?",
+            "answers": [
+              "No"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Inheritance tax",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "How was the Inheritance Tax (IHT) form submitted?",
+            "answers": [
+              "By post"
+            ]
+          },
+          {
+            "question": "Which paper form was filled in?",
+            "answers": [
+              "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad"
+            ]
+          },
+          {
+            "question": "Gross value of the estate in £",
+            "answers": [
+              "10000"
+            ]
+          },
+          {
+            "question": "Net value of the estate in £",
+            "answers": [
+              "10000"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "The executors",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "How many past and present executors are named on the will and any updates (‘codicils’)?",
+            "answers": [
+              "1"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "About you",
+        "type": "heading-small",
+        "questionAndAnswers": [
+          {
+            "question": "First name(s)",
+            "answers": [
+              "Jason"
+            ]
+          },
+          {
+            "question": "Last name(s)",
+            "answers": [
+              "Smith"
+            ]
+          },
+          {
+            "question": "Is your name ‘Jason Smith’ exactly what appears on the will?",
+            "answers": [
+              "No"
+            ]
+          },
+          {
+            "question": "Name on will",
+            "answers": [
+              "The boss man"
+            ]
+          },
+          {
+            "question": "Reason for name change",
+            "answers": [
+              "other reason"
+            ]
+          },
+          {
+            "question": "Phone number",
+            "answers": [
+              "01206822777"
+            ]
+          },
+          {
+            "question": "What is your address?",
+            "answers": [
+              "My address\nsomewhere in\nengland"
+            ]
+          }
+        ]
+      }
+    ],
+    "mainParagraph": "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.",
+    "pageTitle": "\n        Check your answers\n    "
+  }
+}

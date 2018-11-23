@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.business.health;
+package uk.gov.hmcts.probate.health;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

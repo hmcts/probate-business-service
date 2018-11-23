@@ -59,6 +59,10 @@ variable "business_services_notify_invitedata_inviteLink" {
   default = "./executors/invitation/"
 }
 
+variable "pdf_service_url" {
+  default = "/"
+}
+
 variable "log_level" {
   type = "string"
 }
@@ -72,9 +76,9 @@ variable "common_tags" {
 }
 
 variable "asp_rg" {
-  
+
 }
 
 variable "asp_name" {
-  
+
 }

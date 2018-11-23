@@ -55,14 +55,14 @@ module "probate-business-service" {
   common_tags  = "${var.common_tags}"
   asp_rg       = "${var.asp_rg}"
   appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
-  
+
   app_settings = {
 
 	  // Logging vars
     REFORM_TEAM = "${var.product}"
     REFORM_SERVICE_NAME = "${var.microservice}"
     REFORM_ENVIRONMENT = "${var.env}"
-  
+
 
     DEPLOYMENT_ENV= "${var.deployment_env}"
     //JAVA_OPTS = "${local.java_proxy_variables}"
@@ -73,6 +73,7 @@ module "probate-business-service" {
     SERVICES_NOTIFY_INVITEDATA_TEMPLATEID = "${data.azurerm_key_vault_secret.business_services_notify_invitedata_templateId.value}"
     SERVICES_NOTIFY_INVITEDATA_INVITELINK = "${var.business_services_notify_invitedata_inviteLink}"
     SERVICES_NOTIFY_PIN_TEMPLATEID = "${data.azurerm_key_vault_secret.business_services_notify_pin_templateId.value}"
+    SERVICES_PDF_SERVICE_URL = "${var.pdf_service_url}"
     java_app_name = "${var.microservice}"
     LOG_LEVEL = "${var.log_level}"
     //ROOT_APPENDER = "JSON_CONSOLE"  //remove json output

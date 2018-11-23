@@ -1,0 +1,273 @@
+{
+  "checkAnswersSummary": {
+    "sections": [
+      {
+        "title": "\n            The will\n        ",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "Did the person who died leave a will?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Do you have the original will?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Were any updates (‘codicils’) made to the will?",
+            "answers": [
+              "No"
+            ]
+          },
+          {
+            "question": "Do you have a death certificate?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Are you named as an executor on the will?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Are all the executors able to make their own decisions?",
+            "answers": [
+              "Yes"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Inheritance tax",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "Has an Inheritance Tax (IHT) form been filled in?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "How was the Inheritance Tax (IHT) form submitted?",
+            "answers": [
+              "By post"
+            ]
+          },
+          {
+            "question": "Which paper form was filled in?",
+            "answers": [
+              "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad"
+            ]
+          },
+          {
+            "question": "Gross value of the estate in £",
+            "answers": [
+              "200000"
+            ]
+          },
+          {
+            "question": "Net value of the estate in £",
+            "answers": [
+              "190000"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "The executors",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "How many past and present executors are named on the will and any updates (‘codicils’)?",
+            "answers": [
+              "3"
+            ]
+          },
+          {
+            "question": "Are all the executors alive?",
+            "answers": [
+              "Yes"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "About you",
+        "type": "heading-small",
+        "questionAndAnswers": [
+          {
+            "question": "First name(s)",
+            "answers": [
+              "Ruban"
+            ]
+          },
+          {
+            "question": "Last name(s)",
+            "answers": [
+              "Mahendran"
+            ]
+          },
+          {
+            "question": "Is your name ‘Ruban Mahendran’ exactly what appears on the will?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Phone number",
+            "answers": [
+              "07989898989"
+            ]
+          },
+          {
+            "question": "What is your address?",
+            "answers": [
+              "12 Werst ere\nsdsdsds\nsdscfds"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Other executors applying for probate",
+        "type": "heading-small",
+        "questionAndAnswers": [
+          {
+            "question": "Will any of the other executors be dealing with the estate?",
+            "answers": [
+              "Yes"
+            ]
+          },
+          {
+            "question": "Which executors will be dealing with the estate?",
+            "answers": [
+              "\n                    Jason Bee\n                    ",
+              "\n                    Harry Foo\n                    "
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Second executor applying for probate",
+        "type": "heading-small",
+        "questionAndAnswers": [
+          {
+            "question": "Name on will",
+            "answers": [
+              "Jason Bee"
+            ]
+          },
+          {
+            "question": "Address",
+            "answers": [
+              "12 West End \njkjkdfd\nfgfgf"
+            ]
+          },
+          {
+            "question": "Mobile number",
+            "answers": [
+              "07989898989"
+            ]
+          },
+          {
+            "question": "Email address",
+            "answers": [
+              "email@mail.com"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Third executor applying for probate",
+        "type": "heading-small",
+        "questionAndAnswers": [
+          {
+            "question": "Name on will",
+            "answers": [
+              "Harry Foo"
+            ]
+          },
+          {
+            "question": "Address",
+            "answers": [
+              "12 wewew\nerere\nerer"
+            ]
+          },
+          {
+            "question": "Mobile number",
+            "answers": [
+              "07989898982"
+            ]
+          },
+          {
+            "question": "Email address",
+            "answers": [
+              "email@mail.com"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "About the person who died",
+        "type": "heading-medium",
+        "questionAndAnswers": [
+          {
+            "question": "First name(s)",
+            "answers": [
+              "Grhama"
+            ]
+          },
+          {
+            "question": "Last name(s)",
+            "answers": [
+              "Hkhfdfd"
+            ]
+          },
+          {
+            "question": "Did Grhama Hkhfdfd have assets in another name?",
+            "answers": [
+              "No"
+            ]
+          },
+          {
+            "question": "Did Grhama Hkhfdfd get married or enter into a civil partnership after the will was signed?",
+            "answers": [
+              "No"
+            ]
+          },
+          {
+            "question": "What was the date that they died?",
+            "answers": [
+              "12 July 2018"
+            ]
+          },
+          {
+            "question": "What was their date of birth?",
+            "answers": [
+              "23 July 1987"
+            ]
+          },
+          {
+            "question": "At the time of their death did the person who died:",
+            "answers": [
+              "live (domicile) permanently in England or Wales"
+            ]
+          },
+          {
+            "question": "What was the permanent address at the time of their death?",
+            "answers": [
+              "12 West Efdfd\nyttyyty\nwer"
+            ]
+          }
+        ]
+      }
+    ],
+    "mainParagraph": "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.",
+    "pageTitle": "\n        Check your answers\n    "
+  }
+}

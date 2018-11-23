@@ -10,5 +10,6 @@ log_level = "INFO"
 
 business_services_persistence_baseUrl  = "http://probate-persistence-service-demo.service.core-compute-demo.internal"
 business_services_notify_invitedata_inviteLink = "http://probate-frontend-demo.service.core-compute-demo.internal/executors/invitation/"
+pdf_service_url = "http://cmc-pdf-service-demo.service.core-compute-demo.internal"
 asp_name = "probate-demo"
 asp_rg = "probate-demo"

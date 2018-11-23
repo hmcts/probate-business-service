@@ -17,14 +17,17 @@ public abstract class IntegrationTestBase {
 
     String businessServiceUrl;
     String persistenceServiceUrl;
+    String pdfServiceUrl;
     String mobileNumber;
 
     @Autowired
     public void businessServiceConfiguration(@Value("${probate.business.url}") String businessServiceUrl,
                                              @Value("${probate.persistence.url}") String persistenceServiceUrl,
+                                             @Value("${probate.pdfservice.url}") String pdfServiceUrl,
                                              @Value("${probate.notify.mobile}") String mobileNumber) {
         this.businessServiceUrl = businessServiceUrl;
         this.persistenceServiceUrl = persistenceServiceUrl;
+        this.pdfServiceUrl = pdfServiceUrl;
         this.mobileNumber = mobileNumber;
     }
 

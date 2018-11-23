@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.business.health;
+package uk.gov.hmcts.probate.health;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,7 @@ import org.springframework.web.client.UnknownHttpStatusCodeException;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
+import uk.gov.hmcts.probate.health.BusinessHealthIndicator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessHealthIndicatorTest {

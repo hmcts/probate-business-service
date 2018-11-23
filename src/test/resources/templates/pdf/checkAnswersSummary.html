@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all" th:text="${title}">Probate application</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+
+            body {
+                font-family: Verdana, Arial;
+            }
+
+            .table-content {
+                display: block;
+                cellpadding: 0px;
+            }
+
+            .pagebreak {
+                min-height: 1020px;
+            }
+
+            .legal-header {
+                font-size: 1.2em;
+                text-align: center;
+            }
+
+            .spacer {
+                height: 20px;
+            }
+
+            tr.border_bottom td {
+                border-bottom: 0.5px solid black;
+            }
+
+        </style>
+    </head>
+    <body>
+        <table>
+            <tbody class="table-content">
+            <tr>
+                <td colspan="2" style="height: 15px;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="height: 15px;">
+                </td>
+            </tr>
+            <tr>
+              <td colspan="2" valign="top" style="font-weight: bold"><h1>Check your answers</h1></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <p>Check the information below carefully. This will form a record of your application for probate. It will be also be stored as a public record, and will be able to be viewed online.</p>
+              </td>
+            </tr>
+
+            <tr class="border_bottom">
+                <td colspan="2" valign="top" style="font-weight: bold"><h2>The will</h2></td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Did the person who died leave a will?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Do you have the original will?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Were any updates('codicils') made to the will?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Do you have a death certificate?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Are you named as an executor on the will?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>ARe all the executors able to make their own decisions?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td colspan="2" valign="top" style="font-weight: bold"><h2>Inheritance tax</h2></td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Has an inheritance Tax (IHT) form been filled in?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>How was the Inheritance Tax (IHT) form submitted?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Which paper form was filled in?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Gross value of the estate in £</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Net value of the estate in £</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td colspan="2" valign="top" style="font-weight: bold"><h2>The executors</h2></td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>How many past and present executors are named on the will and any updates ('codicils')?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+                <td><h3> About you</h3></td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>First name(s)</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Last name(s)</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Is your name '{{ case_details.case_data.deceasedForenames }}' exaclty what appreas on the will?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Phone number</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>What is your address?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td colspan="2" valign="top" style="font-weight: bold"><h2>About the person who died</h2></td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>First name(s)</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Last name(s)</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Did {{ case_details.case_data.deceasedForenames }} have assets in another name?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>Did {{ case_details.case_data.deceasedForenames }} get married or enter into a civil partnership after the will was signed?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>What was the date that they died?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>What was their date of birth?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>At the time of their death did the person who died:</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            <tr class="border_bottom">
+                <td><h3>What was the permanent address at the time of thier death?</h3></td>
+                <td>{{ case_details.case_data.deceasedForenames }} </td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+
