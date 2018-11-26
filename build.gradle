@@ -158,8 +158,7 @@ processResources {
 
 def versions = [
     logging: '3.0.3',
-    serenity: '2.0.15',
-    serenity_spring: '1.0.26'
+    serenity: '2.0.18'
 ]
 
 dependencies {
@@ -190,7 +189,7 @@ dependencies {
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: versions.serenity
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity_spring
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
     testFunctionalCompile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
     testFunctionalCompile sourceSets.main.runtimeClasspath
     testFunctionalCompile sourceSets.test.runtimeClasspath
