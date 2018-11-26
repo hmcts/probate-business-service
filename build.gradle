@@ -157,7 +157,9 @@ processResources {
 }
 
 def versions = [
-    logging: '3.0.3'
+    logging: '3.0.3',
+    serenity: '2.0.15',
+    serenity_spring: '1.0.26'
 ]
 
 dependencies {
@@ -185,10 +187,10 @@ dependencies {
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '1.5.2'
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '1.5.2'
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '1.5.2'
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '1.0.26'    
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: versions.serenity
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity_spring
     testFunctionalCompile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
     testFunctionalCompile sourceSets.main.runtimeClasspath
     testFunctionalCompile sourceSets.test.runtimeClasspath
