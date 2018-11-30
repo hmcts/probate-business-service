@@ -144,7 +144,6 @@ task functional(type: Test) {
 
 task contract(type: Test) {
     description = "Runs Contract Tests"
-    useJUnitPlatform()
     testClassesDirs = sourceSets.testContract.output.classesDirs
     classpath = sourceSets.testContract.runtimeClasspath
 }

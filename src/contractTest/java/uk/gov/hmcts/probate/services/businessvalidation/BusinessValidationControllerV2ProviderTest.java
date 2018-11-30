@@ -7,6 +7,7 @@ import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import au.com.dius.pact.provider.spring.SpringRestPactRunner;
+import org.junit.Before;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,12 +28,17 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {
 		"server.port=8888"
 })
-@Provider("probate.businessservice.validationservice")
+@Provider("probate_businessservice_validationservice")
 @PactBroker(host="${pact.broker.baseUrl}", port = "${pact.broker.port}")
 public class BusinessValidationControllerV2ProviderTest {
 
 	@MockBean
 	private BusinessValidator businessValidator;
+
+	@Before
+	public void setUpTest(){
+		System.getProperties().setProperty("pact.verifier.publishResults" , "true");
+	}
 
 	@TestTarget
 	@SuppressWarnings(value = "VisibilityModifier")
