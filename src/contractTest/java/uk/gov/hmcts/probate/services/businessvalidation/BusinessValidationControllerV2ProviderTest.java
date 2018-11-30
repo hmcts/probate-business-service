@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {
 		"server.port=8888"
 })
-@Provider("probate.businessvalidationservice")
+@Provider("probate.businessservice.validationservice")
 @PactBroker(host="${pact.broker.baseUrl}", port = "${pact.broker.port}")
 public class BusinessValidationControllerV2ProviderTest {
 
