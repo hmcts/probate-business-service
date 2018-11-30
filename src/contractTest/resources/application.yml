@@ -69,3 +69,6 @@
 
   idam.s2s-auth.url: ${auth.provider.service.client.baseUrl}
 
+  pact.broker:
+    baseUrl: ${PACT_BROKER_URL:localhost}
+    port: ${PACT_BROKER_PORT:80}

@@ -1,4 +1,4 @@
-package uk.gov.hmcts.probate.services.businessvalidation.controllers;
+package uk.gov.hmcts.probate.services.businessvalidation.controllers.v2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,22 +17,26 @@ import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
-public class BusinessValidationController {
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessValidationController.class);
+@RestController
+public class BusinessValidationControllerV2 {
+
+    private static final String SERVICE_AUTHORIZATION = "ServiceAuthorization";
+    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessValidationControllerV2.class);
     private BusinessValidator businessValidator;
 
     @Autowired
-    public BusinessValidationController(BusinessValidator businessValidator) {
+    public BusinessValidationControllerV2(BusinessValidator businessValidator) {
         this.businessValidator = businessValidator;
     }
 
-    @RequestMapping(path = "/validate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-    public BusinessValidationResponse validate(@Valid @RequestBody FormData formData,
+
+    @RequestMapping(path = "/probateTypes/intestacy/validations", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    public BusinessValidationResponse validateIntestacy(@Valid @RequestBody FormData formData,
                                                BindingResult bindingResult,
-                                               @RequestHeader("Session-Id") String sessionId) {
-        LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
+                                               @RequestHeader(AUTHORIZATION) String authorizationId,
+                                               @RequestHeader(SERVICE_AUTHORIZATION) String serviceAuthtoken) {
 
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         List<BusinessValidationError> businessErrors = businessValidator.validateForm(formData);
@@ -44,5 +48,4 @@ public class BusinessValidationController {
 
         return new BusinessValidationResponse(BusinessValidationStatus.SUCCESS, fieldErrors, Collections.emptyList());
     }
-
 }

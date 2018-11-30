@@ -5,7 +5,7 @@
         <BuiltIn enabled="true">
             <HTTP enabled="true"/>
         </BuiltIn>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.controllers.BusinessValidationController">
+        <Class name="uk.gov.hmcts.probate.services.businessvalidation.controllers.v1.BusinessValidationController">
             <Method name="validate" reportExecutionTime="true"/>
         </Class>
         <Class name="uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationError">
