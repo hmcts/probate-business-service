@@ -33,12 +33,13 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withParameterizedPipeline('java', product, component, params.ENVIRONMENT, 'sandbox') {
-  env.PACT_BROKER_URL = "http://pact-broker.service.core-compute-saat.internal/"
+  env.PACT_BROKER_URL = "pact-broker.service.core-compute-saat.internal" 
+  env.PACT_BROKER_PORT = 80
   loadVaultSecrets(secrets)
   after ('build') {
     try {
         sh './gradlew contract'
-        sh './gradlew pactPublish'
+#        sh './gradlew pactPublish'
     } catch(err) {
        steps.archiveArtifacts "build/reports/tests/contract/**/*"
     }
