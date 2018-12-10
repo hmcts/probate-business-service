@@ -3,7 +3,7 @@ ingressHost: probate-business-service-PR-71.service.core-compute-PR-71.internal
 environment:
   REFORM_TEAM: probate
   REFORM_SERVICE_NAME: probate-business-service
-  REFORM_ENVIRONMENT: aat
+  REFORM_ENVIRONMENT: preview
 configmap:
   SERVICES_PERSISTENCE_BASEURL : "http://probate-persistence-service-aat.service.core-compute-aat.internal"
   SERVICES_NOTIFY_INVITEDATA_INVITELINK : "http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/"
