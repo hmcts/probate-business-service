@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${SERVICE_NAME}
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${SERVICE_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${SERVICE_NAME}
+    spec:
+      containers:
+        - image: ${IMAGE_NAME}
+          name: ${SERVICE_NAME}
+          env:
+            - name: REFORM_TEAM
+              value: 'probate'
+            - name: REFORM_SERVICE_NAME
+              value: 'business-service'
+            - name: SERVICES_NOTIFY_APIKEY
+              value: ${PRO_SERVICES_NOTIFY_APIKEY}
+            - name: SERVICES_NOTIFY_INVITEDATA_TEMPLATEID
+              value: ${PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID}
+            - name: SERVICES_NOTIFY_PIN_TEMPLATEID
+              value: ${PRO_SERVICES_NOTIFY_PIN_TEMPLATEID}
+          envFrom:
+            - configMapRef:
+                name: ${SERVICE_NAME}-config
+          resources:
+            requests:
+              memory: '1024Mi'
+              cpu: '200m'
+            limits:
+              memory: '2048Mi'
+              cpu: '2500m'
+          ports:
+            - containerPort: 8080
+              name: http
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${SERVICE_NAME}
+  namespace: ${NAMESPACE}
+  labels:
+    app: ${SERVICE_NAME}
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  selector:
+    app: ${SERVICE_NAME}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${SERVICE_NAME}
+  namespace: ${NAMESPACE}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: ${SERVICE_FQDN}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ${SERVICE_NAME}
+          servicePort: 80
+

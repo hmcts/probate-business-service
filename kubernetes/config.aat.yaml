@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${SERVICE_NAME}-config
+  namespace: ${NAMESPACE}
+data:
+  SERVICES_PERSISTENCE_BASEURL : "http://probate-persistence-service-aat.service.core-compute-aat.internal"
+  SERVICES_NOTIFY_INVITEDATA_INVITELINK : "http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/"
+
