@@ -4,7 +4,7 @@ memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
 cpuLimits: '2500m'
-ingressHost: probate-business-service.service.core-compute-PR-71.internal
+ingressHost: probate-business-service-PR-71.service.core-compute-PR-71.internal
 readinessPath: '/health'
 readinessDelay: 30
 readinessTimeout: 3
