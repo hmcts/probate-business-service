@@ -1,5 +1,5 @@
 # image: hmcts.azurecr.io/hmcts/spring-boot-template
-ingressHost: probate-business-service-PR-71.service.core-compute-PR-71.internal
+ingressHost: probate-business-service-aat.service.core-compute-aat.internal
 environment:
   REFORM_TEAM: probate
   REFORM_SERVICE_NAME: probate-business-service
