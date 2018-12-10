@@ -1,4 +1,4 @@
-image: hmcts.azurecr.io/hmcts/spring-boot-template
+# image: hmcts.azurecr.io/hmcts/spring-boot-template
 ingressHost: probate-frontend-aat.service.core-compute-aat.internal
 environment:
   REFORM_TEAM: probate

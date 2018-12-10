@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-CHART := java
+CHART := probate-business-service
 RELEASE := chart-${CHART}-release
 NAMESPACE := chart-tests
 TEST := ${RELEASE}-test-service

@@ -1,4 +1,4 @@
-name: chart-java pipeline
+name: probate-business-service pipeline
 trigger:
   branches:
     include:
@@ -38,6 +38,6 @@ jobs:
   steps:
   - template: steps/charts/release.yaml@cnp-library
     parameters:
-      chartName: java
-      chartReleaseName: chart-java
+      chartName: probate-business-service
+      chartReleaseName: chart-probate-business-service
       chartNamespace: chart-tests
