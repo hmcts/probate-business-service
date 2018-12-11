@@ -9,7 +9,7 @@ The probate business service provides useful business logic to thefrontend servi
 - Gradle
 - Docker
 
-### Running the application
+### Running the  application
 #### Building and Running the Business Service
 Install dependencies and build the service by executing the following command:  
 ```
