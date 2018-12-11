@@ -1,0 +1,10 @@
+apiVersion: v1
+description: A Helm chart for HMCTS the probate-business-service
+name: probate-business-service
+version: 0.0.7
+icon: https://github.com/hmcts/chart-java/raw/master/images/icons8-java-50.png
+keywords:
+- probate-business-service
+- java
+- web
+- springboot
