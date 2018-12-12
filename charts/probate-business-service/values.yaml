@@ -1,5 +1,5 @@
 applicationPort: 8080
-image: hmctssandbox.azurecr.io/hmcts/probate-business-service
+image: hmctssandbox.azurecr.io/hmcts/probate-business-service-pr-73
 memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
