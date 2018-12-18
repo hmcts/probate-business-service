@@ -32,10 +32,10 @@ public class BusinessHealthConfiguration {
         return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate);
     }
 
-    @Bean
+ /*   @Bean
     public BusinessHealthIndicator pdfServiceHealthIndicator() {
         return new BusinessHealthIndicator(pdfServiceBaseUrl, restTemplate);
-    }
+    }*/
 
     @Bean
     public BusinessHealthIndicator authServiceHealthIndicator() {
