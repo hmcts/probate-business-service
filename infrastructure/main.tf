@@ -85,8 +85,8 @@ module "probate-business-service" {
     SERVICES_NOTIFY_PIN_TEMPLATEID = "${data.azurerm_key_vault_secret.business_services_notify_pin_templateId.value}"
     SERVICES_PDF_SERVICE_URL = "${var.pdf_service_url}"
     DOCUMENT_MANAGEMENT_URL =  "${var.evidence_management_host}"
-    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL = "${var.s2s_service_api}"
-    AUTH_PROVIDER_SERVICE_CLIENT_KEY = "${data.azurerm_key_vault_secret.s2s_key.value}"
+    SERVICES_AUTH_PROVIDER_BASEURL = "${var.s2s_service_api}"
+    SERVICES_AUTH_PROVIDER_TOTP_SECRET = "${data.azurerm_key_vault_secret.s2s_key.value}"
 
     java_app_name = "${var.microservice}"
     LOG_LEVEL = "${var.log_level}"

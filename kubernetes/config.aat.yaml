@@ -9,4 +9,4 @@ data:
   SERVICES_PDF_SERVICE_URL : "http://cmc-pdf-service-aat.service.core-compute-aat.internal"
   SERVICES_AUTH_PROVIDER_BASEURL : "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
   DOCUMENT_MANAGEMENT_URL : "http://dm-store-aat.service.core-compute-aat.internal"
-  AUTH_PROVIDER_SERVICE_CLIENT_BASEURL : "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+  

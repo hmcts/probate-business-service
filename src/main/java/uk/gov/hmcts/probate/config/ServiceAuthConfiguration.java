@@ -9,11 +9,10 @@ import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGeneratorFactory;
 
 @Configuration
 public class ServiceAuthConfiguration {
-
     @Bean
     public AuthTokenGenerator authTokenGenerator(
             @Value("${services.auth.provider.totp_secret}") String secret,
-            @Value("${auth.provider.service.client.microservice}") String microService,
+            @Value("${services.auth.provider.microservice}") String microService,
             final ServiceAuthorisationApi serviceAuthorisationApi) {
         return AuthTokenGeneratorFactory.createDefaultGenerator(secret, microService, serviceAuthorisationApi);
     }

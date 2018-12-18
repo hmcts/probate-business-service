@@ -26,6 +26,7 @@
         totp_secret: "AAAAAAAAAAAAAAAA"
         baseUrl: http://localhost:4502
         microservice: "probate_backend"
+        tokenTimeToLiveInSeconds: '900'
     persistence:
       baseUrl: http://localhost:8282
       invitedata:
@@ -67,10 +68,4 @@
       extensions: ".pdf .jpeg .bmp .tif .tiff .png .pdf"
       mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
 
-  auth.provider.service.client:
-    baseUrl: http://localhost:4502
-    microservice: 'probate_backend'
-    key: 'AAAAAAAAAAAAAAAA'
-    tokenTimeToLiveInSeconds: '900'
-
-  idam.s2s-auth.url: ${auth.provider.service.client.baseUrl}
+  idam.s2s-auth.url: ${services.auth.provider.baseUrl}
