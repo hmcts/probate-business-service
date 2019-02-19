@@ -6,7 +6,7 @@ String product = "probate"
 String component = "business-service"
 
 List<LinkedHashMap<String, Object>> secrets = [
-    secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
+    // secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
     secret('probateNotifyMobile', 'TEST_MOBILE'),
     secret('probate-notify-invite-apikey', 'PRO_SERVICES_NOTIFY_APIKEY'),
     secret('business-services-notify-invitedata-templateId', 'PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID'),
@@ -36,6 +36,7 @@ withPipeline("java", product, component) {
   enableDeployToAKS()
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+  env.TEST_PERSISTENCE_URL = 'http://probate-persistence-service-pr-88.service.core-compute-preview.internal'
   after('test') {
   //   try {
   //     sh './gradlew pitest'
