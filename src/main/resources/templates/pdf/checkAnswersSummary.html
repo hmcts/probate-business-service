@@ -41,26 +41,28 @@
         <tbody class="table-content">
             <tr>
                 <td colspan="2" valign="top">
-                    <h1>{{pageTitle}}</h1>
+                    <h1>{{ pageTitle }}</h1>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <p>{{mainParagraph}}</p>
+                    <p>{{ mainParagraph }}</p>
                 </td>
             </tr>
             {% for section in sections %}
                 <div class="no-page-break">
                     <tr class="border_bottom">
-                        <td colspan="2" valign="top"><h2>{{section.title}}</h2></td>
+                        <td colspan="2" valign="top">
+                            <h2>{{ section.title }}</h2>
+                        </td>
                     </tr>
                     {% for questionAndAnswerRow in section.questionAndAnswers %}
                         <tr class="border_bottom">
-                            <td class="column1">{{questionAndAnswerRow.question}}</td>
+                            <td class="column1">{{ questionAndAnswerRow.question }}</td>
                             <td class="column2">
                                 {% for ans in questionAndAnswerRow.answers %}
                                     <div>
-                                        {{ans}}
+                                        {{ ans }}
                                     </div>
                                 {% endfor %}
                             </td>
