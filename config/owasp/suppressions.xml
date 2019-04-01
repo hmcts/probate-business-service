@@ -112,12 +112,11 @@
     <gav regex="true">^org\.slf4j:jul-to-slf4j:.*$</gav>
     <cve>CVE-2018-8088</cve>
   </suppress>
-
     <suppress>
         <notes><![CDATA[
-    file name: jul-to-slf4j-1.7.25.jar
-    ]]></notes>
-        <gav regex="true">^org\.slf4j:jul-to-slf4j:.*$</gav>
-        <cve>CVE-2018-8088</cve>
+   file name: spring-security-crypto-5.0.7.RELEASE.jar
+   ]]></notes>
+        <gav regex="true">^org\.springframework\.security:spring-security-crypto:.*$</gav>
+        <cpe>cpe:/a:pivotal_software:spring_security</cpe>
     </suppress>
 </suppressions>
