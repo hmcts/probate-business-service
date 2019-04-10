@@ -33,8 +33,26 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withPipeline("java", product, component) {
   setVaultName('probate')
   enableDockerBuild()
-  enableDeployToAKS()
   loadVaultSecrets(secrets)
+  installCharts()
+  before('smoketest:aks') {
+    // workaround to fix SIDAM whitelisting for PR AKS URLs
+    try {
+      def encodedServiceName = 'Probate'
+      def aksUrlToWhitelist = env.TEST_URL + '/oauth2/callback'
+      sh('curl -X PATCH https://idam-api.aat.platform.hmcts.net/testing-support/services/' + encodedServiceName +
+              ' -H \'Content-Type: application/json\'' +
+              ' -H \'cache-control: no-cache\'' +
+              ' -d \'[{' +
+              '"operation":"add",' +
+              '"field":"redirect_uri",' +
+              '"value":"' + aksUrlToWhitelist + '"' +
+              '}]\'')
+    } catch (err) {
+      notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update SIDAM PR whitelisting'
+    }
+  }
+
   enableSlackNotifications('#probate-jenkins')
 
 //    before('smoketest:aks') {
