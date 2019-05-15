@@ -65,7 +65,7 @@
 
                     {% for ans in questionAndAnswerRow.answers %}
                     <div>
-                        {{ ans}}
+                        {{ ans | raw }}
                     </div>
                     {% endfor %}
 

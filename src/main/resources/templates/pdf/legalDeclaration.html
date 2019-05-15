@@ -143,10 +143,10 @@
         {% endif %}
         {% for declarationItem in section.declarationItems %}
             <p class="section-title-small">
-                {{ declarationItem.title }}
+                {{ declarationItem.title | raw }}
             <ul>
                 {% for value in declarationItem.values %}
-                <li>{{ value }}</li>
+                <li>{{ value | raw }}</li>
                 {% endfor %}
             </ul>
             </p>
