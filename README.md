@@ -39,6 +39,7 @@ $ ./gradlew test
 
 ### Coding style tests
 
+
 To run all checks (including unit tests) please execute the following command:
 
 ```bash
