@@ -64,13 +64,8 @@ public class IdamTokenGenerator {
 
     private String generateClientCode() {
         String code = "";
-        String baseUrl = idamUserBaseUrl;
 
         final String encoded = Base64.getEncoder().encodeToString((idamUsername + ":" + idamPassword).getBytes());
-        log.info("idamUsername: " + idamUsername);
-        log.info("idamPassword: " + idamPassword);
-        log.info("idamUserBaseUrl: " + baseUrl);
-        log.info("redirectUri: " + redirectUri);
         code = RestAssured.given().baseUri(idamUserBaseUrl)
                 .header("Authorization", "Basic " + encoded)
                 .post("/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=" + redirectUri)
