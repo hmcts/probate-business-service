@@ -2,11 +2,13 @@ package uk.gov.hmcts.probate.functional;
 
 
 import io.restassured.RestAssured;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 
+@Slf4j
 @Component
 public class IdamTokenGenerator {
 
@@ -64,7 +66,10 @@ public class IdamTokenGenerator {
         String code = "";
 
         final String encoded = Base64.getEncoder().encodeToString((idamUsername + ":" + idamPassword).getBytes());
-
+        log.info("idamUsername: " + idamUsername);
+        log.info("idamPassword: " + idamPassword);
+        log.info("idamUserBaseUrl: " + idamUserBaseUrl);
+        log.info("redirectUri: " + redirectUri);
         code = RestAssured.given().baseUri(idamUserBaseUrl)
                 .header("Authorization", "Basic " + encoded)
                 .post("/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=" + redirectUri)
