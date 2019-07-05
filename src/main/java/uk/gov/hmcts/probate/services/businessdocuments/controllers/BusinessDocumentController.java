@@ -5,13 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
-import uk.gov.hmcts.probate.services.businessdocuments.model.LegalDeclaration;
-import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
+import org.springframework.web.bind.annotation.*;
 import uk.gov.hmcts.probate.services.businessdocuments.model.BulkScanCoverSheet;
 import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
+import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
+import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
 
 import javax.validation.Valid;
 
@@ -52,11 +51,7 @@ public class BusinessDocumentController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> exception(Exception ex) {
-        log.error("BusinessDocumentController failed to execute.", ex);
-        Throwable cause = ex.getCause();
-        if (cause != null) {
-            log.error("Cause: {}", cause.toString());
-        }
-        return new ResponseEntity<> ("", HttpStatus.BAD_REQUEST);
+        log.error("BusinessDocumentController failed to execute: {}", ex.getLocalizedMessage(), ex);
+        return new ResponseEntity("Error while generating PDF document.", HttpStatus.BAD_REQUEST);
     }
 }

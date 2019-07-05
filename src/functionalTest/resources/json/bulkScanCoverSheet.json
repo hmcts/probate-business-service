@@ -2,8 +2,10 @@
 "bulkScanCoverSheet": {
   "title": "Cover Sheet",	
   "applicantAddressIntro": "The applicants address",
+  "applicantNameIntro": "The applicants name",
   "applicantAddress": "20 White City\nLondon\nW12 7PD",
+  "applicantName": "Joe Bloggs",
   "caseReference": "1542-9021-4510-0350",
-  "submitAddress": "Divorce Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS"
+  "submitAddress": "Probate Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS"
   }
 }

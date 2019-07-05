@@ -39,7 +39,9 @@ public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverS
 
     private void validatePDFContent(String pdfContentAsString, BulkScanCoverSheet bulkScanCoverSheet) {
     	assertContent(pdfContentAsString, bulkScanCoverSheet.getApplicantAddressIntro());
+        assertContent(pdfContentAsString, bulkScanCoverSheet.getApplicantNameIntro());
         assertContent(pdfContentAsString, bulkScanCoverSheet.getApplicantAddress());
+        assertContent(pdfContentAsString, bulkScanCoverSheet.getApplicantName());
         assertContent(pdfContentAsString, BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO);
         assertContent(pdfContentAsString, bulkScanCoverSheet.getCaseReference());
         assertContent(pdfContentAsString, BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO);
