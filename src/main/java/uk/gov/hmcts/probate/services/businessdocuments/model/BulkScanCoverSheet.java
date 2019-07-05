@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class BulkScanCoverSheet implements BusinessDocument {
 		
 	public static final String DEFAULT_TITLE = "Download Cover Sheet";
+	public static final String DEFAULT_APPLICANT_NAME_INTRO = "Your name";
 	public static final String DEFAULT_APPLICANT_ADDRESS_INTRO = "Your address";
 	public static final String DEFAULT_CASE_REFERENCE_INTRO = "Your unique reference\nnumber is";
 	public static final String DEFAULT_SUBMIT_ADDRESS_INTRO = 
@@ -16,14 +17,22 @@ public class BulkScanCoverSheet implements BusinessDocument {
 
 	private static final char CASE_REFERENCE_SEPARATOR_CHAR = '-';
 	private static final int CASE_REFERENCE_SEPARATOR_INTERVAL_NUMBER = 4;
-	
+
 	@NotBlank
     @JsonProperty("title")
     private String title = DEFAULT_TITLE;
-	
+
 	@NotBlank
     @JsonProperty("applicantAddressIntro")
     private String applicantAddressIntro = DEFAULT_APPLICANT_ADDRESS_INTRO;
+
+	@NotBlank
+	@JsonProperty("applicantNameIntro")
+	private String applicantNameIntro = DEFAULT_APPLICANT_NAME_INTRO;
+
+	@NotBlank
+	@JsonProperty("applicantName")
+	private String applicantName;
 
 	@NotBlank
     @JsonProperty("applicantAddress")
@@ -32,7 +41,7 @@ public class BulkScanCoverSheet implements BusinessDocument {
 	@NotBlank
     @JsonProperty("caseReferenceIntro")
     private String caseReferenceIntro = DEFAULT_CASE_REFERENCE_INTRO;
-	
+
 	@NotBlank
     @JsonProperty("caseReference")
     private String caseReference;
@@ -57,8 +66,16 @@ public class BulkScanCoverSheet implements BusinessDocument {
 		return applicantAddressIntro;
 	}
 
+	public String getApplicantNameIntro() {
+		return applicantNameIntro;
+	}
+
 	public void setApplicantAddressIntro(String applicantAddressIntro) {
 		this.applicantAddressIntro = applicantAddressIntro;
+	}
+
+	public void setApplicantNameIntro(String applicantNameIntro) {
+		this.applicantNameIntro = applicantNameIntro;
 	}
 
 	public String getCaseReferenceIntro() {
@@ -76,13 +93,21 @@ public class BulkScanCoverSheet implements BusinessDocument {
 	public void setSubmitAddressIntro(String submitAddressIntro) {
 		this.submitAddressIntro = submitAddressIntro;
 	}
-	
+
 	public String getApplicantAddress() {
 		return applicantAddress;
 	}
 
 	public void setApplicantAddress(String applicantAddress) {
 		this.applicantAddress = applicantAddress;
+	}
+
+	public String getApplicantName() {
+		return applicantName;
+	}
+
+	public void setApplicantName(String applicantName) {
+		this.applicantName = applicantName;
 	}
 
 	public String getCaseReference() {

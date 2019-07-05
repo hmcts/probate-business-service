@@ -25,8 +25,9 @@ public class BulkScanCoverSheetTest {
     public static final String INVALID_BULK_SCAN_COVER_SHEET_JSON = "businessdocuments/invalidBulkScanCoverSheet.json";
     
     public static final String VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE = "20 White City\nLondon\nW12 7PD";
+    public static final String VALID_COVER_SHEET_APPLICANT_NAME_VALUE = "Joe Bloggs";
     public static final String VALID_COVER_SHEET_CASE_REFERENCE_VALUE = "1542-9021-4510-0350";
-    public static final String VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE = "Divorce Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS";
+    public static final String VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE = "Probate Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS";
     
     private ObjectMapper objectMapper;
 
@@ -52,9 +53,11 @@ public class BulkScanCoverSheetTest {
         assertThat(violations, is(empty()));
         assertThat(coverSheet.getTitle(), is(equalTo(BulkScanCoverSheet.DEFAULT_TITLE)));
         assertThat(coverSheet.getApplicantAddressIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_APPLICANT_ADDRESS_INTRO)));
+        assertThat(coverSheet.getApplicantNameIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_APPLICANT_NAME_INTRO)));
         assertThat(coverSheet.getCaseReferenceIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO)));
         assertThat(coverSheet.getSubmitAddressIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO)));
         assertThat(coverSheet.getApplicantAddress(), is(equalTo(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE)));
+        assertThat(coverSheet.getApplicantName(), is(equalTo(VALID_COVER_SHEET_APPLICANT_NAME_VALUE)));
         assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
         assertThat(coverSheet.getSubmitAddress(), is(equalTo(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE)));
     }
@@ -68,9 +71,11 @@ public class BulkScanCoverSheetTest {
         assertThat(violations, is(empty()));
         assertThat(coverSheet.getTitle(), is(equalTo("Cover Sheet")));
         assertThat(coverSheet.getApplicantAddressIntro(), is(equalTo("The applicants address")));
+        assertThat(coverSheet.getApplicantNameIntro(), is(equalTo("The applicants name")));
         assertThat(coverSheet.getCaseReferenceIntro(), is(equalTo("This is the Case Reference Number")));
         assertThat(coverSheet.getSubmitAddressIntro(), is(equalTo("This is the place to send the documents")));
         assertThat(coverSheet.getApplicantAddress(), is(equalTo(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE)));
+        assertThat(coverSheet.getApplicantName(), is(equalTo(VALID_COVER_SHEET_APPLICANT_NAME_VALUE)));
         assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
         assertThat(coverSheet.getSubmitAddress(), is(equalTo(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE)));
     }
@@ -81,7 +86,7 @@ public class BulkScanCoverSheetTest {
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
         assertThat(violations, is(not(empty())));
-        assertThat(violations.size(), is(equalTo(3)));
+        assertThat(violations.size(), is(equalTo(4)));
     }
     
     @Test

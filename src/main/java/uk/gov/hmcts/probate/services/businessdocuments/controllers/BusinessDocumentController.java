@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.probate.services.businessdocuments.model.LegalDeclaration;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
@@ -21,7 +22,6 @@ import javax.validation.Valid;
 public class BusinessDocumentController {
 
     private final PDFGenerationService pdfDocumentGenerationService;
-
 
     @PostMapping(path = "/generateCheckAnswersSummaryPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<byte[]> generateCheckAnswersSummaryPDF(@Valid @RequestBody CheckAnswersSummary checkAnswersSummary, @RequestHeader("ServiceAuthorization") String authorization) {
@@ -42,11 +42,21 @@ public class BusinessDocumentController {
     }
 
     @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<byte[]> generateBulkScanCoverSheertPDF(@Valid @RequestBody BulkScanCoverSheet coverSheet, @RequestHeader("ServiceAuthorization") String authorization) {
+    public ResponseEntity<byte[]> generateBulkScanCoverSheetPDF(@Valid @RequestBody BulkScanCoverSheet coverSheet, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateBulkScanCoverSheetPDF()");
 
         byte[] bytes = pdfDocumentGenerationService.generatePdf(coverSheet, DocumentType.BULK_SCAN_COVER_SHEET);
 
         return new ResponseEntity<> (bytes, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> exception(Exception ex) {
+        log.error("BusinessDocumentController failed to execute.", ex);
+        Throwable cause = ex.getCause();
+        if (cause != null) {
+            log.error("Cause: {}", cause.toString());
+        }
+        return new ResponseEntity<> ("", HttpStatus.BAD_REQUEST);
     }
 }
