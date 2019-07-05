@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import uk.gov.hmcts.probate.services.businessdocuments.model.BulkScanCoverSheet;
 import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
+import uk.gov.hmcts.probate.services.businessdocuments.model.LegalDeclaration;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
 
 import javax.validation.Valid;
