@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    propertiesvolume:
+      prefixed: false
+      paths: /mnt/secrets/probate
+      aliases:
+        probatePersistenceUrl: TEST_PERSISTENCE_URL
+        probateNotifyMobile: TEST_MOBILE
+        probate-notify-invite-apikey: PRO_SERVICES_NOTIFY_APIKEY
