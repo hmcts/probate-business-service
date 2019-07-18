@@ -1,4 +1,6 @@
 java:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
   environment:
     SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-aat.service.core-compute-aat.internal
     SERVICES_NOTIFY_INVITEDATA_INVITELINK : http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/
@@ -9,6 +11,10 @@ java:
     SERVICES_NOTIFY_INVITEDATA_TEMPLATEID: ${PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID}
     SERVICES_NOTIFY_PIN_TEMPLATEID: ${PRO_SERVICES_NOTIFY_PIN_TEMPLATEID}
     SERVICES_AUTH_PROVIDER_TOTP_SECRET: ${S2S_AUTH_TOTP_SECRET}
-  # Don't modify below here
-  image: ${IMAGE_NAME}
-  ingressHost: ${SERVICE_FQDN}
+  keyVaults:
+    "probate":
+      resourceGroup: probate
+      secrets:
+        - probatePersistenceUrl
+        - probateNotifyMobile
+        - probate-notify-invite-apikey
