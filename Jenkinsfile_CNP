@@ -15,7 +15,6 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('serviceAuthProviderBaseUrl', 'SERVICE_AUTH_PROVIDER_BASE_URL'),
     secret('s2sAuthTotpSecret', 'S2S_AUTH_TOTP_SECRET'),
     secret('probateUserAuthUrl', 'USER_AUTH_PROVIDER_OAUTH2_URL'),
-    secret('probateIdamOauthRedirectUrl', 'IDAM_OAUTH2_REDIRECT_URI'),
     secret('probateIdamSecret', 'IDAM_SECRET'),
     secret('probateIdamUserName', 'IDAM_USERNAME'),
     secret('probateIdamPassword', 'IDAM_USERPASSWORD')
