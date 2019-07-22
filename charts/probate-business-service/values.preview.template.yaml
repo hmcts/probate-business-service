@@ -18,3 +18,13 @@ java:
         - probatePersistenceUrl
         - probateNotifyMobile
         - probate-notify-invite-apikey
+        - business-services-notify-invitedata-templateId
+        - business-services-notify-pin-templateId
+        - pdfservice-url
+        - serviceAuthProviderBaseUrl
+        - s2sAuthTotpSecret
+        - probateUserAuthUrl
+        - probateIdamOauthRedirectUrl
+        - probateIdamSecret
+        - probateIdamUserName
+        - probateIdamPassword
