@@ -34,9 +34,13 @@ public class Invitation implements Serializable {
         return firstName;
     }
 
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
     public String getLastName() {
         return lastName;
     }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getFormdataId() {
         return formdataId;
@@ -50,9 +54,13 @@ public class Invitation implements Serializable {
         return executorName;
     }
 
+    public void setExecutorName(String executorName) { this.executorName = executorName; }
+
     public String getLeadExecutorName() {
         return leadExecutorName;
     }
+
+    public void setLeadExecutorName(String leadExecutorName) { this.leadExecutorName = leadExecutorName; }
 
     public String getPhoneNumber() {
         return phoneNumber;
