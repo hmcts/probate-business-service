@@ -1,8 +1,14 @@
 package uk.gov.hmcts.probate.services.invitation.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -31,10 +37,11 @@ public class InvitationController {
     private RestTemplate restTemplate;
 
     @RequestMapping(path = "/invite", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-    public String invite(@Valid @RequestBody Invitation invitation,
+    public String invite(@Valid @RequestBody Invitation encodedInvitation,
                          BindingResult bindingResult,
-                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException, UnsupportedEncodingException {
         LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
+        Invitation invitation = decodeURL(encodedInvitation);
 
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
@@ -43,6 +50,18 @@ public class InvitationController {
         String linkId = idGeneratorService.generate(data);
         invitationService.saveAndSendEmail(linkId, invitation);
         return linkId;
+    }
+
+    private Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
+        invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
+        invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
+        invitation.setLastName(decodeURLParam(invitation.getLastName()));
+        invitation.setLeadExecutorName(decodeURLParam(invitation.getLeadExecutorName()));
+        return invitation;
+    }
+
+    private String decodeURLParam(String URIParam) throws UnsupportedEncodingException {
+        return URLDecoder.decode(URIParam, StandardCharsets.UTF_8.toString());
     }
 
     @RequestMapping(path = "/invite/{inviteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
