@@ -10,6 +10,9 @@ import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,5 +65,17 @@ public class InvitationService {
         JsonNode declared = formdata.findPath("declarationCheckbox");
 
         return declared.asBoolean(false);
+    }
+
+    public Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
+        invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
+        invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
+        invitation.setLastName(decodeURLParam(invitation.getLastName()));
+        invitation.setLeadExecutorName(decodeURLParam(invitation.getLeadExecutorName()));
+        return invitation;
+    }
+
+    private String decodeURLParam(String URIParam) throws UnsupportedEncodingException {
+        return URLDecoder.decode(URIParam, StandardCharsets.UTF_8.toString());
     }
 }

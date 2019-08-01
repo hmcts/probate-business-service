@@ -41,7 +41,7 @@ public class InvitationController {
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException, UnsupportedEncodingException {
         LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
-        Invitation invitation = decodeURL(encodedInvitation);
+        Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
@@ -52,17 +52,6 @@ public class InvitationController {
         return linkId;
     }
 
-    private Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
-        invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
-        invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
-        invitation.setLastName(decodeURLParam(invitation.getLastName()));
-        invitation.setLeadExecutorName(decodeURLParam(invitation.getLeadExecutorName()));
-        return invitation;
-    }
-
-    private String decodeURLParam(String URIParam) throws UnsupportedEncodingException {
-        return URLDecoder.decode(URIParam, StandardCharsets.UTF_8.toString());
-    }
 
     @RequestMapping(path = "/invite/{inviteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     public String invite(@PathVariable("inviteId") String inviteId,
