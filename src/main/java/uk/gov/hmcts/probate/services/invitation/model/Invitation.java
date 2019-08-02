@@ -56,9 +56,7 @@ public class Invitation implements Serializable {
 
     public void setExecutorName(String executorName) { this.executorName = executorName; }
 
-    public String getLeadExecutorName() {
-        return leadExecutorName;
-    }
+    public String getLeadExecutorName() { return leadExecutorName; }
 
     public void setLeadExecutorName(String leadExecutorName) { this.leadExecutorName = leadExecutorName; }
 
