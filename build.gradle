@@ -155,7 +155,7 @@ processResources {
 }
 
 def versions = [
-    logging: '3.0.3'
+    logging: '5.0.1'
 ]
 
 dependencies {
