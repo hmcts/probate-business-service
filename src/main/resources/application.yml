@@ -63,7 +63,7 @@
     intrumentationkey: false
 
   azure:
-    app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
+    app_insights_key: ${AZURE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY:false}
 
   document_management:
     url: http://localhost:8383
