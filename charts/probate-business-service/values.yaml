@@ -3,4 +3,4 @@ java:
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: business-service
-  image: latest
+  image: hmctspublic.azurecr.io/probate/probate-business-service:latest
