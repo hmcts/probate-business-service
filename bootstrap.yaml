@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    propertiesvolume:
+      prefixed: false
+      paths: /mnt/secrets/probate
+      aliases:
+        probatePersistenceUrl: TEST_PERSISTENCE_URL
+        probateNotifyMobile: TEST_MOBILE
+        probate-notify-invite-apikey: PRO_SERVICES_NOTIFY_APIKEY
+        business-services-notify-invitedata-templateId: PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID
+        business-services-notify-pin-templateId: PRO_SERVICES_NOTIFY_PIN_TEMPLATEID
+        pdfservice-url: TEST_PDFSERVICE_URL
+        serviceAuthProviderBaseUrl: SERVICE_AUTH_PROVIDER_BASE_URL
+        s2sAuthTotpSecret: S2S_AUTH_TOTP_SECRET
+        probateUserAuthUrl: USER_AUTH_PROVIDER_OAUTH2_URL
+        probateIdamOauthRedirectUrl: IDAM_OAUTH2_REDIRECT_URI
+        probateIdamSecret: IDAM_SECRET
+        probateIdamUserName: IDAM_USERNAME
+        probateIdamPassword: IDAM_USERPASSWORD
