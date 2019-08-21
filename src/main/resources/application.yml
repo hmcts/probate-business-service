@@ -59,9 +59,6 @@
       pdfApi: /api/v2/pdf-generator/html
       templatesDirectory: templates/pdf/
 
-  appinsights:
-    intrumentationkey: false
-
   document_management:
     url: http://localhost:8383
     fileupload:
