@@ -58,7 +58,9 @@
       url: http://localhost:5500
       pdfApi: /api/v2/pdf-generator/html
       templatesDirectory: templates/pdf/
-
+  azure:
+    app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
+    
   document_management:
     url: http://localhost:8383
     fileupload:
