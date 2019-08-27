@@ -8,6 +8,7 @@ String component = "business-service"
 def secrets = [
   'probate-${env}': [
     secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
+    secret('probate-notify-invite-apikey', 'PRO_SERVICES_NOTIFY_APIKEY'),
     secret('probateNotifyMobile', 'TEST_MOBILE'),
     secret('business-services-notify-invitedata-templateId', 'PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID'),
     secret('business-services-notify-pin-templateId', 'PRO_SERVICES_NOTIFY_PIN_TEMPLATEID'),
