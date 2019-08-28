@@ -7,6 +7,7 @@ java:
     SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-aat.service.core-compute-aat.internal
     SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
+  aadIdentityName: probate
   keyVaults:
     "probate":
       resourceGroup: probate
@@ -16,3 +17,4 @@ java:
         - business-services-notify-pin-templateId
         - s2s-probate-backend
         - AppInsightsInstrumentationKey
+        

@@ -14,3 +14,4 @@ sonar-project.properties
 bin/
 out/
 .nb-gradle/
+.vscode

@@ -37,13 +37,13 @@
         <cve>CVE-2019-12814</cve>
     </suppress>
     <suppress>
-    <notes><![CDATA[
-   file name: tomcat-annotations-api-8.5.31.jar
-   https://github.com/spring-projects/spring-boot/issues/11110
-   ]]></notes>
-    <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
-    <cve>CVE-2016-5425</cve>
-  </suppress>
+      <notes><![CDATA[
+     file name: tomcat-annotations-api-8.5.31.jar
+     https://github.com/spring-projects/spring-boot/issues/11110
+     ]]></notes>
+      <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
+      <cve>CVE-2016-5425</cve>
+    </suppress>
 
     <suppress>
         <notes><![CDATA[
@@ -212,38 +212,31 @@
         <cve>CVE-2018-1000613</cve>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-   file name: jackson-databind-2.9.8.jar
-   ]]></notes>
-        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
-        <cve>CVE-2019-12384</cve>
+    <notes><![CDATA[
+    file name: jackson-databind-2.9.8.jar
+    ]]></notes>
+    <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+    <cpe>cpe:/a:fasterxml:jackson</cpe>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-   file name: jackson-databind-2.9.8.jar
-   ]]></notes>
-        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
-        <cve>CVE-2019-12814</cve>
+    <notes><![CDATA[
+    file name: jackson-databind-2.9.8.jar
+    ]]></notes>
+    <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+    <cpe>cpe:/a:fasterxml:jackson-databind</cpe>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-   file name: jackson-databind-2.9.8.jar
-   ]]></notes>
-        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
-        <cve>CVE-2019-14379</cve>
+    <notes><![CDATA[
+    file name: jackson-databind-2.9.8.jar
+    ]]></notes>
+    <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+    <cve>CVE-2019-14379</cve>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-   file name: jackson-databind-2.9.8.jar
-   ]]></notes>
-        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
-        <cve>CVE-2019-14439</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: tomcat-embed-core-9.0.17.jar
-   ]]></notes>
-        <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed-core:.*$</gav>
-        <cve>CVE-2019-10072</cve>
+    <notes><![CDATA[
+    file name: jackson-databind-2.9.8.jar
+    ]]></notes>
+    <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+    <cve>CVE-2019-14439</cve>
     </suppress>
 </suppressions>
