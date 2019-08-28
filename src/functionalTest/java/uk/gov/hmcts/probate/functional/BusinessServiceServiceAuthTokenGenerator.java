@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.functional.model.ClientAuthorizationCodeResponse;
 import uk.gov.hmcts.probate.functional.model.ClientAuthorizationResponse;
+import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class BusinessServiceServiceAuthTokenGenerator {
     private String baseServiceOauth2Url;
 
     @Autowired
-    private ServiceAuthTokenGenerator tokenGenerator;
+    private AuthTokenGenerator tokenGenerator;
 
     public String generateServiceToken() {
         return tokenGenerator.generate();

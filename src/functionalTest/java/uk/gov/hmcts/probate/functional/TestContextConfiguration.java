@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
+import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
+import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGeneratorFactory;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
 @Slf4j
@@ -19,7 +21,7 @@ import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 public class TestContextConfiguration {
 
     @Bean
-    public ServiceAuthTokenGenerator serviceAuthTokenGenerator(@Value("${service.auth.provider.base.url}") String s2sUrl,
+    public AuthTokenGenerator serviceAuthTokenGenerator(@Value("${service.auth.provider.base.url}") String s2sUrl,
                                                                @Value("${s2s-auth.totp_secret}") String secret,
                                                                @Value("${service.name}") String microservice) {
         final ServiceAuthorisationApi serviceAuthorisationApi = Feign.builder()
@@ -28,6 +30,6 @@ public class TestContextConfiguration {
                 .target(ServiceAuthorisationApi.class, s2sUrl);
         log.info("S2S URL: {}", s2sUrl);
         log.info("service.name: {}", microservice);
-        return new ServiceAuthTokenGenerator(secret, microservice, serviceAuthorisationApi);
+        return AuthTokenGeneratorFactory.createDefaultGenerator(secret, microservice, serviceAuthorisationApi);
     }
 }
