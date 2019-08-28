@@ -5,7 +5,8 @@
 String product = "probate"
 String component = "business-service"
 
-List<LinkedHashMap<String, Object>> secrets = [
+def secrets = [
+  'probate-${env}': [
     secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
     secret('probateNotifyMobile', 'TEST_MOBILE'),
     secret('probate-notify-invite-apikey', 'PRO_SERVICES_NOTIFY_APIKEY'),
@@ -19,6 +20,7 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('probateIdamSecret', 'IDAM_SECRET'),
     secret('probateIdamUserName', 'IDAM_USERNAME'),
     secret('probateIdamPassword', 'IDAM_USERPASSWORD')
+  ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -31,7 +33,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("java", product, component) {
-  setVaultName('probate')
+  //setVaultName('probate')
   enableDockerBuild()
   installCharts()
   loadVaultSecrets(secrets)
