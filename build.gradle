@@ -17,6 +17,7 @@ plugins {
 }
 
 apply plugin: 'org.sonarqube'
+apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 apply plugin: 'net.serenity-bdd.aggregator'
 
@@ -126,6 +127,19 @@ jacocoTestReport {
         csv.enabled = false
         xml.destination = file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
     }
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+
+findbugs{
+    ignoreFailures=true
+    reportLevel = "low"
 }
 
 repositories {
