@@ -2,6 +2,7 @@ spring:
   cloud:
     propertiesvolume:
       prefixed: false
+      enabled: true
       paths: /mnt/secrets/probate
       aliases:
         probate-notify-invite-apikey: SERVICES_NOTIFY_APIKEY
