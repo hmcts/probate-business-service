@@ -2,10 +2,11 @@ spring:
   cloud:
     propertiesvolume:
       prefixed: false
+      enabled: true
       paths: /mnt/secrets/probate
       aliases:
-        probate-notify-invite-apikey: SERVICES_NOTIFY_APIKEY
-        business-services-notify-invitedata-templateId: SERVICES_NOTIFY_INVITEDATA_TEMPLATEID
-        business-services-notify-pin-templateId: SERVICES_NOTIFY_PIN_TEMPLATEID
-        s2s-probate-backend: SERVICES_AUTH_PROVIDER_TOTP_SECRET
-        AppInsightsInstrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
+        probate-notify-invite-apikey: services.notify.apiKey
+        business-services-notify-invitedata-templateId: services.notify.invitedata.templateId
+        business-services-notify-pin-templateId: services.notify.pin.templateId
+        s2s-probate-backend: services.auth.provider.totp_secret
+        AppInsightsInstrumentationKey: azure.app_insights_key

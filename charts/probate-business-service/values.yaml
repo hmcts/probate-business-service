@@ -3,4 +3,13 @@ java:
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: business-service
+  keyVaults:
+    "probate":
+      resourceGroup: probate
+      secrets:
+        - probate-notify-invite-apikey
+        - business-services-notify-invitedata-templateId
+        - business-services-notify-pin-templateId
+        - s2s-probate-backend
+        - AppInsightsInstrumentationKey
   image: hmctspublic.azurecr.io/probate/probate-business-service:latest
