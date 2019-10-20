@@ -1,65 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ApplicationInsightsAgent>
-    <AgentLogger>INFO</AgentLogger>
-    <Instrumentation>
-        <BuiltIn enabled="true">
-            <HTTP enabled="true"/>
-        </BuiltIn>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.controllers.BusinessValidationController">
-            <Method name="validate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationError">
-            <Method name="getMessageSource" reportExecutionTime="true"/>
-            <Method name="setMessageSource" reportExecutionTime="true"/>
-            <Method name="generateError" reportExecutionTime="true"/>
-            <Method name="getMessageFromBundle" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationResponse">
-            <Method name="getErrors" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.validators.BusinessValidator">
-            <Method name="validateForm" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.validators.DobBeforeDodRule">
-            <Method name="validate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.businessvalidation.validators.NetIHTLessThanGrossRule">
-            <Method name="validate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService">
-            <Method name="generate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.idgeneration.strategy.ConstantStrategy">
-            <Method name="generate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.idgeneration.strategy.PinStrategy">
-            <Method name="generate" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.idgeneration.strategy.ProbateStrategy">
-            <Method name="generate" reportExecutionTime="true"/>
-            <Method name="generateUniqueString" reportCaughtExceptions="true" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.invitation.controllers.InvitationController">
-            <Method name="invite" reportExecutionTime="true"/>
-            <Method name="invitesAllAgreed" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.invitation.InvitationService">
-            <Method name="saveAndSendEmail" reportExecutionTime="true"/>
-            <Method name="createPersonalisation" reportExecutionTime="true"/>
-            <Method name="checkAllInvitedAgreed" reportExecutionTime="true"/>
-            <Method name="invitesAllAgreed" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.persistence.PersistenceClient">
-            <Method name="saveInviteData" reportExecutionTime="true"/>
-            <Method name="getInvitesByFormdataId" reportExecutionTime="true"/>
-            <Method name="checkMainApplicantAgreed" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.pin.controllers.PinController">
-            <Method name="invite" reportExecutionTime="true"/>
-        </Class>
-        <Class name="uk.gov.hmcts.probate.services.pin.PinService">
-            <Method name="generateAndSend" reportExecutionTime="true"/>
-            <Method name="createPersonalisation" reportExecutionTime="true"/>
-        </Class>
-    </Instrumentation>
+  <AgentLogger>INFO</AgentLogger>
+  <Instrumentation>
+    <BuiltIn enabled="true">
+      <HTTP enabled="true"/>
+      <JDBC enabled="true"/>
+    </BuiltIn>
+  </Instrumentation>
 </ApplicationInsightsAgent>
