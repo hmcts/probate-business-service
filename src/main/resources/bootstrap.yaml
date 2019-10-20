@@ -9,4 +9,4 @@ spring:
         business-services-notify-invitedata-templateId: services.notify.invitedata.templateId
         business-services-notify-pin-templateId: services.notify.pin.templateId
         s2s-probate-backend: services.auth.provider.totp_secret
-        AppInsightsInstrumentationKey: azure.app_insights_key
+        AppInsightsInstrumentationKey: azure.application-insights.instrumentation-key
