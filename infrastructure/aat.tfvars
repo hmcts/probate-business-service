@@ -15,4 +15,3 @@ evidence_management_host = "http://dm-store-aat.service.core-compute-aat.interna
 s2s_service_api = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 asp_name = "probate-aat"
 asp_rg = "probate-aat"
-

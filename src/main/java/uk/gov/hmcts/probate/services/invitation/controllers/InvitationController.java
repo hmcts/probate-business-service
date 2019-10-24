@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.services.invitation.controllers;
 
+import java.io.UnsupportedEncodingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class InvitationController {
     private RestTemplate restTemplate;
 
     @RequestMapping(path = "/invite", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-    public String invite(@Valid @RequestBody Invitation invitation,
+    public String invite(@Valid @RequestBody Invitation encodedInvitation,
                          BindingResult bindingResult,
-                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException, UnsupportedEncodingException {
         LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
+        Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
@@ -46,6 +48,7 @@ public class InvitationController {
         invitationService.sendEmail(linkId, invitation);
         return linkId;
     }
+
 
     @RequestMapping(path = "/invite/{inviteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     public String invite(@PathVariable("inviteId") String inviteId,
