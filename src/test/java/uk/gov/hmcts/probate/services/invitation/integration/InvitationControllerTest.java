@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.services.invitation.integration;
 
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +21,7 @@ import uk.gov.service.notify.NotificationClient;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -81,6 +77,17 @@ public class InvitationControllerTest {
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("king-michael-i")));
+    }
+
+
+    @Test
+    public void resendInvitation() throws Exception {
+        ResultActions resultActions = mockMvc.perform(post(SERVICE_URL +"/2321312312")
+                .header("Session-Id", "1234567890")
+                .content(utils.getJSONFromFile("invitation/success.json"))
+                .contentType(contentType))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("2321312312")));
     }
 
 }
