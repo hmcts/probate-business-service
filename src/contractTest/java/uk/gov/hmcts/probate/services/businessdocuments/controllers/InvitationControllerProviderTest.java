@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
         "server.port=8123", "spring.application.name=PACT_TEST",
         "services.pdf.service.url=http://localhost:989"
 })
-public class git InvitationControllerProviderTest extends ControllerProviderTest {
+public class InvitationControllerProviderTest extends ControllerProviderTest {
 
 
     @TestTarget
