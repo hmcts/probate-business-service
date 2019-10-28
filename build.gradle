@@ -202,7 +202,7 @@ dependencies {
     testFunctionalCompile sourceSets.main.runtimeClasspath
     testFunctionalCompile sourceSets.test.runtimeClasspath
 
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.7'
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
     testSmokeCompile sourceSets.main.runtimeClasspath
     testSmokeCompile sourceSets.test.runtimeClasspath
 }
