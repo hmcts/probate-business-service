@@ -12,7 +12,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'org.owasp.dependencycheck' version '5.0.0'
     id 'com.github.ben-manes.versions' version '0.15.0'
-    id 'com.gorylenko.gradle-git-properties' version '1.5.2'
+    id 'com.gorylenko.gradle-git-properties' version '2.2.0'
     id 'info.solidsoft.pitest' version '1.4.0'
     id 'au.com.dius.pact' version '3.5.24'
 }
