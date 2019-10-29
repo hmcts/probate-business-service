@@ -6,7 +6,6 @@ import uk.gov.hmcts.probate.services.idgeneration.strategy.IdGenerationStrategy;
 import java.util.Collections;
 import java.util.Map;
 
-@Component
 public class IdGeneratorService {
 
     private IdGenerationStrategy idGenerationStrategy;

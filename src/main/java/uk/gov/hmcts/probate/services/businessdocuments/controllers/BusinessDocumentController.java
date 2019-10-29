@@ -5,13 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.*;
-import uk.gov.hmcts.probate.services.businessdocuments.model.BulkScanCoverSheet;
-import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
-import uk.gov.hmcts.probate.services.businessdocuments.model.LegalDeclaration;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
+import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
+import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
+import uk.gov.hmcts.reform.probate.model.documents.LegalDeclaration;
 
 import javax.validation.Valid;
 
@@ -29,7 +33,7 @@ public class BusinessDocumentController {
 
         byte[] bytes = pdfDocumentGenerationService.generatePdf(checkAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
 
-        return new ResponseEntity<> (bytes, HttpStatus.OK);
+        return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
     @PostMapping(path = "/generateLegalDeclarationPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -38,7 +42,7 @@ public class BusinessDocumentController {
 
         byte[] bytes = pdfDocumentGenerationService.generatePdf(legalDeclaration, DocumentType.LEGAL_DECLARATION);
 
-        return new ResponseEntity<> (bytes, HttpStatus.OK);
+        return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
     @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -47,7 +51,7 @@ public class BusinessDocumentController {
 
         byte[] bytes = pdfDocumentGenerationService.generatePdf(coverSheet, DocumentType.BULK_SCAN_COVER_SHEET);
 
-        return new ResponseEntity<> (bytes, HttpStatus.OK);
+        return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)

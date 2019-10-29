@@ -1,18 +1,20 @@
+
 package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import uk.gov.hmcts.reform.probate.model.documents.BusinessDocument;
 
 @JsonRootName(value = "bulkScanCoverSheet")
 public class BulkScanCoverSheet implements BusinessDocument {
-		
+
 	public static final String DEFAULT_TITLE = "Download Cover Sheet";
 	public static final String DEFAULT_APPLICANT_NAME_INTRO = "Your name";
 	public static final String DEFAULT_APPLICANT_ADDRESS_INTRO = "Your address";
 	public static final String DEFAULT_CASE_REFERENCE_INTRO = "Your unique reference\nnumber is";
-	public static final String DEFAULT_SUBMIT_ADDRESS_INTRO = 
+	public static final String DEFAULT_SUBMIT_ADDRESS_INTRO =
 			"Please send this cover sheet along with your document(s) to the address shown below";
 
 	private static final char CASE_REFERENCE_SEPARATOR_CHAR = '-';
@@ -49,11 +51,11 @@ public class BulkScanCoverSheet implements BusinessDocument {
 	@NotBlank
     @JsonProperty("submitAddressIntro")
     private String submitAddressIntro = DEFAULT_SUBMIT_ADDRESS_INTRO;
-	
+
 	@NotBlank
     @JsonProperty("submitAddress")
     private String submitAddress;
-		
+
 	public String getTitle() {
 		return title;
 	}
@@ -125,7 +127,7 @@ public class BulkScanCoverSheet implements BusinessDocument {
 	public void setSubmitAddress(String submitAddress) {
 		this.submitAddress = submitAddress;
 	}
-	
+
 	private String addCaseReferenceHyphens(String number) {
 		number = number.replaceAll("[^\\d.]", "");
 		StringBuilder sb = new StringBuilder(number);
@@ -133,6 +135,6 @@ public class BulkScanCoverSheet implements BusinessDocument {
 		    sb.insert(((i + 1) * CASE_REFERENCE_SEPARATOR_INTERVAL_NUMBER) + i, CASE_REFERENCE_SEPARATOR_CHAR);
 		}
 
-		return sb.toString(); 
+		return sb.toString();
 	}
 }

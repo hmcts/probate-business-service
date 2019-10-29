@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.invitation.model.Invitation;
-import uk.gov.hmcts.probate.services.invitation.model.InviteData;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
+import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
+import uk.gov.hmcts.reform.probate.model.multiapplicant.InviteData;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -32,12 +32,7 @@ public class InvitationService {
     @Autowired
     private NotificationClient notificationClient;
 
-    public void saveAndSendEmail(String linkId, Invitation invitation) throws NotificationClientException {
-        persistenceClient.saveInviteData(new InviteData(linkId, invitation.getFormdataId(), invitation.getEmail(), invitation.getPhoneNumber(), invitation.getLeadExecutorName()));
-        notificationClient.sendEmail(templateId, invitation.getEmail(), createPersonalisation(linkId, invitation), linkId);
-    }
-
-    public void resendEmail(String linkId, Invitation invitation) throws NotificationClientException {
+    public void sendEmail(String linkId, Invitation invitation) throws NotificationClientException {
         notificationClient.sendEmail(templateId, invitation.getEmail(), createPersonalisation(linkId, invitation), linkId);
     }
 

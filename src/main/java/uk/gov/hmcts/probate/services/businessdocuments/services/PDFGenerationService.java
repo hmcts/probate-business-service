@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
-import uk.gov.hmcts.probate.services.businessdocuments.model.BusinessDocument;
 import uk.gov.hmcts.reform.pdf.service.client.PDFServiceClient;
+import uk.gov.hmcts.reform.probate.model.documents.BusinessDocument;
 
 import java.io.IOException;
 import java.util.HashMap;

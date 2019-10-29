@@ -72,9 +72,13 @@ variable "common_tags" {
   type = "map"
 }
 
-variable "asp_rg" {}
+variable "asp_rg" {
 
-variable "asp_name" {}
+}
+
+variable "asp_name" {
+  
+}
 
 variable "evidence_management_host" {
   type = "string"

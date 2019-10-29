@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.services.invitation.integration;
 
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +21,7 @@ import uk.gov.service.notify.NotificationClient;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -85,51 +81,13 @@ public class InvitationControllerTest {
 
 
     @Test
-    public void checkAllAgreed() throws Exception {
-        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("agreed", true));
-        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("declarationCheckbox", "true"));
-
-        ResultActions resultActions = mockMvc.perform(get("/invites/allAgreed/123")
+    public void resendInvitation() throws Exception {
+        ResultActions resultActions = mockMvc.perform(post(SERVICE_URL +"/2321312312")
                 .header("Session-Id", "1234567890")
-                .contentType(MediaType.TEXT_PLAIN))
+                .content(utils.getJSONFromFile("invitation/success.json"))
+                .contentType(contentType))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("true")));
+                .andExpect(content().string(containsString("2321312312")));
     }
 
-    @Test
-    public void checkInviteeNotAgreed() throws Exception {
-        final String AGREED = null;
-        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("agreed", AGREED));
-        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("declarationCheckbox", "true"));
-
-        ResultActions resultActions = mockMvc.perform(get("/invites/allAgreed/123")
-                .header("Session-Id", "1234567890")
-                .contentType(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("false")));
-    }
-
-    @Test
-    public void checkInviteeDisAgreed() throws Exception {
-        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("agreed", false));
-        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("declarationCheckbox", "false"));
-
-        ResultActions resultActions = mockMvc.perform(get("/invites/allAgreed/123")
-                .header("Session-Id", "1234567890")
-                .contentType(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("false")));
-    }
-
-    @Test
-    public void checkMainApplicantRedeclared() throws Exception {
-        when(persistenceClient.getInvitesByFormdataId(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode().put("agreed", true));
-        when(persistenceClient.getFormdata(any(String.class))).thenReturn(JsonNodeFactory.instance.objectNode());
-
-        ResultActions resultActions = mockMvc.perform(get("/invites/allAgreed/123")
-                .header("Session-Id", "1234567890")
-                .contentType(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("false")));
-    }
 }

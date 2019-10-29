@@ -6,10 +6,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
-import uk.gov.hmcts.probate.services.businessdocuments.model.BulkScanCoverSheet;
-import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
-import uk.gov.hmcts.probate.services.businessdocuments.model.LegalDeclaration;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
+import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
+import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
+import uk.gov.hmcts.reform.probate.model.documents.LegalDeclaration;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessDocumentControllerTest {

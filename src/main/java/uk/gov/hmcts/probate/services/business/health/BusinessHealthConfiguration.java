@@ -12,9 +12,6 @@ public class BusinessHealthConfiguration {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${services.persistence.baseUrl}")
-    private String servicePersistenceBaseUrl;
-
     @Value("${services.pdf.service.url}")
     private String pdfServiceBaseUrl;
 
@@ -26,11 +23,6 @@ public class BusinessHealthConfiguration {
 
     @Value("${document_management.url}")
     private String documentManagementHost;
-
-    @Bean
-    public BusinessHealthIndicator persistenceServiceHealthIndicator() {
-        return new BusinessHealthIndicator(servicePersistenceBaseUrl, restTemplate);
-    }
 
     @Bean
     public BusinessHealthIndicator pdfServiceHealthIndicator() {

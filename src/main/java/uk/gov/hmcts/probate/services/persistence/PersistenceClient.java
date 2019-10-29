@@ -8,7 +8,7 @@ import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.hmcts.probate.services.invitation.model.InviteData;
+import uk.gov.hmcts.reform.probate.model.multiapplicant.InviteData;
 
 @Component
 public class PersistenceClient {

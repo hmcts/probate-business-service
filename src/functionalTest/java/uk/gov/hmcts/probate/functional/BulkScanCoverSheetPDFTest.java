@@ -3,16 +3,8 @@ package uk.gov.hmcts.probate.functional;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
 
-import uk.gov.hmcts.probate.services.businessdocuments.model.BulkScanCoverSheet;
-import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
-import uk.gov.hmcts.probate.services.businessdocuments.model.QuestionAndAnswerRow;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 

@@ -42,6 +42,7 @@ public class BusinessApplication {
         SpringApplication.run(BusinessApplication.class, args);
     }
 
+
     @Bean
     List<ValidationRule> validationRules(@Autowired ValidationRule dobBeforeDodRule, @Autowired ValidationRule netIHTLessThanGrossRule) {
         List<ValidationRule> validationRules = new ArrayList<>();
@@ -57,7 +58,7 @@ public class BusinessApplication {
 
 
     @Bean
-    IdGeneratorService idGeneratorService() {
+    IdGeneratorService identityGeneratorService() {
         return new IdGeneratorService(new ProbateStrategy());
     }
 

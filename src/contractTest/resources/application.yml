@@ -4,7 +4,7 @@
 #      enabled: false
 
   server:
-    port: 8081
+    port: 8080
 
   management:
     endpoints:
@@ -15,7 +15,6 @@
     endpoint:
       health:
         show-details: always
-        enabled: true
 
   spring:
     application:
@@ -24,8 +23,6 @@
       basename: messages
       cache-seconds: -1
       encoding: UTF-8
-    main:
-      allow-bean-definition-overriding: true
 
     jackson:
       serialization:
@@ -61,6 +58,9 @@
 
   appinsights:
     intrumentationkey: false
+
+  azure:
+    app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
 
   document_management:
     url: http://localhost:8383

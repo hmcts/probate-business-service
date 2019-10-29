@@ -3,7 +3,7 @@ package uk.gov.hmcts.probate.functional;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import uk.gov.hmcts.probate.services.businessdocuments.model.CheckAnswersSummary;
+import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
 
 /**
  * Test class to compare the contents of the inbound JSON file against the content of the generated

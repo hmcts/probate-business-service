@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.FileSystemResource;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
+import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
+import uk.gov.hmcts.reform.probate.model.documents.QuestionAndAnswerRow;
+import uk.gov.hmcts.reform.probate.model.documents.Section;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
