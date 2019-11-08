@@ -1,3 +1,4 @@
+apiVersion: v1
 name: probate-business-service
 home: https://github.com/hmcts/probate-business-service
 version: 0.0.7
