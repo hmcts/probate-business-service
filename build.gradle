@@ -14,7 +14,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.15.0'
     id 'com.gorylenko.gradle-git-properties' version '1.5.2'
     id 'info.solidsoft.pitest' version '1.4.0'
-    id 'au.com.dius.pact' version '3.5.24'
+    id 'au.com.dius.pact' version '4.0.3'
 }
 
 apply plugin: 'org.sonarqube'
