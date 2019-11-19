@@ -213,7 +213,7 @@ dependencies {
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-core', version: '2.0.43'
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.0.43'
     testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '2.0.43'
-    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.0.43'
+    testFunctionalCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.0.84'
     testFunctionalCompile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
     testFunctionalCompile group: 'uk.gov.hmcts.reform', name: 'pdf-service-client', version: '6.0.0'
     testFunctionalCompile group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
