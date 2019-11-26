@@ -37,7 +37,7 @@ withPipeline("java", product, component) {
   installCharts()
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
-  
+
   disableLegacyDeployment()
   enableSlackNotifications('#probate-jenkins')
 
@@ -65,13 +65,6 @@ withPipeline("java", product, component) {
             reportDir            : "build/reports/jacoco",
             reportFiles          : "index.html",
             reportName           : "sol-ccd-service Code Coverage Report"
-    ]
-
-    publishHTML target: [
-            alwaysLinkToLastBuild: true,
-            reportDir            : "build/reports/findbugs",
-            reportFiles          : "main.html",
-            reportName           : "sol-ccd-service find Bugs Report"
     ]
   }
 
