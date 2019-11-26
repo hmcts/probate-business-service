@@ -29,7 +29,7 @@ public class BusinessDocumentController {
 
     private final PDFGenerationService pdfDocumentGenerationService;
 
-    @PostMapping(path = "/generateCheckAnswersSummaryPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateCheckAnswersSummaryPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateCheckAnswersSummaryPDF(@Valid @RequestBody CheckAnswersSummary checkAnswersSummary, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateCheckAnswersSummaryPDF()");
 
@@ -38,7 +38,7 @@ public class BusinessDocumentController {
         return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/generateLegalDeclarationPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateLegalDeclarationPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateLegalDeclarationPDF(@Valid @RequestBody LegalDeclaration legalDeclaration, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateLegalDeclarationPDF()");
 
@@ -47,7 +47,7 @@ public class BusinessDocumentController {
         return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateBulkScanCoverSheetPDF(@Valid @RequestBody BulkScanCoverSheet coverSheet, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateBulkScanCoverSheetPDF()");
 
