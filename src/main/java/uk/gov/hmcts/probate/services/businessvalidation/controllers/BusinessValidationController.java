@@ -1,11 +1,14 @@
 package uk.gov.hmcts.probate.services.businessvalidation.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import uk.gov.hmcts.probate.services.businessdocuments.exceptions.BusinessDocumentException;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationError;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationResponse;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationStatus;
@@ -18,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@Tag(name = "Validation Service")
 public class BusinessValidationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessValidationController.class);
@@ -44,5 +48,4 @@ public class BusinessValidationController {
 
         return new BusinessValidationResponse(BusinessValidationStatus.SUCCESS, fieldErrors, Collections.emptyList());
     }
-
 }

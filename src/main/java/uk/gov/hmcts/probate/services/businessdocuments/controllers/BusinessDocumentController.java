@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.services.businessdocuments.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping(value = "/businessDocument")
 @RestController
+@Tag(name = "Business Document Service")
 public class BusinessDocumentController {
 
     private final PDFGenerationService pdfDocumentGenerationService;
 
-    @PostMapping(path = "/generateCheckAnswersSummaryPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateCheckAnswersSummaryPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateCheckAnswersSummaryPDF(@Valid @RequestBody CheckAnswersSummary checkAnswersSummary, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateCheckAnswersSummaryPDF()");
 
@@ -36,7 +38,7 @@ public class BusinessDocumentController {
         return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/generateLegalDeclarationPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateLegalDeclarationPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateLegalDeclarationPDF(@Valid @RequestBody LegalDeclaration legalDeclaration, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateLegalDeclarationPDF()");
 
@@ -45,7 +47,7 @@ public class BusinessDocumentController {
         return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generateBulkScanCoverSheetPDF(@Valid @RequestBody BulkScanCoverSheet coverSheet, @RequestHeader("ServiceAuthorization") String authorization) {
         log.info("call to generateBulkScanCoverSheetPDF()");
 
