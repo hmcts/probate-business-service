@@ -48,11 +48,4 @@ public class BusinessValidationController {
 
         return new BusinessValidationResponse(BusinessValidationStatus.SUCCESS, fieldErrors, Collections.emptyList());
     }
-
-    @RequestMapping(path = "/exeption", method = RequestMethod.GET)
-    public ResponseEntity<String> validate() {
-
-       throw new BusinessDocumentException("");
-    }
-
 }
