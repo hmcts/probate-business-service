@@ -25,14 +25,14 @@ public class PDFServiceConfiguration {
     @Bean
     public PDFServiceClient pdfServiceClient(
             RestTemplate restTemplate,
-            ObjectMapper objectMapper,
-            AuthTokenGenerator authTokenGenerator) {
+            ObjectMapper objectMapper
+    ) {
 
         URI uri = URI.create(String.format("%s%s", getUrl(), getPdfApi()));
 
         return PDFServiceClient.builder()
                 .restOperations(restTemplate)
                 .objectMapper(objectMapper)
-                .build(authTokenGenerator::generate, uri);
+                .build(uri);
     }
 }

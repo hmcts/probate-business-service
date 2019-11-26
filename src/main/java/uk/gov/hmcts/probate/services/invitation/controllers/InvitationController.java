@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.services.invitation.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.UnsupportedEncodingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@Tag(name = "Invite Generation Service")
 public class InvitationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvitationController.class);

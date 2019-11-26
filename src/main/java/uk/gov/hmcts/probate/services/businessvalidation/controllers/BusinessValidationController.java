@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.services.businessvalidation.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@Tag(name = "Validation Service")
 public class BusinessValidationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessValidationController.class);
