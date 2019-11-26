@@ -1,6 +1,6 @@
 # Probate Business Service
 [![codecov](https://codecov.io/gh/hmcts/probate-business-service/branch/develop/graph/badge.svg)](https://codecov.io/gh/hmcts/probate-business-service)
-
+ 
 The probate business service provides useful business logic to thefrontend service and others via RESTful APIs.
 
 ## Getting Started
