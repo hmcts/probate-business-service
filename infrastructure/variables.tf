@@ -1,9 +1,10 @@
 // Infrastructural variables
-variable "product" {} //get from jenkins file
+variable "product" {}  //get from jenkins file
 
 variable "raw_product" {
   default = "probate" // jenkins-library overrides product for PRs and adds e.g. pr-118-cmc
 }
+
 
 variable "microservice" {
   default = "business-service"
@@ -17,7 +18,7 @@ variable "env" {
   type = "string"
 }
 
-variable "ilbIp" {}
+variable "ilbIp" { }
 
 variable "deployment_env" {
   type = "string"
@@ -29,7 +30,7 @@ variable "tenant_id" {
 
 variable "appinsights_instrumentation_key" {
   description = "Instrumentation key of the App Insights instance this webapp should use. Module will create own App Insights resource if this is not provided"
-  default     = ""
+  default = ""
 }
 
 variable "component" {
@@ -38,15 +39,13 @@ variable "component" {
 
 variable "subscription" {}
 
-variable "vault_section" {
-  type = "string"
-}
 
 // CNP settings
 variable "jenkins_AAD_objectId" {
-  type        = "string"
-  description = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
+  type                        = "string"
+  description                 = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
 }
+
 
 variable "business_services_persistence_baseUrl" {
   default = "/"
