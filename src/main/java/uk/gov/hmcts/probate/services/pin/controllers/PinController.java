@@ -55,7 +55,7 @@ public class PinController {
             LOGGER.error("Unable to validate phoneNumber parameter");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return ResponseEntity.ok(pinService.generateAndSend(phoneNumber, isBilingual));
+
     }
 
     @RequestMapping(path = "/pin/{phoneNumber}", method = RequestMethod.GET)

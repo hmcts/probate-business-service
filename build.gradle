@@ -195,6 +195,7 @@ dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-databind")
     implementation group: 'uk.gov.hmcts.reform.probate', name: 'probate-commons', version: '1.0.1_v2_Welsh_04'
 
+
     implementation 'org.springdoc:springdoc-openapi-ui:1.2.11'
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -235,4 +236,6 @@ bootJar {
         attributes 'Implementation-Title': project.name,
                 'Implementation-Version': project.version
     }
+
 }
+
