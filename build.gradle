@@ -195,7 +195,7 @@ dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-databind")
     implementation group: 'uk.gov.hmcts.reform.probate', name: 'probate-commons', version: '0.0.44'
 
-    implementation 'org.springdoc:springdoc-openapi-ui:1.2.11'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.2.22'
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude group: "com.vaadin.external.google", module:"android-json"
