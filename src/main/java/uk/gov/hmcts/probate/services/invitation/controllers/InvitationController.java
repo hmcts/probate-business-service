@@ -56,6 +56,7 @@ public class InvitationController {
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        sessionId = sessionId.replaceAll("[\n|\r|\t]", "_");
         LOGGER.info(processSessionId + sessionId + " : " + bindingResult.getFieldErrors());
         invitationService.sendEmail(inviteId, invitation, Boolean.FALSE);
         return inviteId;
