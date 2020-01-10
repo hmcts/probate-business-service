@@ -74,6 +74,7 @@ public class InvitationController {
     }
 
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId, Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+        sessionId = sessionId.replaceAll("[\n|\r|\t]", "_");
         LOGGER.info(processSessionId + sessionId + " : " + bindingResult.getFieldErrors());
         Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
