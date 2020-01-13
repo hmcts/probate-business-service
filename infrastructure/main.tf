@@ -62,6 +62,26 @@ data "azurerm_key_vault_secret" "business_services_notify_pin_bilingualTemplateI
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "business_services_notify_invitedata_bilingualTemplateId" {
+  name      = "business-services-notify-invitedata-bilingualTemplateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "business_services_notify_pin_bilingualTemplateId" {
+  name      = "business-services-notify-pin-bilingualTemplateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "business_services_notify_invitedata_bilingualTemplateId" {
+  name      = "business-services-notify-invitedata-bilingualTemplateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "business_services_notify_pin_bilingualTemplateId" {
+  name      = "business-services-notify-pin-bilingualTemplateId"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
 data "azurerm_key_vault_secret" "s2s_key" {
   name      = "microservicekey-probate-backend"
   key_vault_id = "${data.azurerm_key_vault.s2s_vault.id}"
