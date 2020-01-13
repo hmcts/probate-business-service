@@ -38,7 +38,6 @@ withPipeline("java", product, component) {
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
 
-  disableLegacyDeployment()
   enableSlackNotifications('#probate-jenkins')
 
   before('buildinfra:prod') {

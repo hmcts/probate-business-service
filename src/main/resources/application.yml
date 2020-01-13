@@ -3,7 +3,8 @@
 #    basic:
 #      enabled: false
 server:
-  port: 8081
+  port: 8080
+
 management:
   endpoints:
     web:
@@ -17,6 +18,7 @@ management:
   info:
     git:
       mode: full
+
 spring:
   application:
     name: probate-business-service
@@ -65,11 +67,13 @@ services:
       url: http://localhost:5500
       pdfApi: /api/v2/pdf-generator/html
       templatesDirectory: templates/pdf/
+
 document_management:
   url: http://localhost:5002
   fileupload:
     extensions: ".pdf .jpeg .jpg .bmp .tif .tiff .png"
     mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
+
 idam:
   s2s-auth:
     url: ${services.auth.provider.baseUrl}
