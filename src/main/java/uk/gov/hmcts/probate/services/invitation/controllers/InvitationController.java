@@ -55,7 +55,6 @@ public class InvitationController {
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
-        LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
         invitationService.sendEmail(inviteId, invitation, Boolean.FALSE);
         return inviteId;
     }
@@ -65,14 +64,12 @@ public class InvitationController {
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
-        LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
         invitationService.sendEmail(inviteId, invitation, Boolean.TRUE);
         return inviteId;
     }
 
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId, Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
-        LOGGER.info("Processing session id " + sessionId + " : " + bindingResult.getFieldErrors());
-        Invitation invitation = invitationService.decodeURL(encodedInvitation);
+       Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
