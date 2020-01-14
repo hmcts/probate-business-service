@@ -56,7 +56,8 @@ public class InvitationController {
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
-        LOGGER.info(SESSION_MSG + sessionId.replaceAll("[\n|\r|\t]", "_") + " : " + bindingResult.getFieldErrors());
+        sessionId = sessionId.replaceAll("[\n|\r|\t]", "_");
+        LOGGER.info(SESSION_MSG + sessionId + " : " + bindingResult.getFieldErrors());
         invitationService.sendEmail(inviteId, invitation, Boolean.FALSE);
         return inviteId;
     }
@@ -66,13 +67,15 @@ public class InvitationController {
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
-        LOGGER.info(SESSION_MSG + sessionId.replaceAll("[\n|\r|\t]", "_") + " : " + bindingResult.getFieldErrors());
+        sessionId = sessionId.replaceAll("[\n|\r|\t]", "_");
+        LOGGER.info(SESSION_MSG + sessionId + " : " + bindingResult.getFieldErrors());
         invitationService.sendEmail(inviteId, invitation, Boolean.TRUE);
         return inviteId;
     }
 
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId, Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
-        LOGGER.info(SESSION_MSG + sessionId.replaceAll("[\n|\r|\t]", "_") + " : " + bindingResult.getFieldErrors());
+        sessionId = sessionId.replaceAll("[\n|\r|\t]", "_");
+        LOGGER.info(SESSION_MSG + sessionId + " : " + bindingResult.getFieldErrors());
         Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
         Map<String, String> data = new HashMap<>();
