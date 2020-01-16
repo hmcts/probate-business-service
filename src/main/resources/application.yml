@@ -3,7 +3,7 @@
 #    basic:
 #      enabled: false
 server:
-  port: 8081
+  port: 8080
 management:
   endpoints:
     web:
