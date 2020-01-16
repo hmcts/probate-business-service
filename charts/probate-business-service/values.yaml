@@ -14,9 +14,7 @@ java:
       secrets:
         - probate-notify-invite-apikey
         - business-services-notify-invitedata-templateId
-        - business-services-notify-invitedata-bilingualTemplateId
         - business-services-notify-pin-templateId
-        - business-services-notify-pin-bilingualTemplateId
         - s2s-probate-backend
         - AppInsightsInstrumentationKey
   image: hmctspublic.azurecr.io/probate/probate-business-service:latest
