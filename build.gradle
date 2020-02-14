@@ -221,7 +221,7 @@ dependencies {
     testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
     testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
     testContractImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
-    testContractRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+    testContractRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
     testContractImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
