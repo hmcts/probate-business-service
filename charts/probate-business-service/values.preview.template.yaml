@@ -1,3 +1,10 @@
 java:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  keyVaults:
+    probate:
+      secrets:
+        - probate-notify-invite-apikey
+        - business-services-notify-invitedata-templateId
+        - business-services-notify-pin-templateId
+        - s2s-probate-backend

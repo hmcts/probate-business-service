@@ -1,5 +1,7 @@
 java:
   applicationPort: 8080
+  aadIdentityName: probate
+  ingressHost: probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: business-service
@@ -9,8 +11,7 @@ java:
     DOCUMENT_MANAGEMENT_URL : http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_NOTIFY_INVITEDATA_INVITELINK : https://probate.{{ .Values.global.environment }}.platform.hmcts.net/executors/invitation/
   keyVaults:
-    "probate":
-      resourceGroup: probate
+    probate:
       secrets:
         - probate-notify-invite-apikey
         - business-services-notify-invitedata-templateId

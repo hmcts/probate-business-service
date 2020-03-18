@@ -16,17 +16,12 @@ String component = "business-service"
 List<LinkedHashMap<String, Object>> secrets = [
     secret('probatePersistenceUrl', 'TEST_PERSISTENCE_URL'),
     secret('probateNotifyMobile', 'TEST_MOBILE'),
-    secret('probate-notify-invite-apikey', 'PRO_SERVICES_NOTIFY_APIKEY'),
-    secret('business-services-notify-invitedata-templateId', 'PRO_SERVICES_NOTIFY_INVITEDATA_TEMPLATEID'),
-    secret('business-services-notify-pin-templateId', 'PRO_SERVICES_NOTIFY_PIN_TEMPLATEID'),
     secret('pdfservice-url', 'TEST_PDFSERVICE_URL'),
     secret('serviceAuthProviderBaseUrl', 'SERVICE_AUTH_PROVIDER_BASE_URL'),
     secret('s2sAuthTotpSecret', 'S2S_AUTH_TOTP_SECRET'),
-    secret('probateUserAuthUrl', 'USER_AUTH_PROVIDER_OAUTH2_URL'),
-    secret('probateIdamOauthRedirectUrl', 'IDAM_OAUTH2_REDIRECT_URI'),
     secret('probateIdamSecret', 'IDAM_SECRET'),
     secret('probateIdamUserName', 'IDAM_USERNAME'),
-    secret('probateIdamPassword', 'IDAM_PASSWORD')
+    secret('probateIdamPassword', 'IDAM_USERPASSWORD')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
