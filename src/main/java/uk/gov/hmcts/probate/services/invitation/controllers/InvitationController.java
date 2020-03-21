@@ -34,9 +34,6 @@ public class InvitationController {
     @Autowired
     private InvitationService invitationService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @PostMapping(path = "/invite/bilingual", consumes = MediaType.APPLICATION_JSON)
     public String inviteBilingual(@Valid @RequestBody Invitation encodedInvitation,
                          BindingResult bindingResult,

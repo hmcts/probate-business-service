@@ -44,6 +44,9 @@
       pin:
         templateId: "c0e11486-b8b3-4c22-a1ae-805a0ad2f641"
         bilingualTemplateId: "724a2e58-f0fd-421d-986d-ad5c4b5a47c2"
+      applicationRecieved:
+        templateId: "7b2d1c2d-a9d7-4635-86e7-6d73d4bcb226"
+        bilingualTemplateId: "77ca3702-f4ca-4712-839a-6b0af90603cd"
 
     pdf:
       service:
