@@ -202,7 +202,7 @@ dependencies {
 
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.17'
 
-    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.0.89'
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.2.1'
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.0.89'
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '2.0.89'
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.0.89'
