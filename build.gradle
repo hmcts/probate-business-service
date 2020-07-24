@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.89")
+        classpath("net.serenity-bdd:serenity-single-page-report:2.1.4")      
     }
 }
 
@@ -134,6 +135,12 @@ task functional(type: Test) {
     finalizedBy aggregate
 }
 
+functional.finalizedBy(aggregate)
+
+serenity {
+  reports = ["single-page-html"]
+}
+
 task pactTask(type: Test) {
     description = "Runs pact Tests"
     testClassesDirs = sourceSets.testContract.output.classesDirs
@@ -165,7 +172,9 @@ repositories {
 }
 
 def versions = [
-    logging: '5.1.1'
+    logging: '5.1.1',
+    serenity                        : '2.0.89',
+    serenityreporter                : '2.1.4'
 ]
 
 ext["rest-assured.version"] = '4.1.2'
@@ -202,10 +211,11 @@ dependencies {
 
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.17'
 
-    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.0.89'
-    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.0.89'
-    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '2.0.89'
-    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.0.89'
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-junit', version: versions.serenity
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
+    testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-single-page-report', version: versions.serenityreporter
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     testFunctionalImplementation group: 'uk.gov.hmcts.reform', name: 'pdf-service-client', version: '7.0.0'
     testFunctionalImplementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'

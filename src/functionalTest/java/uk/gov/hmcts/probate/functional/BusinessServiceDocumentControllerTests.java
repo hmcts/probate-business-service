@@ -14,10 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.serenitybdd.rest.SerenityRest.given;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class)
 public class BusinessServiceDocumentControllerTests extends IntegrationTestBase {
 
     private static final String VALID_FILE_NAME = "valid_file.png";

@@ -1,6 +1,6 @@
 package uk.gov.hmcts.probate.functional;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Particular attention is applied to the CCD reference number, applicants address and registry 
  * values being correct in the PDF from test form data.
  */
-@RunWith(SerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class)
 public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverSheet> {
 
     private static final String BULK_SCAN_COVER_SHEET_PDF_URL = "/businessDocument/generateBulkScanCoverSheetPDF";

@@ -1,6 +1,6 @@
 package uk.gov.hmcts.probate.functional;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
@@ -13,7 +13,7 @@ import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
  * We concaternate the question and answer together before we look for the corresponding pdf string.
  * When we have a multi answer question we will look for all strings answers belonging to that question.
  */
-@RunWith(SerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class)
 public class CheckSummaryAnswerPDFTest extends PDFIntegrationBase<CheckAnswersSummary> {
 
     private static final String SIMPLE_SUMMARY = "checkAnswersSimpleSummary.json";

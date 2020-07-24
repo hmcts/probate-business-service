@@ -29,7 +29,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline("java", product, component) {
 
-  installCharts()
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
@@ -51,6 +50,14 @@ withPipeline("java", product, component) {
             reportFiles          : "index.html",
             reportName           : "sol-ccd-service Code Coverage Report"
     ]
+  }
+
+  after('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
+  }
+
+  after('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
   }
 
 }

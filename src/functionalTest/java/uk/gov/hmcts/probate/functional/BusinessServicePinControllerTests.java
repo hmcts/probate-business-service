@@ -1,7 +1,7 @@
 package uk.gov.hmcts.probate.functional;
 
 import io.restassured.response.Response;
-import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +9,9 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static io.restassured.RestAssured.given;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class)
 public class BusinessServicePinControllerTests extends IntegrationTestBase {
 
     private static final String SESSION_ID = "tom@email.com";
@@ -27,14 +28,14 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     }
 
     private void validatePinSuccess(String phoneNumber) {    	
-        SerenityRest.given().relaxedHTTPSValidation()
+        given().relaxedHTTPSValidation()
                 .headers(utils.getHeaders(SESSION_ID))
                 .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
                 .then().assertThat().statusCode(200);
     }
 
     private void validatePinFailure(String phoneNumber) {
-        Response response = SerenityRest.given().relaxedHTTPSValidation()
+        Response response = given().relaxedHTTPSValidation()
                 .headers(utils.getHeaders(SESSION_ID))
                 .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
                 .thenReturn();

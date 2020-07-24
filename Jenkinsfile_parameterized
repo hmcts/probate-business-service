@@ -58,12 +58,11 @@ withParameterizedPipeline('java', product, component, params.ENVIRONMENT, 'sandb
         ]
     }
 
-    after('functionalTest:saat') {
-        publishHTML target: [
-                reportDir            : "target/site/serenity/",
-                reportFiles          : "index.html",
-                reportName           : "SAAT Functional Tests",
-                alwaysLinkToLastBuild: true
-        ]
-    }
+  after('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
+  }
+
+  after('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
+  }
 }

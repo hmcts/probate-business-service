@@ -1,15 +1,15 @@
 package uk.gov.hmcts.probate.functional;
 
 import io.restassured.response.Response;
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.serenitybdd.rest.SerenityRest;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
+import io.restassured.RestAssured;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SpringIntegrationSerenityRunner.class)
 public class BusinessServiceBusinessValidationControllerTests extends IntegrationTestBase {
 
     private static final String SESSION_ID = "tom@email.com";
@@ -27,7 +27,7 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
     }
 
     private void validateSuccess(String sessionId, String jsonFileName) {
-        SerenityRest.given().relaxedHTTPSValidation()
+        RestAssured.given().relaxedHTTPSValidation()
                 .headers(utils.getHeaders(sessionId))
                 .body(utils.getJsonFromFile(jsonFileName))
                 .when().post(businessServiceUrl + "/validate")
@@ -35,7 +35,7 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
     }
 
     private void validateFailure(String jsonFileName, int errorCode, String errorMsg) {
-        Response response = SerenityRest.given().relaxedHTTPSValidation()
+        Response response = RestAssured.given().relaxedHTTPSValidation()
                 .headers(utils.getHeaders(SESSION_ID))
                 .body(utils.getJsonFromFile(jsonFileName))
                 .when().post(businessServiceUrl + "/validate")
