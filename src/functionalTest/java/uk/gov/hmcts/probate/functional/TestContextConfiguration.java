@@ -3,6 +3,8 @@ package uk.gov.hmcts.probate.functional;
 import feign.Feign;
 import feign.jackson.JacksonEncoder;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,8 @@ import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 @ComponentScan("uk.gov.hmcts.probate.functional")
 @PropertySource("file:src/functionalTest/resources/application.properties")
 public class TestContextConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(TestContextConfiguration.class);
 
     @Bean
     public ServiceAuthTokenGenerator serviceAuthTokenGenerator(@Value("${service.auth.provider.base.url}") String s2sUrl,

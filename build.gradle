@@ -101,6 +101,12 @@ tasks {
 
 sourceSets {
     testFunctional {
+      java {
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+        srcDir file('src/functionalTest/java')
+      }
+      resources.srcDir file('src/functionalTest/resources')
     }
 
     testSmoke {
@@ -226,6 +232,9 @@ dependencies {
     testSmokeImplementation sourceSets.main.runtimeClasspath
     testSmokeImplementation sourceSets.test.runtimeClasspath
 
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.2')
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'

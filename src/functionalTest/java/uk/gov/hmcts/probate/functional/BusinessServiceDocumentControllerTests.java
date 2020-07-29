@@ -2,7 +2,7 @@ package uk.gov.hmcts.probate.functional;
 
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
-import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;

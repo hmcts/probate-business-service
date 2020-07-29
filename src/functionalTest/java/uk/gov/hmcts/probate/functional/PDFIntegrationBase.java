@@ -2,8 +2,8 @@ package uk.gov.hmcts.probate.functional;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
-import net.serenitybdd.rest.SerenityRest;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -19,7 +19,7 @@ public abstract class PDFIntegrationBase<T> extends IntegrationTestBase {
      * Strip out any \n or spaces to make string evaluations easier
      */
      String pdfContentAsString(String JSONFileName, String documentURL) throws IOException {
-        ValidatableResponse response = SerenityRest.given().relaxedHTTPSValidation().headers(utils.getHeadersWithServiceToken())
+        ValidatableResponse response = RestAssured.given().relaxedHTTPSValidation().headers(utils.getHeadersWithServiceToken())
                 .body(utils.getJsonFromFile(JSONFileName))
                 .when().post(businessServiceUrl + documentURL)
                 .then().assertThat().statusCode(200);
