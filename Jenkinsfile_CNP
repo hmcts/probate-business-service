@@ -29,7 +29,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline("java", product, component) {
 
-  installCharts()
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
