@@ -32,8 +32,8 @@ group = 'uk.gov.hmcts.probate'
 version = "3.0.0"
 mainClassName = 'uk.gov.hmcts.probate.BusinessApplication'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 jacoco {
     toolVersion = '0.8.5'
