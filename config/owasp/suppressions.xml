@@ -124,6 +124,64 @@
 </suppress>
   <suppress>
     <notes><![CDATA[
+   file name: spring-core-5.2.1.RELEASE.jar
+   ]]></notes>
+    <gav regex="true">^org\.springframework:spring-core:.*$</gav>
+    <cve>CVE-2020-5397</cve>
+    <cve>CVE-2020-5398</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: spring-security-crypto-5.2.1.RELEASE.jar
+   ]]></notes>
+    <gav regex="true">^org\.springframework\.security:spring-security-crypto:.*$</gav>
+    <cpe>cpe:/a:pivotal_software:spring_security</cpe>
+    <cve>CVE-2018-1258</cve>
+    <cve>CVE-2020-5407</cve>
+    <cve>CVE-2020-5408</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: commons-beanutils-1.9.3.jar
+   ]]></notes>
+    <gav regex="true">^commons-beanutils:commons-beanutils:.*$</gav>
+    <cpe>cpe:/a:apache:commons_beanutils</cpe>
+    <cve>CVE-2019-10086</cve>
+     </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: tomcat-embed-websocket-9.0.27.jar
+   ]]></notes>
+    <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed-websocket:.*$</gav>
+    <cpe>cpe:/a:apache:tomcat</cpe>
+    <cpe>cpe:/a:java-websocket_project:java-websocket</cpe>
+    <cve>CVE-2019-12418</cve>
+    <cve>CVE-2020-1935</cve>
+    <cve>CVE-2020-13935</cve>
+    <cve>CVE-2020-13934</cve>
+    <cve>CVE-2020-11996</cve>
+    <cve>CVE-2019-17563</cve>
+    <cve>CVE-2020-1938</cve>
+    <cve>CVE-2020-8022</cve>
+    <cve>CVE-2020-9484</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: tomcat-embed-core-9.0.27.jar
+   ]]></notes>
+    <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed-core:.*$</gav>
+    <cpe>cpe:/a:apache:tomcat</cpe>
+    <cpe>cpe:/a:java-websocket_project:java-websocket</cpe>
+    <cve>CVE-2019-12418</cve>
+    <cve>CVE-2019-17563</cve>
+    <cve>CVE-2020-11996</cve>
+    <cve>CVE-2020-13934</cve>
+    <cve>CVE-2020-13935</cve>
+    <cve>CVE-2020-1938</cve>
+    <cve>CVE-2020-9484</cve>
+    </suppress>
+  <suppress>
+    <notes><![CDATA[
    file name: applicationinsights-logging-logback-2.5.0.jar
    ]]></notes>
     <gav regex="true">^com\.microsoft\.azure:applicationinsights-logging-logback:.*$</gav>
@@ -177,6 +235,7 @@
    ]]></notes>
     <gav regex="true">^com\.google\.guava:guava:.*$</gav>
     <cpe>cpe:/a:google:guava</cpe>
+    <cve>CVE-2018-10237</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
