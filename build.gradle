@@ -181,7 +181,7 @@ def versions = [
     logging: '5.1.1',
     serenity                        : '2.0.23',
     serenityreporter                : '2.1.4',
-    lombok                          : '1.18.8'
+    lombok                          : '1.18.12'
 ]
 
 ext["rest-assured.version"] = '4.1.2'
@@ -192,8 +192,9 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     implementation group: 'org.springframework.retry', name: 'spring-retry'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
@@ -228,6 +229,7 @@ dependencies {
     testFunctionalImplementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
     testFunctionalImplementation sourceSets.main.runtimeClasspath
     testFunctionalImplementation sourceSets.test.runtimeClasspath
+    testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group:'org.projectlombok', name: 'lombok', version: versions.lombok
 
     testImplementation group: 'io.rest-assured', name: 'rest-assured'
