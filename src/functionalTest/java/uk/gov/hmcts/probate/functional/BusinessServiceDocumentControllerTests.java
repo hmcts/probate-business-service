@@ -3,6 +3,7 @@ package uk.gov.hmcts.probate.functional;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
+import net.thucydides.core.annotations.Pending;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -30,6 +31,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldUploadValidDocument() throws IOException {
         final byte[] bytes = IOUtils.toByteArray(getClass().getResourceAsStream("/files/" + VALID_FILE_NAME));
 
@@ -45,6 +47,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldNotUploadInvalidDocument() throws IOException {
         final byte[] bytes = IOUtils.toByteArray(getClass().getResourceAsStream("/files/" + INVALID_FILE_NAME));
 
@@ -60,6 +63,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldThrowErrorWhenNoFilesArePosted() {
         given()
                 .relaxedHTTPSValidation()
@@ -88,6 +92,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldReturnServerErrorForInvalidCredentials() throws IOException {
         final byte[] bytes = IOUtils.toByteArray(getClass().getResourceAsStream("/files/valid_file.png"));
 
@@ -103,6 +108,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldReturn404ForInvalidUrlRoute() {
         given()
                 .relaxedHTTPSValidation()
@@ -114,6 +120,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldDeleteValidDocument() throws IOException {
         final byte[] bytes = IOUtils.toByteArray(getClass().getResourceAsStream("/files/" + VALID_FILE_NAME));
         List<String> urls = (ArrayList) given()
@@ -137,6 +144,7 @@ public class BusinessServiceDocumentControllerTests extends IntegrationTestBase 
     }
 
     @Test
+    @Pending
     public void shouldDeleteInvalidDocument() {
         given()
                 .relaxedHTTPSValidation()

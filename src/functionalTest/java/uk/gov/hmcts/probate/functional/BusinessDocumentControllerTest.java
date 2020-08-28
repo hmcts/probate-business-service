@@ -2,6 +2,7 @@ package uk.gov.hmcts.probate.functional;
 
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import io.restassured.RestAssured;
+import net.thucydides.core.annotations.Pending;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,6 +42,7 @@ public class BusinessDocumentControllerTest extends IntegrationTestBase {
 
 
     @Test
+    @Pending
     public void verifyValidLegalDeclarationJSONIsAccepted() {
         RestAssured.given().relaxedHTTPSValidation().headers(utils.getHeadersWithServiceToken())
                 .body(utils.getJsonFromFile(VALID_LEGAL_DEC_JSON))
