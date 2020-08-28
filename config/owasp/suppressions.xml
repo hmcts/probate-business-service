@@ -45,6 +45,14 @@
   </suppress>
   <suppress>
     <notes><![CDATA[
+   file name: snakeyaml-1.25.jar
+   ]]></notes>
+    <gav regex="true">^org\.yaml:snakeyaml:.*$</gav>
+    <cpe>snakeyaml_project:snakeyaml</cpe>
+    <cve>CVE-2017-18640</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
    file name: feign-jackson-10.2.0.jar
    ]]></notes>
     <gav regex="true">^io\.github\.openfeign:feign-jackson:.*$</gav>
