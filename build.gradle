@@ -178,16 +178,18 @@ repositories {
 }
 
 def versions = [
-    logging: '5.1.1',
-    serenity                        : '2.0.23',
-    serenityreporter                : '2.1.4',
-    lombok                          : '1.18.12'
+    logging               : '5.1.1',
+    serenity              : '2.0.23',
+    serenityreporter      : '2.1.4',
+    lombok                : '1.18.12'
+   
 ]
 
 ext["rest-assured.version"] = '4.1.2'
 ext["jackson-bom.version"] = '2.10.1'
 
 dependencies {
+    implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -218,6 +220,8 @@ dependencies {
     }
 
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.17'
+    testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-junit', version: versions.serenity
