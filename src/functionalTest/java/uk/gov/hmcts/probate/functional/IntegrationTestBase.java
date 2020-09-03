@@ -1,13 +1,12 @@
 package uk.gov.hmcts.probate.functional;
 
-import net.thucydides.junit.spring.SpringIntegration;
+import net.serenitybdd.junit.spring.integration.SpringIntegrationMethodRule;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringIntegrationSerenityRunner.class)
 @ContextConfiguration(classes = TestContextConfiguration.class)
@@ -27,7 +26,7 @@ public abstract class IntegrationTestBase {
                                              @Value("${probate.persistence.url}") String persistenceServiceUrl,
                                              @Value("${probate.pdfservice.url}") String pdfServiceUrl,
                                              @Value("${probate.notify.mobile}") String mobileNumber,
-                                             @Value("${probate.document_management.ur}") String documentManagementUrl) {
+                                             @Value("${probate.document_management.url}") String documentManagementUrl) {
         this.businessServiceUrl = businessServiceUrl;
         this.persistenceServiceUrl = persistenceServiceUrl;
         this.pdfServiceUrl = pdfServiceUrl;
@@ -36,9 +35,9 @@ public abstract class IntegrationTestBase {
     }
 
     @Rule
-    public SpringIntegration springIntegration;
+    public SpringIntegrationMethodRule springIntegration;
 
     IntegrationTestBase() {
-        this.springIntegration = new SpringIntegration();
+        this.springIntegration = new SpringIntegrationMethodRule();
     }
 }
