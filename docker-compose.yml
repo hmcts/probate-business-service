@@ -374,6 +374,20 @@ services:
       - service-auth-provider-api
       - dm-store
 
+  probate-business-service:
+    build:
+      context: .
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx400m
+      - SERVER_PORT=8081
+      - SPRING_APPLICATION_JSON={
+        "services.auth.provider.baseUrl":"http://service-auth-provider-api:8080",
+        "services.pdf.service.url":"http://pdf-service-api:5500",
+        "document_management.url":"http://dm-store:8080"
+        }
+    ports:
+      - 8081:8081
+
   probate-submit-service:
     image: hmctspublic.azurecr.io/probate/submit-service:latest
     environment:
