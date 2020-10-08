@@ -137,6 +137,7 @@
     <gav regex="true">^org\.springframework:spring-core:.*$</gav>
     <cve>CVE-2020-5397</cve>
     <cve>CVE-2020-5398</cve>
+    <cve>CVE-2020-5421</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
@@ -372,5 +373,16 @@
     <cve>CVE-2020-9546</cve>
     <cve>CVE-2020-9547</cve>
     <cve>CVE-2020-9548</cve>
+    <cve>CVE-2020-24750</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: spring-web-5.1.5.RELEASE.jar
+   ]]></notes>
+    <gav regex="true">^org\.springframework:spring-web:.*$</gav>
+    <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
+    <cve>CVE-2020-5398</cve>
+    <cve>CVE-2020-5421</cve>
+    <cve>CVE-2020-5397</cve>
   </suppress>
 </suppressions>
