@@ -3,7 +3,7 @@
 
 The probate business service provides useful business logic to thefrontend service and others via RESTful APIs.
 
-## Getting Started
+## Getting Started.
 ### Prerequisites
 - Java 8
 - Gradle
