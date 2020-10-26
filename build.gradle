@@ -178,6 +178,7 @@ repositories {
 }
 
 def versions = [
+    springBootVersion     : '2.3.4.RELEASE',
     logging               : '5.1.1',
     serenity              : '2.0.23',
     serenityreporter      : '2.1.4',
@@ -190,9 +191,9 @@ ext["jackson-bom.version"] = '2.10.1'
 
 dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
     implementation group: 'org.springframework.retry', name: 'spring-retry'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -245,7 +246,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.2')
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-    testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
     testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
     testContractImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
