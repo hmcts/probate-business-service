@@ -27,6 +27,9 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+//Pact Broker URL
+env.PACT_BROKER_FULL_URL = 'https://pact-broker.platform.hmcts.net'
+
 withPipeline("java", product, component) {
 
   loadVaultSecrets(secrets)
@@ -60,9 +63,9 @@ withPipeline("java", product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
   }
 
-//  onMaster() {
-//    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
-//  }
+  onMaster() {
+    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+  }
 
   onPR(){
     enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])

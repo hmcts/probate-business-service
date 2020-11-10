@@ -153,6 +153,10 @@ task pactTask(type: Test) {
     classpath = sourceSets.testContract.runtimeClasspath
 }
 
+pactTask.dependsOn contract
+
+pactTask.finalizedBy pactPublish
+
 
 pmd {
     toolVersion = "6.3.0"
