@@ -181,7 +181,9 @@ def versions = [
     logging               : '5.1.1',
     serenity              : '2.0.23',
     serenityreporter      : '2.1.4',
-    lombok                : '1.18.12'
+    lombok                : '1.18.12',
+    pact_version          : '4.1.7' // this is for PACT Consumer only . Provider points to 3.6.14
+
 
 ]
 
@@ -253,6 +255,13 @@ dependencies {
     testContractImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
+
+  // consumer pact - TBD - Pact Provider version and
+  testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
+  testContractImplementation group: 'au.com.dius.pact.consumer', name: 'java8', version: versions.pact_version
+  testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
+  testContractImplementation group: 'au.com.dius.pact.consumer', name: 'java8', version: versions.pact_version
+
 }
 
 bootJar {
