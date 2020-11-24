@@ -161,6 +161,7 @@
     <cve>CVE-2020-1938</cve>
     <cve>CVE-2020-8022</cve>
     <cve>CVE-2020-9484</cve>
+    <cve>CVE-2020-13943</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
