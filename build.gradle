@@ -253,7 +253,7 @@ dependencies {
     testSmokeImplementation sourceSets.test.runtimeClasspath
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.2')
 
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
@@ -264,7 +264,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'java8', version: versions.pact_version
 
-    testContractRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+    testContractRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testContractImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
