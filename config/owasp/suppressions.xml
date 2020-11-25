@@ -6,5 +6,66 @@
    ]]></notes>
     <cve>CVE-2020-15250</cve>
   </suppress>
-
+  <suppress>
+    <notes><![CDATA[
+   file name: commons-beanutils-1.9.3.jar
+   ]]></notes>
+    <gav regex="true">^commons-beanutils:commons-beanutils:.*$</gav>
+    <cve>CVE-2019-10086</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: guava-20.0.jar
+   ]]></notes>
+    <gav regex="true">^com\.google\.guava:guava:.*$</gav>
+    <cpe>cpe:/a:google:guava</cpe>
+    <cve>CVE-2018-10237</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jackson-databind-2.9.8.jar
+   ]]></notes>
+    <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+    <cpe>cpe:/a:fasterxml:jackson</cpe>
+    <cve>CVE-2019-12086</cve>
+    <cve>CVE-2019-12384</cve>
+    <cve>CVE-2019-12814</cve>
+    <cve>CVE-2019-14379</cve>
+    <cve>CVE-2019-14439</cve>
+    <cve>CVE-2019-14540</cve>
+    <cve>CVE-2019-14892</cve>
+    <cve>CVE-2019-14893</cve>
+    <cve>CVE-2019-16335</cve>
+    <cve>CVE-2019-16942</cve>
+    <cve>CVE-2019-16943</cve>
+    <cve>CVE-2019-17267</cve>
+    <cve>CVE-2019-17531</cve>
+    <cve>CVE-2019-20330</cve>
+    <cve>CVE-2020-10672</cve>
+    <cve>CVE-2020-10673</cve>
+    <cve>CVE-2020-10968</cve>
+    <cve>CVE-2020-10969</cve>
+    <cve>CVE-2020-11111</cve>
+    <cve>CVE-2020-11112</cve>
+    <cve>CVE-2020-11113</cve>
+    <cve>CVE-2020-11619</cve>
+    <cve>CVE-2020-11620</cve>
+    <cve>CVE-2020-14060</cve>
+    <cve>CVE-2020-14061</cve>
+    <cve>CVE-2020-14062</cve>
+    <cve>CVE-2020-14195</cve>
+    <cve>CVE-2020-24616</cve>
+    <cve>CVE-2020-24750</cve>
+    <cve>CVE-2020-8840</cve>
+    <cve>CVE-2020-9546</cve>
+    <cve>CVE-2020-9547</cve>
+    <cve>CVE-2020-9548</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: spring-security-crypto-5.3.4.RELEASE.jar
+   ]]></notes>
+    <gav regex="true">^org\.springframework\.security:spring-security-crypto:.*$</gav>
+    <cve>CVE-2018-1258</cve>
+  </suppress>
 </suppressions>
