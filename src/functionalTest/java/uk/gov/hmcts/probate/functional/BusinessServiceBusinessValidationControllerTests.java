@@ -1,6 +1,7 @@
 package uk.gov.hmcts.probate.functional;
 
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import io.restassured.RestAssured;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
+@Slf4j
 @RunWith(SpringIntegrationSerenityRunner.class)
 public class BusinessServiceBusinessValidationControllerTests extends IntegrationTestBase {
 
@@ -41,6 +43,7 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
                 .when().post(businessServiceUrl + "/validate")
                 .thenReturn();
 
+        log.info("XXXXXX"+response.getBody().asString());
         response.then().assertThat().statusCode(errorCode)
                 .and().body("error", equalTo("Bad Request"))
                 .and().body("message", containsString(errorMsg));
