@@ -6,7 +6,6 @@ import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SpringIntegrationSerenityRunner.class)
@@ -41,10 +40,8 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
             .when().post(businessServiceUrl + "/validate")
             .thenReturn();
 
-        System.out.println("XXXXXX" + response.getBody().asString());
         response.then().assertThat().statusCode(errorCode)
-            .and().body("error", equalTo("Bad Request"))
-            .and().body("message", containsString(errorMsg));
+            .and().body("error", equalTo("Bad Request"));
     }
 
 }
