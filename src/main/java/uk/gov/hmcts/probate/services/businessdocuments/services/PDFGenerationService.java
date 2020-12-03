@@ -49,7 +49,7 @@ public class PDFGenerationService {
         return pdfServiceClient.generateFromHtml(templateAsString.getBytes(), paramMap);
     }
 
-    private Map<String, Object> asMap(String placeholderValues) {
+    public  Map<String, Object> asMap(String placeholderValues) {
         try {
 
             ObjectMapper mappy = new ObjectMapper();
