@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
 @RunWith(SpringIntegrationSerenityRunner.class)
 public class BusinessServicePinControllerTests extends IntegrationTestBase {
@@ -15,7 +16,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
 
     @Test
     public void testInviteSuccess() {
-    	validatePinSuccess(mobileNumber);
+        validatePinSuccess(mobileNumber);
     }
 
     @Test
@@ -23,18 +24,71 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         validatePinFailure(INVALID_NUMBER);
     }
 
-    private void validatePinSuccess(String phoneNumber) {    	
+    private void validatePinSuccess(String phoneNumber) {
         given().relaxedHTTPSValidation()
-                .headers(utils.getHeaders(SESSION_ID))
-                .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
-                .then().assertThat().statusCode(200);
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .then().assertThat().statusCode(200);
     }
 
     private void validatePinFailure(String phoneNumber) {
         Response response = given().relaxedHTTPSValidation()
-                .headers(utils.getHeaders(SESSION_ID))
-                .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
-                .thenReturn();
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .thenReturn();
         response.then().assertThat().statusCode(400);
     }
+
+    @Test
+    public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
+            .then().assertThat().statusCode(500)
+            .body("message", containsString("phone_number Not enough digits"));
+    }
+
+    @Test
+    public void testInviteWithPhoneNumber() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/" + mobileNumber)
+            .then().assertThat().statusCode(200);
+    }
+
+    @Test
+    public void testInviteWithInvaidPhoneNumber() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/" + INVALID_NUMBER)
+            .then().assertThat().statusCode(500)
+            .body("message", containsString("phone_number Must not contain letters or symbols"));
+    }
+
+    @Test
+    public void testInvitebilingual() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + mobileNumber)
+            .then().assertThat().statusCode(200);
+    }
+
+    @Test
+    public void testInvitebilingualWithInvalidPhoneNumber() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + INVALID_NUMBER)
+            .then().assertThat().statusCode(400);
+    }
+
+    @Test
+    public void testInviteBilingualPhoneNumberWithNoEnoughDigits() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + 34)
+            .then().assertThat().statusCode(500)
+            .body("message", containsString("phone_number Not enough digits"));
+    }
+
+
 }

@@ -30,7 +30,7 @@ public class PinControllerTest {
     private static final String TEST_UK_PHONE_NUMBER = "(0)7700900111";
     private static final String TEST_INT_PHONE_NUMBER = "%2B447700900111";
     private static final String TEST_BAD_PHONE_NUMBER = "$447700900111";
-    private static final String TEST_LARGE_PHONE_NUMBER = "%2B10900111000111000111";
+    private static final String TEST_LARGE_PHONE_NUMBER = "%2B109001110001110";
 
     private MediaType contentType = new MediaType(MediaType.TEXT_PLAIN.getType(),
             MediaType.TEXT_PLAIN.getSubtype(),
