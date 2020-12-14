@@ -45,7 +45,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
             .then().assertThat().statusCode(500)
-            .body("message", containsString("phone_number Not enough digits"));
+            .and().body(containsString("phone_number Not enough digits"));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/" + INVALID_NUMBER)
             .then().assertThat().statusCode(500)
-            .body("message", containsString("phone_number Must not contain letters or symbols"));
+            .and().body(containsString("phone_number Must not contain letters or symbols"));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + 34)
             .then().assertThat().statusCode(500)
-            .body("message", containsString("phone_number Not enough digits"));
+            .and().body(containsString("phone_number Not enough digits"));
     }
 
 
