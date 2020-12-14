@@ -89,4 +89,11 @@
     <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat\.embed/tomcat\-embed\-websocket@.*$</packageUrl>
     <cve>CVE-2020-17527</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: tomcat-embed-core-9.0.39.jar
+   ]]></notes>
+    <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed-core:.*$</gav>
+    <cve>CVE-2020-17527</cve>
+  </suppress>
 </suppressions>
