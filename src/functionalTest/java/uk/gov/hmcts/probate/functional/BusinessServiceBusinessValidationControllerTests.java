@@ -1,11 +1,12 @@
 package uk.gov.hmcts.probate.functional;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
+import io.restassured.RestAssured;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SpringIntegrationSerenityRunner.class)
@@ -27,21 +28,22 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
 
     private void validateSuccess(String sessionId, String jsonFileName) {
         RestAssured.given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(sessionId))
-            .body(utils.getJsonFromFile(jsonFileName))
-            .when().post(businessServiceUrl + "/validate")
-            .then().assertThat().statusCode(200);
+                .headers(utils.getHeaders(sessionId))
+                .body(utils.getJsonFromFile(jsonFileName))
+                .when().post(businessServiceUrl + "/validate")
+                .then().assertThat().statusCode(200);
     }
 
     private void validateFailure(String jsonFileName, int errorCode, String errorMsg) {
         Response response = RestAssured.given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .body(utils.getJsonFromFile(jsonFileName))
-            .when().post(businessServiceUrl + "/validate")
-            .thenReturn();
+                .headers(utils.getHeaders(SESSION_ID))
+                .body(utils.getJsonFromFile(jsonFileName))
+                .when().post(businessServiceUrl + "/validate")
+                .thenReturn();
 
         response.then().assertThat().statusCode(errorCode)
-            .and().body("error", equalTo("Bad Request"));
+                .and().body("error", equalTo("Bad Request"))
+                .and().body("message", containsString(errorMsg));
     }
 
 }
