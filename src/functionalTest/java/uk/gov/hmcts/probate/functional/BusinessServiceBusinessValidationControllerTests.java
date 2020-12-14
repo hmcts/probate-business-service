@@ -3,6 +3,7 @@ package uk.gov.hmcts.probate.functional;
 import io.restassured.response.Response;
 import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
 import io.restassured.RestAssured;
+import net.thucydides.core.annotations.Pending;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,6 +23,7 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
     }
 
     @Test
+    @Pending
     public void testValidateFailure() {
         validateFailure(INVALID_JSON_FILE_NAME, 400, "JSON parse error");
     }
