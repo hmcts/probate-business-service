@@ -23,7 +23,6 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
     }
 
     @Test
-    @Pending
     public void testValidateFailure() {
         validateFailure(INVALID_JSON_FILE_NAME, 400, "JSON parse error");
     }

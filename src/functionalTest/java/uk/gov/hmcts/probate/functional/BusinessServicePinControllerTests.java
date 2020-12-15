@@ -40,7 +40,6 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         response.then().assertThat().statusCode(400);
     }
 
-    @Pending
     @Test
     public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
         given().relaxedHTTPSValidation()
@@ -58,7 +57,6 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .then().assertThat().statusCode(200);
     }
 
-    @Pending
     @Test
     public void testInviteWithInvaidPhoneNumber() {
         given().relaxedHTTPSValidation()
@@ -84,7 +82,6 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .then().assertThat().statusCode(400);
     }
 
-    @Pending
     @Test
     public void testInviteBilingualPhoneNumberWithNoEnoughDigits() {
         given().relaxedHTTPSValidation()

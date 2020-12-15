@@ -56,7 +56,6 @@ public class BusinessServiceInvitationControllerTests extends IntegrationTestBas
     }
 
     @Test
-    @Pending
     public void testInviteResendFailure() {
         validateInviteResendFailure("invalid_id", "emptyInviteData.json");
     }
