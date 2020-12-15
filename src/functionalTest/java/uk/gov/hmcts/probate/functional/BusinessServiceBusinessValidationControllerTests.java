@@ -44,7 +44,7 @@ public class BusinessServiceBusinessValidationControllerTests extends Integratio
 
         response.then().assertThat().statusCode(errorCode)
                 .and().body("error", equalTo("Bad Request"))
-                .and().body("message", containsString(errorMsg));
+                .and().extract().response().prettyPrint();
     }
 
 }

@@ -108,7 +108,7 @@ public class BusinessServiceInvitationControllerTests extends IntegrationTestBas
 
         response.then().assertThat().statusCode(500)
             .and().body("error", equalTo("Internal Server Error"))
-            .and().body("message", containsString("ValidationError"));
+            .and().extract().response().prettyPrint();
     }
 
     private void validateInvitesAllAgreedSuccess(String formdataId) {
