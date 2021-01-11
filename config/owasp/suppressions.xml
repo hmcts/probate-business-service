@@ -20,6 +20,7 @@
     <gav regex="true">^com\.google\.guava:guava:.*$</gav>
     <cpe>cpe:/a:google:guava</cpe>
     <cve>CVE-2018-10237</cve>
+    <cve>CVE-2020-8908</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
@@ -60,6 +61,11 @@
     <cve>CVE-2020-9546</cve>
     <cve>CVE-2020-9547</cve>
     <cve>CVE-2020-9548</cve>
+    <cve>CVE-2020-24750</cve>
+    <cve>CVE-2020-25649</cve>
+    <cve>CVE-2020-35490</cve>
+    <cve>CVE-2020-35491</cve>
+    <cve>CVE-2020-35728</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
@@ -102,5 +108,12 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson\-databind@.*$</packageUrl>
     <vulnerabilityName>CVE-2020-25649</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: bcprov-jdk15on-1.60.jar
+   ]]></notes>
+    <gav regex="true">^org\.bouncycastle:bcprov-jdk15on:.*$</gav>
+    <cve>CVE-2020-26939</cve>
   </suppress>
 </suppressions>
