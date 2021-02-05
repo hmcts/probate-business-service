@@ -253,7 +253,7 @@ dependencies {
     testSmokeImplementation sourceSets.main.runtimeClasspath
     testSmokeImplementation sourceSets.test.runtimeClasspath
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.2')
 
@@ -261,7 +261,7 @@ dependencies {
     testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
     testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
-    testContractImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
+    testContractImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'java8', version: versions.pact_version
 
