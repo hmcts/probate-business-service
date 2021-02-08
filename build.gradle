@@ -207,7 +207,7 @@ dependencies {
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.15.1-RELEASE'
     implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.logging
-    implementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
+    implementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '4.0.0'
     implementation group: 'uk.gov.hmcts.reform', name: 'pdf-service-client', version: '7.0.0'
     implementation group: 'uk.gov.hmcts.reform', name: 'document-management-client', version: '6.0.0'
     implementation group: 'uk.gov.hmcts.reform', name: 'health-spring-boot-starter', version: '0.0.5'
