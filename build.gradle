@@ -209,7 +209,7 @@ dependencies {
     implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.logging
     implementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
     implementation group: 'uk.gov.hmcts.reform', name: 'pdf-service-client', version: '7.0.0'
-    implementation group: 'uk.gov.hmcts.reform', name: 'document-management-client', version: '6.0.0'
+    implementation group: 'uk.gov.hmcts.reform', name: 'document-management-client', version: '7.0.0'
     implementation group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: '0.0.4'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.4.10'
