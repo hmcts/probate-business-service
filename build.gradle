@@ -205,7 +205,7 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
-    implementation group: 'com.google.guava', name: 'guava', version: '30.1-jre'
+    implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.15.1-RELEASE'
