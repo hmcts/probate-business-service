@@ -231,7 +231,7 @@ dependencies {
     implementation group: 'org.pitest', name: 'pitest', version: '1.4.10'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.6.0'
     implementation 'org.codehaus.sonar-plugins:sonar-pitest-plugin:0.5'
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: '1.2.0'
     implementation 'org.springdoc:springdoc-openapi-ui:1.5.8'
 
