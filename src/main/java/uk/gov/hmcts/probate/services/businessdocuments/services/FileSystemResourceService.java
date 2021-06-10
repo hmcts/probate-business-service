@@ -28,7 +28,7 @@ public class FileSystemResourceService {
         return Optional.ofNullable(ins)
             .map(in -> {
                 FileOutputStream out = null;
-                try {
+                try (ins) {
                     File tempFile =
                         File.createTempFile(String.valueOf(in.hashCode()), ".html", secureDir);
                     secureDir.deleteOnExit();
@@ -39,13 +39,6 @@ public class FileSystemResourceService {
                 } catch (IOException e) {
                     log.error("File system [ {} ] could not be found", resourcePath, e);
                     throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, e);
-                } finally {
-                    if (out != null) {
-                        safeClose(out);
-                    }
-                    if (ins != null) {
-                        safeCloseInputStream(in);
-                    }
                 }
             });
     }
@@ -63,23 +56,4 @@ public class FileSystemResourceService {
         throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, null);
     }
 
-    private void safeClose(FileOutputStream out) {
-        if (out != null) {
-            try {
-                out.close();
-            } catch (IOException e) {
-                log.error("Error occurred during closing FileOutStream", e);
-            }
-        }
-    }
-
-    private void safeCloseInputStream(InputStream in) {
-        if (in != null) {
-            try {
-                in.close();
-            } catch (IOException e) {
-                log.error("Error occurred during closing InputStream", e);
-            }
-        }
-    }
 }
