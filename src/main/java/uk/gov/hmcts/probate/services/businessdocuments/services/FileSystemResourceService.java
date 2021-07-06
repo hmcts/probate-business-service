@@ -46,9 +46,7 @@ public class FileSystemResourceService {
         if (fileSystemResource.isPresent()) {
             try {
                 return FileUtils.readFileToString(fileSystemResource.get().getFile(), Charset.defaultCharset());
-            } catch (IOException|NullPointerException e) {
-                throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, e);
-            } catch ( e) {
+            } catch (IOException | NullPointerException e) {
                 throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, e);
             }
         }
