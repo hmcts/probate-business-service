@@ -48,6 +48,8 @@ public class FileSystemResourceService {
                 return FileUtils.readFileToString(fileSystemResource.get().getFile(), Charset.defaultCharset());
             } catch (IOException e) {
                 throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, e);
+            } catch (NullPointerException e) {
+                throw new FileSystemException(BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND, e);
             }
         }
         log.error("File system [ {} ] could not be found", fileSystemResource);
