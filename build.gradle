@@ -191,7 +191,7 @@ ext["jackson-bom.version"] = '2.10.1'
 dependencyManagement {
   dependencies {
     //CVE-2020-26939
-    dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.68'
+    dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.69'
 
     //CVE-2020-15250
     dependency group: 'junit', name: 'junit', version: '4.13.2'
