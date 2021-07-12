@@ -16,4 +16,8 @@
     <cpe>cpe:/a:pivotal_software:spring</cpe>
     <cve>CVE-2021-22118</cve>
   </suppress>
+  <suppress>
+    <notes> json-smart-2.3.jar</notes>
+    <cve>CVE-2021-27568</cve>
+  </suppress>
 </suppressions>
