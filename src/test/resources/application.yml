@@ -71,3 +71,15 @@
       mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
 
   idam.s2s-auth.url: ${services.auth.provider.baseUrl}
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          base-path: /
+          include: "*"
+    endpoint:
+      health:
+        show-details: always
+        enabled: true
+
