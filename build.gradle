@@ -201,7 +201,7 @@ dependencyManagement {
     dependency group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
     //CVE-2021-22112
-    dependencySet(group: 'org.springframework.security', version: '5.4.7') {
+    dependencySet(group: 'org.springframework.security', version: '5.5.1') {
       entry 'spring-security-crypto'
     }
 
@@ -226,7 +226,7 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: versions.springBootVersion
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.1'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.3'
     implementation group: 'org.springframework.retry', name: 'spring-retry'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
