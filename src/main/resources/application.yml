@@ -9,8 +9,8 @@ management:
   endpoints:
     web:
       exposure:
-        base-path: /
-        include: "*"
+        include: health,info,liveness
+      base-path: /
   endpoint:
     health:
       show-details: always
