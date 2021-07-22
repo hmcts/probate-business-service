@@ -183,11 +183,10 @@ def versions = [
         tomcat           : '9.0.50',
         pact_version     : '4.1.11',
         springCloud      : '3.0.3',
-        junit_jupiter    : '5.7.1',
-        restAssured      : '4.4.0'
+        junit_jupiter    : '5.7.1'
 ]
 
-ext["rest-assured.version"] = '4.1.2'
+ext["rest-assured.version"] = '4.4.0'
 ext["jackson-bom.version"] = '2.10.1'
 
 dependencyManagement {
@@ -300,7 +299,6 @@ dependencies {
 
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
-    testSmokeCompile group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
 }
 
 bootJar {
