@@ -73,11 +73,11 @@
   idam.s2s-auth.url: ${services.auth.provider.baseUrl}
 
   management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-        base-path: /
+  endpoints:
+    web:
+      base-path: "/"
+      exposure:
+        include: "*"
     endpoint:
       health:
         show-details: always
