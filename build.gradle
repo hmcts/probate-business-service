@@ -248,7 +248,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.4'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.12.4'
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: '1.2.3'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 
     implementation(group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat) {
         force = true
