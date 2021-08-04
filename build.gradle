@@ -261,6 +261,7 @@ dependencies {
         exclude group: "com.vaadin.external.google", module: "android-json"
     }
 
+    testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.24'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -310,6 +311,12 @@ bootJar {
 
 project.ext {
     pactVersion = getCheckedOutGitCommitHash()
+}
+
+task fortifyScan(type: JavaExec)  {
+  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  classpath += sourceSets.test.runtimeClasspath
+  jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
 
 task runAndPublishConsumerPactTests(type: Test) {
