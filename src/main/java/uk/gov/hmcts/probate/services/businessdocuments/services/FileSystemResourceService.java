@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
+@SuppressWarnings("squid:S5443")
 public class FileSystemResourceService {
 
     public static final String BUSINESS_DOCUMENT_TEMPLATE_COULD_NOT_BE_FOUND =
