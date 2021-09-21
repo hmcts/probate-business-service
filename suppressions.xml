@@ -1,31 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-  <suppress until="2030-01-01">
-    <notes><![CDATA[
-         Suppressing as it's a false positive (see: https://pivotal.io/security/cve-2018-1258)
-        ]]></notes>
-    <filePath regex="true">.*spring-security-(crypto)-5\.4\.7\.jar</filePath>
-    <cpe>cpe:/a:pivotal_software:spring_security</cpe>
-    <cve>CVE-2018-1258</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-         Suppressing as it's a false positive
-        ]]></notes>
-    <filePath regex="true">.*spring-(aop|beans|context|expression|jcl|oxm|webmvc|web|core)-5\.2\.9\.RELEASE\.jar</filePath>
-    <cpe>cpe:/a:pivotal_software:spring</cpe>
-    <cve>CVE-2021-22118</cve>
-  </suppress>
-  <suppress>
-    <notes> json-smart-2.3.jar</notes>
-    <cve>CVE-2021-27568</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-         Suppressing untill spring boot update
-        ]]></notes>
-    <filePath regex="true">.*jakarta.el-3.0.3.jar</filePath>
-    <cpe>cpe:/a:jakarta_expression_language</cpe>
-    <cve>CVE-2021-28170</cve>
-  </suppress>
 </suppressions>

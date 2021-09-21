@@ -22,6 +22,9 @@ management:
 spring:
   application:
     name: probate-business-service
+  config:
+      import: "optional:configtree:/mnt/secrets/probate/"
+
   messages:
     basename: messages
     cache-seconds: -1
