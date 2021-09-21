@@ -249,7 +249,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.4")
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.4'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.12.4'
-    implementation group: 'com.github.hmcts', name: 'probate-commons', version: '1.2.3'
+    implementation group: 'com.github.hmcts', name: 'probate-commons', version: '1.2.4'
     implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
 
     implementation(group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat) {
@@ -262,6 +262,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test:$versions.springBootVersion") {
         exclude group: "com.vaadin.external.google", module: "android-json"
     }
+
+    testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.24'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -311,6 +313,12 @@ bootJar {
 
 project.ext {
     pactVersion = getCheckedOutGitCommitHash()
+}
+
+task fortifyScan(type: JavaExec)  {
+  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  classpath += sourceSets.test.runtimeClasspath
+  jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
 
 task runAndPublishConsumerPactTests(type: Test) {
