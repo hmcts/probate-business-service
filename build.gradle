@@ -187,11 +187,15 @@ def versions = [
 
 ext["rest-assured.version"] = '4.1.2'
 ext["jackson-bom.version"] = '2.10.1'
+ext['junit-jupiter.version'] = '5.8.1'
 
 dependencyManagement {
   dependencies {
     //CVE-2020-26939
     dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.69'
+
+    //CVE-2020-15250
+    dependency group: 'junit', name: 'junit', version: '4.13.2'
 
     // CVE-2021-29425
     dependency group: 'commons-io', name: 'commons-io', version: '2.11.0'
