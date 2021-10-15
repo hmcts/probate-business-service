@@ -4,7 +4,9 @@ java:
   keyVaults:
     probate:
       secrets:
-        - probate-notify-invite-apikey
-        - business-services-notify-invitedata-templateId
-        - business-services-notify-pin-templateId
-        - s2s-probate-backend
+        - name: business-services-notify-invitedata-templateId
+          alias: services.notify.invitedata.templateId
+        - name: business-services-notify-pin-templateId
+          alias: services.notify.pin.templateId
+        - name: s2s-probate-backend
+          alias: services.auth.provider.totp_secret
