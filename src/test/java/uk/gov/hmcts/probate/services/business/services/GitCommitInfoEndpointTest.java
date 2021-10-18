@@ -23,8 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {
-    "spring.info.git.location=classpath:uk/gov/hmcts/probate/services/business/git-test.properties",
-    "management.endpoints.web.exposure.include=info"})
+    "spring.info.git.location=classpath:uk/gov/hmcts/probate/services/business/git-test.properties"})
 public class GitCommitInfoEndpointTest {
 
     private static final String EXPECTED_COMMIT_ID_INFO_RESPONSE = "0773f12";
