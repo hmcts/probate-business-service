@@ -175,7 +175,7 @@ repositories {
 }
 
 def versions = [
-        springBootVersion: '2.5.4',
+        springBootVersion: '2.5.5',
         logging          : '5.1.7',
         serenity         : '2.5.8',
         serenityreporter : '2.5.8',
@@ -197,6 +197,9 @@ dependencyManagement {
 
     // CVE-2021-29425
     dependency group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+    // CVE-2021-22096
+    dependency group: 'org.springframework', name: 'spring-core', version: '5.2.18'
 
     //CVE-2021-22112
     dependencySet(group: 'org.springframework.security', version: '5.5.1') {
