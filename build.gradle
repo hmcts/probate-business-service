@@ -9,7 +9,7 @@ plugins {
     id 'application'
     id 'pmd'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.5.5'
+    id 'org.springframework.boot' version '2.5.6'
     id 'uk.gov.hmcts.java' version '0.12.12'
     id 'com.github.ben-manes.versions' version '0.39.0'
     id 'com.gorylenko.gradle-git-properties' version '2.3.1'
@@ -175,7 +175,7 @@ repositories {
 }
 
 def versions = [
-        springBootVersion: '2.5.4',
+        springBootVersion: '2.5.6',
         logging          : '5.1.7',
         serenity         : '2.5.8',
         serenityreporter : '2.5.8',
