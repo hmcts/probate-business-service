@@ -9,7 +9,7 @@ plugins {
     id 'application'
     id 'pmd'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.5.6'
+    id 'org.springframework.boot' version '2.5.9'
     id 'uk.gov.hmcts.java' version '0.12.12'
     id 'com.github.ben-manes.versions' version '0.39.0'
     id 'com.gorylenko.gradle-git-properties' version '2.3.1'
@@ -175,12 +175,12 @@ repositories {
 }
 
 def versions = [
-        springBootVersion: '2.5.6',
+        springBootVersion: '2.5.9',
         logging          : '5.1.7',
         serenity         : '2.5.8',
         serenityreporter : '2.5.8',
         lombok           : '1.18.12',
-        tomcat           : '9.0.54',
+        tomcat           : '9.0.58',
         pact_version     : '4.1.11',
         springCloud      : '3.0.3',
         junit_jupiter    : '5.8.0-M1',
@@ -209,7 +209,7 @@ configurations.all {
   resolutionStrategy {
     eachDependency { DependencyResolveDetails details ->
       if (details.requested.group in ['org.apache.logging.log4j']) {
-        details.useVersion '2.16.0'
+        details.useVersion '2.17.1'
       }
     }
   }
