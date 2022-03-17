@@ -10,6 +10,7 @@ java:
     SERVICES_PERSISTENCE_BASEURL: http://probate-persistence-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     DOCUMENT_MANAGEMENT_URL : http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_NOTIFY_INVITEDATA_INVITELINK : https://probate.{{ .Values.global.environment }}.platform.hmcts.net/executors/invitation/
+    IDAM_SERVICE_HOST: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
   keyVaults:
     probate:
       secrets:
