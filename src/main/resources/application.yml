@@ -80,3 +80,5 @@ document_management:
 idam:
   s2s-auth:
     url: ${services.auth.provider.baseUrl}
+  api:
+    url: ${IDAM_SERVICE_HOST:http://localhost:5000}

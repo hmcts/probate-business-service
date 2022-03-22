@@ -25,7 +25,8 @@ import java.util.List;
 
 @SpringBootApplication
 @Configuration
-@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.document", "uk.gov.hmcts.reform.authorisation"})
+@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform",
+    "uk.gov.hmcts.reform.document", "uk.gov.hmcts.reform.authorisation"})
 @EnableAutoConfiguration(exclude = {DocumentManagementClientAutoConfiguration.class})
 @PropertySource(value = "git.properties", ignoreResourceNotFound = true)
 @OpenAPIDefinition(
