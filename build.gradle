@@ -268,7 +268,7 @@ dependencies {
     testFunctionalImplementation sourceSets.test.runtimeClasspath
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
-    testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: version.jacksonDatabind
+    testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
 
 
     testImplementation group: 'io.rest-assured', name: 'rest-assured'
