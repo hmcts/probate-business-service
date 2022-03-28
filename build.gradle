@@ -184,7 +184,7 @@ def versions = [
 ]
 
 ext["rest-assured.version"] = '4.4.0'
-ext["jackson-bom.version"] = '2.13.2.1'
+ext["jackson-bom.version"] = '2.13.2'
 
 dependencyManagement {
   dependencies {
