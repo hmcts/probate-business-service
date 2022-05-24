@@ -2,6 +2,10 @@ java:
   applicationPort: 8080
   aadIdentityName: probate
   ingressHost: probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  autoscaling:
+    enabled: true
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: business-service
