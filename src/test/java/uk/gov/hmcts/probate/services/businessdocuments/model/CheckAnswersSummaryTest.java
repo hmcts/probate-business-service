@@ -2,8 +2,8 @@ package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
 import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
@@ -18,12 +18,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CheckAnswersSummaryTest {
 
@@ -34,7 +30,7 @@ public class CheckAnswersSummaryTest {
     private FileSystemResourceService fileSystemResourceService;
     private Validator validator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -49,24 +45,24 @@ public class CheckAnswersSummaryTest {
         Optional<FileSystemResource> optional = getFile(VALID_CHECK_ANSWERS_SUMMARY_JSON);
         CheckAnswersSummary checkAnswerSummary =
             objectMapper.readValue(optional.get().getFile(), CheckAnswersSummary.class);
-        assertThat(checkAnswerSummary, is(notNullValue()));
+        assertNotNull(checkAnswerSummary);
         Set<ConstraintViolation<CheckAnswersSummary>> violations = validator.validate(checkAnswerSummary);
-        assertThat(violations, is(empty()));
+        assertEquals(0, violations.size());
 
-        assertThat(checkAnswerSummary.getPageTitle(), is(equalTo("page title")));
-        assertThat(checkAnswerSummary.getMainParagraph(), is(equalTo("main paragraph")));
+        assertEquals("page title", checkAnswerSummary.getPageTitle());
+        assertEquals("main paragraph", checkAnswerSummary.getMainParagraph());
 
         Section section = checkAnswerSummary.getSections().get(0);
-        assertThat(section.getTitle(), is(equalTo("section title")));
-        assertThat(section.getType(), is(equalTo("heading-medium")));
+        assertEquals("section title", section.getTitle());
+        assertEquals("heading-medium", section.getType());
 
         QuestionAndAnswerRow row = section.getQuestionsAndAnswers().get(0);
-        assertThat(row.getQuestion(), is(equalTo("question 1")));
-        assertThat(row.getAnswers().get(0), is(equalTo("answer 1")));
+        assertEquals("question 1", row.getQuestion());
+        assertEquals("answer 1", row.getAnswers().get(0));
 
         row = section.getQuestionsAndAnswers().get(1);
-        assertThat(row.getQuestion(), is(equalTo("question 2")));
-        assertThat(row.getAnswers().get(0), is(equalTo("not answered")));
+        assertEquals("question 2", row.getQuestion());
+        assertEquals("not answered", row.getAnswers().get(0));
     }
 
     @Test
@@ -75,8 +71,7 @@ public class CheckAnswersSummaryTest {
         CheckAnswersSummary checkAnswerSummary =
             objectMapper.readValue(optional.get().getFile(), CheckAnswersSummary.class);
         Set<ConstraintViolation<CheckAnswersSummary>> violations = validator.validate(checkAnswerSummary);
-        assertThat(violations, is(not(empty())));
-        assertThat(violations.size(), is(equalTo(2)));
+        assertEquals(2, violations.size());
     }
 
     private Optional<FileSystemResource> getFile(String fileName) {

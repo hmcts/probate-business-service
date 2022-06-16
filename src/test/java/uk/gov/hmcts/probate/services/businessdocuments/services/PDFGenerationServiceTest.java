@@ -2,12 +2,12 @@ package uk.gov.hmcts.probate.services.businessdocuments.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestOperations;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
@@ -16,10 +16,11 @@ import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.reform.pdf.service.client.PDFServiceClient;
 import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class PDFGenerationServiceTest {
 
     @Mock
@@ -44,7 +45,7 @@ public class PDFGenerationServiceTest {
 
     private String someJSON = "{\"test\":\"json\"}";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         try {
             when(objectMapper.writeValueAsString(Mockito.any(CheckAnswersSummary.class))).thenReturn(someJSON);
@@ -58,23 +59,27 @@ public class PDFGenerationServiceTest {
         when(fileSystemResourceService.getFileFromResourceAsString(Mockito.anyString())).thenReturn("templateAsString");
     }
 
-    @Test(expected = PDFGenerationException.class)
+    @Test
     public void shouldCatchJsonProcessingExceptionAndRethrowAsPDFGenerationException() throws Exception {
         try {
             when(objectMapper.writeValueAsString(Mockito.any(CheckAnswersSummary.class))).thenReturn("");
-            byte[] pdfInBytes =
-                pdfGenerationService.generatePdf(mockCheckAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
+            assertThrows(PDFGenerationException.class, () -> {
+                byte[] pdfInBytes =
+                    pdfGenerationService.generatePdf(mockCheckAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
+            });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
 
-    @Test(expected = FileSystemException.class)
+    @Test
     public void shouldThrowFileSystemException() throws Exception {
         when(fileSystemResourceService.getFileFromResourceAsString(Mockito.anyString()))
             .thenThrow(new FileSystemException("File System Exception"));
-        byte[] pdfInBytes =
-            pdfGenerationService.generatePdf(mockCheckAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
+        assertThrows(FileSystemException.class, () -> {
+            byte[] pdfInBytes =
+                pdfGenerationService.generatePdf(mockCheckAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
+        });
     }
 
     @Test

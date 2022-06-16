@@ -1,7 +1,7 @@
 package uk.gov.hmcts.probate.handlers;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.HttpHeaders;
@@ -15,8 +15,8 @@ import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationE
 import uk.gov.hmcts.probate.services.businessdocuments.model.ErrorResponse;
 import uk.gov.hmcts.reform.pdf.service.client.exception.PDFServiceClientException;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 public class BusinessExceptionHandlerTest {
@@ -41,9 +41,9 @@ public class BusinessExceptionHandlerTest {
     @InjectMocks
     private BusinessExceptionHandler businessExceptionHandler;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        initMocks(this);
+        openMocks(this);
     }
 
     @Test

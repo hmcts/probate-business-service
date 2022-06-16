@@ -1,21 +1,20 @@
 package uk.gov.hmcts.probate.services.businessvalidation.validators;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationError;
 import uk.gov.hmcts.probate.services.businessvalidation.model.FormData;
 import uk.gov.hmcts.probate.services.businessvalidation.model.InheritanceTax;
 
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class NetIHTValueLessThanGrossRuleTest {
 
     @Mock
@@ -23,7 +22,7 @@ public class NetIHTValueLessThanGrossRuleTest {
     private FormData formData;
     private NetIHTLessThanGrossRule netIHTLessThanGrossRule;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         netIHTLessThanGrossRule = new NetIHTLessThanGrossRule(businessValidationError);
         formData = new FormData();
@@ -38,7 +37,7 @@ public class NetIHTValueLessThanGrossRuleTest {
 
         Optional<BusinessValidationError> validationError = netIHTLessThanGrossRule.validate(formData);
 
-        assertThat(validationError.isPresent(), is(false));
+        assertEquals(false, validationError.isPresent());
     }
 
     @Test
@@ -52,7 +51,7 @@ public class NetIHTValueLessThanGrossRuleTest {
 
         Optional<BusinessValidationError> validationError = netIHTLessThanGrossRule.validate(formData);
 
-        validationError.ifPresent(error -> assertThat(error, is(businessValidationError)));
+        validationError.ifPresent(error -> assertEquals(businessValidationError, error));
     }
 
     @Test
@@ -62,6 +61,6 @@ public class NetIHTValueLessThanGrossRuleTest {
 
         Optional<BusinessValidationError> validationError = netIHTLessThanGrossRule.validate(formData);
 
-        assertThat(validationError.isPresent(), is(false));
+        assertEquals(false, validationError.isPresent());
     }
 }

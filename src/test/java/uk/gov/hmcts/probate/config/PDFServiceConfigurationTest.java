@@ -1,18 +1,16 @@
 package uk.gov.hmcts.probate.config;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.pdf.service.client.PDFServiceClient;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class PDFServiceConfigurationTest {
 
@@ -24,14 +22,14 @@ public class PDFServiceConfigurationTest {
 
     @Test
     public void shouldInstantiatePdfServiceClass() {
-        assertThat(pdfServiceClient, is(notNullValue()));
+        assertNotNull(pdfServiceClient);
     }
 
     @Test
     public void shouldSetPDFGenerationServiceProperties() {
-        assertThat(pdfServiceConfiguration.getTemplatesDirectory(), equalTo("templates/pdf/"));
-        assertThat(pdfServiceConfiguration.getUrl(), equalTo("http://localhost:5500"));
-        assertThat(pdfServiceConfiguration.getPdfApi(), equalTo("/api/v2/pdf-generator/html"));
+        assertEquals("templates/pdf/", pdfServiceConfiguration.getTemplatesDirectory());
+        assertEquals("http://localhost:5500", pdfServiceConfiguration.getUrl());
+        assertEquals("/api/v2/pdf-generator/html", pdfServiceConfiguration.getPdfApi());
 
     }
 

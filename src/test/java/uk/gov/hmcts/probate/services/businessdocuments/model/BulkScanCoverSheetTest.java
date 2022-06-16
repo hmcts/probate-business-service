@@ -2,8 +2,8 @@ package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
 import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
@@ -17,13 +17,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BulkScanCoverSheetTest {
 
@@ -49,7 +44,7 @@ public class BulkScanCoverSheetTest {
     private FileSystemResourceService fileSystemResourceService;
     private Validator validator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -63,46 +58,45 @@ public class BulkScanCoverSheetTest {
     public void shouldCreateACoverSheetInstance() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
-        assertThat(coverSheet, is(notNullValue()));
+        assertNotNull(coverSheet);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
-        assertThat(violations, is(empty()));
-        assertThat(coverSheet.getTitle(), is(equalTo(BulkScanCoverSheet.DEFAULT_TITLE)));
-        assertThat(coverSheet.getApplicantAddressIntro(),
-            is(equalTo(BulkScanCoverSheet.DEFAULT_APPLICANT_ADDRESS_INTRO)));
-        assertThat(coverSheet.getApplicantNameIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_APPLICANT_NAME_INTRO)));
-        assertThat(coverSheet.getCaseReferenceIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO)));
-        assertThat(coverSheet.getSubmitAddressIntro(), is(equalTo(BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO)));
-        assertThat(coverSheet.getApplicantAddress(), is(equalTo(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE)));
-        assertThat(coverSheet.getApplicantName(), is(equalTo(VALID_COVER_SHEET_APPLICANT_NAME_VALUE)));
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
-        assertThat(coverSheet.getSubmitAddress(), is(equalTo(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE)));
-        assertEquals(coverSheet.getCheckListItems().get(0).getText(), VALID_COVER_SHEET_CHECKLIST_TEXT);
-        assertEquals(coverSheet.getCheckListItems().get(0).getType(), CheckListItemType.TEXT_ONLY);
-        assertEquals(coverSheet.getCheckListItems().get(1).getText(), VALID_COVER_SHEET_CHECKLIST_TEXT);
-        assertEquals(coverSheet.getCheckListItems().get(1).getType(), CheckListItemType.TEXT_WITH_LINK);
-        assertEquals(coverSheet.getCheckListItems().get(1).getUrl(), VALID_COVER_SHEET_CHECKLIST_URL);
-        assertEquals(coverSheet.getCheckListItems().get(1).getBeforeLinkText(),
-            VALID_COVER_SHEET_CHECKLIST_BEFORE_LINK_TEXT);
-        assertEquals(coverSheet.getCheckListItems().get(1).getAfterLinkText(),
-            VALID_COVER_SHEET_CHECKLIST_AFTER_LINK_TEXT);
+        assertEquals(0, violations.size());
+        assertEquals(BulkScanCoverSheet.DEFAULT_TITLE, coverSheet.getTitle());
+        assertEquals(BulkScanCoverSheet.DEFAULT_APPLICANT_ADDRESS_INTRO, coverSheet.getApplicantAddressIntro());
+        assertEquals(BulkScanCoverSheet.DEFAULT_APPLICANT_NAME_INTRO, coverSheet.getApplicantNameIntro());
+        assertEquals(BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO, coverSheet.getCaseReferenceIntro());
+        assertEquals(BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO, coverSheet.getSubmitAddressIntro());
+        assertEquals(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE, coverSheet.getApplicantAddress());
+        assertEquals(VALID_COVER_SHEET_APPLICANT_NAME_VALUE, coverSheet.getApplicantName());
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
+        assertEquals(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE, coverSheet.getSubmitAddress());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_TEXT, coverSheet.getCheckListItems().get(0).getText());
+        assertEquals(CheckListItemType.TEXT_ONLY, coverSheet.getCheckListItems().get(0).getType());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_TEXT, coverSheet.getCheckListItems().get(1).getText());
+        assertEquals(CheckListItemType.TEXT_WITH_LINK, coverSheet.getCheckListItems().get(1).getType());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_URL, coverSheet.getCheckListItems().get(1).getUrl());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_BEFORE_LINK_TEXT, coverSheet.getCheckListItems().get(1)
+            .getBeforeLinkText());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_AFTER_LINK_TEXT, coverSheet.getCheckListItems().get(1)
+            .getAfterLinkText());
     }
 
     @Test
     public void shouldCreateACoverSheetInstanceWithStaticTextOverride() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_STATIC_TEXT_OVERRIDE_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
-        assertThat(coverSheet, is(notNullValue()));
+        assertNotNull(coverSheet);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
-        assertThat(violations, is(empty()));
-        assertThat(coverSheet.getTitle(), is(equalTo("Cover Sheet")));
-        assertThat(coverSheet.getApplicantAddressIntro(), is(equalTo("The applicants address")));
-        assertThat(coverSheet.getApplicantNameIntro(), is(equalTo("The applicants name")));
-        assertThat(coverSheet.getCaseReferenceIntro(), is(equalTo("This is the Case Reference Number")));
-        assertThat(coverSheet.getSubmitAddressIntro(), is(equalTo("This is the place to send the documents")));
-        assertThat(coverSheet.getApplicantAddress(), is(equalTo(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE)));
-        assertThat(coverSheet.getApplicantName(), is(equalTo(VALID_COVER_SHEET_APPLICANT_NAME_VALUE)));
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
-        assertThat(coverSheet.getSubmitAddress(), is(equalTo(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE)));
+        assertEquals(0, violations.size());
+        assertEquals("Cover Sheet", coverSheet.getTitle());
+        assertEquals("The applicants address", coverSheet.getApplicantAddressIntro());
+        assertEquals("The applicants name", coverSheet.getApplicantNameIntro());
+        assertEquals("This is the Case Reference Number", coverSheet.getCaseReferenceIntro());
+        assertEquals("This is the place to send the documents", coverSheet.getSubmitAddressIntro());
+        assertEquals(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE, coverSheet.getApplicantAddress());
+        assertEquals(VALID_COVER_SHEET_APPLICANT_NAME_VALUE, coverSheet.getApplicantName());
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
+        assertEquals(VALID_COVER_SHEET_SUBMIT_ADDRESS_VALUE, coverSheet.getSubmitAddress());
     }
 
     @Test
@@ -110,21 +104,20 @@ public class BulkScanCoverSheetTest {
         Optional<FileSystemResource> optional = getFile(INVALID_BULK_SCAN_COVER_SHEET_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
-        assertThat(violations, is(not(empty())));
-        assertThat(violations.size(), is(equalTo(5)));
+        assertEquals(5, violations.size());
     }
 
     @Test
     public void shouldProduceCorrectFormatForCoverSheetCaseReferenceNumber() throws IOException {
         BulkScanCoverSheet coverSheet = new BulkScanCoverSheet();
         coverSheet.setCaseReference("#1542-9021-4510-0350");
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
         coverSheet.setCaseReference("`#1542902145100350");
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
         coverSheet.setCaseReference("1542-9021-4510-0350");
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
         coverSheet.setCaseReference("CaseReferenceNumber:#1542-9021-4510-0350");
-        assertThat(coverSheet.getCaseReference(), is(equalTo(VALID_COVER_SHEET_CASE_REFERENCE_VALUE)));
+        assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
     }
 
     @Test

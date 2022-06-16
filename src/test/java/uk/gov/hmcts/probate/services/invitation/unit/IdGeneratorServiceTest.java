@@ -1,16 +1,15 @@
 package uk.gov.hmcts.probate.services.invitation.unit;
 
-import org.junit.Test;
-import uk.gov.hmcts.probate.services.idgeneration.strategy.ConstantStrategy;
+import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
+import uk.gov.hmcts.probate.services.idgeneration.strategy.ConstantStrategy;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.ProbateStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IdGeneratorServiceTest {
 
@@ -20,7 +19,7 @@ public class IdGeneratorServiceTest {
 
         String id = idGeneratorService.generate(new HashMap<>());
 
-        assertThat(id, equalTo(ConstantStrategy.CONSTANT));
+        assertEquals(ConstantStrategy.CONSTANT, id);
     }
 
     @Test
@@ -32,7 +31,7 @@ public class IdGeneratorServiceTest {
 
         String id = idGeneratorService.generate(data);
 
-        assertThat(id, containsString("dumitru-panaghiea"));
+        assertThat(id).contains("dumitru-panaghiea");
     }
 
     @Test
@@ -44,6 +43,6 @@ public class IdGeneratorServiceTest {
 
         String id = idGeneratorService.generate(data);
 
-        assertThat(id, containsString("fred-wood-wood"));
+        assertThat(id).contains("fred-wood-wood");
     }
 }

@@ -1,15 +1,15 @@
 package uk.gov.hmcts.probate.services.document.unit;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,16 +23,14 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DocumentServiceTest {
 
     private static final String SERVICE_AUTH_TOKEN = "authTokenXXXXX";
@@ -53,7 +51,7 @@ public class DocumentServiceTest {
     private ResponseEntity responseEntity;
     private DocumentService documentService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         documentService = new DocumentService(authTokenGenerator, restTemplate);
         ReflectionTestUtils.setField(documentService, "documentManagementUrl", DOCUMENT_MANAGEMENT_URL);
@@ -73,7 +71,7 @@ public class DocumentServiceTest {
 
         UploadResponse actualUploadResponse =
             documentService.upload(DUMMY_OAUTH_2_TOKEN, SERVICE_AUTH_TOKEN, USER_ID, files);
-        assertThat(actualUploadResponse, instanceOf(UploadResponse.class));
+        assertEquals(UploadResponse.class, actualUploadResponse.getClass());
     }
 
     @Test
@@ -87,7 +85,7 @@ public class DocumentServiceTest {
             .thenReturn(responseEntity);
 
         ResponseEntity actualResponse = documentService.delete(USER_ID, DOCUMENT_ID);
-        assertThat(actualResponse, equalTo(responseEntity));
+        assertEquals(responseEntity, actualResponse);
         verify(restTemplate, times(1))
             .exchange(eq(DOCUMENT_DELETE_URL), eq(HttpMethod.DELETE), eq(httpEntity), eq(String.class));
     }

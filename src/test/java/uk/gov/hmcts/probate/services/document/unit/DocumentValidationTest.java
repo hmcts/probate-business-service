@@ -1,28 +1,27 @@
 package uk.gov.hmcts.probate.services.document.unit;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.document.validators.DocumentValidation;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 public class DocumentValidationTest {
 
     private DocumentValidation documentValidation;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         documentValidation = new DocumentValidation();
         ReflectionTestUtils.setField(documentValidation,
@@ -36,7 +35,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.pdf", "filename.pdf", "text/plain", "some xml".getBytes());
         boolean result = documentValidation.isValid(file);
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.txt", "filename.txt", "image/jpeg", "some xml".getBytes());
         boolean result = documentValidation.isValid(file);
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -53,7 +52,7 @@ public class DocumentValidationTest {
         MockMultipartFile file = new MockMultipartFile("filename.txt", "filename.txt", "image/jpeg",
             testUtils.getJsonFromFile("files/large_pdf.pdf").getBytes());
         boolean result = documentValidation.isValid(file);
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.png", "filename.png", "image/png", "some xml".getBytes());
         boolean result = documentValidation.isValid(file);
-        assertThat(result, equalTo(true));
+        assertEquals(true, result);
     }
 
     @Test
@@ -69,7 +68,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.txt", "filename.txt", "text/plain", "some xml".getBytes());
         boolean result = documentValidation.validMimeType(file.getContentType());
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -77,7 +76,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.png", "filename.png", "image/png", "some xml".getBytes());
         boolean result = documentValidation.validMimeType(file.getContentType());
-        assertThat(result, equalTo(true));
+        assertEquals(true, result);
     }
 
     @Test
@@ -85,7 +84,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.txt", "filename.txt", "text/plain", "some xml".getBytes());
         boolean result = documentValidation.validFileType(file.getName());
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -93,7 +92,7 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.png", "filename.png", "image/png", "some xml".getBytes());
         boolean result = documentValidation.validFileType(file.getName());
-        assertThat(result, equalTo(true));
+        assertEquals(true, result);
     }
 
     @Test
@@ -101,7 +100,7 @@ public class DocumentValidationTest {
         final byte[] bytes = IOUtils.toByteArray(getClass().getResourceAsStream("/files/large_pdf.pdf"));
         MockMultipartFile file = new MockMultipartFile("filename.pdf", "filename.pdf", "application/pdf", bytes);
         boolean result = documentValidation.validFileSize(file);
-        assertThat(result, equalTo(false));
+        assertEquals(false, result);
     }
 
     @Test
@@ -109,6 +108,6 @@ public class DocumentValidationTest {
         MockMultipartFile file =
             new MockMultipartFile("filename.png", "filename.png", "image/png", "some xml".getBytes());
         boolean result = documentValidation.validFileSize(file);
-        assertThat(result, equalTo(true));
+        assertEquals(true, result);
     }
 }

@@ -1,8 +1,8 @@
 package uk.gov.hmcts.probate.services.invitation;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -33,9 +33,9 @@ public class InviteControllerTest {
     @Mock
     private RestTemplate restTemplate;
 
-    @Before
-    public void initMocks() {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach
+    public void openMocks() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test

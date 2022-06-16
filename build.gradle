@@ -137,6 +137,11 @@ task functional(type: Test) {
 
 functional.finalizedBy(aggregate)
 
+test {
+  maxHeapSize = "1024m"
+  useJUnitPlatform()
+}
+
 task pactTask(type: Test) {
     description = "Runs pact Tests"
     useJUnitPlatform()

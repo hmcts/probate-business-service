@@ -2,22 +2,21 @@ package uk.gov.hmcts.probate.services.invitation.unit;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 
 import java.io.UnsupportedEncodingException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class InvitationServiceTest {
 
@@ -27,7 +26,7 @@ public class InvitationServiceTest {
     @Autowired
     private TestUtils utils;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -43,9 +42,9 @@ public class InvitationServiceTest {
             objectMapper.readValue(utils.getJsonFromFile(EXPECTED_DECODING), Invitation.class);
 
         Invitation decodedInvitation = invitationService.decodeURL(encodedInvitation);
-        assertThat(decodedInvitation.getFirstName(), equalTo(expectedDecoding.getFirstName()));
-        assertThat(decodedInvitation.getLastName(), equalTo(expectedDecoding.getLastName()));
-        assertThat(decodedInvitation.getExecutorName(), equalTo(expectedDecoding.getExecutorName()));
-        assertThat(decodedInvitation.getLeadExecutorName(), equalTo(expectedDecoding.getLeadExecutorName()));
+        assertEquals(expectedDecoding.getFirstName(), decodedInvitation.getFirstName());
+        assertEquals(expectedDecoding.getLastName(), decodedInvitation.getLastName());
+        assertEquals(expectedDecoding.getExecutorName(), decodedInvitation.getExecutorName());
+        assertEquals(expectedDecoding.getLeadExecutorName(), decodedInvitation.getLeadExecutorName());
     }
 }

@@ -1,7 +1,7 @@
 package uk.gov.hmcts.probate.services.businessdocuments.services;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.core.io.FileSystemResource;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
@@ -9,9 +9,8 @@ import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemExce
 import java.io.File;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,7 +21,7 @@ public class FileSystemResourceSystemTest {
 
     private FileSystemResourceService fileSystemResourceService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         fileSystemResourceService = new FileSystemResourceService();
     }
@@ -30,36 +29,40 @@ public class FileSystemResourceSystemTest {
     @Test
     public void shouldFindAFileAndConvertToString() {
         String result = fileSystemResourceService.getFileFromResourceAsString(TEST_FILE);
-        assertThat(result, is(notNullValue()));
+        assertNotNull(result);
     }
 
-    @Test(expected = FileSystemException.class)
+    @Test
     public void shouldNotFindAFileAndConvertToString() {
-        String result = fileSystemResourceService.getFileFromResourceAsString("missing file");
-        assertThat(result, is(notNullValue()));
+        assertThrows(FileSystemException.class, () -> {
+            String result = fileSystemResourceService.getFileFromResourceAsString("missing file");
+            assertNotNull(result);
+        });
     }
 
     @Test
     public void shouldFindOptionalResult() {
         Optional<FileSystemResource> result = fileSystemResourceService.getFileSystemResource(TEST_FILE);
-        assertThat(result, is(notNullValue()));
+        assertNotNull(result);
     }
 
     @Test
     public void shouldNotFindOptionalResult() {
         Optional<FileSystemResource> result = fileSystemResourceService.getFileSystemResource("missing file");
-        assertThat(result, is(notNullValue()));
+        assertNotNull(result);
     }
 
-    @Test(expected = FileSystemException.class)
+    @Test
     public void shouldReturnNullWhenGettingFileFromResourceStringAndFileIsNotPresent() {
         FileSystemResourceService fileSystemResourceServiceSpy = Mockito.spy(new FileSystemResourceService());
         when(fileSystemResourceServiceSpy.getFileSystemResource(anyString())).thenReturn(Optional.empty());
 
-        String resource = fileSystemResourceServiceSpy.getFileFromResourceAsString("");
+        assertThrows(FileSystemException.class, () -> {
+            String resource = fileSystemResourceServiceSpy.getFileFromResourceAsString("");
+        });
     }
 
-    @Test(expected = FileSystemException.class)
+    @Test
     public void shouldReturnNullFromResourceStringAndIOExceptionIsThrown() {
         FileSystemResourceService fileSystemResourceServiceSpy = Mockito.spy(new FileSystemResourceService());
         File mockFile = Mockito.mock(File.class);
@@ -68,6 +71,8 @@ public class FileSystemResourceSystemTest {
         when(fileSystemResourceServiceSpy.getFileSystemResource(anyString()))
             .thenReturn(Optional.of(fileSystemResource));
 
-        String resource = fileSystemResourceServiceSpy.getFileFromResourceAsString("");
+        assertThrows(FileSystemException.class, () -> {
+            String resource = fileSystemResourceServiceSpy.getFileFromResourceAsString("");
+        });
     }
 }

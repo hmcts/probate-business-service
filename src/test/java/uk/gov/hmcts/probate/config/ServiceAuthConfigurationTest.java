@@ -1,17 +1,15 @@
 package uk.gov.hmcts.probate.config;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ServiceAuthConfigurationTest {
 
@@ -20,6 +18,6 @@ public class ServiceAuthConfigurationTest {
 
     @Test
     public void shouldInstantiateServiceAuthTokenGenerator() {
-        assertThat(authTokenGenerator, is(notNullValue()));
+        assertNotNull(authTokenGenerator);
     }
 }

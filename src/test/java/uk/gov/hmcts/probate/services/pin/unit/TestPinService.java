@@ -1,11 +1,10 @@
 package uk.gov.hmcts.probate.services.pin.unit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.PinStrategy;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPinService {
     @Test
@@ -14,6 +13,6 @@ public class TestPinService {
 
         String pin = pinGenerator.generate();
 
-        assertThat(pin.length(), is(6));
+        assertEquals(6, pin.length());
     }
 }

@@ -2,8 +2,8 @@ package uk.gov.hmcts.probate.services.businessdocuments.model;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
 import uk.gov.hmcts.reform.probate.model.documents.DeclarationItem;
@@ -19,12 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LegalDeclarationTest {
 
@@ -35,7 +31,7 @@ public class LegalDeclarationTest {
     private FileSystemResourceService fileSystemResourceService;
     private Validator validator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -49,34 +45,34 @@ public class LegalDeclarationTest {
     public void shouldCreateALegalDeclarationInstance() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_LEGAL_DECLARATION_JSON);
         LegalDeclaration legalDeclaration = objectMapper.readValue(optional.get().getFile(), LegalDeclaration.class);
-        assertThat(legalDeclaration, is(notNullValue()));
+        assertNotNull(legalDeclaration);
         Set<ConstraintViolation<LegalDeclaration>> violations = validator.validate(legalDeclaration);
-        assertThat(violations, is(empty()));
+        assertEquals(0, violations.size());
 
-        assertThat(legalDeclaration.getDeceased(), is(equalTo("deceased")));
-        assertThat(legalDeclaration.getDateCreated(), is(equalTo("date and time")));
+        assertEquals("deceased", legalDeclaration.getDeceased());
+        assertEquals("date and time", legalDeclaration.getDateCreated());
 
         List<String> headers = legalDeclaration.getDeclarations().stream().findFirst().get().getHeaders();
-        assertThat(headers.size(), is(equalTo(3)));
+        assertEquals(3, headers.size());
         for (int i = 0; i < headers.size(); i++) {
-            assertThat(headers.get(i), is(equalTo("header" + i)));
+            assertEquals("header" + i, headers.get(i));
         }
 
         DeclarationSection declarationSection =
             legalDeclaration.getDeclarations().stream().findFirst().get().getSections().get(0);
-        assertThat(declarationSection.getHeadingType(), is(equalTo("large")));
-        assertThat(declarationSection.getTitle(), is(equalTo("section title")));
+        assertEquals("large", declarationSection.getHeadingType());
+        assertEquals("section title", declarationSection.getTitle());
 
         List<DeclarationItem> items = declarationSection.getDeclarationItems();
-        assertThat(items.size(), is(equalTo(1)));
+        assertEquals(1, items.size());
 
         DeclarationItem item = items.get(0);
-        assertThat(item.getTitle(), is(equalTo("declaration title")));
+        assertEquals("declaration title", item.getTitle());
 
         List<String> values = item.getValues();
-        assertThat(values.size(), is(equalTo(3)));
+        assertEquals(3, values.size());
         for (int i = 0; i < values.size(); i++) {
-            assertThat(values.get(i), is(equalTo("value" + i)));
+            assertEquals("value" + i, values.get(i));
         }
     }
 
@@ -85,8 +81,7 @@ public class LegalDeclarationTest {
         Optional<FileSystemResource> optional = getFile(INVALID_LEGAL_DECLARATION_JSON);
         LegalDeclaration legalDeclaration = objectMapper.readValue(optional.get().getFile(), LegalDeclaration.class);
         Set<ConstraintViolation<LegalDeclaration>> violations = validator.validate(legalDeclaration);
-        assertThat(violations, is(not(empty())));
-        assertThat(violations.size(), is(equalTo(2)));
+        assertEquals(2, violations.size());
     }
 
     private Optional<FileSystemResource> getFile(String fileName) {

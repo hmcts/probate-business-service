@@ -2,23 +2,22 @@ package uk.gov.hmcts.probate.services.persistence.unit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.InviteData;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class PersistenceClientTest {
 
     private static final String INVITE_URL = "http://invite:9999";
@@ -31,7 +30,7 @@ public class PersistenceClientTest {
 
     private PersistenceClient persistenceClient;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         persistenceClient = new PersistenceClient(restTemplate);
         ReflectionTestUtils.setField(persistenceClient, "inviteDataPersistenceUrl", INVITE_URL);
@@ -49,12 +48,11 @@ public class PersistenceClientTest {
 
         JsonNode result = persistenceClient.saveInviteData(inviteData);
 
-        assertThat(result.get("id").asText(), equalTo("link"));
-        assertThat(result.get("formdataId").asText(), equalTo("formdata"));
-        assertThat(result.get("email").asText(), equalTo("test@test.com"));
-
-        assertThat(result.get("phoneNumber").asText(), equalTo("07777777777"));
-        assertThat(result.get("mainExecutorName").asText(), equalTo("MainName"));
+        assertEquals("link", result.get("id").asText());
+        assertEquals("formdata", result.get("formdataId").asText());
+        assertEquals("test@test.com", result.get("email").asText());
+        assertEquals("07777777777", result.get("phoneNumber").asText());
+        assertEquals("MainName", result.get("mainExecutorName").asText());
     }
 
     @Test
@@ -66,12 +64,11 @@ public class PersistenceClientTest {
 
         JsonNode result = persistenceClient.getInvitesByFormdataId("formdata");
 
-        assertThat(result.get("id").asText(), equalTo("link"));
-        assertThat(result.get("formdataId").asText(), equalTo("formdata"));
-        assertThat(result.get("email").asText(), equalTo("test@test.com"));
-
-        assertThat(result.get("phoneNumber").asText(), equalTo("07777777777"));
-        assertThat(result.get("mainExecutorName").asText(), equalTo("MainName"));
+        assertEquals("link", result.get("id").asText());
+        assertEquals("formdata", result.get("formdataId").asText());
+        assertEquals("test@test.com", result.get("email").asText());
+        assertEquals("07777777777", result.get("phoneNumber").asText());
+        assertEquals("MainName", result.get("mainExecutorName").asText());
     }
 
     @Test
@@ -83,11 +80,10 @@ public class PersistenceClientTest {
 
         JsonNode result = persistenceClient.getFormdata("formdata");
 
-        assertThat(result.get("id").asText(), equalTo("link"));
-        assertThat(result.get("formdataId").asText(), equalTo("formdata"));
-        assertThat(result.get("email").asText(), equalTo("test@test.com"));
-
-        assertThat(result.get("phoneNumber").asText(), equalTo("07777777777"));
-        assertThat(result.get("mainExecutorName").asText(), equalTo("MainName"));
+        assertEquals("link", result.get("id").asText());
+        assertEquals("formdata", result.get("formdataId").asText());
+        assertEquals("test@test.com", result.get("email").asText());
+        assertEquals("07777777777", result.get("phoneNumber").asText());
+        assertEquals("MainName", result.get("mainExecutorName").asText());
     }
 }

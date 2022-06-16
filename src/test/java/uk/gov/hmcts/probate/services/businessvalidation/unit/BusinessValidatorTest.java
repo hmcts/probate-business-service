@@ -1,7 +1,7 @@
 package uk.gov.hmcts.probate.services.businessvalidation.unit;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationError;
 import uk.gov.hmcts.probate.services.businessvalidation.model.FormData;
 import uk.gov.hmcts.probate.services.businessvalidation.validators.BusinessValidator;
@@ -13,9 +13,8 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BusinessValidatorTest {
 
@@ -23,7 +22,7 @@ public class BusinessValidatorTest {
     private ValidationRule passingRule;
     private BusinessValidationError validationError;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         validationError =
             new BusinessValidationError().generateError(ValidationRule.BUSINESS_ERROR, DobBeforeDodRule.CODE);
@@ -38,7 +37,7 @@ public class BusinessValidatorTest {
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());
 
-        assertThat(validationErrors, containsInAnyOrder(validationError));
+        assertThat(validationErrors).contains(validationError);
 
     }
 
@@ -48,7 +47,7 @@ public class BusinessValidatorTest {
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());
 
-        assertThat(validationErrors.isEmpty(), is(true));
+        assertEquals(true, validationErrors.isEmpty());
     }
 
     @Test
@@ -57,6 +56,6 @@ public class BusinessValidatorTest {
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());
 
-        assertThat(validationErrors, containsInAnyOrder(validationError));
+        assertThat(validationErrors).contains(validationError);
     }
 }

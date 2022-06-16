@@ -1,9 +1,9 @@
 package uk.gov.hmcts.probate.services.document.integration;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -33,15 +33,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItems;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class DocumentControllerTest {
@@ -69,7 +67,7 @@ public class DocumentControllerTest {
     private static final String USER_ID = "tom@email.com";
     private static final String AUTH_TOKEN = "authToken";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
         this.mockMvc = builder.build();
@@ -90,7 +88,7 @@ public class DocumentControllerTest {
         expectedResult.add("Error: no files passed");
 
         List<String> actualResult = documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, null);
-        assertThat(actualResult, equalTo(expectedResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -99,7 +97,7 @@ public class DocumentControllerTest {
         expectedResult.add("Error: no files passed");
 
         List<String> actualResult = documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, Collections.emptyList());
-        assertThat(actualResult, equalTo(expectedResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -114,7 +112,7 @@ public class DocumentControllerTest {
         }
 
         List<String> actualResult = documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, files);
-        assertThat(actualResult, equalTo(expectedResult));
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -127,7 +125,7 @@ public class DocumentControllerTest {
         files.add(file);
 
         List<String> actualResult = documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, files);
-        assertThat(actualResult, equalTo(expectedResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -136,7 +134,7 @@ public class DocumentControllerTest {
         when(documentService.delete(USER_ID, "file")).thenReturn(response);
 
         ResponseEntity actualResponse = documentController.delete(USER_ID, "file");
-        assertThat(actualResponse, equalTo(response));
+        assertEquals(response, actualResponse);
     }
 
     @Test
@@ -165,7 +163,7 @@ public class DocumentControllerTest {
             .thenReturn(uploadResponse);
 
         List<String> actualResult = documentController.upload(DUMMY_OAUTH_2_TOKEN, USER_ID, files);
-        assertThat(actualResult, hasItems());
+        assertEquals(false, actualResult.isEmpty());
     }
 
     private UploadResponse createUploadResponse() {
