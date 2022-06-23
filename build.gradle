@@ -186,7 +186,9 @@ def versions = [
         springCloud      : '3.1.1',
         junit_jupiter    : '5.8.0-M1',
         probateCommons   : '1.3.18',
-        jacksonDatabind  : '2.13.2'
+        jacksonDatabind  : '2.13.2',
+        springDocUi      : '1.6.6'
+
 ]
 
 ext["rest-assured.version"] = '4.4.0'
@@ -238,7 +240,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonDatabind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jacksonDatabind
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.9'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: versions.springDocUi
 
     implementation(group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat) {
         force = true
