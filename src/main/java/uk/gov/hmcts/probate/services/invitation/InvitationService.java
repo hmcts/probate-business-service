@@ -53,20 +53,6 @@ public class InvitationService {
         return personalisation;
     }
 
-    public boolean checkAllInvitedAgreed(String formdataId) {
-        JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId);
-        List<String> invitesStatusList = invitesByFormdataId.findValuesAsText("agreed");
-
-        return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
-    }
-
-    public boolean checkMainApplicantAgreed(String formdataId) {
-        JsonNode formdata = persistenceClient.getFormdata(formdataId);
-        JsonNode declared = formdata.findPath("declarationCheckbox");
-
-        return declared.asBoolean(false);
-    }
-
     public Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
         invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
         invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
