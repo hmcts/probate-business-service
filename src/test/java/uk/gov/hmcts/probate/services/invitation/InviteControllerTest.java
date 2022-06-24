@@ -109,7 +109,7 @@ public class InviteControllerTest {
     }
 
     @Test
-     void shouldSendBilingualInviteGenerateId() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendBilingualInviteGenerateId() throws UnsupportedEncodingException, NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
 
