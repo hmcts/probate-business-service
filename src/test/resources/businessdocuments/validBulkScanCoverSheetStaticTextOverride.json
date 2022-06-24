@@ -9,6 +9,8 @@
   "caseReference": "1542-9021-4510-0350",
   "submitAddressIntro": "This is the place to send the documents",
   "submitAddress": "Probate Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS",
-  "checkListItems": []
+  "checkListItems": [],
+  "noDocumentsRequired": true,
+  "noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested from you in the future, please send them along with this cover sheet to the address below"
   }
 }

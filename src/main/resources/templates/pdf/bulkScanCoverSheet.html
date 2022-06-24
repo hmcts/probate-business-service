@@ -168,6 +168,10 @@
       {% endfor %}
     </ul>
     {% endif %}
+    {% if noDocumentsRequired %}
+    <div style="height: 50px;">&nbsp;</div>
+    <p class="content-text-small">{{ noDocumentsRequiredText }}</p>
+    {% endif %}
 
     <div style="height: 50px;">&nbsp;</div>
 
