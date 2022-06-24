@@ -125,7 +125,7 @@ public class PinControllerTest {
 
     @ParameterizedTest
     @MethodSource("phoneNumber")
-    public void inviteBilingual(final String phoneNumber) throws Exception {
+    void inviteBilingual(final String phoneNumber) throws Exception {
         mockMvc.perform(get(BILINGUAL_URL + "?phoneNumber=" + phoneNumber)
                 .header("Session-Id", TEST_SESSION_ID)
                 .contentType(contentType))

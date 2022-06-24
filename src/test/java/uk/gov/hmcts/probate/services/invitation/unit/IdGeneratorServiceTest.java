@@ -58,7 +58,7 @@ public class IdGeneratorServiceTest {
 
     @ParameterizedTest
     @MethodSource("applicantName")
-    public void shouldThrowExceptionWhenNameIsNull(final String firstName, final String lastName) {
+     void shouldThrowExceptionWhenNameIsNull(final String firstName, final String lastName) {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             IdGeneratorService idGeneratorService = new IdGeneratorService(new ProbateStrategy());
             Map<String, String> data = new HashMap<>();
