@@ -21,9 +21,6 @@ public class BusinessHealthConfiguration {
     @Value("${idam.s2s-auth.url}")
     private String idamServiceHost;
 
-    @Value("${document_management.url}")
-    private String documentManagementHost;
-
     @Bean
     public BusinessHealthIndicator pdfServiceHealthIndicator() {
         return new BusinessHealthIndicator(pdfServiceBaseUrl, restTemplate);
@@ -32,11 +29,6 @@ public class BusinessHealthConfiguration {
     @Bean
     public BusinessHealthIndicator authServiceHealthIndicator() {
         return new BusinessHealthIndicator(authServiceBaseUrl, restTemplate);
-    }
-
-    @Bean
-    public BusinessHealthIndicator documentManagementHealthIndicator() {
-        return new BusinessHealthIndicator(documentManagementHost, restTemplate);
     }
 
     @Bean

@@ -16,7 +16,6 @@ public abstract class IntegrationTestBase {
     public SpringIntegrationMethodRule springIntegration;
     @Autowired
     protected TestUtils utils;
-    protected String documentManagementUrl;
     String businessServiceUrl;
     String persistenceServiceUrl;
     String pdfServiceUrl;
@@ -30,13 +29,10 @@ public abstract class IntegrationTestBase {
     public void businessServiceConfiguration(@Value("${probate.business.url}") String businessServiceUrl,
                                              @Value("${probate.persistence.url}") String persistenceServiceUrl,
                                              @Value("${probate.pdfservice.url}") String pdfServiceUrl,
-                                             @Value("${probate.notify.mobile}") String mobileNumber,
-                                             @Value("${probate.document_management.url}")
-                                                 String documentManagementUrl) {
+                                             @Value("${probate.notify.mobile}") String mobileNumber) {
         this.businessServiceUrl = businessServiceUrl;
         this.persistenceServiceUrl = persistenceServiceUrl;
         this.pdfServiceUrl = pdfServiceUrl;
         this.mobileNumber = mobileNumber;
-        this.documentManagementUrl = documentManagementUrl;
     }
 }

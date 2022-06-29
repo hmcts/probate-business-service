@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -17,16 +16,14 @@ import uk.gov.hmcts.probate.services.businessvalidation.validators.ValidationRul
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.PinStrategy;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.ProbateStrategy;
-import uk.gov.hmcts.reform.document.DocumentManagementClientAutoConfiguration;
 import uk.gov.service.notify.NotificationClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication()
 @Configuration
-@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.document", "uk.gov.hmcts.reform.authorisation"})
-@EnableAutoConfiguration(exclude = {DocumentManagementClientAutoConfiguration.class})
+@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.authorisation"})
 @PropertySource(value = "git.properties", ignoreResourceNotFound = true)
 @OpenAPIDefinition(
     info = @Info(

@@ -64,10 +64,4 @@
   azure:
     app_insights_key: ${APPINSIGHTS_INSTRUMENTATIONKEY:false}
 
-  document_management:
-    url: http://localhost:8383
-    fileupload:
-      extensions: ".pdf .jpeg .bmp .tif .tiff .png .pdf"
-      mimetypes: "image/jpeg application/pdf image/tiff image/png image/bmp"
-
   idam.s2s-auth.url: ${services.auth.provider.baseUrl}
