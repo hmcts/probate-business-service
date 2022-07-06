@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.WebRequest;
-import uk.gov.hmcts.probate.services.businessdocuments.exceptions.BusinessDocumentException;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
 import uk.gov.hmcts.probate.services.businessdocuments.model.ErrorResponse;
@@ -26,8 +25,6 @@ public class BusinessExceptionHandlerTest {
     Exception exception;
     private PDFServiceClientException pdfClientException;
     private FileSystemException fileSystemException;
-
-    private BusinessDocumentException businessDocumentException;
 
     private PDFGenerationException pdfGenerationException;
 
@@ -54,16 +51,6 @@ public class BusinessExceptionHandlerTest {
 
         assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals(BusinessExceptionHandler.PDF_CLIENT_ERROR, response.getBody().getError());
-        assertEquals(EXCEPTION_MESSAGE, response.getBody().getMessage());
-    }
-
-    @Test
-    public void shouldConvertBusinessDocumentExceptionsToInternalServerErrorCodes() {
-        businessDocumentException = new BusinessDocumentException(EXCEPTION_MESSAGE, exception);
-        ResponseEntity<ErrorResponse> response = businessExceptionHandler.handle(businessDocumentException);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals(BusinessExceptionHandler.BUSINESS_DOC_ERROR, response.getBody().getError());
         assertEquals(EXCEPTION_MESSAGE, response.getBody().getMessage());
     }
 

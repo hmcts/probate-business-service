@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import uk.gov.hmcts.probate.services.businessdocuments.exceptions.BusinessDocumentException;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.FileSystemException;
 import uk.gov.hmcts.probate.services.businessdocuments.exceptions.PDFGenerationException;
 import uk.gov.hmcts.probate.services.businessdocuments.model.ErrorResponse;
@@ -23,19 +22,6 @@ class BusinessExceptionHandler {
     public static final String PDF_CLIENT_ERROR = "PDF Client Error";
     public static final String FILE_SYSTEM_ERROR = "File System Error";
     public static final String PDF_GENERATION_EXCEPTION = "PDF Generation Error";
-
-
-    @ExceptionHandler(BusinessDocumentException.class)
-    public ResponseEntity<ErrorResponse> handle(BusinessDocumentException exception) {
-
-        log.warn("Business Document exception: {}", exception.getMessage(), exception);
-        ErrorResponse errorResponse =
-            new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), BUSINESS_DOC_ERROR, exception.getMessage());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(errorResponse, headers, HttpStatus.valueOf(errorResponse.getCode()));
-    }
 
     @ExceptionHandler(PDFServiceClientException.class)
     public ResponseEntity<ErrorResponse> handle(PDFServiceClientException exception) {
