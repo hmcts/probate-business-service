@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.services.invitation;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -51,20 +49,6 @@ public class InvitationService {
         personalisation.put("link", inviteLink + linkId);
 
         return personalisation;
-    }
-
-    public boolean checkAllInvitedAgreed(String formdataId) {
-        JsonNode invitesByFormdataId = persistenceClient.getInvitesByFormdataId(formdataId);
-        List<String> invitesStatusList = invitesByFormdataId.findValuesAsText("agreed");
-
-        return invitesStatusList != null && !invitesStatusList.contains("false") && !invitesStatusList.contains("null");
-    }
-
-    public boolean checkMainApplicantAgreed(String formdataId) {
-        JsonNode formdata = persistenceClient.getFormdata(formdataId);
-        JsonNode declared = formdata.findPath("declarationCheckbox");
-
-        return declared.asBoolean(false);
     }
 
     public Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {

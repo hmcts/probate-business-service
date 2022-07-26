@@ -3,6 +3,8 @@ package uk.gov.hmcts.probate.services.pin.integration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 public class PinControllerTest {
 
     private static final String SERVICE_URL = "/pin";
+    private static final String BILINGUAL_URL = "/pin/bilingual";
     private static final String TEST_SESSION_ID = "1234567890";
     private static final String TEST_UK_PHONE_NUMBER = "(0)7700900111";
     private static final String TEST_INT_PHONE_NUMBER = "%2B447700900111";
@@ -111,6 +115,20 @@ public class PinControllerTest {
         mockMvc.perform(get(SERVICE_URL + "/" + TEST_UK_PHONE_NUMBER)
             .header("Session-Id", TEST_SESSION_ID)
             .contentType(contentType))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    private static Stream<String> phoneNumber() {
+        return Stream.of(TEST_UK_PHONE_NUMBER, TEST_INT_PHONE_NUMBER, TEST_LARGE_PHONE_NUMBER);
+    }
+
+    @ParameterizedTest
+    @MethodSource("phoneNumber")
+    void inviteBilingual(final String phoneNumber) throws Exception {
+        mockMvc.perform(get(BILINGUAL_URL + "?phoneNumber=" + phoneNumber)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }

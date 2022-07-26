@@ -107,4 +107,14 @@ public class InviteControllerTest {
 
         verify(invitationService).sendEmail("1233445", invitation, Boolean.TRUE);
     }
+
+    @Test
+    void shouldSendBilingualInviteGenerateId() throws UnsupportedEncodingException, NotificationClientException {
+
+        Invitation invitation = setUpInvitationMock();
+
+        invitationController.inviteBilingual(invitation, mockBindingResult, "");
+
+        verify(invitationService).sendEmail("1233445", invitation, Boolean.TRUE);
+    }
 }
