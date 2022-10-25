@@ -6,8 +6,6 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson-databind@.*$</packageUrl>
     <vulnerabilityName>CVE-2020-36518</vulnerabilityName>
-    <vulnerabilityName>CVE-2022-42003</vulnerabilityName>
-    <vulnerabilityName>CVE-2022-42004</vulnerabilityName>
   </suppress>
   <suppress>
     <notes><![CDATA[
