@@ -24,7 +24,7 @@ withNightlyPipeline(type, product, component) {
     enableSecurityScan()
     enableFortifyScan('probate-aat')
 
-    after('fortify-scan') {
+    afterSuccess('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     }
 }
