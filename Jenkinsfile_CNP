@@ -43,7 +43,7 @@ withPipeline("java", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
 
-  after('test') {
+  afterSuccess('test') {
 
     publishHTML target: [
             alwaysLinkToLastBuild: true,
@@ -60,7 +60,7 @@ withPipeline("java", product, component) {
     ]
   }
 
-  after('functionalTest:preview') {
+  afterSuccess('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
     publishHTML target: [
       allowMissing         : true,
@@ -72,7 +72,7 @@ withPipeline("java", product, component) {
     ]
   }
 
-  after('functionalTest:aat') {
+  afterSuccess('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
     publishHTML target: [
       allowMissing         : true,
