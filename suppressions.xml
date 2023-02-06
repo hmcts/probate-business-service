@@ -83,4 +83,60 @@
     <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>
     <cve>CVE-2022-3064</cve>
   </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: json-20210307.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.json/json@.*$</packageUrl>
+    <cve>CVE-2022-45688</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: snakeyaml-1.29.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>
+    <cve>CVE-2022-1471</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: spring-beans-5.3.19.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.springframework/spring-beans@.*$</packageUrl>
+    <cve>CVE-2022-22970</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: spring-cloud-openfeign-core-2.1.1.RELEASE.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.springframework\.cloud/spring-cloud-openfeign-core@.*$</packageUrl>
+    <cve>CVE-2021-22044</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: spring-security-crypto-5.6.3.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org.springframework.security/spring-security-crypto@.*$</packageUrl>
+    <cve>CVE-2020-5408</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: spring-security-crypto-5.6.3.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org.springframework.security/spring-security-crypto@.*$</packageUrl>
+    <cve>CVE-2022-22976</cve>
+  </suppress>
+  <suppress>
+    <notes>
+      <![CDATA[
+   file name: spring-web-5.3.19.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org.springframework/spring-web@.*$</packageUrl>
+    <cve>CVE-2016-1000027</cve>
+  </suppress>
 </suppressions>
