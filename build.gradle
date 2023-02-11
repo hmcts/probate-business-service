@@ -244,7 +244,7 @@ dependencies {
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.17.3-RELEASE'
     implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.logging
     implementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
-    implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.0'
+    implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.6.7'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.6.0'
@@ -276,7 +276,7 @@ dependencies {
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-    testFunctionalImplementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.0'
+    testFunctionalImplementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.1'
     testFunctionalImplementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.0.0'
     testFunctionalImplementation sourceSets.main.runtimeClasspath
     testFunctionalImplementation sourceSets.test.runtimeClasspath
