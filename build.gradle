@@ -296,8 +296,8 @@ dependencies {
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testContractImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
-    testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
-    testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.14'
+    testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.15'
+    testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.15'
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
 
