@@ -202,7 +202,7 @@ def versions = [
         junit_jupiter    : '5.8.0-M1',
         probateCommons   : '1.4.8',
         jacksonDatabind  : '2.13.2',
-        springDocUi      : '1.6.6'
+        springDocUi      : '1.6.14'
 ]
 
 ext["rest-assured.version"] = '4.4.0'
