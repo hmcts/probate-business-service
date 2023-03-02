@@ -35,7 +35,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withParameterizedPipeline('java', product, component, params.ENVIRONMENT, 'sandbox') {
     loadVaultSecrets(secrets)
-    after('test') {
+    afterSuccess('test') {
         publishHTML target: [
                 alwaysLinkToLastBuild: true,
                 reportDir            : "build/reports/tests/test",
@@ -58,11 +58,11 @@ withParameterizedPipeline('java', product, component, params.ENVIRONMENT, 'sandb
         ]
     }
 
-  after('functionalTest:preview') {
+  afterSuccess('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
   }
 
-  after('functionalTest:aat') {
+  afterSuccess('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
   }
 }
