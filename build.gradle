@@ -339,6 +339,15 @@ runAndPublishConsumerPactTests.dependsOn pactTask
 
 runAndPublishConsumerPactTests.finalizedBy pactPublish
 
+task runProviderPactVerification(type: Test) {
+  useJUnitPlatform()
+  description = "Runs provider pact Tests"
+  testClassesDirs = sourceSets.testContract.output.classesDirs
+  classpath = sourceSets.testContract.runtimeClasspath
+}
+
+runProviderPactVerification.finalizedBy pactVerify
+
 def getCheckedOutGitCommitHash() {
     'git rev-parse --verify --short HEAD'.execute().text.trim()
 }

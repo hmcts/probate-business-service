@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.services.businessdocuments.controllers;
 
-import au.com.dius.pact.provider.junit.IgnoreNoPactsToVerify;
 import au.com.dius.pact.provider.junit.loader.PactBroker;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,6 @@ import java.nio.file.Files;
 
 @PactBroker(scheme = "${pact.broker.scheme}", host = "${pact.broker.baseUrl}", port = "${pact.broker.port}", tags = {
     "${pact.broker.consumer.tag}"})
-@IgnoreNoPactsToVerify
 public abstract class ControllerProviderTest {
 
     @Before
