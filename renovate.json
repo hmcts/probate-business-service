@@ -1,13 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":dependencyDashboard"],
-  "enabledManagers": ["helm-requirements","gradle-wrapper", "gradle", "terraform"],
+  "extends": [
+    ":dependencyDashboard",
+    "local>hmcts/.github:renovate-config"
+  ],
+  "enabledManagers": [
+    "helm-requirements",
+    "gradle-wrapper",
+    "gradle",
+    "terraform"
+  ],
   "prConcurrentLimit": 6,
   "prHourlyLimit": 3,
-  "labels": ["dependencies"],
-  "helm-requirements":
-  {
-    "fileMatch": ["\\Chart.yaml$"],
+  "labels": [
+    "dependencies"
+  ],
+  "helm-requirements": {
+    "fileMatch": [
+      "\\Chart.yaml$"
+    ],
     "aliases": {
       "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
     }
@@ -15,12 +26,13 @@
   "separateMajorMinor": false,
   "packageRules": [
     {
-      "matchPackageNames": ["redis"],
+      "matchPackageNames": [
+        "redis"
+      ],
       "allowedVersions": "<=3"
     }
   ],
   "lockFileMaintenance": {
     "enabled": false
-  },
-  "schedule": ["before 6am"]
+  }
 }

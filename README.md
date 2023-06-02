@@ -67,6 +67,17 @@ API documentation is provided with Swagger:
 
 ## Developing
 
+### Running against AAT:
+
+You may run a local instance of business service that points towards AAT BE services to use in conjunction with a local Orchestrator pointing to AAT, and a local FE
+instance (probate-frontend or probate-caveats). This allows one to debug the orchestrator by triggering events through local FE.
+
+Steps:
+1. Ensure VPN is on.
+2. Run `./gradlew generateAatEnvFile`
+3. Run `POINT_TO_AAT=true ./gradlew run`
+4. After ~10 seconds, business service will be running.
+
 ### Unit tests
 
 To run all unit tests please execute the following command:

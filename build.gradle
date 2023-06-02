@@ -200,7 +200,7 @@ def versions = [
         pact_version     : '4.1.11',
         springCloud      : '3.1.1',
         junit_jupiter    : '5.8.0-M1',
-        probateCommons   : '1.4.8',
+        probateCommons   : '1.4.12',
         jacksonDatabind  : '2.13.2',
         springDocUi      : '1.6.14'
 ]
@@ -355,4 +355,34 @@ pact {
         tags = [System.getenv("PACT_BRANCH_NAME") ?: 'Dev']
         version = project.pactVersion
     }
+}
+
+task generateAatEnvFile() {
+  doFirst {
+    print 'Generating AAT env var file'
+    "sh ./generate-aat-env-file.sh".execute()
+
+    // Sleep to allow secrets to be fetched:
+    sleep(20 * 1000)
+  }
+}
+
+run {
+  if (new Boolean(System.getenv("POINT_TO_AAT"))) {
+    print 'Exporting AAT env vars'
+    doFirst {
+      if (project.file('./.aat-env').exists()) {
+        project.file('./.aat-env').readLines().each() {
+          def index = it.indexOf("=")
+          def key = it.substring(0, index)
+          def value = it.substring(index + 1)
+          environment key, value
+        }
+      }
+    }
+  }
+
+  if (debug == 'true') {
+    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005']
+  }
 }
