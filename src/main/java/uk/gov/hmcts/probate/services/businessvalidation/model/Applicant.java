@@ -2,7 +2,7 @@ package uk.gov.hmcts.probate.services.businessvalidation.model;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 @JsonRootName(value = "applicant")

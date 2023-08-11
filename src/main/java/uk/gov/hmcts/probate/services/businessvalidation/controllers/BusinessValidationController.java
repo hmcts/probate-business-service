@@ -17,7 +17,7 @@ import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidation
 import uk.gov.hmcts.probate.services.businessvalidation.model.FormData;
 import uk.gov.hmcts.probate.services.businessvalidation.validators.BusinessValidator;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;

@@ -90,13 +90,13 @@ public class BusinessHealthIndicatorTest {
     public void shouldReturnStatusOfDownWhenUnknownHttpStatusCodeExceptionIsThrown() {
         final String statusText = "status text";
         when(mockRestTemplate.getForEntity(URL + "/health", String.class))
-            .thenThrow(new UnknownHttpStatusCodeException(1000, statusText, null, null, null));
+            .thenThrow(new UnknownHttpStatusCodeException(999, statusText, null, null, null));
 
         Health health = businessHealthIndicator.health();
 
         assertEquals(Status.DOWN, health.getStatus());
         assertEquals(URL, health.getDetails().get("url"));
-        assertEquals("Unknown status code [1000] status text", health.getDetails().get("message"));
+        assertEquals("Unknown status code [999] status text", health.getDetails().get("message"));
         assertEquals("UnknownHttpStatusCodeException - " + statusText, health.getDetails().get("exception"));
     }
 }

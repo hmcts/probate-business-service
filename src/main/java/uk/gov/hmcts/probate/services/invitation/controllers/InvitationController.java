@@ -17,7 +17,7 @@ import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClientException;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
