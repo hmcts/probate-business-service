@@ -3,6 +3,7 @@ package uk.gov.hmcts.probate.services.consumer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.consumer.junit5.ProviderType;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
@@ -86,7 +87,7 @@ public class PdfServiceConsumerTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "generatePdfFromTemplate")
+    @PactTestFor(providerType = ProviderType.ASYNCH, pactMethod = "generatePdfFromTemplate")
     public void verifyGeneratePdfFromTemplatePact() throws IOException, JSONException {
         byte[] response = pdfGenerationService.generatePdf(answersSummary(), DocumentType.CHECK_ANSWERS_SUMMARY);
 
