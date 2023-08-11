@@ -251,7 +251,7 @@ dependencies {
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.17.3-RELEASE'
     implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.logging
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.0.0'
-    implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.0'
+    implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.11.4'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.9.11'
@@ -307,6 +307,14 @@ dependencies {
     testContractImplementation sourceSets.test.runtimeClasspath
 }
 
+tasks.withType(Tar).configureEach {
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+tasks.withType(Zip).configureEach {
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 tasks.withType(JavaCompile) {
   options.compilerArgs << '-parameters'
 }
@@ -318,6 +326,7 @@ tasks.withType(JavaExec).configureEach {
 
 bootJar {
     archiveFileName = 'business-service.jar'
+    duplicatesStrategy 'exclude'
     manifest {
 
         attributes 'Implementation-Title': project.name,
