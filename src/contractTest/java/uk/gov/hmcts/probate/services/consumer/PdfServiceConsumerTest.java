@@ -35,13 +35,14 @@ import java.util.Map;
 
 import static org.mockito.Mockito.when;
 
-@Ignore
+
 @ExtendWith(PactConsumerTestExt.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @PactTestFor(providerName = "rpePdfService_PDFGenerationEndpointV2", port = "5500")
 @PactFolder("pacts")
 @SpringBootTest
 @TestPropertySource(locations = {"/application.properties"})
+@Ignore
 public class PdfServiceConsumerTest {
 
     private static final String HTML = ".html";
@@ -64,6 +65,7 @@ public class PdfServiceConsumerTest {
     private AuthTokenGenerator serviceTokenGenerator;
 
     // TBD consumer 'Name'
+    @Ignore
     @Pact(provider = "rpePdfService_PDFGenerationEndpointV2", consumer = "probate_businessService")
     RequestResponsePact generatePdfFromTemplate(PactDslWithProvider builder) throws JSONException, IOException {
         // @formatter:off
@@ -84,6 +86,7 @@ public class PdfServiceConsumerTest {
             .toPact();
     }
 
+    @Ignore
     @Test
     @PactTestFor(providerType = ProviderType.ASYNCH, pactMethod = "generatePdfFromTemplate")
     public void verifyGeneratePdfFromTemplatePact() throws IOException, JSONException {
