@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.when;
+
 @Ignore
 @ExtendWith(PactConsumerTestExt.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
