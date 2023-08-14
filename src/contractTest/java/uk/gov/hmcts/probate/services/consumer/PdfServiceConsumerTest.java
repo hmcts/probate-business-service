@@ -12,13 +12,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.junit.Ignore;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
@@ -34,12 +34,13 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.when;
-
+@Ignore
 @ExtendWith(PactConsumerTestExt.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @PactTestFor(providerName = "rpePdfService_PDFGenerationEndpointV2", port = "5500")
 @PactFolder("pacts")
 @SpringBootTest
+@TestPropertySource(locations = {"/application.properties"})
 public class PdfServiceConsumerTest {
 
     private static final String HTML = ".html";
@@ -60,11 +61,6 @@ public class PdfServiceConsumerTest {
 
     @MockBean
     private AuthTokenGenerator serviceTokenGenerator;
-
-    @BeforeEach
-    public void setUpEachTest() throws InterruptedException, IOException {
-        Thread.sleep(2000);
-    }
 
     // TBD consumer 'Name'
     @Pact(provider = "rpePdfService_PDFGenerationEndpointV2", consumer = "probate_businessService")
@@ -87,7 +83,6 @@ public class PdfServiceConsumerTest {
             .toPact();
     }
 
-    @Ignore
     @Test
     @PactTestFor(providerType = ProviderType.ASYNCH, pactMethod = "generatePdfFromTemplate")
     public void verifyGeneratePdfFromTemplatePact() throws IOException, JSONException {
