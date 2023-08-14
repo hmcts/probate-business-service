@@ -7,6 +7,8 @@ buildscript {
 plugins {
     id 'application'
     id 'pmd'
+    id 'java'
+    id 'jacoco'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'org.springframework.boot' version '3.1.2'
     id 'uk.gov.hmcts.java' version '0.12.43'
@@ -14,14 +16,10 @@ plugins {
     id 'com.gorylenko.gradle-git-properties' version '2.4.1'
     id 'info.solidsoft.pitest' version '1.9.11'
     id 'org.sonarqube' version '4.0.0.2929'
-    id 'au.com.dius.pact' version '4.4.0-beta.2' // do not change, otherwise serenity report fails
+    id 'au.com.dius.pact' version '4.6.1' // do not change, otherwise serenity report fails
     id 'org.owasp.dependencycheck' version '8.0.1'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '3.7.0'
 }
-
-apply plugin: 'java'
-apply plugin: 'org.sonarqube'
-apply plugin: 'jacoco'
-apply plugin: 'net.serenity-bdd.serenity-gradle-plugin'
 
 gitProperties {
     gitPropertiesDir = new File("${project.rootDir}/src/main/resources/uk/gov/hmcts/probate/services/business")
@@ -198,7 +196,7 @@ def versions = [
         junit_jupiter    : '5.9.3',
         logging          : '5.1.7',
         lombok           : '1.18.26',
-        pact_version     : '4.4.0-beta.2',
+        pact_version     : '4.6.1',
         probateCommons   : '1.5.0',
         serenity         : '3.7.1',
         serenityreporter : '3.7.1',
@@ -221,8 +219,6 @@ dependencyManagement {
 }
 
 configurations.all {
-  exclude group: 'org.codehaus.groovy', module: 'groovy'
-  exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
   resolutionStrategy {
     eachDependency { details ->
       if (details.requested.group in ['org.apache.logging.log4j']) {
@@ -244,7 +240,6 @@ dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
     implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
-    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
     implementation group: 'com.google.guava', name: 'guava', version: '32.0.1-jre'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
@@ -262,8 +257,6 @@ dependencies {
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocUi
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
-    implementation group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.14'
-    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.10'
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:$versions.springBootVersion") {
         exclude group: "com.vaadin.external.google", module: "android-json"
@@ -298,13 +291,22 @@ dependencies {
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testContractImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
-    testImplementation  group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
-    testContractImplementation  group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
+    testImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.15'
+    testContractImplementation  group: 'au.com.dius', name: 'pact-jvm-provider-spring_2.12', version: '3.6.15'
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
 
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
+
+    modules {
+        module("org.codehaus.groovy:groovy") {
+            replacedBy("org.apache.groovy:groovy", "conflicts in current rest-assured version")
+        }
+        module("org.codehaus.groovy:groovy-xml") {
+            replacedBy("org.apache.groovy:groovy-xml", "conflicts in current rest-assured version")
+        }
+    }
 }
 
 tasks.withType(Tar).configureEach {

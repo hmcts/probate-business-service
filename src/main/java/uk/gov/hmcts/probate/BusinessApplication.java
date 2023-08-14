@@ -21,9 +21,9 @@ import uk.gov.service.notify.NotificationClient;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication()
+@SpringBootApplication
 @Configuration
-@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.authorisation"})
+@EnableFeignClients(basePackages = {"uk.gov.hmcts.reform.authorisation", "uk.gov.hmcts.reform.pdf"})
 @PropertySource(value = "git.properties", ignoreResourceNotFound = true)
 @OpenAPIDefinition(
     info = @Info(
