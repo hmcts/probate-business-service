@@ -1,5 +1,5 @@
 package uk.gov.hmcts.probate.services.consumer;
-/*
+
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
@@ -125,4 +125,3 @@ public class PdfServiceConsumerTest {
 
     }
 }
-*/
