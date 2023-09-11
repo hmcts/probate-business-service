@@ -3,5 +3,7 @@
   "100001_Unexpected Content-Type was returned_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET": "ignore",
   "100000_A Client Error response code was returned by the server_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET": "ignore",
   "10036_Server Leaks Version Information via \"Server\" HTTP Response Header Field_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET": "ignore",
-  "10035_Strict-Transport-Security Header Not Set_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET":"ignore"
+  "10035_Strict-Transport-Security Header Not Set_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET":"ignore",
+  "10063_Permissions Policy Header Not Set_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET": "ignore",
+  "10049_Storable and Cacheable Content_https://probate-business-service-aat.service.core-compute-aat.internal//v2/api-docs_GET": "ignore"
 }
