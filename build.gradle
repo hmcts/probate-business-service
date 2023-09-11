@@ -28,6 +28,8 @@ gitProperties {
     dateFormatTimeZone = "GMT"
 }
 
+processResources.dependsOn(generateGitProperties)
+
 group = 'uk.gov.hmcts.probate'
 version = "4.0.0"
 mainClassName = 'uk.gov.hmcts.probate.BusinessApplication'
@@ -44,14 +46,6 @@ jacoco {
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-}
-
-jacocoTestReport {
-    group = "Reporting"
-    reports {
-        xml.enabled false
-        html.destination file("${buildDir}/reports/jacoco")
-    }
 }
 
 sonarqube {

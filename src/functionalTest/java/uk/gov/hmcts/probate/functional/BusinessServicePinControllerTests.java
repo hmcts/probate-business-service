@@ -43,7 +43,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
+            .then().assertThat().statusCode(400)
             .extract().response().prettyPrint();
     }
 
@@ -85,7 +85,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
+            .then().assertThat().statusCode(400)
             .extract().response().prettyPrint();
     }
 
