@@ -132,4 +132,12 @@ public class PinControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
+
+    @Test
+    public void shouldReturn400ForNotificationClientException() throws Exception {
+        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + 34)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
+            .andExpect(status().isBadRequest());
+    }
 }
