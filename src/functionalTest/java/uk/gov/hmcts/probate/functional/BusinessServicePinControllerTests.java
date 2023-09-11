@@ -42,7 +42,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + 34)
             .then().assertThat().statusCode(400)
             .extract().response().prettyPrint();
     }
