@@ -205,7 +205,6 @@ def versions = [
         springDocUi      : '2.1.0'
 ]
 
-ext["rest-assured.version"] = '4.5.1'
 ext["jackson-bom.version"] = '2.13.2'
 
 dependencyManagement {
@@ -272,6 +271,7 @@ dependencies {
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    testFunctionalImplementation group: 'io.rest-assured', name: 'rest-assured'
     testFunctionalImplementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '7.0.0'
     testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.0.0'
     testFunctionalImplementation sourceSets.main.runtimeClasspath
@@ -300,14 +300,19 @@ dependencies {
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 
+
     modules {
-        module("org.codehaus.groovy:groovy") {
-            replacedBy("org.apache.groovy:groovy", "conflicts in current rest-assured version")
-        }
-        module("org.codehaus.groovy:groovy-xml") {
-            replacedBy("org.apache.groovy:groovy-xml", "conflicts in current rest-assured version")
-        }
+      module("org.codehaus.groovy:groovy") {
+        replacedBy("org.apache.groovy:groovy", "conflicts in current rest-assured version")
+      }
+      module("org.codehaus.groovy:groovy-xml") {
+        replacedBy("org.apache.groovy:groovy-xml", "conflicts in current rest-assured version")
+      }
+      module("org.codehaus.groovy:groovy-json") {
+        replacedBy("org.apache.groovy:groovy-json", "conflicts in current rest-assured version")
+      }
     }
+
 }
 
 tasks.withType(Tar).configureEach {
