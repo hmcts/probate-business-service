@@ -1,14 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    ":dependencyDashboard",
-    "local>hmcts/.github:renovate-config"
-  ],
-  "enabledManagers": [
-    "helm-requirements",
-    "gradle-wrapper",
-    "gradle",
-    "terraform"
+    "local>hmcts/.github:renovate-config","local>hmcts/.github//renovate/automerge-all"
   ],
   "prConcurrentLimit": 6,
   "prHourlyLimit": 3,
