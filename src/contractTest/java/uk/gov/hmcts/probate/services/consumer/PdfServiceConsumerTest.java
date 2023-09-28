@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
@@ -37,12 +37,12 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(PactConsumerTestExt.class)
+@ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @PactTestFor(providerName = "rpePdfService_PDFGenerationEndpointV2", port = "5500")
 @PactFolder("pacts")
 @SpringBootTest
 @TestPropertySource(locations = {"/application.properties"})
-@Ignore
 public class PdfServiceConsumerTest {
 
     private static final String HTML = ".html";
@@ -64,8 +64,6 @@ public class PdfServiceConsumerTest {
     @MockBean
     private AuthTokenGenerator serviceTokenGenerator;
 
-    // TBD consumer 'Name'
-    @Ignore
     @Pact(provider = "rpePdfService_PDFGenerationEndpointV2", consumer = "probate_businessService")
     RequestResponsePact generatePdfFromTemplate(PactDslWithProvider builder) throws JSONException, IOException {
         // @formatter:off
@@ -86,7 +84,6 @@ public class PdfServiceConsumerTest {
             .toPact();
     }
 
-    @Ignore
     @Test
     @PactTestFor(providerType = ProviderType.ASYNCH, pactMethod = "generatePdfFromTemplate")
     public void verifyGeneratePdfFromTemplatePact() throws IOException, JSONException {
