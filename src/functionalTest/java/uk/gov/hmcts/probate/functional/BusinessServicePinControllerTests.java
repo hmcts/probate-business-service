@@ -26,14 +26,14 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     private void validatePinSuccess(String phoneNumber) {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
             .then().assertThat().statusCode(200);
     }
 
     private void validatePinFailure(String phoneNumber) {
         Response response = given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
             .thenReturn();
         response.then().assertThat().statusCode(400);
     }
@@ -42,8 +42,8 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + 34)
+            .then().assertThat().statusCode(400)
             .extract().response().prettyPrint();
     }
 
@@ -85,7 +85,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
+            .then().assertThat().statusCode(400)
             .extract().response().prettyPrint();
     }
 

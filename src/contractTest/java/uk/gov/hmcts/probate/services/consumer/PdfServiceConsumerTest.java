@@ -3,26 +3,27 @@ package uk.gov.hmcts.probate.services.consumer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.consumer.junit5.ProviderType;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.fluent.Executor;
 import org.json.JSONException;
-import org.junit.After;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
 import uk.gov.hmcts.probate.services.businessdocuments.model.DocumentType;
 import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResourceService;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
+import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 import uk.gov.hmcts.reform.pdf.service.client.GeneratePdfRequest;
 import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
 import uk.gov.hmcts.reform.probate.model.documents.Section;
@@ -32,15 +33,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.Mockito.when;
+
+
 @ExtendWith(PactConsumerTestExt.class)
 @ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @PactTestFor(providerName = "rpePdfService_PDFGenerationEndpointV2", port = "5500")
 @PactFolder("pacts")
 @SpringBootTest
+@TestPropertySource(locations = {"/application.properties"})
 public class PdfServiceConsumerTest {
 
     private static final String HTML = ".html";
+    private static final String SERVICE_AUTHORIZATION_HEADER = "ServiceAuthorization";
+    private final String someServiceAuthToken = "someServiceAuthToken";
 
     @Autowired
     PDFGenerationService pdfGenerationService;
@@ -54,17 +61,9 @@ public class PdfServiceConsumerTest {
     @Autowired
     private FileSystemResourceService fileSystemResourceService;
 
-    @BeforeEach
-    public void setUpEachTest() throws InterruptedException, IOException {
-        Thread.sleep(2000);
-    }
+    @MockBean
+    private AuthTokenGenerator serviceTokenGenerator;
 
-    @After
-    void teardown() {
-        Executor.closeIdleConnections();
-    }
-
-    // TBD consumer 'Name'
     @Pact(provider = "rpePdfService_PDFGenerationEndpointV2", consumer = "probate_businessService")
     RequestResponsePact generatePdfFromTemplate(PactDslWithProvider builder) throws JSONException, IOException {
         // @formatter:off
@@ -73,7 +72,7 @@ public class PdfServiceConsumerTest {
             .given("A request to generate a Probate PDF document")
             .uponReceiving("A request to generate a Probate PDF document")
             .method("POST")
-            //.headers(SERVICE_AUTHORIZATION_HEADER, someServiceAuthToken)
+            .headers(SERVICE_AUTHORIZATION_HEADER, someServiceAuthToken)
             .body(createJsonObject(
                 buildGenerateDocumentRequest(DocumentType.CHECK_ANSWERS_SUMMARY.getTemplateName(), answersSummary())),
                 "application/vnd.uk.gov.hmcts.pdf-service.v2+json;charset=UTF-8")
@@ -85,8 +84,10 @@ public class PdfServiceConsumerTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "generatePdfFromTemplate")
+    @PactTestFor(providerType = ProviderType.ASYNCH, pactMethod = "generatePdfFromTemplate")
     public void verifyGeneratePdfFromTemplatePact() throws IOException, JSONException {
+        when(serviceTokenGenerator.generate()).thenReturn(someServiceAuthToken);
+
         byte[] response = pdfGenerationService.generatePdf(answersSummary(), DocumentType.CHECK_ANSWERS_SUMMARY);
 
     }
