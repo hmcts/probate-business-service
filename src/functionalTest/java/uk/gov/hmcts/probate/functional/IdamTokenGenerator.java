@@ -2,6 +2,7 @@ package uk.gov.hmcts.probate.functional;
 
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +44,7 @@ public class IdamTokenGenerator {
 
 
     public String generateUserTokenWithNoRoles() {
-        userToken = generateClientToken();
+        userToken = generateClientCode();
         return userToken;
     }
 
@@ -72,5 +73,19 @@ public class IdamTokenGenerator {
 
         return code;
 
+    }
+
+    public String generateOpenIdToken() {
+        JsonPath jp = RestAssured.given().relaxedHTTPSValidation().post(idamUserBaseUrl + "/o/token?"
+                + "client_secret=" + secret
+                + "&client_id==probate"
+                + "&redirect_uri=" + redirectUri
+                + "&username=" + idamUsername
+                + "&password=" + idamPassword
+                + "&grant_type=password&scope=openid")
+            .body().jsonPath();
+        String token = jp.get("access_token");
+
+        return token;
     }
 }
