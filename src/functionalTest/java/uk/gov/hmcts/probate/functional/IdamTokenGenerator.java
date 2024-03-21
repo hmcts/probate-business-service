@@ -44,7 +44,7 @@ public class IdamTokenGenerator {
 
 
     public String generateUserTokenWithNoRoles() {
-        userToken = generateClientCode();
+        userToken = generateOpenIdToken();
         return userToken;
     }
 
