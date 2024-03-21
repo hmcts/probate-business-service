@@ -42,37 +42,9 @@ public class IdamTokenGenerator {
         return userIdLocal;
     }
 
-
     public String generateUserTokenWithNoRoles() {
         userToken = generateOpenIdToken();
         return userToken;
-    }
-
-    private String generateClientToken() {
-        String code = generateClientCode();
-        String token = "";
-
-        token = RestAssured.given().post(idamUserBaseUrl + "/oauth2/token?code=" + code
-            + "&client_secret=" + secret
-            + "&client_id=probate"
-            + "&redirect_uri=" + redirectUri
-            + "&grant_type=authorization_code")
-            .body().path("access_token");
-        return "Bearer " + token;
-    }
-
-    private String generateClientCode() {
-        String code = "";
-
-        final String encoded = Base64.getEncoder().encodeToString((idamUsername + ":" + idamPassword).getBytes());
-
-        code = RestAssured.given().baseUri(idamUserBaseUrl)
-            .header("Authorization", "Basic " + encoded)
-            .post("/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=" + redirectUri)
-            .body().path("code");
-
-        return code;
-
     }
 
     public String generateOpenIdToken() {
