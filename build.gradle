@@ -232,7 +232,7 @@ dependencies {
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.0.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.logging
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '4.1.2'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.1.2'
     implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.16.1'
@@ -272,7 +272,7 @@ dependencies {
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.12.5'
     testFunctionalImplementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
-    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '4.1.2'
+    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.1.2'
     testFunctionalImplementation sourceSets.main.runtimeClasspath
     testFunctionalImplementation sourceSets.test.runtimeClasspath
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
