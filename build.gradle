@@ -181,7 +181,7 @@ def versions = [
         lombok           : '1.18.32',
         tomcat           : '9.0.88',
         pact_version     : '4.1.11',
-        springCloud      : '3.1.8',
+        springCloud      : '3.1.9',
         junit_jupiter    : '5.8.0-M1',
         probateCommons   : '1.4.43',
         jacksonDatabind  : '2.17.1',
