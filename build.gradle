@@ -262,7 +262,7 @@ dependencies {
     }
 
     testImplementation 'com.github.hmcts:fortify-client:1.4.3:all'
-    testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.30'
+    testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.31'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
