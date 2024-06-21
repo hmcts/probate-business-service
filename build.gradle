@@ -8,7 +8,7 @@ plugins {
     id 'application'
     id 'pmd'
     id 'io.spring.dependency-management' version '1.1.5'
-    id 'org.springframework.boot' version '2.7.18'
+    id 'org.springframework.boot' version '3.3.1'
     id 'uk.gov.hmcts.java' version '0.12.63'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.gorylenko.gradle-git-properties' version '2.4.2'
@@ -174,7 +174,7 @@ repositories {
 }
 
 def versions = [
-        springBootVersion: '2.7.18',
+        springBootVersion: '3.3.1',
         logging          : '6.1.5',
         serenity         : '2.6.0',
         serenityreporter : '2.5.8',
