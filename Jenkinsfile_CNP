@@ -86,10 +86,16 @@ withPipeline("java", product, component) {
   }
 
   onMaster() {
-    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+    enablePactAs([
+      AppPipelineDsl.PactRoles.CONSUMER,
+      AppPipelineDsl.PactRoles.PROVIDER
+    ])
   }
 
   onPR() {
-    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+    enablePactAs([
+      AppPipelineDsl.PactRoles.CONSUMER,
+      AppPipelineDsl.PactRoles.PROVIDER
+    ])
   }
 }
