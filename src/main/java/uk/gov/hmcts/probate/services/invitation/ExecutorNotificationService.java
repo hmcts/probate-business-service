@@ -25,7 +25,11 @@ public class ExecutorNotificationService {
     @Value("${services.notify.executorNotification.bilingualTemplateId}")
     String bilingualTemplateId;
 
-    @Value()
+    @Value("${services.notify.executorNotification.allSignedTemplateId}")
+    String allSignedTemplateId;
+
+    @Value("${services.notify.executorNotification.allSignedBilingualTemplateId}")
+    String allSignedBilingualTemplateId;
 
     @Autowired
     private PersistenceClient persistenceClient;
@@ -37,6 +41,12 @@ public class ExecutorNotificationService {
         throws NotificationClientException {
         notificationClient.sendEmail(isBilingual ? bilingualTemplateId : templateId, executorNotification.getEmail(),
             createPersonalisation(executorNotification), null);
+    }
+
+    public void sendAllSignedEmail(ExecutorNotification executorNotification, Boolean isBilingual)
+        throws NotificationClientException {
+        notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
+            executorNotification.getEmail(), createPersonalisation(executorNotification), null);
     }
 
     private Map<String, String> createPersonalisation(ExecutorNotification executorNotification) {

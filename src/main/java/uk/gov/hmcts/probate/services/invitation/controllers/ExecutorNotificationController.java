@@ -59,7 +59,7 @@ public class ExecutorNotificationController {
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+        return sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
     }
 
     private String sendNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
@@ -68,6 +68,15 @@ public class ExecutorNotificationController {
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
 
         executorNotificationService.sendEmail(executorNotification, isBlingual);
+        return ResponseEntity.ok().toString();
+    }
+
+    private String sendAllSignedNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
+                                    Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+        LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
+        ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
+
+        executorNotificationService.sendAllSignedEmail(executorNotification, isBlingual);
         return ResponseEntity.ok().toString();
     }
 
