@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,53 +36,71 @@ public class ExecutorNotificationController {
     private RestTemplate restTemplate;
 
     @GetMapping(path = "/executor-notification/bilingual", consumes = MediaType.APPLICATION_JSON)
-    public String signedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
-                                  BindingResult bindingResult,
-                                  @RequestHeader("Session-Id") String sessionId)
+    public ResponseEntity<Void> signedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
+                                                BindingResult bindingResult,
+                                                @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.TRUE);
+        try {
+            sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.TRUE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @GetMapping(path = "/executor-notification", consumes = MediaType.APPLICATION_JSON)
-    public String signed(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
+    public ResponseEntity<Void> signed(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+        try {
+            sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @GetMapping(path = "/executor-notification/all", consumes = MediaType.APPLICATION_JSON)
-    public String allSigned(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
+    public ResponseEntity<Void> allSigned(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+        try {
+            sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @GetMapping(path = "/executor-notification/all-bilingual", consumes = MediaType.APPLICATION_JSON)
-    public String allSignedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
+    public ResponseEntity<Void> allSignedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                             BindingResult bindingResult,
                             @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.TRUE);
+        try {
+            sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.TRUE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
-    private String sendNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
+    private void sendNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
                                   Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
 
         executorNotificationService.sendEmail(executorNotification, isBlingual);
-        return ResponseEntity.ok().toString();
     }
 
-    private String sendAllSignedNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
+    private void sendAllSignedNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
                                     Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
 
         executorNotificationService.sendAllSignedEmail(executorNotification, isBlingual);
-        return ResponseEntity.ok().toString();
     }
 
     private String getSessionId(String sessionId) {
