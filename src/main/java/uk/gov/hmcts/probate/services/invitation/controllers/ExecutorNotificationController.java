@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -67,7 +68,7 @@ public class ExecutorNotificationController {
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
 
         executorNotificationService.sendEmail(executorNotification, isBlingual);
-        return linkId;
+        return ResponseEntity.ok().toString();
     }
 
     private String getSessionId(String sessionId) {
