@@ -29,10 +29,6 @@ public class ExecutorNotificationController {
     private static final String SESSION_MSG = "Processing session id {} : {}";
 
     @Autowired
-    @Qualifier("identityGeneratorService")
-    private IdGeneratorService idGeneratorService;
-
-    @Autowired
     private ExecutorNotificationService executorNotificationService;
 
     @Autowired
@@ -60,6 +56,14 @@ public class ExecutorNotificationController {
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
         return sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
+    }
+
+    @GetMapping(path = "/executor-notification/all-bilingual", consumes = MediaType.APPLICATION_JSON)
+    public String allSignedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
+                            BindingResult bindingResult,
+                            @RequestHeader("Session-Id") String sessionId)
+        throws NotificationClientException, UnsupportedEncodingException {
+        return sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.TRUE);
     }
 
     private String sendNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
