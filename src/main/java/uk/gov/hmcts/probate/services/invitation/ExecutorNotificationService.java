@@ -25,6 +25,8 @@ public class ExecutorNotificationService {
     @Value("${services.notify.executorNotification.bilingualTemplateId}")
     String bilingualTemplateId;
 
+    @Value()
+
     @Autowired
     private PersistenceClient persistenceClient;
 
