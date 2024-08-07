@@ -48,7 +48,7 @@ public class ExecutorNotificationService {
         notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
             executorNotification.getEmail(), createPersonalisation(executorNotification), null);
     }
-
+    
     private Map<String, String> createPersonalisation(ExecutorNotification executorNotification) {
         HashMap<String, String> personalisation = new HashMap<>();
 
