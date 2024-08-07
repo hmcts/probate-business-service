@@ -3,9 +3,7 @@ package uk.gov.hmcts.probate.services.invitation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
-import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -57,10 +55,12 @@ public class ExecutorNotificationService {
         return personalisation;
     }
 
-    public ExecutorNotification decodeURL(ExecutorNotification executorNotification) throws UnsupportedEncodingException {
+    public ExecutorNotification decodeURL(ExecutorNotification executorNotification)
+        throws UnsupportedEncodingException {
         executorNotification.setExecutorName(decodeURLParam(executorNotification.getExecutorName()));
         executorNotification.setDeceasedName(decodeURLParam(executorNotification.getDeceasedName()));
-        executorNotification.setDeceasedDod(LocalDate.parse(decodeURLParam(executorNotification.getDeceasedDod().toString())));
+        executorNotification.setDeceasedDod(
+            LocalDate.parse(decodeURLParam(executorNotification.getDeceasedDod().toString())));
         executorNotification.setApplicantName(decodeURLParam(executorNotification.getApplicantName()));
         executorNotification.setCcdReference(executorNotification.getCcdReference());
         return executorNotification;

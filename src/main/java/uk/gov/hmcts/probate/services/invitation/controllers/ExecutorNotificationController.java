@@ -4,23 +4,18 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.ExecutorNotificationService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
-import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClientException;
 
 import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @Tag(name = "Executor Notification Service")
@@ -87,7 +82,8 @@ public class ExecutorNotificationController {
         }
     }
 
-    private void sendNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
+    private void sendNotification(ExecutorNotification encodedExecutorNotification,
+                                  BindingResult bindingResult, String sessionId,
                                   Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
@@ -95,8 +91,9 @@ public class ExecutorNotificationController {
         executorNotificationService.sendEmail(executorNotification, isBlingual);
     }
 
-    private void sendAllSignedNotification(ExecutorNotification encodedExecutorNotification, BindingResult bindingResult, String sessionId,
-                                    Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+    private void sendAllSignedNotification(ExecutorNotification encodedExecutorNotification,
+                                           BindingResult bindingResult, String sessionId, Boolean isBlingual)
+        throws UnsupportedEncodingException, NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
 
