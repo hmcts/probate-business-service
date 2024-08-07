@@ -26,7 +26,7 @@ public class ExecutorNotificationControllerTest {
     private ExecutorNotificationController executorNotificationController;
 
     @Mock
-    private ExecutorNotificationService executorNotificationService ;
+    private ExecutorNotificationService executorNotificationService;
     @Mock
     private RestTemplate restTemplate;
 
