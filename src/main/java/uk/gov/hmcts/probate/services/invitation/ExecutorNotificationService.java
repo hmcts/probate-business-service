@@ -48,7 +48,7 @@ public class ExecutorNotificationService {
         notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
             executorNotification.getEmail(), createPersonalisation(executorNotification), null);
     }
-    
+
     private Map<String, String> createPersonalisation(ExecutorNotification executorNotification) {
         HashMap<String, String> personalisation = new HashMap<>();
 
@@ -57,7 +57,6 @@ public class ExecutorNotificationService {
         personalisation.put("deceased_name", executorNotification.getDeceasedName());
         personalisation.put("deceased_dod", executorNotification.getDeceasedDod().toString());
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
-
         return personalisation;
     }
 
