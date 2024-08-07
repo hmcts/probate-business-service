@@ -32,9 +32,6 @@ public class ExecutorNotificationService {
     String allSignedBilingualTemplateId;
 
     @Autowired
-    private PersistenceClient persistenceClient;
-
-    @Autowired
     private NotificationClient notificationClient;
 
     public void sendEmail(ExecutorNotification executorNotification, Boolean isBilingual)
