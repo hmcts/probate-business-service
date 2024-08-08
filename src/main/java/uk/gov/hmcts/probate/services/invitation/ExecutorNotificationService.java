@@ -10,7 +10,6 @@ import uk.gov.service.notify.NotificationClientException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public class ExecutorNotificationService {
         personalisation.put("executor_name", executorNotification.getExecutorName());
         personalisation.put("applicant_name", executorNotification.getApplicantName());
         personalisation.put("deceased_name", executorNotification.getDeceasedName());
-        personalisation.put("deceased_dod", executorNotification.getDeceasedDod().toString());
+        personalisation.put("deceased_dod", executorNotification.getDeceasedDod());
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
         return personalisation;
     }
@@ -59,8 +58,7 @@ public class ExecutorNotificationService {
         throws UnsupportedEncodingException {
         executorNotification.setExecutorName(decodeURLParam(executorNotification.getExecutorName()));
         executorNotification.setDeceasedName(decodeURLParam(executorNotification.getDeceasedName()));
-        executorNotification.setDeceasedDod(
-            LocalDate.parse(decodeURLParam(executorNotification.getDeceasedDod().toString())));
+        executorNotification.setDeceasedDod(decodeURLParam(executorNotification.getDeceasedDod()));
         executorNotification.setApplicantName(decodeURLParam(executorNotification.getApplicantName()));
         executorNotification.setCcdReference(executorNotification.getCcdReference());
         return executorNotification;
