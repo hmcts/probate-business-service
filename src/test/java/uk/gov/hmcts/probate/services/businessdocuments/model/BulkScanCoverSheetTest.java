@@ -9,10 +9,10 @@ import uk.gov.hmcts.probate.services.businessdocuments.services.FileSystemResour
 import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
 import uk.gov.hmcts.reform.probate.model.documents.CheckListItemType;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -58,7 +58,7 @@ public class BulkScanCoverSheetTest {
     }
 
     @Test
-    public void shouldCreateACoverSheetInstance() throws IOException {
+    void shouldCreateACoverSheetInstance() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         assertNotNull(coverSheet);
@@ -86,7 +86,7 @@ public class BulkScanCoverSheetTest {
     }
 
     @Test
-    public void shouldCreateACoverSheetInstanceWithStaticTextOverride() throws IOException {
+    void shouldCreateACoverSheetInstanceWithStaticTextOverride() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_STATIC_TEXT_OVERRIDE_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         assertNotNull(coverSheet);
@@ -104,7 +104,7 @@ public class BulkScanCoverSheetTest {
     }
 
     @Test
-    public void shouldFailToCreateACoverSheetInstance() throws IOException {
+    void shouldFailToCreateACoverSheetInstance() throws IOException {
         Optional<FileSystemResource> optional = getFile(INVALID_BULK_SCAN_COVER_SHEET_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
@@ -112,7 +112,7 @@ public class BulkScanCoverSheetTest {
     }
 
     @Test
-    public void shouldProduceCorrectFormatForCoverSheetCaseReferenceNumber() throws IOException {
+    void shouldProduceCorrectFormatForCoverSheetCaseReferenceNumber() throws IOException {
         BulkScanCoverSheet coverSheet = new BulkScanCoverSheet();
         coverSheet.setCaseReference("#1542-9021-4510-0350");
         assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
@@ -125,7 +125,7 @@ public class BulkScanCoverSheetTest {
     }
 
     @Test
-    public void shouldReturnCoversheetWithEmptyChecklistItems() throws IOException {
+    void shouldReturnCoversheetWithEmptyChecklistItems() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_NO_CHECKLIST_ITEMS);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         assertEquals(coverSheet.getCheckListItems().toString(), "[]");

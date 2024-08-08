@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class PDFGenerationServiceTest {
+class PDFGenerationServiceTest {
 
     @Mock
     private RestOperations restOperations;
@@ -60,7 +60,7 @@ public class PDFGenerationServiceTest {
     }
 
     @Test
-    public void shouldCatchJsonProcessingExceptionAndRethrowAsPDFGenerationException() throws Exception {
+    void shouldCatchJsonProcessingExceptionAndRethrowAsPDFGenerationException() throws Exception {
         try {
             when(objectMapper.writeValueAsString(Mockito.any(CheckAnswersSummary.class))).thenReturn("");
             assertThrows(PDFGenerationException.class, () -> {
@@ -73,7 +73,7 @@ public class PDFGenerationServiceTest {
     }
 
     @Test
-    public void shouldThrowFileSystemException() throws Exception {
+    void shouldThrowFileSystemException() throws Exception {
         when(fileSystemResourceService.getFileFromResourceAsString(Mockito.anyString()))
             .thenThrow(new FileSystemException("File System Exception"));
         assertThrows(FileSystemException.class, () -> {
@@ -83,7 +83,7 @@ public class PDFGenerationServiceTest {
     }
 
     @Test
-    public void shouldProcessAValidPDFRequest() throws Exception {
+    void shouldProcessAValidPDFRequest() throws Exception {
         byte[] pdfInBytes =
             pdfGenerationService.generatePdf(mockCheckAnswersSummary, DocumentType.CHECK_ANSWERS_SUMMARY);
         verify(pdfServiceClient).generateFromHtml(Mockito.any(), Mockito.anyMap());

@@ -1,13 +1,13 @@
 package uk.gov.hmcts.probate.functional;
 
 import io.restassured.response.Response;
-import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import net.serenitybdd.junit5.SerenityJUnit5Extension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static io.restassured.RestAssured.given;
 
-@RunWith(SpringIntegrationSerenityRunner.class)
+@ExtendWith(SerenityJUnit5Extension.class)
 public class BusinessServicePinControllerTests extends IntegrationTestBase {
 
     private static final String SESSION_ID = "tom@email.com";
@@ -26,14 +26,14 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     private void validatePinSuccess(String phoneNumber) {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
             .then().assertThat().statusCode(200);
     }
 
     private void validatePinFailure(String phoneNumber) {
         Response response = given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + phoneNumber)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
             .thenReturn();
         response.then().assertThat().statusCode(400);
     }
@@ -42,7 +42,7 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
     public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/?phoneNumber=" + 34)
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + 34)
             .then().assertThat().statusCode(500)
             .extract().response().prettyPrint();
     }

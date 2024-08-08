@@ -1,8 +1,8 @@
 package uk.gov.hmcts.probate.functional;
 
-import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import net.serenitybdd.junit5.SerenityJUnit5Extension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.reform.probate.model.documents.BulkScanCoverSheet;
 import uk.gov.hmcts.reform.probate.model.documents.CheckListItemType;
 
@@ -14,7 +14,7 @@ import uk.gov.hmcts.reform.probate.model.documents.CheckListItemType;
  * <p>Particular attention is applied to the CCD reference number, applicants address and registry
  * values being correct in the PDF from test form data.
  */
-@RunWith(SpringIntegrationSerenityRunner.class)
+@ExtendWith(SerenityJUnit5Extension.class)
 public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverSheet> {
 
     private static final String BULK_SCAN_COVER_SHEET_PDF_URL = "/businessDocument/generateBulkScanCoverSheetPDF";

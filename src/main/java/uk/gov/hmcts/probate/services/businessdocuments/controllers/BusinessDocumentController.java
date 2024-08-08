@@ -19,7 +19,7 @@ import uk.gov.hmcts.reform.probate.model.documents.CheckAnswersSummary;
 import uk.gov.hmcts.reform.probate.model.documents.Declaration;
 import uk.gov.hmcts.reform.probate.model.documents.LegalDeclaration;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Optional;
 
 @Slf4j

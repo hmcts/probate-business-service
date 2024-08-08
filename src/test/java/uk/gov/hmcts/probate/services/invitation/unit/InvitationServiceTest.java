@@ -33,7 +33,7 @@ public class InvitationServiceTest {
     }
 
     @Test
-    public void testInvitationDecoding() throws Exception, UnsupportedEncodingException {
+    void testInvitationDecoding() throws Exception, UnsupportedEncodingException {
         InvitationService invitationService = new InvitationService();
 
         Invitation encodedInvitation =

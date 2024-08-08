@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class IdGeneratorServiceTest {
+class IdGeneratorServiceTest {
 
     @Test
-    public void whenStrategyIsConstantReturnConstant() {
+    void whenStrategyIsConstantReturnConstant() {
         IdGeneratorService idGeneratorService = new IdGeneratorService(new ConstantStrategy());
 
         String id = idGeneratorService.generate(new HashMap<>());
@@ -29,7 +29,7 @@ public class IdGeneratorServiceTest {
     }
 
     @Test
-    public void whenStrategyIsProbateReturnAnIdThatContainsTheApplicantName() {
+    void whenStrategyIsProbateReturnAnIdThatContainsTheApplicantName() {
         IdGeneratorService idGeneratorService = new IdGeneratorService(new ProbateStrategy());
         Map<String, String> data = new HashMap<>();
         data.put("firstName", "Dumitru");
@@ -41,7 +41,7 @@ public class IdGeneratorServiceTest {
     }
 
     @Test
-    public void removeSpecialCharactersFromGeneratedId() {
+    void removeSpecialCharactersFromGeneratedId() {
         IdGeneratorService idGeneratorService = new IdGeneratorService(new ProbateStrategy());
         Map<String, String> data = new HashMap<>();
         data.put("firstName", "Fred!£$%^&*():@~");

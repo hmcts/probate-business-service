@@ -6,9 +6,9 @@ import uk.gov.hmcts.probate.services.idgeneration.strategy.PinStrategy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestPinService {
+class TestPinService {
     @Test
-    public void whenStrategyIsDefaultReturnAnIdThatHasALength6() {
+    void whenStrategyIsDefaultReturnAnIdThatHasALength6() {
         IdGeneratorService pinGenerator = new IdGeneratorService(new PinStrategy());
 
         String pin = pinGenerator.generate();

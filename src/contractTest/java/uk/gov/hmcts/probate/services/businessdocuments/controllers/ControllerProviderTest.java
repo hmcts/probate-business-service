@@ -1,7 +1,7 @@
 package uk.gov.hmcts.probate.services.businessdocuments.controllers;
 
-import au.com.dius.pact.provider.junit.IgnoreNoPactsToVerify;
-import au.com.dius.pact.provider.junit.loader.PactBroker;
+import au.com.dius.pact.provider.junitsupport.IgnoreNoPactsToVerify;
+import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;

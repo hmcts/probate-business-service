@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class NetIHTValueLessThanGrossRuleTest {
+class NetIHTValueLessThanGrossRuleTest {
 
     @Mock
     private BusinessValidationError businessValidationError;
@@ -31,7 +31,7 @@ public class NetIHTValueLessThanGrossRuleTest {
     }
 
     @Test
-    public void testValidateWithSuccess() throws Exception {
+    void testValidateWithSuccess() throws Exception {
         formData.getIht().setGrossValue(123123);
         formData.getIht().setNetValue(1212);
 
@@ -41,7 +41,7 @@ public class NetIHTValueLessThanGrossRuleTest {
     }
 
     @Test
-    public void testValidateWithFailure() throws Exception {
+    void testValidateWithFailure() throws Exception {
         formData.getIht().setGrossValue(123);
         formData.getIht().setNetValue(12123);
 
@@ -55,7 +55,7 @@ public class NetIHTValueLessThanGrossRuleTest {
     }
 
     @Test
-    public void testValidateWithEqualDates() throws Exception {
+    void testValidateWithEqualDates() throws Exception {
         formData.getIht().setGrossValue(123);
         formData.getIht().setNetValue(123);
 

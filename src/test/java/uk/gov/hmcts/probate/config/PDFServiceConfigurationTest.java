@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class PDFServiceConfigurationTest {
+class PDFServiceConfigurationTest {
 
     @Autowired
     PDFServiceClient pdfServiceClient;
@@ -21,12 +21,12 @@ public class PDFServiceConfigurationTest {
     PDFServiceConfiguration pdfServiceConfiguration;
 
     @Test
-    public void shouldInstantiatePdfServiceClass() {
+    void shouldInstantiatePdfServiceClass() {
         assertNotNull(pdfServiceClient);
     }
 
     @Test
-    public void shouldSetPDFGenerationServiceProperties() {
+    void shouldSetPDFGenerationServiceProperties() {
         assertEquals("templates/pdf/", pdfServiceConfiguration.getTemplatesDirectory());
         assertEquals("http://localhost:5500", pdfServiceConfiguration.getUrl());
         assertEquals("/api/v2/pdf-generator/html", pdfServiceConfiguration.getPdfApi());

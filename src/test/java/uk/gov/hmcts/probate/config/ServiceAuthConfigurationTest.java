@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ServiceAuthConfigurationTest {
+class ServiceAuthConfigurationTest {
 
     @Autowired
     AuthTokenGenerator authTokenGenerator;
 
     @Test
-    public void shouldInstantiateServiceAuthTokenGenerator() {
+    void shouldInstantiateServiceAuthTokenGenerator() {
         assertNotNull(authTokenGenerator);
     }
 }

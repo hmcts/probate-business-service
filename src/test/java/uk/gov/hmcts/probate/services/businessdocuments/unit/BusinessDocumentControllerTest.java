@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class BusinessDocumentControllerTest {
+class BusinessDocumentControllerTest {
 
     private static final String CHECK_ANSWERS_SUMMARY_URL = "/businessDocument/generateCheckAnswersSummaryPDF";
     private static final String LEGAL_DECLARATION_URL = "/businessDocument/generateLegalDeclarationPDF";
@@ -56,12 +56,12 @@ public class BusinessDocumentControllerTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    public void shouldConsumeValidCheckSummaryMessage() throws Exception {
+    void shouldConsumeValidCheckSummaryMessage() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(CHECK_ANSWERS_SUMMARY_URL)
                 .header("serviceAuthorization", "dummyKey")
                 .content(utils.getJsonFromFile("businessdocuments/validCheckAnswersSummary.json"))
@@ -70,7 +70,7 @@ public class BusinessDocumentControllerTest {
     }
 
     @Test
-    public void shouldThrowAnExceptionOnInValidCheckSummaryMessage() throws Exception {
+    void shouldThrowAnExceptionOnInValidCheckSummaryMessage() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(CHECK_ANSWERS_SUMMARY_URL)
                 .header("serviceAuthorization", "dummyKey")
                 .content(utils.getJsonFromFile("businessdocuments/invalidCheckAnswersSummary.json"))
@@ -79,7 +79,7 @@ public class BusinessDocumentControllerTest {
     }
 
     @Test
-    public void shouldConsumeValidLegalDeclarationMessage() throws Exception {
+    void shouldConsumeValidLegalDeclarationMessage() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(LEGAL_DECLARATION_URL)
                 .header("serviceAuthorization", "dummyKey")
                 .content(utils.getJsonFromFile("businessdocuments/validLegalDeclaration.json"))
@@ -88,7 +88,7 @@ public class BusinessDocumentControllerTest {
     }
 
     @Test
-    public void shouldThrowAnExceptionOnInValidLegalDeclarationMessage() throws Exception {
+    void shouldThrowAnExceptionOnInValidLegalDeclarationMessage() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(LEGAL_DECLARATION_URL)
                 .header("serviceAuthorization", "dummyKey")
                 .content(utils.getJsonFromFile("businessdocuments/invalidLegalDeclaration.json"))
@@ -97,7 +97,7 @@ public class BusinessDocumentControllerTest {
     }
 
     @Test
-    public void shouldConsumeValidLegalDeclarationMessageWhenBilingualIsOn() throws Exception {
+    void shouldConsumeValidLegalDeclarationMessageWhenBilingualIsOn() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(LEGAL_DECLARATION_URL)
             .header("serviceAuthorization", "dummyKey")
             .content(utils.getJsonFromFile("businessdocuments/validLegalDeclarationOneDec.json"))

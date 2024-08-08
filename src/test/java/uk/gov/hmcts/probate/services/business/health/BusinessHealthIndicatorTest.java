@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class BusinessHealthIndicatorTest {
+class BusinessHealthIndicatorTest {
 
     private static final String URL = "http://url.com";
 
@@ -37,7 +37,7 @@ public class BusinessHealthIndicatorTest {
     }
 
     @Test
-    public void shouldReturnStatusOfUpWhenHttpStatusIsOK() {
+    void shouldReturnStatusOfUpWhenHttpStatusIsOK() {
         when(mockRestTemplate.getForEntity(URL + "/health", String.class)).thenReturn(mockResponseEntity);
         when(mockResponseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
         Health health = businessHealthIndicator.health();
@@ -47,7 +47,7 @@ public class BusinessHealthIndicatorTest {
     }
 
     @Test
-    public void shouldReturnStatusOfDownWhenHttpStatusIsNotOK() {
+    void shouldReturnStatusOfDownWhenHttpStatusIsNotOK() {
         when(mockRestTemplate.getForEntity(URL + "/health", String.class)).thenReturn(mockResponseEntity);
         when(mockResponseEntity.getStatusCode()).thenReturn(HttpStatus.NO_CONTENT);
         when(mockResponseEntity.getStatusCodeValue()).thenReturn(HttpStatus.NO_CONTENT.value());
@@ -60,7 +60,7 @@ public class BusinessHealthIndicatorTest {
     }
 
     @Test
-    public void shouldReturnStatusOfDownWhenResourceAccessExceptionIsThrown() {
+    void shouldReturnStatusOfDownWhenResourceAccessExceptionIsThrown() {
         final String message = "EXCEPTION MESSAGE";
         when(mockRestTemplate.getForEntity(URL + "/health", String.class))
             .thenThrow(new ResourceAccessException(message));
@@ -74,7 +74,7 @@ public class BusinessHealthIndicatorTest {
     }
 
     @Test
-    public void shouldReturnStatusOfDownWhenHttpStatusCodeExceptionIsThrown() {
+    void shouldReturnStatusOfDownWhenHttpStatusCodeExceptionIsThrown() {
         when(mockRestTemplate.getForEntity(URL + "/health", String.class))
             .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST));
 
@@ -87,16 +87,16 @@ public class BusinessHealthIndicatorTest {
     }
 
     @Test
-    public void shouldReturnStatusOfDownWhenUnknownHttpStatusCodeExceptionIsThrown() {
+    void shouldReturnStatusOfDownWhenUnknownHttpStatusCodeExceptionIsThrown() {
         final String statusText = "status text";
         when(mockRestTemplate.getForEntity(URL + "/health", String.class))
-            .thenThrow(new UnknownHttpStatusCodeException(1000, statusText, null, null, null));
+            .thenThrow(new UnknownHttpStatusCodeException(999, statusText, null, null, null));
 
         Health health = businessHealthIndicator.health();
 
         assertEquals(Status.DOWN, health.getStatus());
         assertEquals(URL, health.getDetails().get("url"));
-        assertEquals("Unknown status code [1000] status text", health.getDetails().get("message"));
+        assertEquals("Unknown status code [999] status text", health.getDetails().get("message"));
         assertEquals("UnknownHttpStatusCodeException - " + statusText, health.getDetails().get("exception"));
     }
 }
