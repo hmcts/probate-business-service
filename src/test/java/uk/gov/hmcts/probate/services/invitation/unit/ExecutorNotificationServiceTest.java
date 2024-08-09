@@ -52,23 +52,29 @@ class ExecutorNotificationServiceTest {
     }
 
     private ExecutorNotification setUpExecutorNotification() {
-        ExecutorNotification executorNotification = ExecutorNotification.builder()
+
+        return ExecutorNotification.builder()
+            .email("email@email.com")
             .deceasedName("firstname lastname")
             .executorName("executor lastname")
             .applicantName("applicant lastname")
             .ccdReference("0123-4567-8901-2345")
             .deceasedDod("2016-12-12")
             .build();
-
-        return executorNotification;
     }
 
     @Test
     void testSendEmail() throws NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
-        Boolean isBilingual = Boolean.FALSE;
-        executorNotificationService.sendEmail(executorNotification, isBilingual);
+        executorNotificationService.sendEmail(executorNotification, false);
+        verify(notificationClient).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+    }
 
+    @Test
+    void testSendAllEmail() throws NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationService.sendAllSignedEmail(executorNotification, false);
+        verify(notificationClient).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
     }
 
     @Test
