@@ -59,6 +59,11 @@ services:
       templateId: "3b8d806e-cc80-4729-b99a-19854ff60ad2"
       bilingualTemplateId: "23354df7-862c-4e8c-a500-50946df608c2"
       inviteLink: "http://localhost:3000/executors/invitation/"
+    executorNotification:
+      templateId: "8b9316de-1ca8-464e-bab6-5e14c7973af7"
+      bilingualTemplateId: "37bc1d67-7f4a-4872-bfb1-d2f9eee34e47"
+      allSignedTemplateId: "dce921d1-7510-48d7-a90c-4b6a3bea69e9"
+      allSignedBilingualTemplateId: "aafa6219-e1ca-4a64-b62e-5cb3cbd5930b"
     pin:
       templateId: "c0e11486-b8b3-4c22-a1ae-805a0ad2f641"
       bilingualTemplateId: "724a2e58-f0fd-421d-986d-ad5c4b5a47c2"
