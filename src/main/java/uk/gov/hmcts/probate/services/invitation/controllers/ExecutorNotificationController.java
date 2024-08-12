@@ -52,6 +52,7 @@ public class ExecutorNotificationController {
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
         try {
+            LOGGER.info("executor-notification endpoint hit");
             sendNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {
@@ -65,6 +66,7 @@ public class ExecutorNotificationController {
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
         try {
+            LOGGER.info("executor all signed endpoint hit");
             sendAllSignedNotification(encodedExecutorNotification, bindingResult, sessionId, Boolean.FALSE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {

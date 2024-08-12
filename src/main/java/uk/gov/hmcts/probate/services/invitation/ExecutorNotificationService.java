@@ -1,8 +1,11 @@
 package uk.gov.hmcts.probate.services.invitation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import uk.gov.hmcts.probate.services.invitation.controllers.ExecutorNotificationController;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -15,6 +18,8 @@ import java.util.Map;
 
 @Component
 public class ExecutorNotificationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExecutorNotificationService.class);
 
     @Value("${services.notify.executorNotification.templateId}")
     String templateId;
@@ -33,12 +38,14 @@ public class ExecutorNotificationService {
 
     public void sendEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
+        LOGGER.info("sending executor notification email");
         notificationClient.sendEmail(isBilingual ? bilingualTemplateId : templateId, executorNotification.getEmail(),
             createPersonalisation(executorNotification), null);
     }
 
     public void sendAllSignedEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
+        LOGGER.info("sending executor all signed email");
         notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
             executorNotification.getEmail(), createPersonalisation(executorNotification), null);
     }
