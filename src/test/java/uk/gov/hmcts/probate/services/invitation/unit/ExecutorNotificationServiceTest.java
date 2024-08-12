@@ -55,6 +55,7 @@ class ExecutorNotificationServiceTest {
             .applicantName("applicant lastname")
             .ccdReference("0123-4567-8901-2345")
             .deceasedDod("2016-12-12")
+            .email("email@email.com")
             .build();
     }
 
@@ -86,5 +87,6 @@ class ExecutorNotificationServiceTest {
         assertEquals(expectedDecoding.getDeceasedName(), decodedExecutorNotification.getDeceasedName());
         assertEquals(expectedDecoding.getDeceasedDod(), decodedExecutorNotification.getDeceasedDod());
         assertEquals(expectedDecoding.getCcdReference(), decodedExecutorNotification.getCcdReference());
+        assertEquals(expectedDecoding.getEmail(), decodedExecutorNotification.getEmail());
     }
 }

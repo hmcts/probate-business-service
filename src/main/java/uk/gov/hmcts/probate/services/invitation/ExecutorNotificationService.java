@@ -67,6 +67,7 @@ public class ExecutorNotificationService {
         executorNotification.setDeceasedDod(decodeURLParam(executorNotification.getDeceasedDod()));
         executorNotification.setApplicantName(decodeURLParam(executorNotification.getApplicantName()));
         executorNotification.setCcdReference(executorNotification.getCcdReference());
+        executorNotification.setEmail(executorNotification.getEmail());
         return executorNotification;
     }
 
