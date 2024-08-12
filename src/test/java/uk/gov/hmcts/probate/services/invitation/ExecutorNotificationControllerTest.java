@@ -54,28 +54,28 @@ public class ExecutorNotificationControllerTest {
     @Test
     public void shouldSendSigned() throws UnsupportedEncodingException, NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
-        executorNotificationController.signed(executorNotification, mockBindingResult, "");
+        executorNotificationController.signed(executorNotification, mockBindingResult);
         verify(executorNotificationService).sendEmail(executorNotification, Boolean.FALSE);
     }
 
     @Test
     public void shouldSendSignedBilingual() throws UnsupportedEncodingException, NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
-        executorNotificationController.signedBilingual(executorNotification, mockBindingResult, "");
+        executorNotificationController.signedBilingual(executorNotification, mockBindingResult);
         verify(executorNotificationService).sendEmail(executorNotification, Boolean.TRUE);
     }
 
     @Test
     public void shouldSendSignedAll() throws UnsupportedEncodingException, NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
-        executorNotificationController.allSigned(executorNotification, mockBindingResult, "");
+        executorNotificationController.allSigned(executorNotification, mockBindingResult);
         verify(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.FALSE);
     }
 
     @Test
     void shouldSendSignedAllBilingual() throws UnsupportedEncodingException, NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
-        executorNotificationController.allSignedBilingual(executorNotification, mockBindingResult, "");
+        executorNotificationController.allSignedBilingual(executorNotification, mockBindingResult);
         verify(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.TRUE);
     }
 
@@ -85,7 +85,7 @@ public class ExecutorNotificationControllerTest {
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendEmail(executorNotification, Boolean.FALSE);
         assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
-            executorNotificationController.signed(executorNotification, mockBindingResult, "").getStatusCode());
+            executorNotificationController.signed(executorNotification, mockBindingResult).getStatusCode());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ExecutorNotificationControllerTest {
             .when(executorNotificationService).sendEmail(executorNotification, Boolean.TRUE);
         assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
             executorNotificationController.signedBilingual(executorNotification,
-                mockBindingResult, "").getStatusCode());
+                mockBindingResult).getStatusCode());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class ExecutorNotificationControllerTest {
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.FALSE);
         assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, executorNotificationController.allSigned(
-            executorNotification, mockBindingResult, "").getStatusCode());
+            executorNotification, mockBindingResult).getStatusCode());
     }
 
     @Test
@@ -114,6 +114,6 @@ public class ExecutorNotificationControllerTest {
             .when(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.TRUE);
         assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
             executorNotificationController.allSignedBilingual(executorNotification,
-                mockBindingResult, "").getStatusCode());
+                mockBindingResult).getStatusCode());
     }
 }
