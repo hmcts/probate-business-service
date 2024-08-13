@@ -175,7 +175,7 @@ repositories {
 
 def versions = [
         springBootVersion: '2.7.18',
-        logging          : '6.1.5',
+        logging          : '6.1.6',
         serenity         : '2.6.0',
         serenityreporter : '2.5.8',
         lombok           : '1.18.34',
