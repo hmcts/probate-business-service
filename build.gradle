@@ -261,7 +261,7 @@ dependencies {
         exclude group: "com.vaadin.external.google", module: "android-json"
     }
 
-    testImplementation 'com.github.hmcts:fortify-client:1.4.3:all'
+    testImplementation 'com.github.hmcts:fortify-client:1.4.4:all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.32'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
