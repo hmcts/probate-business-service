@@ -181,7 +181,7 @@ def versions = [
         lombok           : '1.18.34',
         tomcat           : '9.0.88',
         pact_version     : '4.1.11',
-        springCloud      : '3.1.9',
+        springCloud      : '4.1.3',
         junit_jupiter    : '5.8.0-M1',
         probateCommons   : '1.4.43',
         jacksonDatabind  : '2.17.2',
@@ -194,7 +194,7 @@ ext["snakeyaml.version"] = '2.0'
 
 dependencyManagement {
   imports {
-    mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.9"
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.3"
   }
 
   dependencies {
@@ -218,7 +218,7 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.8'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.4'
     implementation group: 'org.springframework.retry', name: 'spring-retry'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
