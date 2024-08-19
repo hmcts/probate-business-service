@@ -226,7 +226,7 @@ dependencies {
 
     implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
-    implementation group: 'com.google.guava', name: 'guava', version: '33.2.1-jre'
+    implementation group: 'com.google.guava', name: 'guava', version: '33.3.0-jre'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.0-RELEASE'
