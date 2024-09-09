@@ -151,7 +151,7 @@ task pactTask(type: Test) {
 }
 
 pmd {
-    toolVersion = "7.4.0"
+    toolVersion = "7.5.0"
     ignoreFailures = true
     sourceSets = [sourceSets.main, sourceSets.test, sourceSets.testFunctional, sourceSets.testSmoke]
     reportsDir = file("$project.buildDir/reports/pmd")
@@ -226,7 +226,7 @@ dependencies {
 
     implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
-    implementation group: 'com.google.guava', name: 'guava', version: '33.2.1-jre'
+    implementation group: 'com.google.guava', name: 'guava', version: '33.3.0-jre'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.0-RELEASE'
@@ -235,7 +235,7 @@ dependencies {
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '4.1.2'
     implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.16.1'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.16.3'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation 'org.codehaus.sonar-plugins:sonar-pitest-plugin:0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
