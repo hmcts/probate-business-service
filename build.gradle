@@ -3,7 +3,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'io.spring.dependency-management' version '1.1.6'
-    id 'org.springframework.boot' version '3.3.0'
+    id 'org.springframework.boot' version '3.3.4'
     id 'uk.gov.hmcts.java' version '0.12.63'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.gorylenko.gradle-git-properties' version '2.4.2'
@@ -140,7 +140,7 @@ def versions = [
         restAssured      : '5.4.0',
         serenity         : '4.1.6',
         serenityreporter : '4.1.6',
-        springBootVersion: '3.3.0',
+        springBootVersion: '3.3.4',
         springCloud      : '4.1.1',
         springDocUi      : '1.8.0'
 ]
