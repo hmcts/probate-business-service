@@ -164,7 +164,7 @@ dependencies {
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.0-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.logging
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.1.2'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.2.0'
     implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.17.0'
@@ -196,7 +196,7 @@ dependencies {
     testFunctionalImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
     testFunctionalImplementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
-    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.1.2'
+    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.2.0'
     testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
