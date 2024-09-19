@@ -141,13 +141,13 @@ def versions = [
         serenity         : '4.1.6',
         serenityreporter : '4.1.6',
         springBootVersion: '3.3.4',
-        springCloud      : '4.1.1',
+        springCloud      : '4.1.4',
         springDocUi      : '1.8.0'
 ]
 
 dependencyManagement {
   imports {
-    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.1'
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.3'
   }
 }
 
