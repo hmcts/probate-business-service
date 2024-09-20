@@ -132,7 +132,7 @@ repositories {
 def versions = [
         jacksonDatabind  : '2.17.2',
         jjwtApi          : '0.12.6',
-        junit_jupiter    : '5.10.2',
+        junit_jupiter    : '5.11.0',
         logging          : '6.1.6',
         lombok           : '1.18.34',
         pact_version     : '4.1.11',
@@ -214,7 +214,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
-    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
+    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.11.0'
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 }
