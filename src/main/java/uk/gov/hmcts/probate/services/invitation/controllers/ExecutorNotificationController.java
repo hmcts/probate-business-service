@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -32,7 +32,7 @@ public class ExecutorNotificationController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping(path = "/executor-notification/bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/executor-notification/bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> signedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                                                 BindingResult bindingResult)
         throws NotificationClientException, UnsupportedEncodingException {
@@ -44,7 +44,7 @@ public class ExecutorNotificationController {
         }
     }
 
-    @GetMapping(path = "/executor-notification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/executor-notification", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> signed(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                          BindingResult bindingResult)
         throws NotificationClientException, UnsupportedEncodingException {
@@ -57,7 +57,7 @@ public class ExecutorNotificationController {
         }
     }
 
-    @GetMapping(path = "/executor-notification/all", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/executor-notification/all", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> allSigned(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                          BindingResult bindingResult)
         throws NotificationClientException, UnsupportedEncodingException {
@@ -70,7 +70,7 @@ public class ExecutorNotificationController {
         }
     }
 
-    @GetMapping(path = "/executor-notification/all-bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/executor-notification/all-bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> allSignedBilingual(@Valid @RequestBody ExecutorNotification encodedExecutorNotification,
                             BindingResult bindingResult)
         throws NotificationClientException, UnsupportedEncodingException {
