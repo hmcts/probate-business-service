@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class InvitationControllerTest {
+class InvitationControllerTest {
 
     private static final String SERVICE_URL = "/invite";
     private static final String BILINGULAL_SERVICE_URL = "/invite/bilingual";
@@ -71,7 +71,7 @@ public class InvitationControllerTest {
     }
 
     @Test
-    public void generateLinkId() throws Exception {
+    void generateLinkId() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(SERVICE_URL)
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
@@ -82,7 +82,7 @@ public class InvitationControllerTest {
 
 
     @Test
-    public void resendInvitation() throws Exception {
+    void resendInvitation() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
@@ -92,7 +92,7 @@ public class InvitationControllerTest {
     }
 
     @Test
-    public void sendInvitation() throws Exception {
+    void sendInvitation() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
@@ -102,7 +102,7 @@ public class InvitationControllerTest {
     }
 
     @Test
-    public void sendBilingualInvitation() throws Exception {
+    void sendBilingualInvitation() throws Exception {
         ResultActions resultActions = mockMvc.perform(post(BILINGULAL_SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))

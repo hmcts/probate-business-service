@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class DobBeforeDodRuleTest {
+class DobBeforeDodRuleTest {
 
     @Mock
     private BusinessValidationError businessValidationError;
@@ -33,7 +33,7 @@ public class DobBeforeDodRuleTest {
     }
 
     @Test
-    public void testValidateWithSuccess() throws Exception {
+    void testValidateWithSuccess() throws Exception {
         formData.getDeceased().setDateOfBirth(new Date(100));
         formData.getDeceased().setDateOfDeath(new Date(101));
 
@@ -43,7 +43,7 @@ public class DobBeforeDodRuleTest {
     }
 
     @Test
-    public void testValidateWithFailure() throws Exception {
+    void testValidateWithFailure() throws Exception {
         formData.getDeceased().setDateOfBirth(new Date(101));
         formData.getDeceased().setDateOfDeath(new Date(100));
         when(businessValidationError.generateError(DobBeforeDodRule.BUSINESS_ERROR, DobBeforeDodRule.CODE))
@@ -55,7 +55,7 @@ public class DobBeforeDodRuleTest {
     }
 
     @Test
-    public void testValidateWithEqualDates() throws Exception {
+    void testValidateWithEqualDates() throws Exception {
         formData.getDeceased().setDateOfBirth(new Date(100));
         formData.getDeceased().setDateOfDeath(new Date(100));
 

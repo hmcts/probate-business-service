@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class BusinessValidationControllerTest {
+class BusinessValidationControllerTest {
 
     private static final String VALIDATE_SERVICE_URL = "/validate";
 
@@ -66,7 +66,7 @@ public class BusinessValidationControllerTest {
     }
 
     @Test
-    public void validatePartialApplicant() throws Exception {
+    void validatePartialApplicant() throws Exception {
         mockMvc.perform(post(VALIDATE_SERVICE_URL)
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("validation/success.PartialApplicant.json"))
@@ -76,7 +76,7 @@ public class BusinessValidationControllerTest {
     }
 
     @Test
-    public void validateApplicantEmptyField() throws Exception {
+    void validateApplicantEmptyField() throws Exception {
 
         mockMvc.perform(post(VALIDATE_SERVICE_URL)
             .header("Session-Id", "1234567890")
@@ -92,7 +92,7 @@ public class BusinessValidationControllerTest {
     }
 
     @Test
-    public void validateDateOfBirthBeforeDateOfDeath() throws Exception {
+    void validateDateOfBirthBeforeDateOfDeath() throws Exception {
 
         mockMvc.perform(post(VALIDATE_SERVICE_URL)
             .header("Session-Id", "1234567890")
@@ -107,7 +107,7 @@ public class BusinessValidationControllerTest {
     }
 
     @Test
-    public void validateNetIHTValueGreaterThanGross() throws Exception {
+    void validateNetIHTValueGreaterThanGross() throws Exception {
 
         mockMvc.perform(post(VALIDATE_SERVICE_URL)
             .header("Session-Id", "1234567890")
@@ -123,7 +123,7 @@ public class BusinessValidationControllerTest {
 
 
     @Test
-    public void validateWithoutSessionId() throws Exception {
+    void validateWithoutSessionId() throws Exception {
         mockMvc.perform(post(VALIDATE_SERVICE_URL)
             .content(utils.getJsonFromFile("validation/failure.DodAfterDob.json"))
             .contentType(contentType))

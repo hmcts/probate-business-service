@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
-public class BusinessExceptionHandlerTest {
+class BusinessExceptionHandlerTest {
 
     private static final String EXCEPTION_MESSAGE = "Message";
     @Mock
@@ -44,7 +44,7 @@ public class BusinessExceptionHandlerTest {
     }
 
     @Test
-    public void shouldConvertPDFServiceClientExceptionsToInternalServerErrorCodes() {
+    void shouldConvertPDFServiceClientExceptionsToInternalServerErrorCodes() {
         pdfClientException = new PDFServiceClientException(EXCEPTION_MESSAGE, exception);
 
         ResponseEntity<ErrorResponse> response = businessExceptionHandler.handle(pdfClientException);
@@ -55,7 +55,7 @@ public class BusinessExceptionHandlerTest {
     }
 
     @Test
-    public void shouldConvertFileSytemExceptionsToInternalServerErrorCodes() {
+    void shouldConvertFileSytemExceptionsToInternalServerErrorCodes() {
         fileSystemException = new FileSystemException(EXCEPTION_MESSAGE, exception);
         ResponseEntity<ErrorResponse> response = businessExceptionHandler.handle(fileSystemException);
 
@@ -65,7 +65,7 @@ public class BusinessExceptionHandlerTest {
     }
 
     @Test
-    public void shouldConvertPDFGenerationExceptionsToInternalServerErrorCodes() {
+    void shouldConvertPDFGenerationExceptionsToInternalServerErrorCodes() {
         pdfGenerationException = new PDFGenerationException(EXCEPTION_MESSAGE, exception);
         ResponseEntity<ErrorResponse> response = businessExceptionHandler.handle(pdfGenerationException);
 

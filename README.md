@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.probate%3Abusiness-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.probate%3Abusiness-service) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.probate%3Abusiness-service&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.probate%3Abusiness-service) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.probate%3Abusiness-service&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.probate%3Abusiness-service) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.probate%3Abusiness-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.probate%3Abusiness-service)
 
-The probate business service provides useful business logic to thefrontend service and others via RESTful APIs.
+The probate business service provides useful business logic to the frontend service and others via RESTful APIs.
 
 ## Overview
 
@@ -27,7 +27,7 @@ The probate business service provides useful business logic to thefrontend servi
 
 ## Getting Started
 ### Prerequisites
-- Java 11
+- Java 21
 - Gradle
 - Docker
 
@@ -93,11 +93,6 @@ To run all checks (including unit tests) please execute the following command:
 ```bash
 $ ./gradlew check
 ```
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
-For the versions available, see the tags on this repository.
 
 ## Troubleshooting
 

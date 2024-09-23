@@ -3,20 +3,17 @@ package uk.gov.hmcts.probate;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsNull.notNullValue;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = SmokeTestConfiguration.class)
 public class SmokeTests {
@@ -26,7 +23,7 @@ public class SmokeTests {
 
     private RestAssuredConfig config;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         RestAssured.useRelaxedHTTPSValidation();
         config = RestAssured.config()
@@ -45,7 +42,7 @@ public class SmokeTests {
                 .statusCode(HttpStatus.OK.value());
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void shouldGetOkStatusFromInfoEndpointForProbusinessService() {
         given().config(config)
@@ -55,5 +52,5 @@ public class SmokeTests {
                 .statusCode(HttpStatus.OK.value())
                 .body("git.commit.id", notNullValue())
                 .body("git.commit.time", notNullValue());
-    }    
+    }
 }

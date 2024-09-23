@@ -16,7 +16,7 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BusinessValidatorTest {
+class BusinessValidatorTest {
 
     private ValidationRule failingRule;
     private ValidationRule passingRule;
@@ -32,7 +32,7 @@ public class BusinessValidatorTest {
     }
 
     @Test
-    public void testWithFailingRule() throws Exception {
+    void testWithFailingRule() throws Exception {
         BusinessValidator businessValidator = new BusinessValidator(singletonList(failingRule));
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());
@@ -42,7 +42,7 @@ public class BusinessValidatorTest {
     }
 
     @Test
-    public void testWithPassingRule() throws Exception {
+    void testWithPassingRule() throws Exception {
         BusinessValidator businessValidator = new BusinessValidator(singletonList(passingRule));
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());
@@ -51,7 +51,7 @@ public class BusinessValidatorTest {
     }
 
     @Test
-    public void testWithTwoValidationRules() throws Exception {
+    void testWithTwoValidationRules() throws Exception {
         BusinessValidator businessValidator = new BusinessValidator(asList(passingRule, failingRule));
 
         List<BusinessValidationError> validationErrors = businessValidator.validateForm(new FormData());

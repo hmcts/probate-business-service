@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class PersistenceClientTest {
+class PersistenceClientTest {
 
     private static final String INVITE_URL = "http://invite:9999";
     private static final String FORMDATA_URL = "http://formdata:9999";
@@ -40,7 +40,7 @@ public class PersistenceClientTest {
     }
 
     @Test
-    public void saveInviteData() {
+    void saveInviteData() {
         InviteData inviteData = new InviteData("link", "formdata", "MainName", "07777777777", "test@test.com", false);
         JsonNode jsonNode = mapper.convertValue(inviteData, JsonNode.class);
         when(restTemplate.postForEntity(INVITE_URL, inviteData, JsonNode.class))
@@ -56,7 +56,7 @@ public class PersistenceClientTest {
     }
 
     @Test
-    public void getInvitesByFormData() {
+    void getInvitesByFormData() {
         InviteData inviteData = new InviteData("link", "formdata", "MainName", "07777777777", "test@test.com", false);
         JsonNode jsonNode = mapper.convertValue(inviteData, JsonNode.class);
         when(restTemplate.getForEntity(INVITE_URL + "/search/formdata?id=formdata", JsonNode.class))
@@ -72,7 +72,7 @@ public class PersistenceClientTest {
     }
 
     @Test
-    public void getFormData() {
+    void getFormData() {
         InviteData inviteData = new InviteData("link", "formdata", "MainName", "07777777777", "test@test.com", false);
         JsonNode jsonNode = mapper.convertValue(inviteData, JsonNode.class);
         when(restTemplate.getForEntity(FORMDATA_URL + "/formdata", JsonNode.class))

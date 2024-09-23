@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-public class BusinessDocumentControllerTest {
+class BusinessDocumentControllerTest {
 
     BusinessDocumentController businessDocumentController;
 
@@ -44,26 +44,26 @@ public class BusinessDocumentControllerTest {
     }
 
     @Test
-    public void shouldGenerateACheckAnswersSummaryPDF() {
+    void shouldGenerateACheckAnswersSummaryPDF() {
         ResponseEntity<byte[]> result =
             businessDocumentController.generateCheckAnswersSummaryPDF(checkAnswersSummary, "authorisation");
     }
 
     @Test
-    public void shouldGenerateALegalDeclarationPDF() {
+    void shouldGenerateALegalDeclarationPDF() {
         ResponseEntity<byte[]> result =
             businessDocumentController.generateLegalDeclarationPDF(legalDeclaration, "authorisation");
 
     }
 
     @Test
-    public void shouldGetLastDeclaration() {
+    void shouldGetLastDeclaration() {
         Optional<Declaration> result = businessDocumentController.getLastDeclaration(legalDeclaration);
         result.ifPresent(declaration -> assertEquals(lastDeclaration, declaration));
     }
 
     @Test
-    public void shouldGenerateABulkScanCoverSheetPDF() {
+    void shouldGenerateABulkScanCoverSheetPDF() {
         ResponseEntity<byte[]> result =
             businessDocumentController.generateBulkScanCoverSheetPDF(coverSheet, "authorisation");
     }

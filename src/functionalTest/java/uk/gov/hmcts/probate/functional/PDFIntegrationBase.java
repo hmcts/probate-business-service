@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class PDFIntegrationBase<T> extends IntegrationTestBase {
 
@@ -25,7 +25,7 @@ public abstract class PDFIntegrationBase<T> extends IntegrationTestBase {
                 .when().post(businessServiceUrl + documentURL)
                 .then().assertThat().statusCode(200);
 
-        PDDocument pdfDocument = PDDocument.load(new ByteArrayInputStream(response.extract().asByteArray()));
+        PDDocument pdfDocument = Loader.loadPDF(response.extract().asByteArray());
         try {
             return new PDFTextStripper().getText(pdfDocument).replaceAll("\\n", "").replaceAll(" ", "");
         } finally {
