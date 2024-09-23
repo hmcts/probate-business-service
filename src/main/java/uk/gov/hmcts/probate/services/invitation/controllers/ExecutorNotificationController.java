@@ -15,7 +15,7 @@ import uk.gov.hmcts.probate.services.invitation.ExecutorNotificationService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClientException;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 
