@@ -41,7 +41,7 @@ class DocumentNotificationServiceTest {
 
     @InjectMocks
     private DocumentNotificationService documentNotificationService;
-     private DocumentNotification documentNotification;
+    private DocumentNotification documentNotification;
 
     @BeforeEach
      void setUp() {
