@@ -37,16 +37,16 @@ public class DocumentNotificationService {
 
     public void sendEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
-        DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
-        LOGGER.info("sending document uploaded email");
-        notificationClient.sendEmail(isBilingual ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
-            documentNotification.getEmail(), createPersonalisation(documentNotification), null);
+            DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
+            LOGGER.info("sending document uploaded email");
+            notificationClient.sendEmail(isBilingual ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
+                documentNotification.getEmail(), createPersonalisation(documentNotification), null);
         } catch (NotificationClientException | UnsupportedEncodingException e) {
             LOGGER.error(e.getMessage());
         }
     }
 
-     public void sendUploadIssueEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
+    public void sendUploadIssueEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document upload issue email");
