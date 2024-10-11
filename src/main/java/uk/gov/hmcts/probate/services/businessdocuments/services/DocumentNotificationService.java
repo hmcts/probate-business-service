@@ -20,16 +20,16 @@ public class DocumentNotificationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentNotificationService.class);
 
-    @Value("${services.notify.documentNotification.documentUploadedTemplateId}")
+    @Value("${services.notify.documentNotification.templateId}")
     String documentUploadedTemplateId;
 
-    @Value("${services.notify.documentNotification.documentUploadedTemplateId}")
+    @Value("${services.notify.documentNotification.bilingualTemplateId}")
     String documentUploadedBilingualTemplateId;
 
-    @Value("${services.notify.documentNotification.documentUploadIssueTemplateId}")
+    @Value("${services.notify.documentNotification.uploadIssueTemplateId}")
     String documentUploadIssueTemplateId;
 
-    @Value("${services.notify.documentNotification.documentUploadIssueTemplateId}")
+    @Value("${services.notify.documentNotification.bilingualUploadIssueTemplateId}")
     String documentUploadIssueBilingualTemplateId;
 
     @Autowired
