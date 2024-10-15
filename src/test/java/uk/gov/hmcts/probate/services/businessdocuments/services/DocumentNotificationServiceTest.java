@@ -54,7 +54,7 @@ class DocumentNotificationServiceTest {
             .email("email@email.com")
             .deceasedDod("2016-12-12")
             .citizenResponse("response")
-            .citizenResponseSubmittedDate("12 December 2016")
+            .citizenResponseSubmittedDate("2016-12-12")
             .fileName(List.of("document.pdf")).build();
     }
 
