@@ -12,6 +12,8 @@ import uk.gov.service.notify.NotificationClientException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ public class DocumentNotificationService {
 
     @Autowired
     private NotificationClient notificationClient;
+    private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
 
     public void sendEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
@@ -67,8 +70,14 @@ public class DocumentNotificationService {
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("RESPONSE", documentNotification.getCitizenResponse());
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
-        personalisation.put("UPDATE DATE", documentNotification.getCitizenResponseSubmittedDate());
+        personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getCitizenResponseSubmittedDate()));
         return personalisation;
+    }
+
+    private String getSubmittedDate(String citizenResponseSubmittedDate) {
+        LocalDate parsedDate = LocalDate.parse(citizenResponseSubmittedDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(RESPONSE_DATE_FORMAT);
+        return parsedDate.format(formatter);
     }
 
     public DocumentNotification decodeURL(DocumentNotification documentNotification)
