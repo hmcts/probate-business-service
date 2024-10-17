@@ -161,7 +161,7 @@ dependencies {
     implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
-    implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.0-RELEASE'
+    implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.logging
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.2.0'
@@ -184,7 +184,7 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit_jupiter
-    testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.4', classifier: 'all'
+    testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.5', classifier: 'all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '3.0.3'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
