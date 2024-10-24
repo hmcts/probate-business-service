@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -37,13 +38,18 @@ public class DocumentNotificationService {
     @Autowired
     private NotificationClient notificationClient;
     private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
+    private static final String RESPONSE = "Response";
+    private static final String RESPONSE_WELSH = "Ymateb";
+    private static final String FILE_NAME = "Documents";
+    private static final String FILE_NAME_WELSH = "Dogfennau";
 
     public void sendEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document uploaded email");
             notificationClient.sendEmail(isBilingual ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
-                documentNotification.getEmail(), createPersonalisation(documentNotification), null);
+                documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
+                null);
         } catch (NotificationClientException | UnsupportedEncodingException e) {
             LOGGER.error(e.getMessage());
         }
@@ -55,23 +61,41 @@ public class DocumentNotificationService {
             LOGGER.info("sending document upload issue email");
             notificationClient.sendEmail(isBilingual ? documentUploadIssueBilingualTemplateId
                 : documentUploadIssueTemplateId,
-                documentNotification.getEmail(), createPersonalisation(documentNotification), null);
+                documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
+                null);
         } catch (NotificationClientException | UnsupportedEncodingException e) {
             LOGGER.error(e.getMessage());
         }
     }
 
-    private Map<String, String> createPersonalisation(DocumentNotification documentNotification) {
+    private Map<String, String> createPersonalisation(DocumentNotification documentNotification, Boolean isBilingual) {
         HashMap<String, String> personalisation = new HashMap<>();
 
         personalisation.put("applicant_name", documentNotification.getApplicantName());
         personalisation.put("deceased_name", documentNotification.getDeceasedName());
         personalisation.put("deceased_dod", documentNotification.getDeceasedDod());
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
+        personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
         personalisation.put("RESPONSE", documentNotification.getCitizenResponse());
+        personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
         personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getCitizenResponseSubmittedDate()));
         return personalisation;
+    }
+
+    private String getResponse(String citizenResponse, Boolean isBilingual) {
+        if(citizenResponse != null) {
+            return isBilingual ? RESPONSE_WELSH : RESPONSE;
+        }
+        return null;
+    }
+
+    private String getFileName(List<String> fileName, Boolean isBilingual) {
+        if(!fileName.isEmpty()) {
+            return isBilingual ? FILE_NAME_WELSH : FILE_NAME;
+        }
+        return null;
+
     }
 
     private String getSubmittedDate(String citizenResponseSubmittedDate) {
