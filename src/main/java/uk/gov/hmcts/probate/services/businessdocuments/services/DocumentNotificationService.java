@@ -79,7 +79,7 @@ public class DocumentNotificationService {
         personalisation.put("RESPONSE", documentNotification.getCitizenResponse());
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
-        personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getCitizenResponseSubmittedDate()));
+        personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getExpectedResponseDate()));
         return personalisation;
     }
 
@@ -113,8 +113,8 @@ public class DocumentNotificationService {
         documentNotification.setEmail(documentNotification.getEmail());
         documentNotification.setCitizenResponse(decodeURLParam(documentNotification.getCitizenResponse()));
         documentNotification.setFileName(documentNotification.getFileName());
-        documentNotification.setCitizenResponseSubmittedDate(decodeURLParam(documentNotification
-            .getCitizenResponseSubmittedDate()));
+        documentNotification.setExpectedResponseDate(decodeURLParam(documentNotification
+            .getExpectedResponseDate()));
         return documentNotification;
     }
 
