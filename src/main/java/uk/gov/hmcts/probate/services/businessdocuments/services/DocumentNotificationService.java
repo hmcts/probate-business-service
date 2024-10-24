@@ -98,8 +98,8 @@ public class DocumentNotificationService {
 
     }
 
-    private String getSubmittedDate(String citizenResponseSubmittedDate) {
-        LocalDate parsedDate = LocalDate.parse(citizenResponseSubmittedDate);
+    private String getSubmittedDate(String expectedResponseDate) {
+        LocalDate parsedDate = LocalDate.parse(expectedResponseDate);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(RESPONSE_DATE_FORMAT);
         return parsedDate.format(formatter);
     }
