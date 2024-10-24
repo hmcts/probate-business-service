@@ -140,7 +140,7 @@ def versions = [
         restAssured      : '5.5.0',
         serenity         : '4.2.3',
         serenityreporter : '4.1.6',
-        springBootVersion: 'cument3.3.4',
+        springBootVersion: '3.3.4',
         springCloud      : '4.1.3',
         springDocUi      : '1.8.0'
 ]
