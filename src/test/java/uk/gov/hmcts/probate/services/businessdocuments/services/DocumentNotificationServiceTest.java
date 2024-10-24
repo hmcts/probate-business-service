@@ -54,7 +54,7 @@ class DocumentNotificationServiceTest {
             .email("email@email.com")
             .deceasedDod("2016-12-12")
             .citizenResponse("response")
-            .citizenResponseSubmittedDate("2016-12-12")
+            .expectedResponseDate("2016-12-12")
             .fileName(List.of("document.pdf")).build();
     }
 
@@ -94,7 +94,7 @@ class DocumentNotificationServiceTest {
         assertEquals(expectedDecoding.getEmail(), decodedDocumentNotification.getEmail());
         assertEquals(expectedDecoding.getCitizenResponse(), decodedDocumentNotification.getCitizenResponse());
         assertEquals(expectedDecoding.getFileName(), decodedDocumentNotification.getFileName());
-        assertEquals(expectedDecoding.getCitizenResponseSubmittedDate(),
-            decodedDocumentNotification.getCitizenResponseSubmittedDate());
+        assertEquals(expectedDecoding.getExpectedResponseDate(),
+            decodedDocumentNotification.getExpectedResponseDate());
     }
 }
