@@ -84,14 +84,14 @@ public class DocumentNotificationService {
     }
 
     private String getResponse(String citizenResponse, Boolean isBilingual) {
-        if(citizenResponse != null) {
+        if (citizenResponse != null) {
             return isBilingual ? RESPONSE_WELSH : RESPONSE;
         }
         return null;
     }
 
     private String getFileName(List<String> fileName, Boolean isBilingual) {
-        if(!fileName.isEmpty()) {
+        if (!fileName.isEmpty()) {
             return isBilingual ? FILE_NAME_WELSH : FILE_NAME;
         }
         return null;
