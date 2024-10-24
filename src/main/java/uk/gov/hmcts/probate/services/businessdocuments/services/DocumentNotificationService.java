@@ -14,6 +14,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,8 +112,10 @@ public class DocumentNotificationService {
         documentNotification.setApplicantName(decodeURLParam(documentNotification.getApplicantName()));
         documentNotification.setCcdReference(documentNotification.getCcdReference());
         documentNotification.setEmail(documentNotification.getEmail());
-        documentNotification.setCitizenResponse(decodeURLParam(documentNotification.getCitizenResponse()));
-        documentNotification.setFileName(documentNotification.getFileName());
+        documentNotification.setCitizenResponse(documentNotification.getCitizenResponse()!= null
+            ? decodeURLParam(documentNotification.getCitizenResponse()) : null);
+        documentNotification.setFileName(!documentNotification.getFileName().isEmpty()
+            ? decodeURLParams(documentNotification.getFileName()) : new ArrayList<>());
         documentNotification.setExpectedResponseDate(decodeURLParam(documentNotification
             .getExpectedResponseDate()));
         return documentNotification;
@@ -120,5 +123,13 @@ public class DocumentNotificationService {
 
     private String decodeURLParam(String uriParam) throws UnsupportedEncodingException {
         return URLDecoder.decode(uriParam, StandardCharsets.UTF_8.toString());
+    }
+
+    public List<String> decodeURLParams(List<String> encodedParams) throws UnsupportedEncodingException {
+        List<String> decodedParams = new ArrayList<>();
+        for (String param : encodedParams) {
+            decodedParams.add(decodeURLParam(param));
+        }
+        return decodedParams;
     }
 }
