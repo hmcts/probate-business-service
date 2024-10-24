@@ -112,7 +112,7 @@ public class DocumentNotificationService {
         documentNotification.setApplicantName(decodeURLParam(documentNotification.getApplicantName()));
         documentNotification.setCcdReference(documentNotification.getCcdReference());
         documentNotification.setEmail(documentNotification.getEmail());
-        documentNotification.setCitizenResponse(documentNotification.getCitizenResponse()!= null
+        documentNotification.setCitizenResponse(documentNotification.getCitizenResponse() != null
             ? decodeURLParam(documentNotification.getCitizenResponse()) : null);
         documentNotification.setFileName(!documentNotification.getFileName().isEmpty()
             ? decodeURLParams(documentNotification.getFileName()) : new ArrayList<>());
