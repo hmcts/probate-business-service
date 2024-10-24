@@ -7,6 +7,6 @@
     "email": "email@email.com",
     "fileName": ["filename.pdf"],
     "citizenResponse": "response",
-    "citizenResponseSubmittedDate": "12%20December%202016"
+    "expectedResponseDate": "12%20December%202016"
   }
 }
