@@ -39,10 +39,10 @@ public class DocumentNotificationService {
     @Autowired
     private NotificationClient notificationClient;
     private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
-    private static final String RESPONSE = "Response";
-    private static final String RESPONSE_WELSH = "Ymateb";
-    private static final String FILE_NAME = "Documents";
-    private static final String FILE_NAME_WELSH = "Dogfennau";
+    private static final String RESPONSE = "## Response";
+    private static final String RESPONSE_WELSH = "## Ymateb";
+    private static final String FILE_NAME = "## Documents";
+    private static final String FILE_NAME_WELSH = "## Dogfennau";
 
     public void sendEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
@@ -77,7 +77,8 @@ public class DocumentNotificationService {
         personalisation.put("deceased_dod", documentNotification.getDeceasedDod());
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
-        personalisation.put("RESPONSE", documentNotification.getCitizenResponse());
+        personalisation.put("RESPONSE", null != documentNotification.getCitizenResponse()
+            ? documentNotification.getCitizenResponse() : "");
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
         personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getExpectedResponseDate()));
@@ -85,7 +86,7 @@ public class DocumentNotificationService {
     }
 
     private String getResponse(String citizenResponse, Boolean isBilingual) {
-        if (citizenResponse != null) {
+        if (null != citizenResponse && !citizenResponse.isEmpty()) {
             return isBilingual ? RESPONSE_WELSH : RESPONSE;
         }
         return "";
