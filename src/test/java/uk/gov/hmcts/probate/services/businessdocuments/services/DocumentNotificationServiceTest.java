@@ -15,7 +15,6 @@ import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +64,7 @@ class DocumentNotificationServiceTest {
     }
 
     @Test
-    void testSendEmailForDocumentUploadIssue() throws NotificationClientException, UnsupportedEncodingException {
+    void testSendEmailForDocumentUploadIssue() throws NotificationClientException {
         documentNotificationService.sendUploadIssueEmail(documentNotification, false);
         verify(notificationClient).sendEmail(isNull(),eq(documentNotification.getEmail()), any(), isNull());
     }
@@ -75,6 +74,13 @@ class DocumentNotificationServiceTest {
         doThrow(new NotificationClientException("error"))
             .when(notificationClient).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
         documentNotificationService.sendEmail(documentNotification, false);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNotificationForUploadIssue() throws NotificationClientException {
+        doThrow(new NotificationClientException("error"))
+            .when(notificationClient).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
+        documentNotificationService.sendUploadIssueEmail(documentNotification, false);
     }
 
     @Test

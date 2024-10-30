@@ -36,8 +36,14 @@ public class DocumentNotificationService {
     @Value("${services.notify.documentNotification.bilingualUploadIssueTemplateId}")
     String documentUploadIssueBilingualTemplateId;
 
+
+    private final NotificationClient notificationClient;
+
     @Autowired
-    private NotificationClient notificationClient;
+    public DocumentNotificationService(NotificationClient notificationClient) {
+        this.notificationClient = notificationClient;
+    }
+
     private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
     private static final String RESPONSE = "## Response";
     private static final String RESPONSE_WELSH = "## Ymateb";
@@ -48,7 +54,8 @@ public class DocumentNotificationService {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document uploaded email");
-            notificationClient.sendEmail(isBilingual ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
+            notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual)
+                    ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
                 null);
         } catch (NotificationClientException | UnsupportedEncodingException e) {
@@ -60,7 +67,7 @@ public class DocumentNotificationService {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document upload issue email");
-            notificationClient.sendEmail(isBilingual ? documentUploadIssueBilingualTemplateId
+            notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual) ? documentUploadIssueBilingualTemplateId
                 : documentUploadIssueTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
                 null);
@@ -87,14 +94,14 @@ public class DocumentNotificationService {
 
     private String getResponse(String citizenResponse, Boolean isBilingual) {
         if (null != citizenResponse && !citizenResponse.isEmpty()) {
-            return isBilingual ? RESPONSE_WELSH : RESPONSE;
+            return Boolean.TRUE.equals(isBilingual) ? RESPONSE_WELSH : RESPONSE;
         }
         return "";
     }
 
     private String getFileName(List<String> fileName, Boolean isBilingual) {
         if (!fileName.isEmpty()) {
-            return isBilingual ? FILE_NAME_WELSH : FILE_NAME;
+            return Boolean.TRUE.equals(isBilingual) ? FILE_NAME_WELSH : FILE_NAME;
         }
         return "";
 

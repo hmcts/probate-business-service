@@ -15,7 +15,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class DocumentNotificationControllerTest {
+class DocumentNotificationControllerTest {
 
     @Mock
     BindingResult mockBindingResult;
@@ -42,19 +42,19 @@ public class DocumentNotificationControllerTest {
     }
 
     @Test
-    public void shouldSendEmailForDocumentUploaded() {
+    void shouldSendEmailForDocumentUploaded() {
         documentNotificationController.documentUpload(documentNotification, mockBindingResult);
         verify(documentNotificationService).sendEmail(documentNotification, Boolean.FALSE);
     }
 
     @Test
-    public void shouldSendSignedBilingual() {
+     void shouldSendSignedBilingual() {
         documentNotificationController.documentUploadBilingual(documentNotification, mockBindingResult);
         verify(documentNotificationService).sendEmail(documentNotification, Boolean.TRUE);
     }
 
     @Test
-    public void shouldSendSignedAll() {
+    void shouldSendSignedAll() {
         documentNotificationController.documentUploadIssue(documentNotification, mockBindingResult);
         verify(documentNotificationService).sendUploadIssueEmail(documentNotification, Boolean.FALSE);
     }
