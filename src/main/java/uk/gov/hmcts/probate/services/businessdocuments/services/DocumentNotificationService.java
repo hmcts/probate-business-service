@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -45,6 +46,8 @@ public class DocumentNotificationService {
     }
 
     private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
+
+    private static final Locale WELSH_LOCALE = Locale.of("cy");
     private static final String RESPONSE = "## Response";
     private static final String RESPONSE_WELSH = "## Ymateb";
     private static final String FILE_NAME = "## Documents";
@@ -88,7 +91,9 @@ public class DocumentNotificationService {
             ? documentNotification.getCitizenResponse() : "");
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
-        personalisation.put("UPDATE DATE", getSubmittedDate(documentNotification.getExpectedResponseDate()));
+        personalisation.put("UPDATE DATE", isBilingual
+            ? getSubmittedDateInWelsh(documentNotification.getExpectedResponseDate())
+            : getSubmittedDate(documentNotification.getExpectedResponseDate()));
         return personalisation;
     }
 
@@ -110,6 +115,12 @@ public class DocumentNotificationService {
     private String getSubmittedDate(String expectedResponseDate) {
         LocalDate parsedDate = LocalDate.parse(expectedResponseDate);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(RESPONSE_DATE_FORMAT);
+        return parsedDate.format(formatter);
+    }
+
+    public String getSubmittedDateInWelsh(String expectedResponseDate) {
+        LocalDate parsedDate = LocalDate.parse(expectedResponseDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(RESPONSE_DATE_FORMAT, WELSH_LOCALE);
         return parsedDate.format(formatter);
     }
 
