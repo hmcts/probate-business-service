@@ -12,6 +12,8 @@ import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,5 +65,47 @@ class DocumentNotificationControllerTest {
     void shouldSendSignedAllBilingual() {
         documentNotificationController.documentUploadIssueBilingual(documentNotification, mockBindingResult);
         verify(documentNotificationService).sendUploadIssueEmail(documentNotification, Boolean.TRUE);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithStSuffix() {
+        String result = documentNotificationService.convertDate("2023-01-01");
+        assertEquals("1st January 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithNdSuffix() {
+        String result = documentNotificationService.convertDate("2023-02-02");
+        assertEquals("2nd February 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithRdSuffix() {
+        String result = documentNotificationService.convertDate("2023-03-03");
+        assertEquals("3rd March 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithThSuffix() {
+        String result = documentNotificationService.convertDate("2023-04-04");
+        assertEquals("4th April 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForNullInput() {
+        String result = documentNotificationService.convertDate(null);
+        assertNull(result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForEmptyStringInput() {
+        String result = documentNotificationService.convertDate("");
+        assertNull(result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForInvalidDateFormat() {
+        String result = documentNotificationService.convertDate("invalid-date");
+        assertNull(result);
     }
 }

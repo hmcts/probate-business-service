@@ -12,13 +12,12 @@ import uk.gov.service.notify.NotificationClientException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class DocumentNotificationService {
@@ -84,7 +83,7 @@ public class DocumentNotificationService {
 
         personalisation.put("applicant_name", documentNotification.getApplicantName());
         personalisation.put("deceased_name", documentNotification.getDeceasedName());
-        personalisation.put("deceased_dod", documentNotification.getDeceasedDod());
+        personalisation.put("deceased_dod", convertDate(documentNotification.getDeceasedDod()));
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
         personalisation.put("RESPONSE", null != documentNotification.getCitizenResponse()
@@ -150,5 +149,38 @@ public class DocumentNotificationService {
             decodedParams.add(decodeURLParam(param));
         }
         return decodedParams;
+    }
+
+    public String convertDate(String dateToConvert) {
+        if (dateToConvert == null || dateToConvert.equals("")) {
+            return null;
+        }
+        DateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        DateFormat targetFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        try {
+            Date date = originalFormat.parse(dateToConvert);
+            String formattedDate = targetFormat.format(date);
+            int day = Integer.parseInt(formattedDate.substring(0, 2));
+            switch (day) {
+                case 1:
+                case 21:
+                case 31:
+                    return day + "st " + formattedDate.substring(3);
+
+                case 2:
+                case 22:
+                    return day + "nd " + formattedDate.substring(3);
+
+                case 3:
+                case 23:
+                    return day + "rd " + formattedDate.substring(3);
+
+                default:
+                    return day + "th " + formattedDate.substring(3);
+            }
+        } catch (ParseException ex) {
+            ex.getMessage();
+            return null;
+        }
     }
 }
