@@ -91,9 +91,12 @@ public class DocumentNotificationService {
         personalisation.put("deceased_dod", convertDate(documentNotification.getDeceasedDod()));
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
+        personalisation.put("response_heading_eng", null != documentNotification.getCitizenResponse()
+            && !documentNotification.getCitizenResponse().isEmpty() ? RESPONSE : "");
         personalisation.put("RESPONSE", null != documentNotification.getCitizenResponse()
             ? documentNotification.getCitizenResponse() : "");
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
+        personalisation.put("filename_heading_eng", !documentNotification.getFileName().isEmpty() ? FILE_NAME : "");
         personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
         personalisation.put("UPDATE DATE", isBilingual
             ? getSubmittedDateInWelsh(documentNotification.getExpectedResponseDate())
