@@ -18,6 +18,7 @@ import uk.gov.service.notify.NotificationClientException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -102,5 +103,49 @@ class DocumentNotificationServiceTest {
         assertEquals(expectedDecoding.getFileName(), decodedDocumentNotification.getFileName());
         assertEquals(expectedDecoding.getExpectedResponseDate(),
             decodedDocumentNotification.getExpectedResponseDate());
+    }
+
+
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithStSuffix() {
+        String result = documentNotificationService.convertDate("2023-01-01");
+        assertEquals("1st January 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithNdSuffix() {
+        String result = documentNotificationService.convertDate("2023-02-02");
+        assertEquals("2nd February 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithRdSuffix() {
+        String result = documentNotificationService.convertDate("2023-03-03");
+        assertEquals("3rd March 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnFormattedDateWithThSuffix() {
+        String result = documentNotificationService.convertDate("2023-04-04");
+        assertEquals("4th April 2023", result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForNullInput() {
+        String result = documentNotificationService.convertDate(null);
+        assertNull(result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForEmptyStringInput() {
+        String result = documentNotificationService.convertDate("");
+        assertNull(result);
+    }
+
+    @Test
+    void convertDateShouldReturnNullForInvalidDateFormat() {
+        String result = documentNotificationService.convertDate("invalid-date");
+        assertNull(result);
     }
 }
