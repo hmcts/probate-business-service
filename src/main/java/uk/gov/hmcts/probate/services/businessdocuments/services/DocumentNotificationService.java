@@ -60,7 +60,7 @@ public class DocumentNotificationService {
     public void sendEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
-            LOGGER.info("sending document uploaded email");
+            LOGGER.info("sending document uploaded email for case: {}", encodedDocumentNotification.getCcdReference());
             notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual)
                     ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
@@ -73,7 +73,7 @@ public class DocumentNotificationService {
     public void sendUploadIssueEmail(DocumentNotification encodedDocumentNotification, Boolean isBilingual) {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
-            LOGGER.info("sending document upload issue email");
+            LOGGER.info("sending document upload issue email for case: {}", encodedDocumentNotification.getCcdReference());
             notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual) ? documentUploadIssueBilingualTemplateId
                 : documentUploadIssueTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
