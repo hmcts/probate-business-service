@@ -39,7 +39,7 @@
       apiKey: ${PROBATE_NOTIFY_KEY:fake-key-7fc24bc8-1938-1827-bed3-fb237f9cd5e7-c34b3015-02a1-4e01-b922-1ea21f331d4d}
       invitedata:
         templateId: "29e5c50d-1c86-449c-bb06-8cd465edfce6"
-        bilingualTemplateId: "23354df7-862c-4e8c-a500-50946df608c2"
+        bilingualTemplateId: "df526a14-8da2-4cd9-bb7a-cd757b082583"
         inviteLink: "http://localhost:3000/executors/invitation/"
       executorNotification:
         templateId: "8b9316de-1ca8-464e-bab6-5e14c7973af7"
