@@ -130,7 +130,7 @@ repositories {
 }
 
 def versions = [
-        jacksonDatabind  : '2.18.1',
+        jacksonDatabind  : '2.18.2',
         jjwtApi          : '0.12.6',
         junit_jupiter    : '5.10.2',
         logging          : '6.1.7',
