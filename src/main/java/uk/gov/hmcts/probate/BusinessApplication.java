@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate;
 
+import com.microsoft.applicationinsights.attach.ApplicationInsights;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
@@ -39,6 +40,7 @@ public class BusinessApplication {
     String notificationApiKey;
 
     public static void main(String[] args) {
+        ApplicationInsights.attach();
         SpringApplication.run(BusinessApplication.class, args);
     }
 

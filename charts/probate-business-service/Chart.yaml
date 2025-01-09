@@ -1,7 +1,7 @@
 apiVersion: v2
 name: probate-business-service
 home: https://github.com/hmcts/probate-business-service
-version: 0.1.21
+version: 0.1.22
 description: HMCTS Probate Business Service
 maintainers:
   - name: HMCTS Probate Team
