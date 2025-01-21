@@ -1,0 +1,12 @@
+{
+  "documentNotification": {
+    "deceasedName": "firstname%20lastname",
+    "applicantName": "applicant%20lastname",
+    "deceasedDod": "2016-12-12",
+    "ccdReference": "0123-4567-8901-2345",
+    "email": "email@email.com",
+    "fileName": ["filename.pdf"],
+    "citizenResponse": "response",
+    "expectedResponseDate": "12%20December%202016"
+  }
+}

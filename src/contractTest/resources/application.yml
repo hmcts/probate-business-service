@@ -67,6 +67,11 @@ services:
     pin:
       templateId: "c0e11486-b8b3-4c22-a1ae-805a0ad2f641"
       bilingualTemplateId: "724a2e58-f0fd-421d-986d-ad5c4b5a47c2"
+    documentNotification:
+      templateId: "5dca7815-0c52-4ee2-baca-2a52487b5cd9"
+      uploadIssueTemplateId: "84a07e46-3302-41c8-911c-28c2fa509343"
+      bilingualTemplateId: "bcb7479f-818e-46bb-a874-8ffa7bfb573b"
+      bilingualUploadIssueTemplateId: "9611781d-b857-4f3e-a5a1-0e526444dfae"
   pdf:
     service:
       url: http://localhost:5500
