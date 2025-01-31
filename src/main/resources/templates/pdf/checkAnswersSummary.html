@@ -36,18 +36,18 @@
         </style>
     </head>
     <body>
-        <table>
+        <table role="table">
             <tbody class="table-content">
             <tr>
-                <td class="column1"></td>
-                <td class="column2"></td>
-                <td class="column3"></td>
+                <td class="column1"  role="cell"></td>
+                <td class="column2"  role="cell"></td>
+                <td class="column3"  role="cell"></td>
             </tr>
             <tr>
-                <td colspan="3" valign="top" style="font-weight: bold"><h1>{{pageTitle}}</h1></td>
+                <td colspan="3" valign="top" style="font-weight: bold"  role="cell"><h1>{{pageTitle}}</h1></td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="3"  role="cell">
                     <p>{{mainParagraph}}</p>
               </td>
             </tr>
@@ -55,16 +55,16 @@
             {% for section in sections %}
             <div class="no-page-break">
             <tr class="border_bottom">
-                <td colspan="3" valign="top" style="font-weight: bold"><h2>{{ section.title}}</h2></td>
+                <td colspan="3" valign="top" style="font-weight: bold"  role="cell"><h2>{{ section.title}}</h2></td>
             </tr>
             {% for questionAndAnswerRow in section.questionAndAnswers %}
             <tr class="border_bottom">
-                <td class="column1">{{ questionAndAnswerRow.question }}</td>
-                <td class="column2"/>
-                <td class="column3">
+                <td class="column1"  role="cell">{{ questionAndAnswerRow.question }}</td>
+              <td class="column2"  role="cell"></td>
+                <td class="column3"  role="cell">
 
                     {% for ans in questionAndAnswerRow.answers %}
-                    <div>
+                    <div  role="cell">
                         {{ ans}}
                     </div>
                     {% endfor %}
