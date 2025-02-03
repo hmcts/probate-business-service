@@ -18,10 +18,6 @@ java:
       secrets:
         - name: probate-notify-invite-apikey
           alias: services.notify.apiKey
-        - name: business-services-notify-invitedata-templateId
-          alias: services.notify.invitedata.templateId
-        - name: business-services-notify-pin-templateId
-          alias: services.notify.pin.templateId
         - name: s2s-probate-backend
           alias: services.auth.provider.totp_secret
         - name: app-insights-connection-string
