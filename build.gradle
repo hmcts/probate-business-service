@@ -133,7 +133,7 @@ def versions = [
         jacksonDatabind  : '2.18.2',
         jjwtApi          : '0.12.6',
         junit_jupiter    : '5.10.2',
-        logging          : '6.1.7',
+        logging          : '6.1.8',
         lombok           : '1.18.36',
         pact_version     : '4.1.11',
         probateCommons   : '2.0.37',
