@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.services.invitation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class InvitationService {
 
@@ -34,7 +36,9 @@ public class InvitationService {
 
     public void sendEmail(String linkId, Invitation invitation, Boolean isBilingual)
         throws NotificationClientException {
-        notificationClient.sendEmail(isBilingual ? bilingualTemplateId : templateId, invitation.getEmail(),
+        String notifyTemplate = Boolean.TRUE.equals(isBilingual) ? bilingualTemplateId : templateId;
+        log.info("Sending email for case {} with template {}", invitation.getFormdataId(), notifyTemplate);
+        notificationClient.sendEmail(notifyTemplate, invitation.getEmail(),
             createPersonalisation(linkId, invitation), linkId);
     }
 

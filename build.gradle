@@ -4,13 +4,13 @@ plugins {
     id 'jacoco'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.springframework.boot' version '3.3.5'
-    id 'uk.gov.hmcts.java' version '0.12.64'
+    id 'uk.gov.hmcts.java' version '0.12.65'
     id 'com.github.ben-manes.versions' version '0.52.0'
     id 'com.gorylenko.gradle-git-properties' version '2.4.2'
     id 'info.solidsoft.pitest' version '1.15.0'
     id 'org.sonarqube' version '6.0.1.5171'
     id 'au.com.dius.pact' version '4.6.16'
-    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.13'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.16'
 }
 
 application {
@@ -133,12 +133,12 @@ def versions = [
         jacksonDatabind  : '2.18.2',
         jjwtApi          : '0.12.6',
         junit_jupiter    : '5.10.2',
-        logging          : '6.1.7',
+        logging          : '6.1.8',
         lombok           : '1.18.36',
         pact_version     : '4.1.11',
-        probateCommons   : '2.0.39',
+        probateCommons   : '2.0.44',
         restAssured      : '5.5.0',
-        serenity         : '4.2.13',
+        serenity         : '4.2.16',
         serenityreporter : '4.1.6',
         springBootVersion: '3.3.5',
         springCloud      : '4.2.0',
@@ -158,17 +158,17 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: versions.springCloud
     implementation group: 'org.springframework.retry', name: 'spring-retry'
-    implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.1'
+    implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.2'
     implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.6.2'
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: '3.6.2'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.7.0'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: '3.7.0'
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.0'
     implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.17.4'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.18.0'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
@@ -185,7 +185,7 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit_jupiter
-    testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.6', classifier: 'all'
+    testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.7', classifier: 'all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '3.0.4'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
