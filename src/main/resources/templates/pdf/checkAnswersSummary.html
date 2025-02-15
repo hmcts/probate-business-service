@@ -1,81 +1,87 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title th:remove="all" th:text="${title}">Probate application</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <style type="text/css">
+<head>
+  <title th:remove="all" th:text="${title}">Probate application</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style type="text/css">
+    body {
+      font-family: "nta", sans-serif;
+      margin: 25px 50px;
+    }
 
-            body {
-                font-family: "nta", sans-serif;
-                margin-top: 25px;
-                margin-bottom: 25px;
-                margin-right: 50px;
-                margin-left: 50px;
-            }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-            .table-content {
-                display: block;
-            }
-            tr.border_bottom td {
-                border-bottom: 0.5pt solid black;
-            }
-            .no-page-break {
-                page-break-inside : avoid;
-                -fs-keep-with-inline : keep;
-                -fs-table-paginate: paginate;
-            }
-            td.column1 {
-                width: 50%;
-            }
-            td.column2 {
-                width: 10%;
-            }
-            td.column3{
-                width: 40%;
-            }
-        </style>
-    </head>
-    <body>
-        <table>
-            <tbody class="table-content">
-            <tr>
-                <td class="column1"></td>
-                <td class="column2"></td>
-                <td class="column3"></td>
-            </tr>
-            <tr>
-                <td colspan="3" valign="top" style="font-weight: bold"><h1>{{pageTitle}}</h1></td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <p>{{mainParagraph}}</p>
-              </td>
-            </tr>
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
 
-            {% for section in sections %}
-            <div class="no-page-break">
-            <tr class="border_bottom">
-                <td colspan="3" valign="top" style="font-weight: bold"><h2>{{ section.title}}</h2></td>
-            </tr>
-            {% for questionAndAnswerRow in section.questionAndAnswers %}
-            <tr class="border_bottom">
-                <td class="column1">{{ questionAndAnswerRow.question }}</td>
-                <td class="column2"/>
-                <td class="column3">
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
 
-                    {% for ans in questionAndAnswerRow.answers %}
-                    <div>
-                        {{ ans}}
-                    </div>
-                    {% endfor %}
+    .no-page-break {
+      page-break-inside: avoid;
+    }
 
-                </td>
-            </tr>
-            {% endfor %}
-            </div>
-            {% endfor %}
-            </tbody>
-        </table>
-    </body>
+    .column1 {
+      width: 50%;
+    }
+
+    .column2 {
+      width: 10%;
+    }
+
+    .column3 {
+      width: 40%;
+    }
+  </style>
+</head>
+<body>
+<table role="table">
+  <caption>{{pageTitle}}</caption>
+  <thead>
+  <tr role="row">
+    <th scope="col" class="column1">Question</th>
+    <th scope="col" class="column2"></th>
+    <th scope="col" class="column3">Answer</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td colspan="3" style="font-weight: bold;">{{ pageTitle }}</td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <p>{{ mainParagraph }}</p>
+    </td>
+  </tr>
+
+  {% for section in sections %}
+  <tr>
+    <td colspan="3" class="no-page-break" style="font-weight: bold;">
+      {{ section.title }}
+    </td>
+  </tr>
+
+  {% for questionAndAnswerRow in section.questionAndAnswers %}
+  <tr role="row">
+    <td role="cell" class="column1">{{ questionAndAnswerRow.question }}</td>
+    <td role="cell" class="column2"></td>
+    <td role="cell" class="column3">
+      {% for ans in questionAndAnswerRow.answers %}
+      <p>{{ ans }}</p>
+      {% endfor %}
+    </td>
+  </tr>
+  {% endfor %}
+  {% endfor %}
+  </tbody>
+</table>
+</body>
 </html>
-
