@@ -164,7 +164,7 @@ dependencies {
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.7.1'
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: '3.7.0'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: '3.7.1'
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.0'
     implementation group: 'com.github.hmcts', name: 'cmc-pdf-service-client', version: '8.0.1'
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
