@@ -25,7 +25,7 @@ public class PinController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PinController.class);
     private static final String VALID_PHONENUMBER_CHARACTERS_REGEX = "(\\+)*[0-9]+";
-    private static final String INVALID_PHONENUMBER_CHARACTERS_REGEX = "[ \\(\\)\\[\\]-]";
+    private static final String INVALID_PHONENUMBER_CHARACTERS_REGEX = "(?!^\\+)[^\\d]+";
 
     @Autowired
     private PinService pinService;
