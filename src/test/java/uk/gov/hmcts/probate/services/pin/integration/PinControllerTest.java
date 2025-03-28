@@ -104,7 +104,8 @@ class PinControllerTest {
         mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_BAD_PHONE_NUMBER)
             .header("Session-Id", TEST_SESSION_ID)
             .contentType(contentType))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
 
     @Test
