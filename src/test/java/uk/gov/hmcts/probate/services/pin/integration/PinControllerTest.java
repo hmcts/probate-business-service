@@ -26,6 +26,7 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -82,10 +83,30 @@ class PinControllerTest {
     }
 
     @Test
+    void generatePinFromUkNumberPost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_UK_PHONE_NUMBER + "\"}}"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    @Test
     void generatePinFromInternationalNumber() throws Exception {
         mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_INT_PHONE_NUMBER)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    @Test
+    void generatePinFromInternationalNumberPost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
             .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_INT_PHONE_NUMBER + "\"}}"))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
@@ -93,8 +114,18 @@ class PinControllerTest {
     @Test
     void generatePinFromLargeInternationalNumber() throws Exception {
         mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_LARGE_PHONE_NUMBER)
-            .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    @Test
+    void generatePinFromLargeInternationalNumberPost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_LARGE_PHONE_NUMBER + "\"}}"))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
@@ -102,8 +133,18 @@ class PinControllerTest {
     @Test
     void generatePinFromBadNumber() throws Exception {
         mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_BAD_PHONE_NUMBER)
-            .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    @Test
+    void generatePinFromBadNumberPost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_BAD_PHONE_NUMBER + "\"}}"))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
@@ -111,15 +152,32 @@ class PinControllerTest {
     @Test
     void generatePinFromBadParameterName() throws Exception {
         mockMvc.perform(get(SERVICE_URL + "?number=" + TEST_UK_PHONE_NUMBER)
-            .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(contentType))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void generatePinFromBadParameterNamePost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"number\": \"" + TEST_UK_PHONE_NUMBER + "\"}}"))
             .andExpect(status().isBadRequest());
     }
 
     @Test
     void generatePinFromMissingSessionId() throws Exception {
         mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_UK_PHONE_NUMBER)
-            .contentType(contentType))
+                .contentType(contentType))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void generatePinFromMissingSessionIdPost() throws Exception {
+        mockMvc.perform(post(SERVICE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_UK_PHONE_NUMBER + "\"}}"))
             .andExpect(status().isBadRequest());
     }
 
@@ -142,6 +200,18 @@ class PinControllerTest {
         mockMvc.perform(get(BILINGUAL_URL + "?phoneNumber=" + phoneNumber)
                 .header("Session-Id", TEST_SESSION_ID)
                 .contentType(contentType))
+            .andExpect(status().isOk())
+            .andExpect(content().string(lessThanOrEqualTo("999999")));
+    }
+
+    @ParameterizedTest
+    @MethodSource("phoneNumber")
+    void inviteBilingualPost(final String phoneNumber) throws Exception {
+        mockMvc.perform(post(BILINGUAL_URL)
+                .header("Session-Id", TEST_SESSION_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"PhonePin\": {\"phoneNumber\": \"" + phoneNumber + "\"}}")
+            )
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
