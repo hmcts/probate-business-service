@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -74,29 +73,11 @@ class PinControllerTest {
     }
 
     @Test
-    void generatePinFromUkNumber() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_UK_PHONE_NUMBER)
-            .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
-    }
-
-    @Test
     void generatePinFromUkNumberPost() throws Exception {
         mockMvc.perform(post(SERVICE_URL)
                 .header("Session-Id", TEST_SESSION_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_UK_PHONE_NUMBER + "\"}}"))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
-    }
-
-    @Test
-    void generatePinFromInternationalNumber() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_INT_PHONE_NUMBER)
-                .header("Session-Id", TEST_SESSION_ID)
-                .contentType(contentType))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
@@ -112,29 +93,11 @@ class PinControllerTest {
     }
 
     @Test
-    void generatePinFromLargeInternationalNumber() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_LARGE_PHONE_NUMBER)
-                .header("Session-Id", TEST_SESSION_ID)
-                .contentType(contentType))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
-    }
-
-    @Test
     void generatePinFromLargeInternationalNumberPost() throws Exception {
         mockMvc.perform(post(SERVICE_URL)
                 .header("Session-Id", TEST_SESSION_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"PhonePin\": {\"phoneNumber\": \"" + TEST_LARGE_PHONE_NUMBER + "\"}}"))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
-    }
-
-    @Test
-    void generatePinFromBadNumber() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_BAD_PHONE_NUMBER)
-                .header("Session-Id", TEST_SESSION_ID)
-                .contentType(contentType))
             .andExpect(status().isOk())
             .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
@@ -150,26 +113,11 @@ class PinControllerTest {
     }
 
     @Test
-    void generatePinFromBadParameterName() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?number=" + TEST_UK_PHONE_NUMBER)
-                .header("Session-Id", TEST_SESSION_ID)
-                .contentType(contentType))
-            .andExpect(status().isBadRequest());
-    }
-
-    @Test
     void generatePinFromBadParameterNamePost() throws Exception {
         mockMvc.perform(post(SERVICE_URL)
                 .header("Session-Id", TEST_SESSION_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"PhonePin\": {\"number\": \"" + TEST_UK_PHONE_NUMBER + "\"}}"))
-            .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void generatePinFromMissingSessionId() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "?phoneNumber=" + TEST_UK_PHONE_NUMBER)
-                .contentType(contentType))
             .andExpect(status().isBadRequest());
     }
 
@@ -181,27 +129,8 @@ class PinControllerTest {
             .andExpect(status().isBadRequest());
     }
 
-    @Test
-    void inviteLegacy() throws Exception {
-        mockMvc.perform(get(SERVICE_URL + "/" + TEST_UK_PHONE_NUMBER)
-            .header("Session-Id", TEST_SESSION_ID)
-            .contentType(contentType))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
-    }
-
     private static Stream<String> phoneNumber() {
         return Stream.of(TEST_UK_PHONE_NUMBER, TEST_INT_PHONE_NUMBER, TEST_LARGE_PHONE_NUMBER);
-    }
-
-    @ParameterizedTest
-    @MethodSource("phoneNumber")
-    void inviteBilingual(final String phoneNumber) throws Exception {
-        mockMvc.perform(get(BILINGUAL_URL + "?phoneNumber=" + phoneNumber)
-                .header("Session-Id", TEST_SESSION_ID)
-                .contentType(contentType))
-            .andExpect(status().isOk())
-            .andExpect(content().string(lessThanOrEqualTo("999999")));
     }
 
     @ParameterizedTest
