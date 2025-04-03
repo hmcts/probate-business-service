@@ -50,20 +50,6 @@ public class PinController {
         return getStringResponseEntity(phonePin.getPhoneNumber(), sessionId, Boolean.TRUE);
     }
 
-    @RequestMapping(path = "/pin", method = RequestMethod.GET)
-    public ResponseEntity<String> invite(@RequestParam String phoneNumber,
-                                         @RequestHeader("Session-Id") String sessionId)
-        throws NotificationClientException, UnsupportedEncodingException {
-        return getStringResponseEntity(phoneNumber, sessionId, Boolean.FALSE);
-    }
-
-    @RequestMapping(path = "/pin/bilingual", method = RequestMethod.GET)
-    public ResponseEntity<String> inviteBilingual(@RequestParam String phoneNumber,
-                                                  @RequestHeader("Session-Id") String sessionId)
-        throws NotificationClientException, UnsupportedEncodingException {
-        return getStringResponseEntity(phoneNumber, sessionId, Boolean.TRUE);
-    }
-
     private ResponseEntity<String> getStringResponseEntity(String phoneNumber, String sessionId, Boolean isBilingual)
         throws UnsupportedEncodingException, NotificationClientException {
         if (sessionId == null) {
@@ -78,13 +64,6 @@ public class PinController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         return ResponseEntity.ok(pinService.generateAndSend(phoneNumber, isBilingual));
-    }
-
-    @RequestMapping(path = "/pin/{phoneNumber}", method = RequestMethod.GET)
-    public String inviteLegacy(@PathVariable String phoneNumber,
-                               @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
-        LOGGER.info("Processing session id " + sessionId);
-        return pinService.generateAndSend(phoneNumber, Boolean.FALSE);
     }
 
 }
