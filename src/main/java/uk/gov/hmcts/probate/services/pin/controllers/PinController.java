@@ -1,19 +1,20 @@
 package uk.gov.hmcts.probate.services.pin.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.probate.services.pin.PinService;
+import uk.gov.hmcts.probate.services.pin.exceptions.PhonePinException;
 import uk.gov.hmcts.reform.probate.model.PhonePin;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -35,18 +36,24 @@ public class PinController {
     @RequestMapping(path = "/pin", method = RequestMethod.POST)
     public ResponseEntity<String> invitePost(
             @RequestHeader("Session-Id") final String sessionId,
-            @RequestBody final PhonePin phonePin)
+            @Valid @RequestBody final PhonePin phonePin,
+            BindingResult bindingResult)
             throws NotificationClientException, UnsupportedEncodingException {
+        if (bindingResult.hasErrors()) {
+            throw new PhonePinException("PhonePin invalid");
+        }
         return getStringResponseEntity(phonePin.getPhoneNumber(), sessionId, Boolean.FALSE);
     }
 
     @RequestMapping(path = "/pin/bilingual", method = RequestMethod.POST)
     public ResponseEntity<String> inviteBilingualPost(
         @RequestHeader("Session-Id") final String sessionId,
-        @RequestBody final PhonePin phonePin
-    )
+        @Valid @RequestBody final PhonePin phonePin,
+        BindingResult bindingResult)
         throws NotificationClientException, UnsupportedEncodingException {
-
+        if (bindingResult.hasErrors()) {
+            throw new PhonePinException("PhonePin invalid");
+        }
         return getStringResponseEntity(phonePin.getPhoneNumber(), sessionId, Boolean.TRUE);
     }
 
