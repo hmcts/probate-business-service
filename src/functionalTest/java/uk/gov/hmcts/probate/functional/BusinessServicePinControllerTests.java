@@ -106,16 +106,16 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin?phoneNumber=" + mobileNumber)
-            .then().assertThat().statusCode(400)
-            .extract().response().prettyPrint();
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(400);
     }
 
     @Test void testBilingualInviteGetWithParamFails() {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + mobileNumber)
-            .then().assertThat().statusCode(400)
-            .extract().response().prettyPrint();
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(400);
     }
 
     @Test
@@ -123,8 +123,8 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
             .when().get(businessServiceUrl + "/pin/" + mobileNumber)
-            .then().assertThat().statusCode(400)
-            .extract().response().prettyPrint();
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(400);
     }
 
 
