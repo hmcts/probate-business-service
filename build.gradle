@@ -179,6 +179,19 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-openfeign-core', version: versions.springCloud
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '8.0'
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    implementation group: 'com.itextpdf', name: 'layout', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'forms', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'io', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'pdfa', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'sign', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'styled-xml-parser', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'svg', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'barcodes', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'font-asian', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'hyph', version: '7.2.5'
+    implementation group: 'com.itextpdf', name: 'html2pdf', version: '4.0.5'
+    implementation group: 'com.itextpdf', name: 'itext7-core', version: '7.2.5'
+    implementation group: 'io.pebbletemplates', name: 'pebble', version: '3.2.0'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
