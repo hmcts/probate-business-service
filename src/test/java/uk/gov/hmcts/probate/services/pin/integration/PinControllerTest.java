@@ -18,7 +18,6 @@ import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 import uk.gov.service.notify.SendSmsResponse;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -42,11 +41,6 @@ class PinControllerTest {
     private static final String TEST_BAD_PHONE_NUMBER = "$447700900111";
     private static final String TEST_LARGE_PHONE_NUMBER = "%2B109001110001110";
     private SendSmsResponse smsResponse;
-
-
-    private MediaType contentType = new MediaType(MediaType.TEXT_PLAIN.getType(),
-        MediaType.TEXT_PLAIN.getSubtype(),
-        Charset.forName("utf8"));
 
     private MockMvc mockMvc;
     @SuppressWarnings("unused")

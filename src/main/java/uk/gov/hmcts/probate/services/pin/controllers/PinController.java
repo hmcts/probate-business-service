@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.probate.services.pin.PinService;
 import uk.gov.hmcts.probate.services.pin.exceptions.PhonePinException;
@@ -33,7 +32,7 @@ public class PinController {
     @Autowired
     private PinService pinService;
 
-    @RequestMapping(path = "/pin", method = RequestMethod.POST)
+    @PostMapping(path = "/pin")
     public ResponseEntity<String> invitePost(
             @RequestHeader("Session-Id") final String sessionId,
             @Valid @RequestBody final PhonePin phonePin,
@@ -45,7 +44,7 @@ public class PinController {
         return getStringResponseEntity(phonePin.getPhoneNumber(), sessionId, Boolean.FALSE);
     }
 
-    @RequestMapping(path = "/pin/bilingual", method = RequestMethod.POST)
+    @PostMapping(path = "/pin/bilingual")
     public ResponseEntity<String> inviteBilingualPost(
         @RequestHeader("Session-Id") final String sessionId,
         @Valid @RequestBody final PhonePin phonePin,
