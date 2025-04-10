@@ -23,70 +23,112 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
         validatePinFailure(INVALID_NUMBER);
     }
 
+    private String getPinBody(final String phoneNumber) {
+        return String.format(
+            """
+            {
+                "PhonePin": {
+                    "phoneNumber": "%s"
+                }
+            }
+            """,
+            phoneNumber);
+    }
+
     private void validatePinSuccess(String phoneNumber) {
+        final String body = getPinBody(phoneNumber);
+
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
-            .then().assertThat().statusCode(200);
+            .body(body)
+            .when()
+            .post(businessServiceUrl + "/pin")
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(200);
     }
 
     private void validatePinFailure(String phoneNumber) {
+        final String body = getPinBody(phoneNumber);
+
         Response response = given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin?phoneNumber=" + phoneNumber)
+            .body(body)
+            .when().post(businessServiceUrl + "/pin")
             .thenReturn();
-        response.then().assertThat().statusCode(400);
+        response.then().log().ifValidationFails()
+            .assertThat().statusCode(400);
     }
 
     @Test
     public void testValidatePinFailurePhoneNumberWithNoEnoughDigits() {
-        given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
-            .extract().response().prettyPrint();
-    }
+        final String body = getPinBody("34");
 
-    @Test
-    public void testInviteWithPhoneNumber() {
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/" + mobileNumber)
-            .then().assertThat().statusCode(200);
-    }
-
-    @Test
-    public void testInviteWithInvaidPhoneNumber() {
-        given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/" + INVALID_NUMBER)
-            .then().assertThat().statusCode(500)
-            .extract().response().prettyPrint();
+            .body(body)
+            .when().post(businessServiceUrl + "/pin")
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(500);
     }
 
     @Test
     public void testInvitebilingual() {
+        final String body = getPinBody(mobileNumber);
+
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + mobileNumber)
-            .then().assertThat().statusCode(200);
+            .body(body)
+            .when().post(businessServiceUrl + "/pin/bilingual")
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(200);
     }
 
     @Test
     public void testInvitebilingualWithInvalidPhoneNumber() {
+        final String body = getPinBody(INVALID_NUMBER);
+
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + INVALID_NUMBER)
-            .then().assertThat().statusCode(400);
+            .body(body)
+            .when().post(businessServiceUrl + "/pin/bilingual")
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(400);
     }
 
     @Test
     public void testInviteBilingualPhoneNumberWithNoEnoughDigits() {
+        final String body = getPinBody("34");
         given().relaxedHTTPSValidation()
             .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + 34)
-            .then().assertThat().statusCode(500)
-            .extract().response().prettyPrint();
+            .body(body)
+            .when().post(businessServiceUrl + "/pin/bilingual")
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(500);
+    }
+
+    @Test void testInviteGetWithParamFails() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin?phoneNumber=" + mobileNumber)
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(405);
+    }
+
+    @Test void testBilingualInviteGetWithParamFails() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + mobileNumber)
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(405);
+    }
+
+    @Test
+    public void testInviteGetWithUrlFails() {
+        given().relaxedHTTPSValidation()
+            .headers(utils.getHeaders(SESSION_ID))
+            .when().get(businessServiceUrl + "/pin/" + mobileNumber)
+            .then().log().ifValidationFails()
+            .assertThat().statusCode(404);
     }
 
 
