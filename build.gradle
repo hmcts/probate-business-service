@@ -304,6 +304,18 @@ run {
   }
 }
 
+bootJar {
+    duplicatesStrategy = 'exclude'
+}
+
+distTar {
+    duplicatesStrategy = 'exclude'
+}
+
+distZip {
+    duplicatesStrategy = 'exclude'
+}
+
 rootProject.tasks.named("processResources") {
   dependsOn("generateGitProperties")
 }
