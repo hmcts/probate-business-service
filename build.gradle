@@ -136,7 +136,7 @@ def versions = [
         logging          : '6.1.9',
         lombok           : '1.18.38',
         pact_version     : '4.1.11',
-        probateCommons   : '2.2.0-DTSPB-4761-005',
+        probateCommons   : '2.2.0-DTSPB-4761-006',
         restAssured      : '5.5.5',
         serenity         : '4.2.30',
         serenityreporter : '4.1.6',
@@ -302,18 +302,6 @@ run {
   if (debug == 'true') {
     jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005']
   }
-}
-
-bootJar {
-    duplicatesStrategy = 'exclude'
-}
-
-distTar {
-    duplicatesStrategy = 'exclude'
-}
-
-distZip {
-    duplicatesStrategy = 'exclude'
 }
 
 rootProject.tasks.named("processResources") {
