@@ -141,7 +141,7 @@ def versions = [
         serenity         : '4.2.30',
         serenityreporter : '4.1.6',
         springBootVersion: '3.3.11',
-        springCloud      : '4.2.1',
+        springCloud      : '4.3.0',
         springDocUi      : '1.8.0'
 ]
 
