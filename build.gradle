@@ -171,7 +171,7 @@ dependencies {
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.2'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.19.5'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.19.6'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
