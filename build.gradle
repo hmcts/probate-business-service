@@ -86,32 +86,32 @@ sourceSets {
     }
 }
 
-task smoke(type: Test) {
-    description = "Runs Smoke Tests"
-    testClassesDirs = sourceSets.testSmoke.output.classesDirs
-    classpath = sourceSets.testSmoke.runtimeClasspath
+tasks.register('smoke', Test) {
+  description = "Runs Smoke Tests"
+  testClassesDirs = sourceSets.testSmoke.output.classesDirs
+  classpath = sourceSets.testSmoke.runtimeClasspath
 }
 
-task functional(type: Test) {
-    description = "Runs functional Tests"
-    testClassesDirs = sourceSets.testFunctional.output.classesDirs
-    classpath = sourceSets.testFunctional.runtimeClasspath
-    finalizedBy aggregate
+tasks.register('functional', Test) {
+  description = "Runs functional Tests"
+  testClassesDirs = sourceSets.testFunctional.output.classesDirs
+  classpath = sourceSets.testFunctional.runtimeClasspath
+  finalizedBy aggregate
 }
 
 functional.finalizedBy(aggregate)
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
   maxHeapSize = "1024m"
   useJUnitPlatform()
 }
 
-task pactTask(type: Test) {
-    description = "Runs pact Tests"
-    include "uk/gov/hmcts/probate/services/consumer/**"
-    exclude "uk/gov/hmcts/probate/services/businessdocuments/controllers/**"
-    testClassesDirs = sourceSets.testContract.output.classesDirs
-    classpath = sourceSets.testContract.runtimeClasspath
+tasks.register('pactTask', Test) {
+  description = "Runs pact Tests"
+  include "uk/gov/hmcts/probate/services/consumer/**"
+  exclude "uk/gov/hmcts/probate/services/businessdocuments/controllers/**"
+  testClassesDirs = sourceSets.testContract.output.classesDirs
+  classpath = sourceSets.testContract.runtimeClasspath
 }
 
 jacocoTestReport {
@@ -229,7 +229,7 @@ dependencies {
     }
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << '-parameters'
 }
 
@@ -251,16 +251,16 @@ project.ext {
     pactVersion = getCheckedOutGitCommitHash()
 }
 
-task fortifyScan(type: JavaExec)  {
+tasks.register('fortifyScan', JavaExec) {
   mainClass.set("uk.gov.hmcts.fortifyclient.FortifyClientMainApp")
   classpath += sourceSets.test.runtimeClasspath
   jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
 
-task runAndPublishConsumerPactTests(type: Test) {
-    logger.lifecycle("Runs pact Tests")
-    testClassesDirs = sourceSets.testContract.output.classesDirs
-    classpath = sourceSets.testContract.runtimeClasspath
+tasks.register('runAndPublishConsumerPactTests', Test) {
+  logger.lifecycle("Runs pact Tests")
+  testClassesDirs = sourceSets.testContract.output.classesDirs
+  classpath = sourceSets.testContract.runtimeClasspath
 }
 
 runAndPublishConsumerPactTests.dependsOn pactTask
@@ -281,7 +281,7 @@ pact {
 
 tasks.pactPublish { dependsOn(test) }
 
-task generateAatEnvFile() {
+tasks.register('generateAatEnvFile') {
   doFirst {
     print 'Generating AAT env var file'
     "sh ./generate-aat-env-file.sh".execute()
