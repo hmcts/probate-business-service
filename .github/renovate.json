@@ -4,7 +4,10 @@
     "local>hmcts/.github:renovate-config",
     "local>hmcts/.github//renovate/automerge-all"
   ],
+  "automergeSchedule": ["after 8am and before 2pm every weekday"],
+  "schedule": ["after 8am and before 2pm every weekday"],
   "ignoreDeps": [
-    "com.github.hmcts:probate-commons"
+    "com.github.hmcts:probate-commons",
+    "com.github.hmcts:probate-pact-commons"
   ]
 }
