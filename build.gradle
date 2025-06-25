@@ -133,7 +133,7 @@ def versions = [
         commonsBeanutils : '1.11.0',
         jacksonDatabind  : '2.19.1',
         jjwtApi          : '0.12.6',
-        junit_jupiter    : '5.10.2',
+        junit_jupiter    : '5.12.2',
         logging          : '6.1.9',
         lombok           : '1.18.38',
         pact_version     : '4.1.11',
@@ -143,14 +143,14 @@ def versions = [
         serenityreporter : '4.1.6',
         springBootVersion: '3.5.3',
         springCloud      : '4.3.0',
-        springDocUi      : '1.8.0',
+        springDocOpenUi  : '2.8.9',
         pdfServiceClient : '8.0.2',
         fortifyClient    : '1.4.9',
 ]
 
 dependencyManagement {
   imports {
-    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.5'
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.0'
   }
 }
 
@@ -178,7 +178,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonDatabind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jacksonDatabind
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: versions.springDocUi
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-openfeign-core', version: versions.springCloud
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '8.1'
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -218,7 +218,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
-    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
+    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.12.2'
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 
