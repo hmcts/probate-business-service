@@ -218,7 +218,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
-    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.12.2'
+    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.13.2'
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 
