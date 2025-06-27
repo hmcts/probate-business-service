@@ -3,7 +3,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.springframework.boot' version '3.3.11'
+    id 'org.springframework.boot' version '3.5.3'
     id 'uk.gov.hmcts.java' version '0.12.66'
     id 'com.github.ben-manes.versions' version '0.52.0'
     id 'com.gorylenko.gradle-git-properties' version '2.5.0'
@@ -86,32 +86,32 @@ sourceSets {
     }
 }
 
-task smoke(type: Test) {
-    description = "Runs Smoke Tests"
-    testClassesDirs = sourceSets.testSmoke.output.classesDirs
-    classpath = sourceSets.testSmoke.runtimeClasspath
+tasks.register('smoke', Test) {
+  description = "Runs Smoke Tests"
+  testClassesDirs = sourceSets.testSmoke.output.classesDirs
+  classpath = sourceSets.testSmoke.runtimeClasspath
 }
 
-task functional(type: Test) {
-    description = "Runs functional Tests"
-    testClassesDirs = sourceSets.testFunctional.output.classesDirs
-    classpath = sourceSets.testFunctional.runtimeClasspath
-    finalizedBy aggregate
+tasks.register('functional', Test) {
+  description = "Runs functional Tests"
+  testClassesDirs = sourceSets.testFunctional.output.classesDirs
+  classpath = sourceSets.testFunctional.runtimeClasspath
+  finalizedBy aggregate
 }
 
 functional.finalizedBy(aggregate)
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
   maxHeapSize = "1024m"
   useJUnitPlatform()
 }
 
-task pactTask(type: Test) {
-    description = "Runs pact Tests"
-    include "uk/gov/hmcts/probate/services/consumer/**"
-    exclude "uk/gov/hmcts/probate/services/businessdocuments/controllers/**"
-    testClassesDirs = sourceSets.testContract.output.classesDirs
-    classpath = sourceSets.testContract.runtimeClasspath
+tasks.register('pactTask', Test) {
+  description = "Runs pact Tests"
+  include "uk/gov/hmcts/probate/services/consumer/**"
+  exclude "uk/gov/hmcts/probate/services/businessdocuments/controllers/**"
+  testClassesDirs = sourceSets.testContract.output.classesDirs
+  classpath = sourceSets.testContract.runtimeClasspath
 }
 
 jacocoTestReport {
@@ -131,9 +131,9 @@ repositories {
 
 def versions = [
         commonsBeanutils : '1.11.0',
-        jacksonDatabind  : '2.19.0',
+        jacksonDatabind  : '2.19.1',
         jjwtApi          : '0.12.6',
-        junit_jupiter    : '5.10.2',
+        junit_jupiter    : '5.12.2',
         logging          : '6.1.9',
         lombok           : '1.18.38',
         pact_version     : '4.1.11',
@@ -141,16 +141,16 @@ def versions = [
         restAssured      : '5.5.5',
         serenity         : '4.2.34',
         serenityreporter : '4.1.6',
-        springBootVersion: '3.3.11',
+        springBootVersion: '3.5.3',
         springCloud      : '4.3.0',
-        springDocUi      : '1.8.0',
+        springDocOpenUi  : '2.8.9',
         pdfServiceClient : '8.0.2',
         fortifyClient    : '1.4.9',
 ]
 
 dependencyManagement {
   imports {
-    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.5'
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.0'
   }
 }
 
@@ -171,14 +171,14 @@ dependencies {
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.2'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.19.5'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.20.0'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonDatabind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jacksonDatabind
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: versions.springDocUi
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-openfeign-core', version: versions.springCloud
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '8.1'
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -218,7 +218,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
-    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
+    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.13.2'
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 
@@ -229,7 +229,7 @@ dependencies {
     }
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << '-parameters'
 }
 
@@ -251,16 +251,16 @@ project.ext {
     pactVersion = getCheckedOutGitCommitHash()
 }
 
-task fortifyScan(type: JavaExec)  {
+tasks.register('fortifyScan', JavaExec) {
   mainClass.set("uk.gov.hmcts.fortifyclient.FortifyClientMainApp")
   classpath += sourceSets.test.runtimeClasspath
   jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
 
-task runAndPublishConsumerPactTests(type: Test) {
-    logger.lifecycle("Runs pact Tests")
-    testClassesDirs = sourceSets.testContract.output.classesDirs
-    classpath = sourceSets.testContract.runtimeClasspath
+tasks.register('runAndPublishConsumerPactTests', Test) {
+  logger.lifecycle("Runs pact Tests")
+  testClassesDirs = sourceSets.testContract.output.classesDirs
+  classpath = sourceSets.testContract.runtimeClasspath
 }
 
 runAndPublishConsumerPactTests.dependsOn pactTask
@@ -281,7 +281,7 @@ pact {
 
 tasks.pactPublish { dependsOn(test) }
 
-task generateAatEnvFile() {
+tasks.register('generateAatEnvFile') {
   doFirst {
     print 'Generating AAT env var file'
     "sh ./generate-aat-env-file.sh".execute()

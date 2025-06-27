@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
@@ -41,11 +41,11 @@ public class InvitationControllerProviderTest extends ControllerProviderTest {
     @SuppressWarnings(value = "VisibilityModifier")
     public final Target target = new HttpTarget("http", "localhost", 8123, "/");
 
-    @MockBean
+    @MockitoBean
     private InvitationService invitationService;
-    @MockBean(name = "identityGeneratorService")
+    @MockitoBean(name = "identityGeneratorService")
     private IdGeneratorService idGeneratorService;
-    @MockBean
+    @MockitoBean
     private PinService pinService;
 
     @State("business service sends invitation")
