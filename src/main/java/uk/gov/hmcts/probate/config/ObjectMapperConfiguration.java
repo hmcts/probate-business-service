@@ -26,9 +26,11 @@ public class ObjectMapperConfiguration {
                 .addModule(new JavaTimeModule())
                 .addModule(new Jdk8Module())
                 .addModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES))
+                .enable(DeserializationFeature.UNWRAP_ROOT_VALUE)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .disable(JsonGenerator.Feature.AUTO_CLOSE_JSON_CONTENT)
                 .build();
     }
+
 }
