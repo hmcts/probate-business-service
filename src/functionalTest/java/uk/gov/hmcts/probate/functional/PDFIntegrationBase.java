@@ -40,7 +40,6 @@ public abstract class PDFIntegrationBase<T> extends IntegrationTestBase {
     T getJsonObject(String jsonFileName, Class clazz) throws Exception {
         String jsonString = utils.getJsonFromFile(jsonFileName);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
         return (T) mapper.readValue(jsonString, clazz);
     }
 
