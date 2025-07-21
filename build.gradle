@@ -131,7 +131,7 @@ repositories {
 
 def versions = [
         commonsBeanutils : '1.11.0',
-        jacksonDatabind  : '2.19.1',
+        jacksonDatabind  : '2.19.2',
         jjwtApi          : '0.12.6',
         junit_jupiter    : '5.12.2',
         logging          : '6.1.9',
