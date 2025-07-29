@@ -229,6 +229,17 @@ dependencies {
     }
 }
 
+configurations.configureEach {
+  resolutionStrategy {
+    eachDependency { details ->
+      // Resolve CVE‑2025‑48976
+      if (details.requested.name == 'commons-fileupload') {
+        details.useVersion '1.6.0'
+      }
+    }
+  }
+}
+
 tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << '-parameters'
 }
