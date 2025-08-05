@@ -145,7 +145,7 @@ def versions = [
         springCloud      : '4.3.0',
         springDocOpenUi  : '2.8.9',
         pdfServiceClient : '8.0.2',
-        fortifyClient    : '1.4.9',
+        fortifyClient    : '1.4.10',
 ]
 
 dependencyManagement {
