@@ -164,8 +164,13 @@
           {{ item.beforeLinkText }}<a href="{{ item.url }}" target="_blank" aria-label="{{ item.text }}">{{ item.text }}</a>{{ item.afterLinkText }}
         {% endif %}
         {% if item.type == "textWithMultipleLinks" %}
-        {% for linkObj in item %}
-        {{ linkObj.beforeLinkText }}<a href="{{ linkObj.url }}" target="_blank" aria-label="{{ linkObj.text }}">{{ linkObj.text }}</a>{{ linkObj.afterLinkText }}
+            {% for seg in item.segments %}
+                {% if seg.link %}
+                    <a href="{{ seg.link }}" target="_blank" aria-label="{{ seg.text }}">{{ seg.text }}</a>
+                {% else %}
+                    {{ seg.text }}
+                {% endif %}
+            {% endfor %}
         {% endif %}
 
       </li>
