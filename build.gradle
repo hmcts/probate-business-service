@@ -130,22 +130,23 @@ repositories {
 }
 
 def versions = [
-        commonsBeanutils : '1.11.0',
-        jacksonDatabind  : '2.19.2',
-        jjwtApi          : '0.12.6',
-        junit_jupiter    : '5.12.2',
-        logging          : '6.1.9',
-        lombok           : '1.18.38',
-        pact_version     : '4.1.11',
-        probateCommons   : '2.2.2',
-        restAssured      : '5.5.5',
-        serenity         : '4.2.34',
-        serenityreporter : '4.1.6',
-        springBootVersion: '3.5.4',
-        springCloud      : '4.3.0',
-        springDocOpenUi  : '2.8.9',
-        pdfServiceClient : '8.0.2',
-        fortifyClient    : '1.4.10',
+        commonsBeanutils    : '1.11.0',
+        jacksonDatabind     : '2.19.2',
+        jjwtApi             : '0.12.6',
+        junit_jupiter       : '5.12.2',
+        logging             : '6.1.9',
+        lombok              : '1.18.38',
+        pact_version        : '4.1.11',
+        probateCommons      : '2.2.2',
+        restAssured         : '5.5.5',
+        serenity            : '4.2.34',
+        serenityreporter    : '4.1.6',
+        springBootVersion   : '3.5.4',
+        springCloud         : '4.3.0',
+        springDocOpenUi     : '2.8.9',
+        swaggerAnnotations  : '2.2.35',
+        pdfServiceClient    : '8.0.2',
+        fortifyClient       : '1.4.10',
 ]
 
 dependencyManagement {
@@ -179,7 +180,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jacksonDatabind
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.35")
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: versions.swaggerAnnotations
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-openfeign-core', version: versions.springCloud
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '8.1'
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
