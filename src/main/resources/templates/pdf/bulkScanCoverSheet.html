@@ -165,7 +165,8 @@
         {% endif %}
         {% if item.type == "textWithMultipleLinks" %}
             {% for seg in item.segments %}
-                {{ seg }}
+        {{ seg.link }}
+        <a href="{{ seg.link }}">{{ seg.text }}</a>
             {% endfor %}
         {% endif %}
 
