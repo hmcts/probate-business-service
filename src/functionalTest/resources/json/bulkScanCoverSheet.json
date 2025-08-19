@@ -23,10 +23,9 @@
     {
       "type":"textWithMultipleLinks",
       "segments":[
-        {"text":"text before link","link":null},
         {"text":"Link1","link":"http://example-url.com"},
         {"text":"Link2","link":"http://example-url.com"},
-        {"text":"text after link","link":null}
+        {"text":"text after","link":null}
       ]
     }
   ],
