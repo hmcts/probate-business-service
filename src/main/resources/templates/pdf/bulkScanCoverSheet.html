@@ -165,8 +165,10 @@
         {% endif %}
         {% if item.type == "textWithMultipleLinks" %}
             {% for seg in item.segments %}
+        {% if seg.link %}
         {{ seg.link }}
         <a href="{{ seg.link }}" target="_blank" aria-label="{{ seg.text }}">{{ seg.text }}</a>
+        {% endif %}
             {% endfor %}
         {% endif %}
 
