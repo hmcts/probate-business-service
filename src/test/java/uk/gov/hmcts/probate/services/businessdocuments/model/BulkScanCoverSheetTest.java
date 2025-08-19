@@ -41,6 +41,7 @@ public class BulkScanCoverSheetTest {
     public static final String VALID_COVERSHEET_NO_DOCS_REQUIRED_TEXT = "Based on the details in the application no"
         + " documents are required. However if documents are requested from you in the future, please send them along"
         + " with this cover sheet to the address below";
+    public static final String VALID_COVER_SHEET_SEGMENT_TEXT = "Link1";
 
     private ObjectMapper objectMapper;
 
@@ -82,7 +83,11 @@ public class BulkScanCoverSheetTest {
             .getBeforeLinkText());
         assertEquals(VALID_COVER_SHEET_CHECKLIST_AFTER_LINK_TEXT, coverSheet.getCheckListItems().get(1)
             .getAfterLinkText());
-        assertEquals(coverSheet.getNoDocumentsRequired(), false);
+        assertEquals(CheckListItemType.TEXT_WITH_MULTIPLE_LINKS, coverSheet.getCheckListItems().get(2)
+            .getType());
+        assertEquals(VALID_COVER_SHEET_SEGMENT_TEXT, coverSheet.getCheckListItems().get(2)
+            .getSegments().getFirst().getText());
+        assertEquals(false, coverSheet.getNoDocumentsRequired());
     }
 
     @Test
@@ -128,9 +133,9 @@ public class BulkScanCoverSheetTest {
     void shouldReturnCoversheetWithEmptyChecklistItems() throws IOException {
         Optional<FileSystemResource> optional = getFile(VALID_BULK_SCAN_COVER_SHEET_NO_CHECKLIST_ITEMS);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
-        assertEquals(coverSheet.getCheckListItems().toString(), "[]");
-        assertEquals(coverSheet.getNoDocumentsRequired(), true);
-        assertEquals(coverSheet.getNoDocumentsRequiredText(), VALID_COVERSHEET_NO_DOCS_REQUIRED_TEXT);
+        assertEquals("[]", coverSheet.getCheckListItems().toString());
+        assertEquals(true, coverSheet.getNoDocumentsRequired());
+        assertEquals(VALID_COVERSHEET_NO_DOCS_REQUIRED_TEXT, coverSheet.getNoDocumentsRequiredText());
     }
 
     private Optional<FileSystemResource> getFile(String fileName) {

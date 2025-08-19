@@ -15,6 +15,14 @@
       "url": "http://example-url.com",
       "beforeLinkText": "text before link",
       "afterLinkText": "text after link"
+    },
+    {
+      "type":"textWithMultipleLinks",
+      "segments":[
+        {"text":"Link1","link":"http://example-url.com"},
+        {"text":"Link2","link":"http://example-url.com"},
+        {"text":"text after","link":null}
+      ]
     }
   ],
   "noDocumentsRequired": false,
