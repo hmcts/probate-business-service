@@ -65,7 +65,6 @@ public class BusinessDocumentController {
                                                                 @RequestHeader("ServiceAuthorization")
                                                                     String authorization) {
         log.info("call to generateBulkScanCoverSheetPDF()");
-        log.info("Cover sheet: {}", coverSheet.getCheckListItems());
 
         byte[] bytes = pdfDocumentGenerationService.generatePdf(coverSheet, DocumentType.BULK_SCAN_COVER_SHEET);
 
