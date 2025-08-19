@@ -1,5 +1,6 @@
 package uk.gov.hmcts.probate.functional;
 
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import uk.gov.hmcts.reform.probate.model.documents.CheckListItemType;
  * values being correct in the PDF from test form data.
  */
 @ExtendWith(SerenityJUnit5Extension.class)
+@Slf4j
 public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverSheet> {
 
     private static final String BULK_SCAN_COVER_SHEET_PDF_URL = "/businessDocument/generateBulkScanCoverSheetPDF";
@@ -24,6 +26,7 @@ public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverS
     public void shouldPassCoreValues() throws Exception {
         String pdfContentAsString = pdfContentAsString(BULK_SCAN_COVER_SHEET_VALUES, BULK_SCAN_COVER_SHEET_PDF_URL);
         BulkScanCoverSheet bulkScanCoverSheet = getJsonObject(BULK_SCAN_COVER_SHEET_VALUES, BulkScanCoverSheet.class);
+        log.info("BulkScanCoverSheet: {}", bulkScanCoverSheet);
         validatePDFContent(pdfContentAsString, bulkScanCoverSheet);
     }
 
