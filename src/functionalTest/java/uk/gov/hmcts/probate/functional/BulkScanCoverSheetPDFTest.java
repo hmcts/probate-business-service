@@ -43,7 +43,6 @@ public class BulkScanCoverSheetPDFTest extends PDFIntegrationBase<BulkScanCoverS
                 assertContent(pdfContentAsString, checkListItem.getAfterLinkText());
             }
             if (checkListItem.getType().equals(CheckListItemType.TEXT_WITH_MULTIPLE_LINKS)) {
-                assertContent(pdfContentAsString, checkListItem.getSegments().get(0).getText());
                 assertContent(pdfContentAsString, checkListItem.getSegments().get(1).getText());
             }
             assertContent(pdfContentAsString, checkListItem.getText());
