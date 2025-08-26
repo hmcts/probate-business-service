@@ -137,7 +137,7 @@ def versions = [
         logging             : '6.1.9',
         lombok              : '1.18.38',
         pact_version        : '4.1.11',
-        probateCommons      : '2.2.2',
+        probateCommons      : '2.2.10',
         restAssured         : '5.5.6',
         serenity            : '4.2.34',
         serenityreporter    : '4.1.6',
