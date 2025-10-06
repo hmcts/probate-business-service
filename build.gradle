@@ -130,24 +130,25 @@ repositories {
 }
 
 def versions = [
-        commonsBeanutils    : '1.11.0',
-        jacksonDatabind     : '2.19.2',
-        jjwtApi             : '0.13.0',
-        junit_jupiter       : '5.12.2',
-        logging             : '6.1.9',
-        lombok              : '1.18.42',
-        pact_version        : '4.1.11',
-        probateCommons      : '2.2.12',
-        restAssured         : '5.5.6',
-        serenity            : '4.2.34',
-        serenityreporter    : '4.1.6',
-        springBootVersion   : '3.5.6',
-        springCloud         : '4.3.0',
-        springDocOpenUi     : '2.8.13',
-        swaggerAnnotations  : '2.2.37',
-        pdfServiceClient    : '8.0.2',
-        fortifyClient       : '1.4.10',
-        tomcat              : '11.0.11'
+        applicationInsightsVersion    : '3.7.5',
+        commonsBeanutils              : '1.11.0',
+        jacksonDatabind               : '2.19.2',
+        jjwtApi                       : '0.13.0',
+        junit_jupiter                 : '5.12.2',
+        logging                       : '6.1.9',
+        lombok                        : '1.18.42',
+        pact_version                  : '4.1.11',
+        probateCommons                : '2.2.12',
+        restAssured                   : '5.5.6',
+        serenity                      : '4.2.34',
+        serenityreporter              : '4.1.6',
+        springBootVersion             : '3.5.6',
+        springCloud                   : '4.3.0',
+        springDocOpenUi               : '2.8.13',
+        swaggerAnnotations            : '2.2.37',
+        pdfServiceClient              : '8.0.2',
+        fortifyClient                 : '1.4.10',
+        tomcat                        : '11.0.11'
 ]
 
 dependencyManagement {
@@ -168,8 +169,8 @@ dependencies {
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '3.7.5'
-    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: '3.7.4'
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: versions.applicationInsightsVersion
+    implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: versions.applicationInsightsVersion
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
