@@ -12,14 +12,15 @@ import java.util.Map;
 @Configuration
 public class NotifyPersonalisationEscapeConfiguration {
     private final Map<String, String> toEscape = Map.of(
-        "[", "&lbrack;",
-        "]", "&rbrack;",
-        "*", "&ast;",
-        "#", "&num;",
-        "^", "&Hat;",
-         // notify handles lpar and rpar in a weird way, so we use the hex escape for them
-         "(", "&#x28;",
-         ")", "&#x29;"
+        "[", "\\[",
+        "]", "\\]",
+        "*", "\\*",
+        "#", "\\#",
+        "^", "",
+         "(", "\\(",
+         ")", "\\)",
+        "-", "\\-",
+        "\\", "\\\\"
     );
 
     @Bean
