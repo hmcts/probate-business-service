@@ -56,7 +56,7 @@ class NotifyPersonalisationEscapeServiceTest {
         final NotifyPersonalisationEscapeService service = new NotifyPersonalisationEscapeService(Map.of());
 
         final String result = service.escape(null);
-        
+
         assertNull(result);
     }
 
