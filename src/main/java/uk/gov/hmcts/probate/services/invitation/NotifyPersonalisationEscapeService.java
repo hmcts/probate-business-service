@@ -37,6 +37,9 @@ public class NotifyPersonalisationEscapeService {
         // we operate on a per-codepoint basis because there are characters which
         // in theory we may need to replace which fall outside the 16-bit limit of
         // java's char/Character type.
+        if (parameter == null) {
+            return null;
+        }
         return parameter.codePoints()
             .mapToObj(this::escapeCodepoint)
             .flatMap(Collection::stream)

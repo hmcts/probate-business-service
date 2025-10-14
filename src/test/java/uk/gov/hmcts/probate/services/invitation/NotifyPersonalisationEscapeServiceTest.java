@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasLength;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NotifyPersonalisationEscapeServiceTest {
@@ -51,10 +52,18 @@ class NotifyPersonalisationEscapeServiceTest {
     }
 
     @Test
+    void testNullInput() {
+        final NotifyPersonalisationEscapeService service = new NotifyPersonalisationEscapeService(Map.of());
+
+        final String result = service.escape(null);
+        
+        assertNull(result);
+    }
+
+    @Test
     void testOnlySingleCodepointInput() {
         Map<String, String> replace = Map.of("bb", "");
         assertThrows(RuntimeException.class, () -> new NotifyPersonalisationEscapeService(replace));
-
     }
 
     // This is a completely niche test - it's checking that given a zero-width-joiner emoji
