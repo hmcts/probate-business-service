@@ -2,16 +2,14 @@ package uk.gov.hmcts.probate.services.invitation.unit;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.ExecutorNotificationService;
+import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -23,28 +21,46 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
 class ExecutorNotificationServiceTest {
 
     public static final String ENCODED_EXEC_NOTIFICATION = "invitation/executorNotification.json";
     public static final String EXPECTED_DECODING = "invitation/expectedDecodingExecutorNotification.json";
-    public ObjectMapper objectMapper;
 
-    @Autowired
-    private TestUtils utils;
 
     @Mock
-    private NotificationClient notificationClient;
+    NotificationClient notificationClientMock;
+    @Mock
+    NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
 
-    @InjectMocks
-    private ExecutorNotificationService executorNotificationService;
+    ExecutorNotificationService executorNotificationService;
+
+    AutoCloseable closeableMocks;
+
+    ObjectMapper objectMapper;
+    TestUtils utils;
 
     @BeforeEach
     public void setUp() {
+        utils = new TestUtils();
+
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
+
+        closeableMocks = MockitoAnnotations.openMocks(this);
+
+        when(notifyPersonalisationEscapeServiceMock.escape(any()))
+                .thenAnswer(i -> i.getArgument(0, String.class));
+
+        executorNotificationService = new ExecutorNotificationService(
+                notificationClientMock,
+                notifyPersonalisationEscapeServiceMock);
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
+        closeableMocks.close();
     }
 
     private ExecutorNotification setUpExecutorNotification() {
@@ -63,14 +79,14 @@ class ExecutorNotificationServiceTest {
     void testSendEmail() throws NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         executorNotificationService.sendEmail(executorNotification, false);
-        verify(notificationClient).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+        verify(notificationClientMock).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
     }
 
     @Test
     void testSendAllEmail() throws NotificationClientException {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         executorNotificationService.sendAllSignedEmail(executorNotification, false);
-        verify(notificationClient).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+        verify(notificationClientMock).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
     }
 
     @Test
