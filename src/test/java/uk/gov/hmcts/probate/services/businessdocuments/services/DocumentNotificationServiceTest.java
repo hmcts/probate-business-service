@@ -2,15 +2,13 @@ package uk.gov.hmcts.probate.services.businessdocuments.services;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
+import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -24,29 +22,35 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
 class DocumentNotificationServiceTest {
 
     public static final String ENCODED_EXEC_NOTIFICATION = "businessdocuments/documentNotification.json";
     public static final String EXPECTED_DECODING = "businessdocuments/expectedDecodingDocumentNotification.json";
-    public ObjectMapper objectMapper;
-
-    @Autowired
-    private TestUtils utils;
 
     @Mock
-    private NotificationClient notificationClient;
+    NotificationClient notificationClientMock;
+    @Mock
+    NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
 
-    @InjectMocks
-    private DocumentNotificationService documentNotificationService;
-    private DocumentNotification documentNotification;
+    DocumentNotificationService documentNotificationService;
+
+    AutoCloseable closeableMocks;
+
+
+    DocumentNotification documentNotification;
+    ObjectMapper objectMapper;
+    TestUtils utils;
+
 
     @BeforeEach
-     void setUp() {
+    void setUp() {
+        utils = new TestUtils();
+
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
+
         documentNotification = DocumentNotification.builder()
             .ccdReference("0123-4567-8901-2345")
             .applicantName("applicant lastname")
@@ -56,31 +60,45 @@ class DocumentNotificationServiceTest {
             .citizenResponse("response")
             .expectedResponseDate("2016-12-12")
             .fileName(List.of("document.pdf")).build();
+
+        closeableMocks = MockitoAnnotations.openMocks(this);
+
+        when(notifyPersonalisationEscapeServiceMock.escape(any()))
+            .thenAnswer(i -> i.getArgument(0, String.class));
+
+        documentNotificationService = new DocumentNotificationService(
+                notificationClientMock,
+                notifyPersonalisationEscapeServiceMock);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        closeableMocks.close();
     }
 
     @Test
     void testSendEmailForDocumentUploaded() throws NotificationClientException {
         documentNotificationService.sendEmail(documentNotification, false);
-        verify(notificationClient).sendEmail(isNull(),eq(documentNotification.getEmail()), any(), isNull());
+        verify(notificationClientMock).sendEmail(isNull(),eq(documentNotification.getEmail()), any(), isNull());
     }
 
     @Test
     void testSendEmailForDocumentUploadIssue() throws NotificationClientException {
         documentNotificationService.sendUploadIssueEmail(documentNotification, false);
-        verify(notificationClient).sendEmail(isNull(),eq(documentNotification.getEmail()), any(), isNull());
+        verify(notificationClientMock).sendEmail(isNull(),eq(documentNotification.getEmail()), any(), isNull());
     }
 
     @Test
     void shouldThrowExceptionWhenSendingNotification() throws NotificationClientException {
         doThrow(new NotificationClientException("error"))
-            .when(notificationClient).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
+            .when(notificationClientMock).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
         documentNotificationService.sendEmail(documentNotification, false);
     }
 
     @Test
     void shouldThrowExceptionWhenSendingNotificationForUploadIssue() throws NotificationClientException {
         doThrow(new NotificationClientException("error"))
-            .when(notificationClient).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
+            .when(notificationClientMock).sendEmail(isNull(), eq(documentNotification.getEmail()), any(), isNull());
         documentNotificationService.sendUploadIssueEmail(documentNotification, false);
     }
 
