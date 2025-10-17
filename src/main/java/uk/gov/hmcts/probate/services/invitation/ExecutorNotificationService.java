@@ -55,7 +55,10 @@ public class ExecutorNotificationService {
         personalisation.put("executor_name", executorNotification.getExecutorName());
         personalisation.put("applicant_name", executorNotification.getApplicantName());
         personalisation.put("deceased_name", executorNotification.getDeceasedName());
-        personalisation.put("deceased_dod", executorNotification.getDeceasedDod());
+        personalisation.put("deceased_dod", UKDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKDateFormatter.ENGLISH_LOCALE));
+        personalisation.put("deceased_dod_cy", UKDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKDateFormatter.WELSH_LOCALE));
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
         return personalisation;
     }
