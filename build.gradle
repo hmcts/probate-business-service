@@ -184,7 +184,7 @@ dependencies {
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: versions.swaggerAnnotations
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-openfeign-core', version: versions.springCloud
-    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '8.1'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '9.0'
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
