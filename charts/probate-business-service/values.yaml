@@ -12,7 +12,7 @@ java:
     SERVICES_AUTH_PROVIDER_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_PERSISTENCE_BASEURL: http://probate-persistence-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    SERVICES_NOTIFY_INVITEDATA_INVITELINK : https://probate.{{ .Values.global.environment }}.platform.hmcts.net/executors/invitation/
+    SERVICES_NOTIFY_INVITEDATA_INVITELINK : https://probate-frontend-pr-2819.preview.platform.hmcts.net/executors/invitation/
   keyVaults:
     probate:
       secrets:

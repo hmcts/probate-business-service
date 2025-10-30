@@ -1,10 +1,8 @@
 package uk.gov.hmcts.probate.services.invitation;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -14,6 +12,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 @Slf4j
 @Component
@@ -28,11 +27,16 @@ public class InvitationService {
     @Value("${services.notify.invitedata.inviteLink}")
     String inviteLink;
 
-    @Autowired
-    private PersistenceClient persistenceClient;
+    private final NotificationClient notificationClient;
 
-    @Autowired
-    private NotificationClient notificationClient;
+    private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
+
+    public InvitationService(
+            final NotificationClient notificationClient,
+            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+        this.notificationClient = notificationClient;
+        this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
+    }
 
     public void sendEmail(String linkId, Invitation invitation, Boolean isBilingual)
         throws NotificationClientException {
@@ -46,10 +50,13 @@ public class InvitationService {
     private Map<String, String> createPersonalisation(String linkId, Invitation inviteData) {
         HashMap<String, String> personalisation = new HashMap<>();
 
-        personalisation.put("executorName", inviteData.getExecutorName());
-        personalisation.put("leadExecutorName", inviteData.getLeadExecutorName());
-        personalisation.put("deceasedFirstName", inviteData.getFirstName());
-        personalisation.put("deceasedLastName", inviteData.getLastName());
+        // alias for length and readability
+        final UnaryOperator<String> esc = notifyPersonalisationEscapeService::escape;
+
+        personalisation.put("executorName", esc.apply(inviteData.getExecutorName()));
+        personalisation.put("leadExecutorName", esc.apply(inviteData.getLeadExecutorName()));
+        personalisation.put("deceasedFirstName", esc.apply(inviteData.getFirstName()));
+        personalisation.put("deceasedLastName", esc.apply(inviteData.getLastName()));
         personalisation.put("link", inviteLink + linkId);
 
         return personalisation;
