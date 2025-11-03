@@ -132,7 +132,7 @@ repositories {
 def versions = [
         applicationInsightsVersion    : '3.7.6',
         commonsBeanutils              : '1.11.0',
-        jacksonDatabind               : '2.20.0',
+        jacksonDatabind               : '2.20.1',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '6.1.9',
