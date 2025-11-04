@@ -140,7 +140,7 @@ def versions = [
         pact_version                  : '4.1.11',
         probateCommons                : '2.2.12',
         restAssured                   : '5.5.6',
-        serenity                      : '4.2.34',
+        serenity                      : '4.3.2',
         serenityreporter              : '4.1.6',
         springBootVersion             : '3.5.7',
         springCloud                   : '4.3.0',
