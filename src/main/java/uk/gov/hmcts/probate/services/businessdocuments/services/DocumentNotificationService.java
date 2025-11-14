@@ -53,9 +53,10 @@ public class DocumentNotificationService {
     private final UKDateFormatter ukDateFormatter;
 
     @Autowired
-    public DocumentNotificationService(NotificationClient notificationClient, UKDateFormatter ukDateFormatter) {
+    public DocumentNotificationService(
         final NotificationClient notificationClient,
-        final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+        final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
+        final UKDateFormatter ukDateFormatter) {
         this.notificationClient = notificationClient;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
         this.ukDateFormatter = ukDateFormatter;

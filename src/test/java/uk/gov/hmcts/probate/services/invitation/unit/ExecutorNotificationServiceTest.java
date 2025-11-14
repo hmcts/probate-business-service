@@ -39,12 +39,9 @@ class ExecutorNotificationServiceTest {
 
     AutoCloseable closeableMocks;
 
-    @Mock
-    private UKDateFormatter ukDateFormatter;
+//    @InjectMocks
+//    private ExecutorNotificationService executorNotificationService;
 
-    @InjectMocks
-    private ExecutorNotificationService executorNotificationService;
-  
     ObjectMapper objectMapper;
     TestUtils utils;
 

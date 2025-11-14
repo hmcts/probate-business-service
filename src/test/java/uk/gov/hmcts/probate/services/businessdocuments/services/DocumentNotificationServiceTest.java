@@ -34,6 +34,8 @@ class DocumentNotificationServiceTest {
     NotificationClient notificationClientMock;
     @Mock
     NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
+    @Mock
+    UKDateFormatter ukDateFormatterMock;
 
     DocumentNotificationService documentNotificationService;
 
@@ -47,9 +49,9 @@ class DocumentNotificationServiceTest {
     @Mock
     private UKDateFormatter ukDateFormatter;
 
-    @InjectMocks
-    private DocumentNotificationService documentNotificationService;
-    private DocumentNotification documentNotification;
+//    @InjectMocks
+//    private DocumentNotificationService documentNotificationService;
+//    private DocumentNotification documentNotification;
 
     @BeforeEach
     void setUp() {
@@ -75,7 +77,8 @@ class DocumentNotificationServiceTest {
 
         documentNotificationService = new DocumentNotificationService(
                 notificationClientMock,
-                notifyPersonalisationEscapeServiceMock);
+                notifyPersonalisationEscapeServiceMock,
+                ukDateFormatter);
     }
 
     @AfterEach
