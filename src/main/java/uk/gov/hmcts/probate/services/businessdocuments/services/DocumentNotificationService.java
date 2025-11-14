@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import uk.gov.hmcts.probate.services.businessdocuments.model.UKLocale;
+import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 @Component
 public class DocumentNotificationService {
@@ -46,12 +48,16 @@ public class DocumentNotificationService {
 
 
     private final NotificationClient notificationClient;
+    private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
 
     private final UKDateFormatter ukDateFormatter;
 
     @Autowired
     public DocumentNotificationService(NotificationClient notificationClient, UKDateFormatter ukDateFormatter) {
+        final NotificationClient notificationClient,
+        final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
         this.notificationClient = notificationClient;
+        this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
         this.ukDateFormatter = ukDateFormatter;
     }
 
@@ -93,9 +99,21 @@ public class DocumentNotificationService {
     private Map<String, String> createPersonalisation(DocumentNotification documentNotification, Boolean isBilingual) {
         HashMap<String, String> personalisation = new HashMap<>();
 
-        personalisation.put("applicant_name", documentNotification.getApplicantName());
-        personalisation.put("deceased_name", documentNotification.getDeceasedName());
+        // alias for length and readability
+        final UnaryOperator<String> esc = notifyPersonalisationEscapeService::escape;
 
+        final String appName = esc.apply(documentNotification.getApplicantName());
+        final String decName = esc.apply(documentNotification.getDeceasedName());
+
+        final String citResp = esc.apply(documentNotification.getCitizenResponse());
+
+        final String fileNames = documentNotification.getFileName()
+                .stream()
+                .map(esc)
+                .collect(Collectors.joining("\n"));
+
+        personalisation.put("applicant_name", appName);
+        personalisation.put("deceased_name", decName);
         personalisation.put("deceased_dod", ukDateFormatter.format(documentNotification.getDeceasedDod(),
             UKLocale.ENGLISH));
         personalisation.put("deceased_dod_cy", ukDateFormatter.format(documentNotification.getDeceasedDod(),
@@ -104,12 +122,11 @@ public class DocumentNotificationService {
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
         personalisation.put("response_heading_eng", null != documentNotification.getCitizenResponse()
             && !documentNotification.getCitizenResponse().isEmpty() ? RESPONSE : "");
-        personalisation.put("RESPONSE", null != documentNotification.getCitizenResponse()
-            ? documentNotification.getCitizenResponse() : "");
+        personalisation.put("RESPONSE", null != citResp ? citResp : "");
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("filename_heading_eng", !documentNotification.getFileName().isEmpty() ? FILE_NAME : "");
-        personalisation.put("FILE NAMES", String.join("\n", documentNotification.getFileName()));
 
+        personalisation.put("FILE NAMES", fileNames);
         personalisation.put("UPDATE DATE",
             ukDateFormatter.format(documentNotification.getExpectedResponseDate(),
                 isBilingual ? UKLocale.WELSH : UKLocale.ENGLISH));
