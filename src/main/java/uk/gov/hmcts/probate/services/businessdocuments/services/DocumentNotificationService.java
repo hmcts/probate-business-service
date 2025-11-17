@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import uk.gov.hmcts.probate.services.businessdocuments.model.UKLocale;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
+import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -47,13 +49,16 @@ public class DocumentNotificationService {
 
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
+    private final UKDateFormatter ukDateFormatter;
 
     @Autowired
     public DocumentNotificationService(
         final NotificationClient notificationClient,
-        final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+        final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
+        final UKDateFormatter ukDateFormatter) {
         this.notificationClient = notificationClient;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
+        this.ukDateFormatter = ukDateFormatter;
     }
 
     private static final String RESPONSE_DATE_FORMAT = "dd MMMM yyyy";
@@ -109,7 +114,10 @@ public class DocumentNotificationService {
 
         personalisation.put("applicant_name", appName);
         personalisation.put("deceased_name", decName);
-        personalisation.put("deceased_dod", convertDate(documentNotification.getDeceasedDod()));
+        personalisation.put("deceased_dod", ukDateFormatter.format(documentNotification.getDeceasedDod(),
+            UKLocale.ENGLISH));
+        personalisation.put("deceased_dod_cy", ukDateFormatter.format(documentNotification.getDeceasedDod(),
+            UKLocale.WELSH));
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
         personalisation.put("response_heading_eng", null != documentNotification.getCitizenResponse()
@@ -118,9 +126,8 @@ public class DocumentNotificationService {
         personalisation.put("filename_heading", getFileName(documentNotification.getFileName(), isBilingual));
         personalisation.put("filename_heading_eng", !documentNotification.getFileName().isEmpty() ? FILE_NAME : "");
         personalisation.put("FILE NAMES", fileNames);
-        personalisation.put("UPDATE DATE", isBilingual
-            ? getSubmittedDateInWelsh(documentNotification.getExpectedResponseDate())
-            : getSubmittedDate(documentNotification.getExpectedResponseDate()));
+        personalisation.put("UPDATE DATE", ukDateFormatter.format(documentNotification.getExpectedResponseDate(),
+            isBilingual ? UKLocale.WELSH : UKLocale.ENGLISH));
         return personalisation;
     }
 
