@@ -140,7 +140,7 @@ def versions = [
         pact_version                  : '4.1.11',
         probateCommons                : '2.2.12',
         restAssured                   : '5.5.6',
-        serenity                      : '4.3.2',
+        serenity                      : '4.3.4',
         serenityreporter              : '4.1.6',
         springBootVersion             : '3.5.7',
         springCloud                   : '4.3.0',
@@ -148,7 +148,7 @@ def versions = [
         swaggerAnnotations            : '2.2.40',
         pdfServiceClient              : '8.0.2',
         fortifyClient                 : '1.4.10',
-        tomcat                        : '11.0.13'
+        tomcat                        : '11.0.14'
 ]
 
 dependencyManagement {
