@@ -22,13 +22,11 @@ public class UKDateFormatter {
             int day = date.getDayOfMonth();
             if (ukLocale == UKLocale.ENGLISH) {
                 String suffix = getDaySuffix(day);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy",
-                    UKLocale.ENGLISH.getLocale());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", ukLocale.getLocale());
                 String formattedDate = date.format(formatter);
                 return day + suffix + " " + formattedDate;
             } else if (ukLocale == UKLocale.WELSH) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy",
-                    UKLocale.WELSH.getLocale());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", ukLocale.getLocale());
                 return date.format(formatter);
             } else {
                 return dateStr;
