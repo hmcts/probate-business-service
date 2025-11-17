@@ -2,8 +2,10 @@ package uk.gov.hmcts.probate.services.invitation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import uk.gov.hmcts.probate.services.businessdocuments.model.UKLocale;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -34,6 +36,9 @@ public class ExecutorNotificationService {
 
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
+
+    @Autowired
+    private UKDateFormatter ukDateFormatter;
 
     public ExecutorNotificationService(
             final NotificationClient notificationClient,
@@ -69,7 +74,10 @@ public class ExecutorNotificationService {
         personalisation.put("executor_name", execName);
         personalisation.put("applicant_name", applName);
         personalisation.put("deceased_name", decdName);
-        personalisation.put("deceased_dod", executorNotification.getDeceasedDod());
+        personalisation.put("deceased_dod", ukDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKLocale.ENGLISH));
+        personalisation.put("deceased_dod_cy", ukDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKLocale.WELSH));
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
         return personalisation;
     }
