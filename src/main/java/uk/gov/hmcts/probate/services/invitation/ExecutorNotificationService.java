@@ -35,15 +35,15 @@ public class ExecutorNotificationService {
 
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
-
-    @Autowired
-    private UKDateFormatter ukDateFormatter;
+    private final UKDateFormatter ukDateFormatter;
 
     public ExecutorNotificationService(
             final NotificationClient notificationClient,
-            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
+            final UKDateFormatter ukDateFormatter) {
         this.notificationClient = notificationClient;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
+        this.ukDateFormatter = ukDateFormatter;
     }
 
     public void sendEmail(ExecutorNotification executorNotification, Boolean isBilingual)
