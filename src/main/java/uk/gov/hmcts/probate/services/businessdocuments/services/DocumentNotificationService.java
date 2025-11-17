@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.businessdocuments.model.UKLocale;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
@@ -115,9 +114,9 @@ public class DocumentNotificationService {
         personalisation.put("applicant_name", appName);
         personalisation.put("deceased_name", decName);
         personalisation.put("deceased_dod", ukDateFormatter.format(documentNotification.getDeceasedDod(),
-            UKLocale.ENGLISH));
+            UKDateFormatter.UKLocale.ENGLISH));
         personalisation.put("deceased_dod_cy", ukDateFormatter.format(documentNotification.getDeceasedDod(),
-            UKLocale.WELSH));
+            UKDateFormatter.UKLocale.WELSH));
         personalisation.put("ccd_reference", documentNotification.getCcdReference());
         personalisation.put("response_heading", getResponse(documentNotification.getCitizenResponse(), isBilingual));
         personalisation.put("response_heading_eng", null != documentNotification.getCitizenResponse()
@@ -127,7 +126,7 @@ public class DocumentNotificationService {
         personalisation.put("filename_heading_eng", !documentNotification.getFileName().isEmpty() ? FILE_NAME : "");
         personalisation.put("FILE NAMES", fileNames);
         personalisation.put("UPDATE DATE", ukDateFormatter.format(documentNotification.getExpectedResponseDate(),
-            isBilingual ? UKLocale.WELSH : UKLocale.ENGLISH));
+            isBilingual ? UKDateFormatter.UKLocale.WELSH : UKDateFormatter.UKLocale.ENGLISH));
         return personalisation;
     }
 

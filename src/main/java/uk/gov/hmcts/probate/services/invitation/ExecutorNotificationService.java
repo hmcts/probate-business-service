@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.probate.services.businessdocuments.model.UKLocale;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -75,9 +74,9 @@ public class ExecutorNotificationService {
         personalisation.put("applicant_name", applName);
         personalisation.put("deceased_name", decdName);
         personalisation.put("deceased_dod", ukDateFormatter.format(executorNotification.getDeceasedDod(),
-            UKLocale.ENGLISH));
+            UKDateFormatter.UKLocale.ENGLISH));
         personalisation.put("deceased_dod_cy", ukDateFormatter.format(executorNotification.getDeceasedDod(),
-            UKLocale.WELSH));
+            UKDateFormatter.UKLocale.WELSH));
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
         return personalisation;
     }
