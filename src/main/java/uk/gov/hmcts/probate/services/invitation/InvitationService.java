@@ -37,11 +37,19 @@ public class InvitationService {
     @Value("${services.notify.invitedata.intestacyLink}")
     String intestacyLink;
 
+    private final NotificationClient notificationClient;
+
     @Autowired
     private PersistenceClient persistenceClient;
 
-    @Autowired
-    private NotificationClient notificationClient;
+    private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
+
+    public InvitationService(
+            final NotificationClient notificationClient,
+            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+        this.notificationClient = notificationClient;
+        this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
+    }
 
     public void sendEmail(String linkId, Invitation invitation, Boolean isBilingual)
         throws NotificationClientException {
@@ -73,10 +81,13 @@ public class InvitationService {
     private Map<String, String> createPersonalisation(String linkId, Invitation inviteData) {
         HashMap<String, String> personalisation = new HashMap<>();
 
-        personalisation.put("executorName", inviteData.getExecutorName());
-        personalisation.put("leadExecutorName", inviteData.getLeadExecutorName());
-        personalisation.put("deceasedFirstName", inviteData.getFirstName());
-        personalisation.put("deceasedLastName", inviteData.getLastName());
+        // alias for length and readability
+        final UnaryOperator<String> esc = notifyPersonalisationEscapeService::escape;
+
+        personalisation.put("executorName", esc.apply(inviteData.getExecutorName()));
+        personalisation.put("leadExecutorName", esc.apply(inviteData.getLeadExecutorName()));
+        personalisation.put("deceasedFirstName", esc.apply(inviteData.getFirstName()));
+        personalisation.put("deceasedLastName", esc.apply(inviteData.getLastName()));
         personalisation.put("link", inviteLink + linkId);
 
         return personalisation;
