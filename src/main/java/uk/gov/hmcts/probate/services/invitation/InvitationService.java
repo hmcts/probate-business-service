@@ -25,8 +25,17 @@ public class InvitationService {
     @Value("${services.notify.invitedata.bilingualTemplateId}")
     String bilingualTemplateId;
 
+    @Value("${services.notify.invitedata.intestacyTemplateId}")
+    String intestacyTemplateId;
+
+    @Value("${services.notify.invitedata.bilingualIntestacyTemplateId}")
+    String bilingualIntestacyTemplateId;
+
     @Value("${services.notify.invitedata.inviteLink}")
     String inviteLink;
+
+    @Value("${services.notify.invitedata.intestacyLink}")
+    String intestacyLink;
 
     @Autowired
     private PersistenceClient persistenceClient;
@@ -42,6 +51,24 @@ public class InvitationService {
             createPersonalisation(linkId, invitation), linkId);
     }
 
+    public void sendIntestacyEmail(String linkId, Invitation invitation, Boolean isBilingual)
+        throws NotificationClientException {
+        String notifyTemplate = Boolean.TRUE.equals(isBilingual) ? bilingualIntestacyTemplateId : intestacyTemplateId;
+        log.info("Send intestacy email for case {} with template {}", invitation.getFormdataId(), intestacyTemplateId);
+        notificationClient.sendEmail(intestacyTemplateId, invitation.getEmail(),
+            createIntestacyPersonalisation(linkId, invitation), linkId);
+    }
+
+    private Map<String, String> createIntestacyPersonalisation(String linkId, Invitation inviteData) {
+        HashMap<String, String> personalisation = new HashMap<>();
+
+        personalisation.put("applicant_name", inviteData.getLeadExecutorName());
+        personalisation.put("deceasedName", inviteData.getFirstName() + ' ' + inviteData.getLastName());
+        personalisation.put("co-app_name", inviteData.getExecutorName());
+        personalisation.put("link", intestacyLink + linkId);
+
+        return personalisation;
+    }
 
     private Map<String, String> createPersonalisation(String linkId, Invitation inviteData) {
         HashMap<String, String> personalisation = new HashMap<>();
