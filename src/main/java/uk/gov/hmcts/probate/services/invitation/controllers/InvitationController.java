@@ -93,7 +93,7 @@ public class InvitationController {
                                   @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.TRUE);
-        return inviteId;
+        return "";
     }
 
     @PostMapping(path = "/invite-co-applicant", consumes = MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ public class InvitationController {
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.FALSE);
-        return inviteId;
+        return "";
     }
 
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId,
