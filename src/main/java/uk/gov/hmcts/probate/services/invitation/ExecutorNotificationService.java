@@ -14,6 +14,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 @Component
 public class ExecutorNotificationService {
@@ -49,8 +50,7 @@ public class ExecutorNotificationService {
 
     @Value("${services.notify.executorNotification.coApplicantAllSignedBilingualTemplateId}")
     String coApplicantAllSignedBilingualTemplateId;
-    @Autowired
-    private NotificationClient notificationClient;
+
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
 
