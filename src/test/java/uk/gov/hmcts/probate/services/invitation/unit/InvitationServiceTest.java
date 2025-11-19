@@ -12,6 +12,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
+import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -70,6 +72,25 @@ class InvitationServiceTest {
             closeableMocks.close();
         } catch (Exception e) { // nothing to do
         }
+    }
+
+    private ExecutorNotification setUpExecutorNotification() {
+        return ExecutorNotification.builder()
+            .email("email@email.com")
+            .deceasedName("firstname lastname")
+            .executorName("executor lastname")
+            .applicantName("applicant lastname")
+            .ccdReference("0123-4567-8901-2345")
+            .deceasedDod("2016-12-12")
+            .email("email@email.com")
+            .build();
+    }
+
+    @Test
+    void testSendIntestacyEmail() throws NotificationClientException {
+        Invitation invitation = Invitation.builder().firstName("firstName").lastName("lastName").build();
+        invitationService.sendIntestacyEmail("templateid",invitation, false);
+        verify(notificationClientMock).sendEmail(isNull(),any(), any(), any());
     }
 
     @Test
