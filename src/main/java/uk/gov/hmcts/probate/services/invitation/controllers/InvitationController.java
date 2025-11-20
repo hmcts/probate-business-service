@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
@@ -19,7 +18,6 @@ import uk.gov.service.notify.NotificationClientException;
 
 import jakarta.validation.Valid;
 import javax.ws.rs.core.MediaType;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,14 +35,11 @@ public class InvitationController {
     @Autowired
     private InvitationService invitationService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @PostMapping(path = "/invite/bilingual", consumes = MediaType.APPLICATION_JSON)
     public String inviteBilingual(@Valid @RequestBody Invitation encodedInvitation,
                                   BindingResult bindingResult,
                                   @RequestHeader("Session-Id") String sessionId)
-        throws NotificationClientException, UnsupportedEncodingException {
+        throws NotificationClientException {
         return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE);
     }
 
@@ -62,7 +57,7 @@ public class InvitationController {
     public String invite(@Valid @RequestBody Invitation encodedInvitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
-        throws NotificationClientException, UnsupportedEncodingException {
+        throws NotificationClientException {
         return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.FALSE);
     }
 
