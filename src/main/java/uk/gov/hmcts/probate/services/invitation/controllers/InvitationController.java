@@ -78,7 +78,7 @@ public class InvitationController {
     }
 
     private String sendInvitation(Invitation invitation, BindingResult bindingResult, String sessionId,
-                                  Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+                                  Boolean isBlingual) throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
 
         Map<String, String> data = new HashMap<>();

@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
-import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
@@ -32,7 +31,6 @@ class InvitationServiceTest {
 
 
     private ObjectMapper objectMapper;
-    private TestUtils utils;
 
     @Mock
     NotificationClient notificationClientMock;
@@ -45,7 +43,6 @@ class InvitationServiceTest {
 
     @BeforeEach
     public void setUp() {
-        utils = new TestUtils();
 
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);

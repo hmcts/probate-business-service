@@ -69,7 +69,7 @@ public class InviteControllerTest {
     }
 
     @NotNull
-    private Invitation setUpInvitationMock() throws UnsupportedEncodingException {
+    private Invitation setUpInvitationMock() {
         Invitation invitation = Invitation.builder().firstName("firstName").lastName("lastName").build();
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
