@@ -16,14 +16,12 @@ import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -32,8 +30,6 @@ import static org.mockito.Mockito.when;
 
 class InvitationServiceTest {
 
-    public static final String ENCODED_INVITATION = "invitation/success.json";
-    public static final String EXPECTED_DECODING = "invitation/expectedDecoding.json";
 
     private ObjectMapper objectMapper;
     private TestUtils utils;
