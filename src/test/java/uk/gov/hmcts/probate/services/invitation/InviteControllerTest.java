@@ -74,7 +74,6 @@ public class InviteControllerTest {
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
         data.put("lastName", invitation.getLastName());
-        when(invitationService.decodeURL(invitation)).thenReturn(invitation);
         when(idGeneratorService.generate(data)).thenReturn("1233445");
         return invitation;
     }

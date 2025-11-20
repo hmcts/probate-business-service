@@ -73,20 +73,6 @@ class InvitationServiceTest {
     }
 
     @Test
-    void testInvitationDecoding() throws Exception, UnsupportedEncodingException {
-        Invitation encodedInvitation =
-            objectMapper.readValue(utils.getJsonFromFile(ENCODED_INVITATION), Invitation.class);
-        Invitation expectedDecoding =
-            objectMapper.readValue(utils.getJsonFromFile(EXPECTED_DECODING), Invitation.class);
-
-        Invitation decodedInvitation = invitationService.decodeURL(encodedInvitation);
-        assertEquals(expectedDecoding.getFirstName(), decodedInvitation.getFirstName());
-        assertEquals(expectedDecoding.getLastName(), decodedInvitation.getLastName());
-        assertEquals(expectedDecoding.getExecutorName(), decodedInvitation.getExecutorName());
-        assertEquals(expectedDecoding.getLeadExecutorName(), decodedInvitation.getLeadExecutorName());
-    }
-
-    @Test
     void verifyParametersEscaped() throws NotificationClientException {
         final String linkId = "linkId";
         final String firstName = "firstName";

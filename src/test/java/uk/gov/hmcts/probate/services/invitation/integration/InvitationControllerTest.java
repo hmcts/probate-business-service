@@ -77,7 +77,7 @@ class InvitationControllerTest {
             .content(utils.getJsonFromFile("invitation/success.json"))
             .contentType(contentType))
             .andExpect(status().isOk())
-            .andExpect(content().string(containsString("king-michael-i")));
+            .andExpect(content().string(containsString("king-michael")));
     }
 
 
