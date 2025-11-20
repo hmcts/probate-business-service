@@ -7,9 +7,6 @@ import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
@@ -62,15 +59,4 @@ public class InvitationService {
         return personalisation;
     }
 
-    public Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
-        invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
-        invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
-        invitation.setLastName(decodeURLParam(invitation.getLastName()));
-        invitation.setLeadExecutorName(decodeURLParam(invitation.getLeadExecutorName()));
-        return invitation;
-    }
-
-    private String decodeURLParam(String uriParam) throws UnsupportedEncodingException {
-        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8.toString());
-    }
 }
