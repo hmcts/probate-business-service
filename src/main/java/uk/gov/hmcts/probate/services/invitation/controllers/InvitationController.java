@@ -87,13 +87,12 @@ public class InvitationController {
     }
 
     @PostMapping(path = "/invite-co-applicant/bilingual/{inviteId}", consumes = MediaType.APPLICATION_JSON)
-    public String inviteIntestacyBilingual(@PathVariable("inviteId") String inviteId,
+    public void inviteIntestacyBilingual(@PathVariable("inviteId") String inviteId,
                                   @Valid @RequestBody Invitation invitation,
                                   BindingResult bindingResult,
                                   @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.TRUE);
-        return "";
     }
 
     @PostMapping(path = "/invite-co-applicant", consumes = MediaType.APPLICATION_JSON)
@@ -106,13 +105,12 @@ public class InvitationController {
     }
 
     @PostMapping(path = "/invite-co-applicant/{inviteId}", consumes = MediaType.APPLICATION_JSON)
-    public String inviteIntestacy(@PathVariable("inviteId") String inviteId,
+    public void inviteIntestacy(@PathVariable("inviteId") String inviteId,
                          @Valid @RequestBody Invitation invitation,
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.FALSE);
-        return "";
     }
 
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId,
