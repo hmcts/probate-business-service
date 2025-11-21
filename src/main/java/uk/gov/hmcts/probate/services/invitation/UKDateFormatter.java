@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class UKDateFormatter {
     private static final Logger LOGGER = LoggerFactory.getLogger(UKDateFormatter.class);
 
     public String format(String dateStr, UKLocale ukLocale) {
-        if (dateStr == null || dateStr.isEmpty()) {
+        if (StringUtils.isBlank(dateStr)) {
             return "";
         }
         try {
