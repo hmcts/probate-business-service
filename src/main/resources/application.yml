@@ -61,12 +61,21 @@ services:
     invitedata:
       templateId: "29e5c50d-1c86-449c-bb06-8cd465edfce6"
       bilingualTemplateId: "df526a14-8da2-4cd9-bb7a-cd757b082583"
-      inviteLink: "http://localhost:3000/executors/invitation/"
+      intestacyTemplateId: "a0adb46e-22aa-416c-94ee-773c4578e271"
+      bilingualIntestacyTemplateId: "27fb4d9c-c07f-41c1-9cd2-5df81bfdd056"
+      inviteLink: "http://localhost:3001/executors/invitation/"
+      intestacyLink: "http://localhost:3001/executors/intestacy-invitation/"
     executorNotification:
       templateId: "8b9316de-1ca8-464e-bab6-5e14c7973af7"
       bilingualTemplateId: "37bc1d67-7f4a-4872-bfb1-d2f9eee34e47"
       allSignedTemplateId: "dce921d1-7510-48d7-a90c-4b6a3bea69e9"
       allSignedBilingualTemplateId: "aafa6219-e1ca-4a64-b62e-5cb3cbd5930b"
+      coApplicantDisagreeTemplateId: "0c55e9e9-33a4-4822-966f-f6e65ac4b615"
+      coApplicantDisagreeBilingualTemplateId: "806a0335-446e-4d3a-b407-f13285cfab97"
+      coApplicantTemplateId: "694872f2-e97a-4453-ad1a-05e091eb105d"
+      coApplicantBilingualTemplateId: "56aadf55-5ae1-4e5d-bf05-ce870d323b88"
+      coApplicantAllSignedTemplateId: "8a520df0-c3a0-4cce-867d-039402ae72f6"
+      coApplicantAllSignedBilingualTemplateId: "dfd0baea-12fa-4813-92de-d7aa14581d52"
     pin:
       templateId: "c0e11486-b8b3-4c22-a1ae-805a0ad2f641"
       bilingualTemplateId: "724a2e58-f0fd-421d-986d-ad5c4b5a47c2"
