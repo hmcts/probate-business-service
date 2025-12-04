@@ -70,7 +70,7 @@ services:
     documentNotification:
       templateId: "27c432a7-9d5a-4fd8-bea0-d7f678976a05"
       uploadIssueTemplateId: "80695a05-8dde-418d-b578-ee47fa24f900"
-      bilingualTemplateId: "059235a6-f248-43ce-87d6-561352fbd89"
+      bilingualTemplateId: "059235a6-f248-43ce-87d6-561352fbd898"
       bilingualUploadIssueTemplateId: "3e8d8469-98c6-4c0c-88d6-1b86580722f0"
   pdf:
     service:
