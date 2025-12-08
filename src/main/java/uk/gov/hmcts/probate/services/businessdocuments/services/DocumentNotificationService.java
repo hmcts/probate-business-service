@@ -126,7 +126,9 @@ public class DocumentNotificationService {
         personalisation.put("filename_heading_eng", !documentNotification.getFileName().isEmpty() ? FILE_NAME : "");
         personalisation.put("FILE NAMES", fileNames);
         personalisation.put("UPDATE DATE", ukDateFormatter.format(documentNotification.getExpectedResponseDate(),
-            isBilingual ? UKDateFormatter.UKLocale.WELSH : UKDateFormatter.UKLocale.ENGLISH));
+            UKDateFormatter.UKLocale.ENGLISH));
+        personalisation.put("UPDATE DATE CY", ukDateFormatter.format(documentNotification.getExpectedResponseDate(),
+            UKDateFormatter.UKLocale.WELSH));
         return personalisation;
     }
 
