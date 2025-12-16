@@ -10,7 +10,7 @@ properties([
         ])
     ])
 
-@Library("Infrastructure")
+@Library("Infrastructure@update-zap-glue-image")
 
 def type = "java"
 def product = "probate"
