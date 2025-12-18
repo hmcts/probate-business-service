@@ -12,7 +12,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
@@ -72,7 +71,7 @@ class InvitationControllerTest {
 
     @Test
     void generateLinkId() throws Exception {
-        ResultActions resultActions = mockMvc.perform(post(SERVICE_URL)
+        mockMvc.perform(post(SERVICE_URL)
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
             .contentType(contentType))
@@ -83,7 +82,7 @@ class InvitationControllerTest {
 
     @Test
     void resendInvitation() throws Exception {
-        ResultActions resultActions = mockMvc.perform(post(SERVICE_URL + "/2321312312")
+        mockMvc.perform(post(SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
             .contentType(contentType))
@@ -93,7 +92,7 @@ class InvitationControllerTest {
 
     @Test
     void sendInvitation() throws Exception {
-        ResultActions resultActions = mockMvc.perform(post(SERVICE_URL + "/2321312312")
+        mockMvc.perform(post(SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
             .contentType(contentType))
@@ -103,7 +102,7 @@ class InvitationControllerTest {
 
     @Test
     void sendBilingualInvitation() throws Exception {
-        ResultActions resultActions = mockMvc.perform(post(BILINGULAL_SERVICE_URL + "/2321312312")
+        mockMvc.perform(post(BILINGULAL_SERVICE_URL + "/2321312312")
             .header("Session-Id", "1234567890")
             .content(utils.getJsonFromFile("invitation/success.json"))
             .contentType(contentType))
