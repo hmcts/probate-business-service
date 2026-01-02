@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
+import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -33,11 +34,12 @@ class DocumentNotificationServiceTest {
     NotificationClient notificationClientMock;
     @Mock
     NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
+    @Mock
+    UKDateFormatter ukDateFormatterMock;
 
     DocumentNotificationService documentNotificationService;
 
     AutoCloseable closeableMocks;
-
 
     DocumentNotification documentNotification;
     ObjectMapper objectMapper;
@@ -68,7 +70,9 @@ class DocumentNotificationServiceTest {
 
         documentNotificationService = new DocumentNotificationService(
                 notificationClientMock,
-                notifyPersonalisationEscapeServiceMock);
+                notifyPersonalisationEscapeServiceMock,
+                ukDateFormatterMock
+            );
     }
 
     @AfterEach

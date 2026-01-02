@@ -52,12 +52,15 @@ public class ExecutorNotificationService {
 
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
+    private final UKDateFormatter ukDateFormatter;
 
     public ExecutorNotificationService(
             final NotificationClient notificationClient,
-            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
+            final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
+            final UKDateFormatter ukDateFormatter) {
         this.notificationClient = notificationClient;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
+        this.ukDateFormatter = ukDateFormatter;
     }
 
     public void sendEmail(ExecutorNotification executorNotification, Boolean isBilingual)
@@ -121,7 +124,10 @@ public class ExecutorNotificationService {
         personalisation.put("executor_name", execName);
         personalisation.put("applicant_name", applName);
         personalisation.put("deceased_name", decdName);
-        personalisation.put("deceased_dod", executorNotification.getDeceasedDod());
+        personalisation.put("deceased_dod", ukDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKDateFormatter.UKLocale.ENGLISH));
+        personalisation.put("deceased_dod_cy", ukDateFormatter.format(executorNotification.getDeceasedDod(),
+            UKDateFormatter.UKLocale.WELSH));
         personalisation.put("ccd_reference", executorNotification.getCcdReference());
         return personalisation;
     }
