@@ -10,7 +10,7 @@ plugins {
     id 'info.solidsoft.pitest' version '1.15.0'
     id 'org.sonarqube' version '7.2.2.6593'
     id 'au.com.dius.pact' version '4.6.19'
-    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.3.2'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '5.0.1-FINAL'
 }
 
 application {
@@ -140,11 +140,11 @@ def versions = [
         pact_version                  : '4.1.11',
         probateCommons                : '2.2.12-DTSPB-4689-v10',
         restAssured                   : '5.5.6',
-        serenity                      : '4.3.4',
+        serenity                      : '5.0.2',
         serenityreporter              : '4.1.6',
         springBootVersion             : '3.5.9',
         springCloud                   : '4.3.0',
-        springDocOpenUi               : '2.8.14',
+        springDocOpenUi               : '2.8.15',
         swaggerAnnotations            : '2.2.41',
         pdfServiceClient              : '8.0.2',
         fortifyClient                 : '1.4.10',
