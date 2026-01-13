@@ -132,6 +132,7 @@ repositories {
 def versions = [
         applicationInsightsVersion    : '3.7.6',
         commonsBeanutils              : '1.11.0',
+        commonsFileuploadVersion      : '1.6.0',
         jacksonDatabind               : '2.20.1',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
@@ -155,6 +156,11 @@ dependencyManagement {
   imports {
     mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.0'
   }
+}
+
+ext {
+  set("log4j2.version", libs.versions.log4j2.get()) // CVE-2025-68161
+  set("commons-lang3.version", libs.versions.commonsLang3.get()) // CVE-2025-48924
 }
 
 dependencies {
@@ -235,18 +241,11 @@ dependencies {
         checkstyle group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanutils
         implementation group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanutils
         testFunctionalImplementation group: 'commons-beanutils', name: 'commons-beanutils', version: versions.commonsBeanutils
+        // CVE-2025-48976
+        implementation("commons-fileupload:commons-fileupload") {
+          version { strictly(versions.commonsFileuploadVersion) }
+        }
     }
-}
-
-configurations.configureEach {
-  resolutionStrategy {
-    eachDependency { details ->
-      // Resolve CVE‑2025‑48976
-      if (details.requested.name == 'commons-fileupload') {
-        details.useVersion '1.6.0'
-      }
-    }
-  }
 }
 
 tasks.withType(JavaCompile).configureEach {
