@@ -133,7 +133,7 @@ def versions = [
         applicationInsightsVersion    : '3.7.6',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonDatabind               : '2.20.1',
+        jacksonDatabind               : '2.21.0',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '7.0.0',
@@ -185,7 +185,7 @@ dependencies {
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonDatabind
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.20'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.21'
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: versions.swaggerAnnotations
