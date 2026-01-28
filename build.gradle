@@ -130,7 +130,7 @@ repositories {
 }
 
 def versions = [
-        applicationInsightsVersion    : '3.7.6',
+        applicationInsightsVersion    : '3.7.7',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
         jacksonDatabind               : '2.21.0',
