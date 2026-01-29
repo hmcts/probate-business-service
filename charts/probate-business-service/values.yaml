@@ -1,13 +1,13 @@
 java:
   applicationPort: 8080
-  aadIdentityName: Probate
+  aadIdentityName: probate
   ingressHost: probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   autoscaling:
     enabled: true
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   environment:
-    REFORM_TEAM: probate_team
+    REFORM_TEAM: probate
     REFORM_SERVICE_NAME: business-service
     SERVICES_AUTH_PROVIDER_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
