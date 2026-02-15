@@ -135,7 +135,7 @@ def versions = [
         commonsFileuploadVersion      : '1.6.0',
         jacksonDatabind               : '2.21.0',
         jjwtApi                       : '0.13.0',
-        junit_jupiter                 : '5.12.2',
+        junit_jupiter                 : '5.14.3',
         logging                       : '7.0.0',
         lombok                        : '1.18.42',
         pact_version                  : '4.1.11',
@@ -233,7 +233,7 @@ dependencies {
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
-    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.13.2'
+    testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.14.3'
     testContractImplementation sourceSets.main.runtimeClasspath
     testContractImplementation sourceSets.test.runtimeClasspath
 
