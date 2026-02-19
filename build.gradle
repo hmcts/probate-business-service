@@ -138,7 +138,7 @@ def versions = [
         junit_jupiter                 : '5.12.2',
         logging                       : '7.0.0',
         lombok                        : '1.18.42',
-        pact_version                  : '4.1.11',
+        pact_version                  : '4.6.20',
         probateCommons                : '2.2.17',
         restAssured                   : '5.5.7',
         serenity                      : '5.2.2',
