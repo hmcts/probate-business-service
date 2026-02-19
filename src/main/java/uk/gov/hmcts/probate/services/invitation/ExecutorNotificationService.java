@@ -32,6 +32,24 @@ public class ExecutorNotificationService {
     @Value("${services.notify.executorNotification.allSignedBilingualTemplateId}")
     String allSignedBilingualTemplateId;
 
+    @Value("${services.notify.executorNotification.coApplicantDisagreeTemplateId}")
+    String coApplicantDisagreeTemplateId;
+
+    @Value("${services.notify.executorNotification.coApplicantDisagreeBilingualTemplateId}")
+    String coApplicantDisagreeBilingualTemplateId;
+
+    @Value("${services.notify.executorNotification.coApplicantTemplateId}")
+    String coApplicantTemplateId;
+
+    @Value("${services.notify.executorNotification.coApplicantBilingualTemplateId}")
+    String coApplicantBilingualTemplateId;
+
+    @Value("${services.notify.executorNotification.coApplicantAllSignedTemplateId}")
+    String coApplicantAllSignedTemplateId;
+
+    @Value("${services.notify.executorNotification.coApplicantAllSignedBilingualTemplateId}")
+    String coApplicantAllSignedBilingualTemplateId;
+
     private final NotificationClient notificationClient;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
     private final UKDateFormatter ukDateFormatter;
@@ -57,6 +75,40 @@ public class ExecutorNotificationService {
         LOGGER.info("sending executor all signed email");
         notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
             executorNotification.getEmail(), createPersonalisation(executorNotification), null);
+    }
+
+    public void sendCoApplicantEmail(ExecutorNotification executorNotification, Boolean isBilingual)
+        throws NotificationClientException {
+        LOGGER.info("sending CoApplicant notification email");
+        notificationClient.sendEmail(isBilingual ? coApplicantBilingualTemplateId : coApplicantTemplateId,
+            executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
+    }
+
+    public void sendCoApplicantDisagreeEmail(ExecutorNotification executorNotification, Boolean isBilingual)
+        throws NotificationClientException {
+        LOGGER.info("sending CoApplicant Disagree notification email");
+        notificationClient.sendEmail(isBilingual
+                ? coApplicantDisagreeBilingualTemplateId : coApplicantDisagreeTemplateId,
+            executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
+    }
+
+    public void sendCoApplicantAllSignedEmail(ExecutorNotification executorNotification, Boolean isBilingual)
+        throws NotificationClientException {
+        LOGGER.info("sending CoApplicant all signed email");
+        notificationClient.sendEmail(isBilingual
+                ? coApplicantAllSignedBilingualTemplateId : coApplicantAllSignedTemplateId,
+                executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
+    }
+
+    private Map<String, String> createCoApplicantPersonalisation(ExecutorNotification executorNotification) {
+        HashMap<String, String> personalisation = new HashMap<>();
+
+        personalisation.put("applicant_name", executorNotification.getApplicantName());
+        personalisation.put("co_applicant_name", executorNotification.getExecutorName());
+        personalisation.put("deceased_name", executorNotification.getDeceasedName());
+        personalisation.put("deceased_dod", executorNotification.getDeceasedDod());
+        personalisation.put("ccd_reference", executorNotification.getCcdReference());
+        return personalisation;
     }
 
     private Map<String, String> createPersonalisation(ExecutorNotification executorNotification) {

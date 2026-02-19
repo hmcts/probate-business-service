@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
+import uk.gov.hmcts.reform.probate.model.ProbateType;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -45,7 +46,7 @@ public class InvitationController {
                                   BindingResult bindingResult,
                                   @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE);
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE, ProbateType.PA);
     }
 
     @PostMapping(path = "/invite/bilingual/{inviteId}", consumes = MediaType.APPLICATION_JSON)
@@ -63,7 +64,7 @@ public class InvitationController {
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException, UnsupportedEncodingException {
-        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.FALSE);
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.FALSE, ProbateType.PA);
     }
 
 
@@ -77,8 +78,44 @@ public class InvitationController {
         return inviteId;
     }
 
+    @PostMapping(path = "/invite-co-applicant/bilingual", consumes = MediaType.APPLICATION_JSON)
+    public String inviteIntestacyBilingual(@Valid @RequestBody Invitation encodedInvitation,
+                                  BindingResult bindingResult,
+                                  @RequestHeader("Session-Id") String sessionId)
+        throws NotificationClientException, UnsupportedEncodingException {
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE, ProbateType.INTESTACY);
+    }
+
+    @PostMapping(path = "/invite-co-applicant/bilingual/{inviteId}", consumes = MediaType.APPLICATION_JSON)
+    public void inviteIntestacyBilingual(@PathVariable("inviteId") String inviteId,
+                                  @Valid @RequestBody Invitation invitation,
+                                  BindingResult bindingResult,
+                                  @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
+        invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.TRUE);
+    }
+
+    @PostMapping(path = "/invite-co-applicant", consumes = MediaType.APPLICATION_JSON)
+    public String inviteIntestacy(@Valid @RequestBody Invitation encodedInvitation,
+                         BindingResult bindingResult,
+                         @RequestHeader("Session-Id") String sessionId)
+        throws NotificationClientException, UnsupportedEncodingException {
+        return sendInvitation(encodedInvitation, bindingResult, sessionId,
+            Boolean.FALSE, ProbateType.INTESTACY);
+    }
+
+    @PostMapping(path = "/invite-co-applicant/{inviteId}", consumes = MediaType.APPLICATION_JSON)
+    public void inviteIntestacy(@PathVariable("inviteId") String inviteId,
+                         @Valid @RequestBody Invitation invitation,
+                         BindingResult bindingResult,
+                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
+        invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.FALSE);
+    }
+
     private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId,
-                                  Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+                                  Boolean isBlingual, ProbateType probateType)
+        throws UnsupportedEncodingException, NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
         Invitation invitation = invitationService.decodeURL(encodedInvitation);
 
@@ -87,7 +124,12 @@ public class InvitationController {
         data.put("lastName", invitation.getLastName());
 
         String linkId = idGeneratorService.generate(data);
-        invitationService.sendEmail(linkId, invitation, isBlingual);
+        if (ProbateType.INTESTACY.equals(probateType)) {
+            invitationService.sendIntestacyEmail(linkId, invitation, isBlingual);
+        } else {
+            invitationService.sendEmail(linkId, invitation, isBlingual);
+        }
+
         return linkId;
     }
 

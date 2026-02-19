@@ -117,4 +117,44 @@ public class InviteControllerTest {
 
         verify(invitationService).sendEmail("1233445", invitation, Boolean.TRUE);
     }
+
+    @Test
+    void shouldSendinviteIntestacyBilingual() throws UnsupportedEncodingException, NotificationClientException {
+
+        Invitation invitation = setUpInvitationMock();
+
+        invitationController.inviteIntestacyBilingual(invitation, mockBindingResult, "");
+
+        verify(invitationService).sendIntestacyEmail("1233445", invitation, Boolean.TRUE);
+    }
+
+    @Test
+    void shouldSendinviteIntestacy() throws UnsupportedEncodingException, NotificationClientException {
+
+        Invitation invitation = setUpInvitationMock();
+
+        invitationController.inviteIntestacy(invitation, mockBindingResult, "");
+
+        verify(invitationService).sendIntestacyEmail("1233445", invitation, Boolean.FALSE);
+    }
+
+    @Test
+    void shouldSendinviteIntestacyBilingualWithId() throws UnsupportedEncodingException, NotificationClientException {
+
+        Invitation invitation = setUpInvitationMock();
+
+        invitationController.inviteIntestacyBilingual(invitation, mockBindingResult, "");
+
+        verify(invitationService).sendIntestacyEmail("1233445", invitation, Boolean.TRUE);
+    }
+
+    @Test
+    void shouldSendinviteIntestacyWithId() throws UnsupportedEncodingException, NotificationClientException {
+
+        Invitation invitation = setUpInvitationMock();
+
+        invitationController.inviteIntestacy(invitation, mockBindingResult, "");
+
+        verify(invitationService).sendIntestacyEmail("1233445", invitation, Boolean.FALSE);
+    }
 }
