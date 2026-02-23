@@ -133,7 +133,7 @@ def versions = [
         applicationInsightsVersion    : '3.7.7',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonDatabind               : '2.21.0',
+        jacksonDatabind               : '2.21.1',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '8.0.0',
