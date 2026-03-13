@@ -95,6 +95,27 @@ class ExecutorNotificationServiceTest {
     }
 
     @Test
+    void testSendCoApplicantEmail() throws NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationService.sendCoApplicantEmail(executorNotification, false);
+        verify(notificationClientMock).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+    }
+
+    @Test
+    void testSendCoApplicantDisagreeEmail() throws NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationService.sendCoApplicantDisagreeEmail(executorNotification, false);
+        verify(notificationClientMock).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+    }
+
+    @Test
+    void testSendCoApplicantAllSignedEmail() throws NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationService.sendCoApplicantAllSignedEmail(executorNotification, false);
+        verify(notificationClientMock).sendEmail(isNull(),eq(executorNotification.getEmail()), any(), isNull());
+    }
+
+    @Test
     void testExecutorNotificationDecoding() throws Exception, UnsupportedEncodingException {
         ExecutorNotification encodedExecutorNotification =
             objectMapper.readValue(utils.getJsonFromFile(ENCODED_EXEC_NOTIFICATION), ExecutorNotification.class);
