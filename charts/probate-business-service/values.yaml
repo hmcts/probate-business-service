@@ -22,4 +22,4 @@ java:
           alias: services.auth.provider.totp_secret
         - name: app-insights-connection-string
           alias: app-insights-connection-string
-  image: hmctspublic.azurecr.io/probate/probate-business-service:latest
+  image: hmctsprod.azurecr.io/probate/probate-business-service:latest
