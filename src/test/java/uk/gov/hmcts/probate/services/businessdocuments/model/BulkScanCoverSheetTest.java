@@ -70,6 +70,11 @@ public class BulkScanCoverSheetTest {
         assertEquals(BulkScanCoverSheet.DEFAULT_APPLICANT_NAME_INTRO, coverSheet.getApplicantNameIntro());
         assertEquals(BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO, coverSheet.getCaseReferenceIntro());
         assertEquals(BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO, coverSheet.getSubmitAddressIntro());
+        assertEquals(BulkScanCoverSheet.DEFAULT_APPLICANT_ADDRESS_INTRO_WELSH,
+            coverSheet.getApplicantAddressIntroWelsh());
+        assertEquals(BulkScanCoverSheet.DEFAULT_APPLICANT_NAME_INTRO_WELSH, coverSheet.getApplicantNameIntroWelsh());
+        assertEquals(BulkScanCoverSheet.DEFAULT_CASE_REFERENCE_INTRO_WELSH, coverSheet.getCaseReferenceIntroWelsh());
+        assertEquals(BulkScanCoverSheet.DEFAULT_SUBMIT_ADDRESS_INTRO_WELSH, coverSheet.getSubmitAddressIntroWelsh());
         assertEquals(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE, coverSheet.getApplicantAddress());
         assertEquals(VALID_COVER_SHEET_APPLICANT_NAME_VALUE, coverSheet.getApplicantName());
         assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
@@ -87,7 +92,21 @@ public class BulkScanCoverSheetTest {
             .getType());
         assertEquals(VALID_COVER_SHEET_SEGMENT_TEXT, coverSheet.getCheckListItems().get(2)
             .getSegments().getFirst().getText());
+        assertEquals(CheckListItemType.TEXT_ONLY, coverSheet.getCheckListItemsWelsh().get(0).getType());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_TEXT, coverSheet.getCheckListItemsWelsh().get(1).getText());
+        assertEquals(CheckListItemType.TEXT_WITH_LINK, coverSheet.getCheckListItemsWelsh().get(1).getType());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_URL, coverSheet.getCheckListItemsWelsh().get(1).getUrl());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_BEFORE_LINK_TEXT, coverSheet.getCheckListItemsWelsh().get(1)
+            .getBeforeLinkText());
+        assertEquals(VALID_COVER_SHEET_CHECKLIST_AFTER_LINK_TEXT, coverSheet.getCheckListItemsWelsh().get(1)
+            .getAfterLinkText());
+        assertEquals(CheckListItemType.TEXT_WITH_MULTIPLE_LINKS, coverSheet.getCheckListItemsWelsh().get(2)
+            .getType());
+        assertEquals(VALID_COVER_SHEET_SEGMENT_TEXT, coverSheet.getCheckListItemsWelsh().get(2)
+            .getSegments().getFirst().getText());
+
         assertEquals(false, coverSheet.getNoDocumentsRequired());
+        assertEquals(true, coverSheet.getIsBilingual());
     }
 
     @Test
@@ -102,6 +121,12 @@ public class BulkScanCoverSheetTest {
         assertEquals("The applicants name", coverSheet.getApplicantNameIntro());
         assertEquals("This is the Case Reference Number", coverSheet.getCaseReferenceIntro());
         assertEquals("This is the place to send the documents", coverSheet.getSubmitAddressIntro());
+
+        assertEquals("The applicants address Welsh", coverSheet.getApplicantAddressIntroWelsh());
+        assertEquals("The applicants name Welsh", coverSheet.getApplicantNameIntroWelsh());
+        assertEquals("This is the Case Reference Number Welsh", coverSheet.getCaseReferenceIntroWelsh());
+        assertEquals("This is the place to send the documents Welsh", coverSheet.getSubmitAddressIntroWelsh());
+
         assertEquals(VALID_COVER_SHEET_APPLICANT_ADDRESS_VALUE, coverSheet.getApplicantAddress());
         assertEquals(VALID_COVER_SHEET_APPLICANT_NAME_VALUE, coverSheet.getApplicantName());
         assertEquals(VALID_COVER_SHEET_CASE_REFERENCE_VALUE, coverSheet.getCaseReference());
@@ -113,7 +138,7 @@ public class BulkScanCoverSheetTest {
         Optional<FileSystemResource> optional = getFile(INVALID_BULK_SCAN_COVER_SHEET_JSON);
         BulkScanCoverSheet coverSheet = objectMapper.readValue(optional.get().getFile(), BulkScanCoverSheet.class);
         Set<ConstraintViolation<BulkScanCoverSheet>> violations = validator.validate(coverSheet);
-        assertEquals(6, violations.size());
+        assertEquals(8, violations.size());
     }
 
     @Test
