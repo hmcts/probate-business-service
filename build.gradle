@@ -146,7 +146,7 @@ def versions = [
         springBootVersion             : '3.5.13',
         springCloud                   : '4.3.0',
         springDocOpenUi               : '2.8.17',
-        swaggerAnnotations            : '2.2.47',
+        swaggerAnnotations            : '2.2.48',
         pdfServiceClient              : '8.0.2',
         fortifyClient                 : '1.4.10',
         tomcat                        : '11.0.21'
