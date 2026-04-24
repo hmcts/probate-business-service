@@ -57,7 +57,8 @@ services:
     formdata:
       url: ${services.persistence.baseUrl}/formdata
   notify:
-    apiKey: ${PROBATE_NOTIFY_KEY:dummykey}
+    apiKeyPrimary: ${PROBATE_NOTIFY_KEY_PRIMARY:dummykey_primary}
+    apiKeySecondary: ${PROBATE_NOTIFY_KEY_SECONDARY:dummykey_secondary}
     invitedata:
       templateId: "29e5c50d-1c86-449c-bb06-8cd465edfce6"
       bilingualTemplateId: "df526a14-8da2-4cd9-bb7a-cd757b082583"
@@ -84,3 +85,10 @@ services:
 idam:
   s2s-auth:
     url: ${services.auth.provider.baseUrl}
+
+ld:
+  sdk_key: ${LAUNCHDARKLY_KEY:dummy}
+  user:
+    key: ${LD_USER_KEY:dummy_key}
+    firstName: Probate
+    lastName: Business

@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -30,6 +31,8 @@ class DocumentNotificationServiceTest {
     public static final String ENCODED_EXEC_NOTIFICATION = "businessdocuments/documentNotification.json";
     public static final String EXPECTED_DECODING = "businessdocuments/expectedDecodingDocumentNotification.json";
 
+    @Mock
+    NotificationClientProvider notificationClientProviderMock;
     @Mock
     NotificationClient notificationClientMock;
     @Mock
@@ -69,10 +72,11 @@ class DocumentNotificationServiceTest {
             .thenAnswer(i -> i.getArgument(0, String.class));
 
         documentNotificationService = new DocumentNotificationService(
-                notificationClientMock,
+                notificationClientProviderMock,
                 notifyPersonalisationEscapeServiceMock,
                 ukDateFormatterMock
             );
+        when(notificationClientProviderMock.getClient()).thenReturn(notificationClientMock);
     }
 
     @AfterEach

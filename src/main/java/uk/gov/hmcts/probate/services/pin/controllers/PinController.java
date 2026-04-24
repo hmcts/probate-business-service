@@ -17,7 +17,6 @@ import uk.gov.hmcts.probate.services.pin.exceptions.PhonePinException;
 import uk.gov.hmcts.reform.probate.model.PhonePin;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -37,7 +36,7 @@ public class PinController {
             @RequestHeader("Session-Id") final String sessionId,
             @Valid @RequestBody final PhonePin phonePin,
             BindingResult bindingResult)
-            throws NotificationClientException, UnsupportedEncodingException {
+            throws NotificationClientException {
         if (bindingResult.hasErrors()) {
             throw new PhonePinException("PhonePin invalid");
         }
@@ -49,7 +48,7 @@ public class PinController {
         @RequestHeader("Session-Id") final String sessionId,
         @Valid @RequestBody final PhonePin phonePin,
         BindingResult bindingResult)
-        throws NotificationClientException, UnsupportedEncodingException {
+        throws NotificationClientException {
         if (bindingResult.hasErrors()) {
             throw new PhonePinException("PhonePin invalid");
         }
@@ -57,13 +56,13 @@ public class PinController {
     }
 
     private ResponseEntity<String> getStringResponseEntity(String phoneNumber, String sessionId, Boolean isBilingual)
-        throws UnsupportedEncodingException, NotificationClientException {
+        throws NotificationClientException {
         if (sessionId == null) {
             LOGGER.error("Session-Id request header not found");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         LOGGER.info("Processing session id " + sessionId);
-        phoneNumber = URLDecoder.decode(phoneNumber, StandardCharsets.UTF_8.toString());
+        phoneNumber = URLDecoder.decode(phoneNumber, StandardCharsets.UTF_8);
         phoneNumber = phoneNumber.replaceAll(INVALID_PHONENUMBER_CHARACTERS_REGEX, "");
         if (!phoneNumber.matches(VALID_PHONENUMBER_CHARACTERS_REGEX)) {
             LOGGER.error("Unable to validate phoneNumber parameter");
