@@ -17,7 +17,9 @@ java:
     probate:
       secrets:
         - name: probate-notify-invite-apikey
-          alias: services.notify.apiKey
+          alias: services.notify.apiKeyPrimary
+        - name: probate-notify-invite-apikey-secondary
+          alias: services.notify.apiKeySecondary
         - name: s2s-probate-backend
           alias: services.auth.provider.totp_secret
         - name: app-insights-connection-string

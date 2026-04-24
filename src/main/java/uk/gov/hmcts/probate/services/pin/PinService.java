@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -20,7 +21,7 @@ public class PinService {
     String bilingualTemplateId;
 
     @Autowired
-    private NotificationClient notificationClient;
+    private NotificationClientProvider notificationClientProvider;
 
     @Autowired
     private IdGeneratorService pinGeneratorService;
@@ -28,8 +29,7 @@ public class PinService {
 
     public String generateAndSend(String phoneNumber, Boolean isBilingual) throws NotificationClientException {
         String pin = pinGeneratorService.generate();
-        notificationClient
-
+        this.getClient()
             .sendSms(isBilingual ? bilingualTemplateId : templateId, phoneNumber, createPersonalisation(pin), pin);
         return pin;
     }
@@ -38,5 +38,9 @@ public class PinService {
         HashMap<String, String> personalisation = new HashMap<>();
         personalisation.put("pin", pin);
         return personalisation;
+    }
+
+    private NotificationClient getClient() {
+        return notificationClientProvider.getClient();
     }
 }

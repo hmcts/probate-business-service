@@ -14,6 +14,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 import uk.gov.service.notify.SendSmsResponse;
@@ -47,6 +48,9 @@ class PinControllerTest {
     private HttpMessageConverter<?> mappingJackson2HttpMessageConverter;
 
     @MockitoBean
+    private NotificationClientProvider notificationClientProvider;
+
+    @MockitoBean(name = "primaryNotificationClient")
     private NotificationClient notificationClient;
 
     @Autowired
@@ -61,7 +65,8 @@ class PinControllerTest {
     }
 
     @BeforeEach
-    public void setup() throws NotificationClientException {
+    void setup() throws NotificationClientException {
+        when(notificationClientProvider.getClient()).thenReturn(notificationClient);
         when(notificationClient.sendSms(any(), any(), any(), any())).thenReturn(smsResponse);
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
     }
