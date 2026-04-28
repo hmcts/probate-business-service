@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -32,15 +33,15 @@ public class ExecutorNotificationService {
     @Value("${services.notify.executorNotification.allSignedBilingualTemplateId}")
     String allSignedBilingualTemplateId;
 
-    private final NotificationClient notificationClient;
+    private final NotificationClientProvider notificationClientProvider;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
     private final UKDateFormatter ukDateFormatter;
 
     public ExecutorNotificationService(
-            final NotificationClient notificationClient,
+            final NotificationClientProvider notificationClientProvider,
             final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
             final UKDateFormatter ukDateFormatter) {
-        this.notificationClient = notificationClient;
+        this.notificationClientProvider = notificationClientProvider;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
         this.ukDateFormatter = ukDateFormatter;
     }
@@ -48,14 +49,14 @@ public class ExecutorNotificationService {
     public void sendEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
         LOGGER.info("sending executor notification email");
-        notificationClient.sendEmail(isBilingual ? bilingualTemplateId : templateId, executorNotification.getEmail(),
+        this.getClient().sendEmail(isBilingual ? bilingualTemplateId : templateId, executorNotification.getEmail(),
             createPersonalisation(executorNotification), null);
     }
 
     public void sendAllSignedEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
         LOGGER.info("sending executor all signed email");
-        notificationClient.sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
+        this.getClient().sendEmail(isBilingual ? allSignedBilingualTemplateId : allSignedTemplateId,
             executorNotification.getEmail(), createPersonalisation(executorNotification), null);
     }
 
@@ -91,7 +92,11 @@ public class ExecutorNotificationService {
         return executorNotification;
     }
 
-    private String decodeURLParam(String uriParam) throws UnsupportedEncodingException {
-        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8.toString());
+    private String decodeURLParam(String uriParam) {
+        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8);
+    }
+
+    private NotificationClient getClient() {
+        return notificationClientProvider.getClient();
     }
 }

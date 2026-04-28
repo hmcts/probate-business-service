@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -17,7 +16,6 @@ import uk.gov.hmcts.probate.services.businessvalidation.validators.ValidationRul
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.PinStrategy;
 import uk.gov.hmcts.probate.services.idgeneration.strategy.ProbateStrategy;
-import uk.gov.service.notify.NotificationClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +33,6 @@ import java.util.List;
     )
 )
 public class BusinessApplication {
-
-    @Value("${services.notify.apiKey}")
-    String notificationApiKey;
 
     public static void main(String[] args) {
         ApplicationInsights.attach();
@@ -68,10 +63,5 @@ public class BusinessApplication {
     @Bean
     IdGeneratorService pinGeneratorService() {
         return new IdGeneratorService(new PinStrategy());
-    }
-
-    @Bean
-    NotificationClient notificationClient() {
-        return new NotificationClient(notificationApiKey);
     }
 }
