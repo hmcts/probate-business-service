@@ -1,6 +1,10 @@
 java:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_NAME}.preview.platform.hmcts.net
+  devcpuRequests: 100m
+  devcpuLimits: 500m
+  devmemoryRequests: 768Mi
+  devmemoryLimits: 768Mi
   keyVaults:
     probate:
       secrets:
