@@ -1,11 +1,11 @@
 {
   "invitation": {
     "firstName": "King",
-    "lastName": "Michael%20I",
+    "lastName": "Michael-I",
     "formdataId": "123",
     "email": "simulate-delivered@notifications.service.gov.uk",
-    "executorName": "Dumitru%20Panaghiea",
-    "leadExecutorName" :"D.%20Panaghiea"
+    "executorName": "Dumitru-Panaghiea",
+    "leadExecutorName" :"D.-Panaghiea"
   }
 }
 

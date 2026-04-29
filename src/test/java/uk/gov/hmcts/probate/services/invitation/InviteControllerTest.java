@@ -7,13 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.controllers.InvitationController;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +28,6 @@ public class InviteControllerTest {
     private IdGeneratorService idGeneratorService;
     @Mock
     private InvitationService invitationService;
-    @Mock
-    private RestTemplate restTemplate;
 
     @BeforeEach
     public void openMocks() {
@@ -39,7 +35,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldSendInvitationAndGenerateId() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendInvitationAndGenerateId() throws NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
 
@@ -49,7 +45,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldReSendInvitation() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldReSendInvitation() throws NotificationClientException {
 
         Invitation invitation = Invitation.builder().firstName("firstName").lastName("lastName").build();
 
@@ -59,7 +55,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldSendInvitation() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendInvitation() throws NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
 
@@ -69,18 +65,17 @@ public class InviteControllerTest {
     }
 
     @NotNull
-    private Invitation setUpInvitationMock() throws UnsupportedEncodingException {
+    private Invitation setUpInvitationMock() {
         Invitation invitation = Invitation.builder().firstName("firstName").lastName("lastName").build();
         Map<String, String> data = new HashMap<>();
         data.put("firstName", invitation.getFirstName());
         data.put("lastName", invitation.getLastName());
-        when(invitationService.decodeURL(invitation)).thenReturn(invitation);
         when(idGeneratorService.generate(data)).thenReturn("1233445");
         return invitation;
     }
 
     @Test
-    void shouldSendInvitationWithId() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendInvitationWithId() throws NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
         invitationController.invite(invitation, mockBindingResult, "");
@@ -89,7 +84,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldSendBilingualInvitation() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendBilingualInvitation() throws NotificationClientException {
 
         Invitation invitation = Invitation.builder().firstName("firstName").lastName("lastName").build();
 
@@ -99,7 +94,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldSendBilingualInvitationWithId() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendBilingualInvitationWithId() throws NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
 
@@ -109,7 +104,7 @@ public class InviteControllerTest {
     }
 
     @Test
-    void shouldSendBilingualInviteGenerateId() throws UnsupportedEncodingException, NotificationClientException {
+    void shouldSendBilingualInviteGenerateId() throws NotificationClientException {
 
         Invitation invitation = setUpInvitationMock();
 
