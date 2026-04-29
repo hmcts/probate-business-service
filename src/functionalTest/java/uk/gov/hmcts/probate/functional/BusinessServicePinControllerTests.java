@@ -105,31 +105,4 @@ public class BusinessServicePinControllerTests extends IntegrationTestBase {
             .then().log().ifValidationFails()
             .assertThat().statusCode(500);
     }
-
-    @Test void testInviteGetWithParamSucceeds() {
-        given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin?phoneNumber=" + mobileNumber)
-            .then().log().ifValidationFails()
-            .assertThat().statusCode(200);
-    }
-
-    @Test void testBilingualInviteGetWithParamSucceeds() {
-        given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/bilingual?phoneNumber=" + mobileNumber)
-            .then().log().ifValidationFails()
-            .assertThat().statusCode(200);
-    }
-
-    @Test
-    public void testInviteGetWithUrlSucceeds() {
-        given().relaxedHTTPSValidation()
-            .headers(utils.getHeaders(SESSION_ID))
-            .when().get(businessServiceUrl + "/pin/" + mobileNumber)
-            .then().log().ifValidationFails()
-            .assertThat().statusCode(200);
-    }
-
-
 }

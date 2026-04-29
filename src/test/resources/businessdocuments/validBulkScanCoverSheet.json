@@ -1,10 +1,32 @@
 {
 "bulkScanCoverSheet": {
+  "isBilingual": true,
   "applicantAddress": "20 White City\nLondon\nW12 7PD",
   "applicantName": "Joe Bloggs",
   "caseReference": "1542-9021-4510-0350",
   "submitAddress": "Probate Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS",
   "checkListItems": [
+    {
+      "type": "textOnly",
+      "text": "item text"
+    },
+    {
+      "type": "textWithLink",
+      "text": "item text",
+      "url": "http://example-url.com",
+      "beforeLinkText": "text before link",
+      "afterLinkText": "text after link"
+    },
+    {
+      "type":"textWithMultipleLinks",
+      "segments":[
+        {"text":"Link1","link":"http://example-url.com"},
+        {"text":"Link2","link":"http://example-url.com"},
+        {"text":"text after","link":null}
+      ]
+    }
+  ],
+  "checkListItemsWelsh": [
     {
       "type": "textOnly",
       "text": "item text"

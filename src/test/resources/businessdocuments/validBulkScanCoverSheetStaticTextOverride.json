@@ -1,16 +1,23 @@
 {
 "bulkScanCoverSheet": {
   "title": "Cover Sheet",
+  "isBilingual": true,
   "applicantAddressIntro": "The applicants address",
+  "applicantAddressIntroWelsh": "The applicants address Welsh",
   "applicantAddress": "20 White City\nLondon\nW12 7PD",
   "applicantNameIntro": "The applicants name",
+  "applicantNameIntroWelsh": "The applicants name Welsh",
   "applicantName": "Joe Bloggs",
   "caseReferenceIntro": "This is the Case Reference Number",
+  "caseReferenceIntroWelsh": "This is the Case Reference Number Welsh",
   "caseReference": "1542-9021-4510-0350",
   "submitAddressIntro": "This is the place to send the documents",
+  "submitAddressIntroWelsh": "This is the place to send the documents Welsh",
   "submitAddress": "Probate Service\nPO BOX 123\nExela BSP Services\nHarlow\nCM19 5QS",
   "checkListItems": [],
+  "checkListItemsWelsh": [],
   "noDocumentsRequired": true,
-  "noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested from you in the future, please send them along with this cover sheet to the address below"
+  "noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested from you in the future, please send them along with this cover sheet to the address below",
+  "noDocumentsRequiredTextWelsh": "Based on the details in the application no documents are required. However if documents are requested from you in the future, please send them along with this cover sheet to the address below"
   }
 }

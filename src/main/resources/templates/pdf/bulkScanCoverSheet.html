@@ -122,11 +122,12 @@
 <div class="content">
 
     <div style="height: 30px;">&nbsp;</div>
-
+    <!-- Welsh Cover Sheet -->
+  {% if isBilingual %}
     <table>
         <tr>
             <td class="applicantNameTableCell"><p class="content-text-small">{{ applicantName }}</p></td>
-            <td><p class="content-text-small">{{ applicantNameIntro }}</p></td>
+            <td><p class="content-text-small">{{ applicantNameIntroWelsh }}</p></td>
         </tr>
     </table>
 
@@ -135,12 +136,12 @@
     <table>
         <tr>
             <td class="applicantAddressTableCell"><p class="content-text-small">{{ applicantAddress }}</p></td>
-            <td><p class="content-text-small">{{ applicantAddressIntro }}</p></td>
+            <td><p class="content-text-small">{{ applicantAddressIntroWelsh }}</p></td>
         </tr>
     </table>
 
     <div style="height: 50px;">&nbsp;</div>
-    <p class="content-text-small">{{ caseReferenceIntro }}</p>
+    <p class="content-text-small">{{ caseReferenceIntroWelsh }}</p>
     <table>
         <tr>
             <td class="caseReferenceTableCell">
@@ -148,12 +149,12 @@
             </td>
         </tr>
     </table>
-    {% if checkListItems | length > 0 %}
+    {% if checkListItemsWelsh | length > 0 %}
     <div style="height: 50px;">&nbsp;</div>
-    <p class="content-text-medium"><strong>{{ checkListItemsIntro }}</strong></p>
-    <p class="content-text-small">{{ submitAddressIntro }}</p>
+    <p class="content-text-medium"><strong>{{ checkListItemsIntroWelsh }}</strong></p>
+    <p class="content-text-small">{{ submitAddressIntroWelsh }}</p>
     <ul>
-      {% for item in checkListItems %}
+      {% for item in checkListItemsWelsh %}
       <li class="content-text-small">
 
         {% if item.type == "textOnly" %}
@@ -179,13 +180,79 @@
     {% endif %}
     {% if noDocumentsRequired %}
     <div style="height: 50px;">&nbsp;</div>
-    <p class="content-text-small">{{ noDocumentsRequiredText }}</p>
+    <p class="content-text-small">{{ noDocumentsRequiredTextWelsh }}</p>
     {% endif %}
 
     <div style="height: 50px;">&nbsp;</div>
 
     <table>
         <tr><td class="submitAddressTableCell"><p class="content-text-medium">{{ submitAddress }}</p></td></tr>
+    </table>
+  {% endif %}
+    <!-- English Cover Sheet -->
+    <table>
+      <tr>
+        <td class="applicantNameTableCell"><p class="content-text-small">{{ applicantName }}</p></td>
+        <td><p class="content-text-small">{{ applicantNameIntro }}</p></td>
+      </tr>
+    </table>
+
+    <div style="height: 5px;">&nbsp;</div>
+
+    <table>
+      <tr>
+        <td class="applicantAddressTableCell"><p class="content-text-small">{{ applicantAddress }}</p></td>
+        <td><p class="content-text-small">{{ applicantAddressIntro }}</p></td>
+      </tr>
+    </table>
+
+    <div style="height: 50px;">&nbsp;</div>
+    <p class="content-text-small">{{ caseReferenceIntro }}</p>
+    <table>
+      <tr>
+        <td class="caseReferenceTableCell">
+          <p class="content-text-large">{{ caseReference }}</p>
+        </td>
+      </tr>
+    </table>
+    {% if checkListItems | length > 0 %}
+    <div style="height: 50px;">&nbsp;</div>
+    <p class="content-text-medium"><strong>{{ checkListItemsIntro }}</strong></p>
+    <p class="content-text-small">{{ submitAddressIntro }}</p>
+    <ul>
+      {% for item in checkListItems %}
+      <li class="content-text-small">
+
+        {% if item.type == "textOnly" %}
+          {{ item.text }}
+        {% endif %}
+
+        {% if item.type == "textWithLink" %}
+          {{ item.beforeLinkText }}<a href="{{ item.url }}" target="_blank" aria-label="{{ item.text }}">{{ item.text }}</a>{{ item.afterLinkText }}
+        {% endif %}
+        {% if item.type == "textWithMultipleLinks" %}
+          {% for seg in item.segments %}
+            {% if seg.link != null %}
+              <a href="{{ seg.link }}" target="_blank" aria-label="{{ seg.text }}">{{ seg.text }}</a>
+            {% else %}
+              {{ seg.text }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if noDocumentsRequired %}
+      <div style="height: 50px;">&nbsp;</div>
+      <p class="content-text-small">{{ noDocumentsRequiredText }}</p>
+    {% endif %}
+
+    <div style="height: 50px;">&nbsp;</div>
+
+    <table>
+      <tr><td class="submitAddressTableCell"><p class="content-text-medium">{{ submitAddress }}</p></td></tr>
     </table>
 
 </div>
