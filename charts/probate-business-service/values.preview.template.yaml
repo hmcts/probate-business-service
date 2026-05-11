@@ -14,3 +14,7 @@ java:
           alias: services.notify.apiKeySecondary
         - name: s2s-probate-backend
           alias: services.auth.provider.totp_secret
+        - name: launchdarkly-key
+          alias: ld.sdk_key
+        - name: launchdarklyUserkeyBackend
+          alias: ld.user.key
