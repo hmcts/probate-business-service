@@ -4,7 +4,7 @@ java:
   devcpuRequests: 100m
   devcpuLimits: 500m
   devmemoryRequests: 768Mi
-  devmemoryLimits: 768Mi
+  devmemoryLimits: 1.5Gi
   keyVaults:
     probate:
       secrets:
