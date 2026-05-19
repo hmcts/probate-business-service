@@ -3,11 +3,11 @@ package uk.gov.hmcts.probate.services.invitation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -27,14 +27,14 @@ public class InvitationService {
     @Value("${services.notify.invitedata.inviteLink}")
     String inviteLink;
 
-    private final NotificationClient notificationClient;
+    private final NotificationClientProvider notificationClientProvider;
 
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
 
     public InvitationService(
-            final NotificationClient notificationClient,
+            final NotificationClientProvider notificationClientProvider,
             final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService) {
-        this.notificationClient = notificationClient;
+        this.notificationClientProvider = notificationClientProvider;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
     }
 
@@ -42,7 +42,7 @@ public class InvitationService {
         throws NotificationClientException {
         String notifyTemplate = Boolean.TRUE.equals(isBilingual) ? bilingualTemplateId : templateId;
         log.info("Sending email for case {} with template {}", invitation.getFormdataId(), notifyTemplate);
-        notificationClient.sendEmail(notifyTemplate, invitation.getEmail(),
+        this.getClient().sendEmail(notifyTemplate, invitation.getEmail(),
             createPersonalisation(linkId, invitation), linkId);
     }
 
@@ -62,7 +62,7 @@ public class InvitationService {
         return personalisation;
     }
 
-    public Invitation decodeURL(Invitation invitation) throws UnsupportedEncodingException {
+    public Invitation decodeURL(Invitation invitation) {
         invitation.setExecutorName(decodeURLParam(invitation.getExecutorName()));
         invitation.setFirstName(decodeURLParam(invitation.getFirstName()));
         invitation.setLastName(decodeURLParam(invitation.getLastName()));
@@ -70,7 +70,11 @@ public class InvitationService {
         return invitation;
     }
 
-    private String decodeURLParam(String uriParam) throws UnsupportedEncodingException {
-        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8.toString());
+    private String decodeURLParam(String uriParam) {
+        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8);
+    }
+
+    private NotificationClient getClient() {
+        return notificationClientProvider.getClient();
     }
 }

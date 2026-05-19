@@ -17,9 +17,15 @@ java:
     probate:
       secrets:
         - name: probate-notify-invite-apikey
-          alias: services.notify.apiKey
+          alias: services.notify.apiKeyPrimary
+        - name: probate-notify-invite-apikey-secondary
+          alias: services.notify.apiKeySecondary
         - name: s2s-probate-backend
           alias: services.auth.provider.totp_secret
         - name: app-insights-connection-string
           alias: app-insights-connection-string
+        - name: launchdarkly-key
+          alias: ld.sdk_key
+        - name: launchdarklyUserkeyBackend
+          alias: ld.user.key
   image: hmctsprod.azurecr.io/probate/probate-business-service:latest
