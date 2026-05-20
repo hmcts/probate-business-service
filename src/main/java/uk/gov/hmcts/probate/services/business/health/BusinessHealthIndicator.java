@@ -47,7 +47,7 @@ public class BusinessHealthIndicator implements HealthIndicator {
 
         if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
             return getHealthWithDownStatus(url, "HTTP Status code not 200",
-                "HTTP Status: " + responseEntity.getStatusCodeValue());
+                "HTTP Status: " + responseEntity.getStatusCode());
         }
 
         return getHealthWithUpStatus(url);

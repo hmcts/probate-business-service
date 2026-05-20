@@ -1,7 +1,6 @@
 package uk.gov.hmcts.probate.services.invitation;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
@@ -39,9 +38,6 @@ public class InvitationService {
 
     private final NotificationClientProvider notificationClientProvider;
 
-    @Autowired
-    private PersistenceClient persistenceClient;
-
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
 
     public InvitationService(
@@ -63,7 +59,7 @@ public class InvitationService {
         throws NotificationClientException {
         String notifyTemplate = Boolean.TRUE.equals(isBilingual) ? bilingualIntestacyTemplateId : intestacyTemplateId;
         log.info("Send intestacy email for case {} with template {}", invitation.getFormdataId(), intestacyTemplateId);
-        notificationClient.sendEmail(intestacyTemplateId, invitation.getEmail(),
+        this.getClient().sendEmail(intestacyTemplateId, invitation.getEmail(),
             createIntestacyPersonalisation(linkId, invitation), linkId);
     }
 

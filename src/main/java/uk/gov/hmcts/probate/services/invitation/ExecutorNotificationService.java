@@ -81,14 +81,14 @@ public class ExecutorNotificationService {
     public void sendCoApplicantEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
         LOGGER.info("sending CoApplicant notification email");
-        notificationClient.sendEmail(isBilingual ? coApplicantBilingualTemplateId : coApplicantTemplateId,
+        this.getClient().sendEmail(isBilingual ? coApplicantBilingualTemplateId : coApplicantTemplateId,
             executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
     }
 
     public void sendCoApplicantDisagreeEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
         LOGGER.info("sending CoApplicant Disagree notification email");
-        notificationClient.sendEmail(isBilingual
+        this.getClient().sendEmail(isBilingual
                 ? coApplicantDisagreeBilingualTemplateId : coApplicantDisagreeTemplateId,
             executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
     }
@@ -96,7 +96,7 @@ public class ExecutorNotificationService {
     public void sendCoApplicantAllSignedEmail(ExecutorNotification executorNotification, Boolean isBilingual)
         throws NotificationClientException {
         LOGGER.info("sending CoApplicant all signed email");
-        notificationClient.sendEmail(isBilingual
+        this.getClient().sendEmail(isBilingual
                 ? coApplicantAllSignedBilingualTemplateId : coApplicantAllSignedTemplateId,
                 executorNotification.getEmail(), createCoApplicantPersonalisation(executorNotification), null);
     }
