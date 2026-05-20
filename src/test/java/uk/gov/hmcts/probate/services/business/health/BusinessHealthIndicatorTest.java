@@ -50,7 +50,6 @@ class BusinessHealthIndicatorTest {
     void shouldReturnStatusOfDownWhenHttpStatusIsNotOK() {
         when(mockRestTemplate.getForEntity(URL + "/health", String.class)).thenReturn(mockResponseEntity);
         when(mockResponseEntity.getStatusCode()).thenReturn(HttpStatus.NO_CONTENT);
-        when(mockResponseEntity.getStatusCodeValue()).thenReturn(HttpStatus.NO_CONTENT.value());
         Health health = businessHealthIndicator.health();
 
         assertEquals(Status.DOWN, health.getStatus());
