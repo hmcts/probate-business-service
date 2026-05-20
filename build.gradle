@@ -144,7 +144,7 @@ def versions = [
         serenity                      : '5.3.10',
         serenityreporter              : '4.1.6',
         springBootVersion             : '3.5.14',
-        springCloud                   : '4.3.0',
+        springCloud                   : '5.0.1',
         springDocOpenUi               : '2.8.17',
         swaggerAnnotations            : '2.2.50',
         pdfServiceClient              : '8.0.2',
