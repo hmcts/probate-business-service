@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.documents.DocumentNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -46,16 +47,16 @@ public class DocumentNotificationService {
     String documentUploadIssueBilingualTemplateId;
 
 
-    private final NotificationClient notificationClient;
+    private final NotificationClientProvider notificationClientProvider;
     private final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService;
     private final UKDateFormatter ukDateFormatter;
 
     @Autowired
     public DocumentNotificationService(
-        final NotificationClient notificationClient,
+        final NotificationClientProvider notificationClientProvider,
         final NotifyPersonalisationEscapeService notifyPersonalisationEscapeService,
         final UKDateFormatter ukDateFormatter) {
-        this.notificationClient = notificationClient;
+        this.notificationClientProvider = notificationClientProvider;
         this.notifyPersonalisationEscapeService = notifyPersonalisationEscapeService;
         this.ukDateFormatter = ukDateFormatter;
     }
@@ -72,7 +73,7 @@ public class DocumentNotificationService {
         try {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document uploaded email for case: {}", encodedDocumentNotification.getCcdReference());
-            notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual)
+            this.getClient().sendEmail(Boolean.TRUE.equals(isBilingual)
                     ? documentUploadedBilingualTemplateId : documentUploadedTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
                 null);
@@ -86,7 +87,7 @@ public class DocumentNotificationService {
             DocumentNotification documentNotification = decodeURL(encodedDocumentNotification);
             LOGGER.info("sending document upload issue email for case: {}",
                 encodedDocumentNotification.getCcdReference());
-            notificationClient.sendEmail(Boolean.TRUE.equals(isBilingual) ? documentUploadIssueBilingualTemplateId
+            this.getClient().sendEmail(Boolean.TRUE.equals(isBilingual) ? documentUploadIssueBilingualTemplateId
                 : documentUploadIssueTemplateId,
                 documentNotification.getEmail(), createPersonalisation(documentNotification, isBilingual),
                 null);
@@ -175,11 +176,11 @@ public class DocumentNotificationService {
         return documentNotification;
     }
 
-    private String decodeURLParam(String uriParam) throws UnsupportedEncodingException {
-        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8.toString());
+    private String decodeURLParam(String uriParam) {
+        return URLDecoder.decode(uriParam, StandardCharsets.UTF_8);
     }
 
-    public List<String> decodeURLParams(List<String> encodedParams) throws UnsupportedEncodingException {
+    public List<String> decodeURLParams(List<String> encodedParams) {
         List<String> decodedParams = new ArrayList<>();
         for (String param : encodedParams) {
             decodedParams.add(decodeURLParam(param));
@@ -188,7 +189,7 @@ public class DocumentNotificationService {
     }
 
     public String convertDate(String dateToConvert) {
-        if (dateToConvert == null || dateToConvert.equals("")) {
+        if (dateToConvert == null || dateToConvert.isEmpty()) {
             return null;
         }
         DateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -218,5 +219,9 @@ public class DocumentNotificationService {
             ex.getMessage();
             return null;
         }
+    }
+
+    private NotificationClient getClient() {
+        return notificationClientProvider.getClient();
     }
 }

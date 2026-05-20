@@ -11,6 +11,7 @@ import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.ExecutorNotificationService;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.invitation.UKDateFormatter;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -33,6 +34,8 @@ class ExecutorNotificationServiceTest {
     @Mock
     NotificationClient notificationClientMock;
     @Mock
+    NotificationClientProvider notificationClientProviderMock;
+    @Mock
     NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
     @Mock
     UKDateFormatter ukDateFormatterMock;
@@ -45,7 +48,7 @@ class ExecutorNotificationServiceTest {
     TestUtils utils;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         utils = new TestUtils();
 
         objectMapper = new ObjectMapper();
@@ -58,13 +61,15 @@ class ExecutorNotificationServiceTest {
         when(ukDateFormatterMock.format(any(), any())).thenReturn("some-formatted-date");
 
         executorNotificationService = new ExecutorNotificationService(
-                notificationClientMock,
+                notificationClientProviderMock,
                 notifyPersonalisationEscapeServiceMock,
                 ukDateFormatterMock);
+
+        when(notificationClientProviderMock.getClient()).thenReturn(notificationClientMock);
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    void tearDown() throws Exception {
         closeableMocks.close();
     }
 
