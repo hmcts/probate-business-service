@@ -177,7 +177,7 @@ dependencies {
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: versions.applicationInsightsVersion
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: versions.applicationInsightsVersion
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
     implementation group: 'org.pitest', name: 'pitest', version: '1.25.0'
@@ -216,7 +216,7 @@ dependencies {
     testFunctionalImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
     testFunctionalImplementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
-    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
+    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
     testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
