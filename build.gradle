@@ -6,7 +6,7 @@ plugins {
     id 'org.springframework.boot' version '3.5.14'
     id 'uk.gov.hmcts.java' version '0.12.68'
     id 'com.github.ben-manes.versions' version '0.54.0'
-    id 'com.gorylenko.gradle-git-properties' version '2.5.7'
+    id 'com.gorylenko.gradle-git-properties' version '3.0.3'
     id 'info.solidsoft.pitest' version '1.19.0'
     id 'org.sonarqube' version '7.3.0.8198'
     id 'au.com.dius.pact' version '4.7.1'
@@ -177,10 +177,10 @@ dependencies {
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: versions.applicationInsightsVersion
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: versions.applicationInsightsVersion
-    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.24.1'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.25.2'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
@@ -216,7 +216,7 @@ dependencies {
     testFunctionalImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
     testFunctionalImplementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
-    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
+    testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
     testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
