@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
@@ -35,6 +36,8 @@ class InvitationServiceTest {
     @Mock
     NotificationClient notificationClientMock;
     @Mock
+    NotificationClientProvider notificationClientProviderMock;
+    @Mock
     NotifyPersonalisationEscapeService notifyPersonalisationEscapeServiceMock;
 
     InvitationService invitationService;
@@ -42,7 +45,8 @@ class InvitationServiceTest {
     AutoCloseable closeableMocks;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
+        utils = new TestUtils();
 
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
@@ -50,11 +54,13 @@ class InvitationServiceTest {
         closeableMocks = MockitoAnnotations.openMocks(this);
 
         invitationService = new InvitationService(
-            notificationClientMock,
+            notificationClientProviderMock,
             notifyPersonalisationEscapeServiceMock);
 
         // i'd prefer to pass this in as part of construction but...
         ReflectionTestUtils.setField(invitationService, "inviteLink", "");
+
+        when(notificationClientProviderMock.getClient()).thenReturn(notificationClientMock);
     }
 
     @AfterEach

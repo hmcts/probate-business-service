@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
+import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.service.notify.NotificationClient;
 
@@ -21,6 +22,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,8 +54,11 @@ class InvitationControllerTest {
     @MockitoBean
     private PersistenceClient persistenceClient;
 
-    @MockitoBean
+    @MockitoBean(name = "primaryNotificationClient")
     private NotificationClient notificationClient;
+
+    @MockitoBean
+    private NotificationClientProvider notificationClientProvider;
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
@@ -65,8 +70,10 @@ class InvitationControllerTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
+
+        when(notificationClientProvider.getClient()).thenReturn(notificationClient);
     }
 
     @Test
