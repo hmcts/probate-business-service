@@ -46,8 +46,6 @@ class InvitationServiceTest {
 
     @BeforeEach
     void setUp() {
-        utils = new TestUtils();
-
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
 
