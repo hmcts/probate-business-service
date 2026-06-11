@@ -16,8 +16,6 @@ import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
@@ -100,17 +98,16 @@ class ExecutorNotificationServiceTest {
     }
 
     @Test
-    void testExecutorNotificationDecoding() throws Exception, UnsupportedEncodingException {
+    void testExecutorNotificationDecoding() throws Exception {
         ExecutorNotification encodedExecutorNotification =
             objectMapper.readValue(utils.getJsonFromFile(ENCODED_EXEC_NOTIFICATION), ExecutorNotification.class);
-        ExecutorNotification expectedDecoding =
-            objectMapper.readValue(utils.getJsonFromFile(EXPECTED_DECODING), ExecutorNotification.class);
-
         ExecutorNotification decodedExecutorNotification =
             executorNotificationService.decodeURL(encodedExecutorNotification);
         assertEquals(encodedExecutorNotification.getExecutorName(), decodedExecutorNotification.getExecutorName());
         assertEquals(encodedExecutorNotification.getApplicantName(), decodedExecutorNotification.getApplicantName());
         assertEquals(encodedExecutorNotification.getDeceasedName(), decodedExecutorNotification.getDeceasedName());
+        ExecutorNotification expectedDecoding =
+            objectMapper.readValue(utils.getJsonFromFile(EXPECTED_DECODING), ExecutorNotification.class);
         assertEquals(expectedDecoding.getDeceasedDod(), decodedExecutorNotification.getDeceasedDod());
         assertEquals(expectedDecoding.getCcdReference(), decodedExecutorNotification.getCcdReference());
         assertEquals(expectedDecoding.getEmail(), decodedExecutorNotification.getEmail());
