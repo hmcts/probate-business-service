@@ -108,9 +108,9 @@ class ExecutorNotificationServiceTest {
 
         ExecutorNotification decodedExecutorNotification =
             executorNotificationService.decodeURL(encodedExecutorNotification);
-        assertEquals(expectedDecoding.getExecutorName(), decodedExecutorNotification.getExecutorName());
-        assertEquals(expectedDecoding.getApplicantName(), decodedExecutorNotification.getApplicantName());
-        assertEquals(expectedDecoding.getDeceasedName(), decodedExecutorNotification.getDeceasedName());
+        assertEquals(encodedExecutorNotification.getExecutorName(), decodedExecutorNotification.getExecutorName());
+        assertEquals(encodedExecutorNotification.getApplicantName(), decodedExecutorNotification.getApplicantName());
+        assertEquals(encodedExecutorNotification.getDeceasedName(), decodedExecutorNotification.getDeceasedName());
         assertEquals(expectedDecoding.getDeceasedDod(), decodedExecutorNotification.getDeceasedDod());
         assertEquals(expectedDecoding.getCcdReference(), decodedExecutorNotification.getCcdReference());
         assertEquals(expectedDecoding.getEmail(), decodedExecutorNotification.getEmail());

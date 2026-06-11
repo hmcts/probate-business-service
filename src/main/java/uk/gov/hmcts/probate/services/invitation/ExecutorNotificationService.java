@@ -9,7 +9,6 @@ import uk.gov.hmcts.reform.probate.model.multiapplicant.ExecutorNotification;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -81,12 +80,11 @@ public class ExecutorNotificationService {
         return personalisation;
     }
 
-    public ExecutorNotification decodeURL(ExecutorNotification executorNotification)
-        throws UnsupportedEncodingException {
-        executorNotification.setExecutorName(decodeURLParam(executorNotification.getExecutorName()));
-        executorNotification.setDeceasedName(decodeURLParam(executorNotification.getDeceasedName()));
+    public ExecutorNotification decodeURL(ExecutorNotification executorNotification) {
+        executorNotification.setExecutorName(executorNotification.getExecutorName());
+        executorNotification.setDeceasedName(executorNotification.getDeceasedName());
         executorNotification.setDeceasedDod(decodeURLParam(executorNotification.getDeceasedDod()));
-        executorNotification.setApplicantName(decodeURLParam(executorNotification.getApplicantName()));
+        executorNotification.setApplicantName(executorNotification.getApplicantName());
         executorNotification.setCcdReference(executorNotification.getCcdReference());
         executorNotification.setEmail(executorNotification.getEmail());
         return executorNotification;
