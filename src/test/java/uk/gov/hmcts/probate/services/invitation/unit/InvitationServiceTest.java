@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
-import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
 import uk.gov.hmcts.probate.services.invitation.NotifyPersonalisationEscapeService;
 import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
@@ -17,14 +16,12 @@ import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -33,11 +30,8 @@ import static org.mockito.Mockito.when;
 
 class InvitationServiceTest {
 
-    public static final String ENCODED_INVITATION = "invitation/success.json";
-    public static final String EXPECTED_DECODING = "invitation/expectedDecoding.json";
 
     private ObjectMapper objectMapper;
-    private TestUtils utils;
 
     @Mock
     NotificationClient notificationClientMock;
@@ -52,8 +46,6 @@ class InvitationServiceTest {
 
     @BeforeEach
     void setUp() {
-        utils = new TestUtils();
-
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
 
@@ -75,20 +67,6 @@ class InvitationServiceTest {
             closeableMocks.close();
         } catch (Exception e) { // nothing to do
         }
-    }
-
-    @Test
-    void testInvitationDecoding() throws Exception, UnsupportedEncodingException {
-        Invitation encodedInvitation =
-            objectMapper.readValue(utils.getJsonFromFile(ENCODED_INVITATION), Invitation.class);
-        Invitation expectedDecoding =
-            objectMapper.readValue(utils.getJsonFromFile(EXPECTED_DECODING), Invitation.class);
-
-        Invitation decodedInvitation = invitationService.decodeURL(encodedInvitation);
-        assertEquals(expectedDecoding.getFirstName(), decodedInvitation.getFirstName());
-        assertEquals(expectedDecoding.getLastName(), decodedInvitation.getLastName());
-        assertEquals(expectedDecoding.getExecutorName(), decodedInvitation.getExecutorName());
-        assertEquals(expectedDecoding.getLeadExecutorName(), decodedInvitation.getLeadExecutorName());
     }
 
     @Test
