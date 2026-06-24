@@ -130,7 +130,7 @@ repositories {
 }
 
 def versions = [
-        applicationInsightsVersion    : '3.7.8',
+        applicationInsightsVersion    : '3.7.9',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
         jacksonDatabind               : '2.22.0',
@@ -146,10 +146,10 @@ def versions = [
         springBootVersion             : '3.5.15',
         springCloud                   : '4.3.0',
         springDocOpenUi               : '2.8.17',
-        swaggerAnnotations            : '2.2.51',
+        swaggerAnnotations            : '2.2.52',
         pdfServiceClient              : '8.0.2',
         fortifyClient                 : '1.4.10',
-        tomcat                        : '11.0.22'
+        tomcat                        : '11.0.23'
 ]
 
 dependencyManagement {
@@ -180,7 +180,7 @@ dependencies {
     implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
     implementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
-    implementation group: 'org.pitest', name: 'pitest', version: '1.25.4'
+    implementation group: 'org.pitest', name: 'pitest', version: '1.25.5'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
