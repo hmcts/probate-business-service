@@ -3,6 +3,8 @@ package uk.gov.hmcts.probate.functional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +13,7 @@ import uk.gov.hmcts.probate.functional.model.ClientAuthorizationCodeResponse;
 import uk.gov.hmcts.probate.functional.model.ClientAuthorizationResponse;
 import uk.gov.hmcts.reform.authorisation.generators.ServiceAuthTokenGenerator;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
@@ -51,9 +54,18 @@ public class BusinessServiceServiceAuthTokenGenerator {
         String clientToken = generateClientToken();
 
         String withoutSignature = clientToken.substring(0, clientToken.lastIndexOf('.') + 1);
-        Claims claims = Jwts.parser().setSigningKey(JWT_KEY).build().parseSignedClaims(withoutSignature).getPayload();
+        Claims claims = Jwts.parser()
+            .verifyWith(getSecretSigningKey())
+            .build()
+            .parseSignedClaims(withoutSignature)
+            .getPayload();
 
         return claims.get("id", String.class);
+    }
+
+    private SecretKey getSecretSigningKey() {
+        final byte[] keyBytes = Decoders.BASE64URL.decode(JWT_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     private String generateClientToken() {

@@ -157,6 +157,11 @@ dependencyManagement {
     mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.3'
   }
   dependencies {
+    //CVE-2026-29062
+    dependencySet(group: 'tools.jackson.core', version: '3.2.0') {
+      entry 'jackson-core'
+      entry 'jackson-databind'
+    }
     dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
       entry 'httpcore5'
       entry 'httpcore5-h2'

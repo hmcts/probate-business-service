@@ -56,8 +56,7 @@ public class BusinessDocumentController {
     }
 
     protected Optional<Declaration> getLastDeclaration(@RequestBody @Valid LegalDeclaration legalDeclaration) {
-        return Optional.ofNullable(legalDeclaration.getDeclarations().stream().reduce((first, second) -> second)
-            .orElse(null));
+        return legalDeclaration.getDeclarations().stream().reduce((first, second) -> second);
     }
 
     @PostMapping(path = "/generateBulkScanCoverSheetPDF", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -74,6 +73,6 @@ public class BusinessDocumentController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> exception(Exception ex) {
         log.error("BusinessDocumentController failed to execute: {}", ex.getLocalizedMessage(), ex);
-        return new ResponseEntity("Error while generating PDF document.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Error while generating PDF document.", HttpStatus.BAD_REQUEST);
     }
 }
