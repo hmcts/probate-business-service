@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Objects;
 
 @PactBroker(scheme = "${pact.broker.scheme}", host = "${pact.broker.baseUrl}", port = "${pact.broker.port}", tags = {
     "${pact.broker.consumer.tag}"})
@@ -30,6 +31,6 @@ public abstract class ControllerProviderTest {
 
 
     private File getFile(String fileName) throws FileNotFoundException {
-        return ResourceUtils.getFile(this.getClass().getResource("/json/" + fileName));
+        return ResourceUtils.getFile(Objects.requireNonNull(this.getClass().getResource("/json/" + fileName)));
     }
 }
