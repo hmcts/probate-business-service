@@ -162,6 +162,10 @@ dependencyManagement {
       entry 'jackson-core'
       entry 'jackson-databind'
     }
+    //CVE-2026-7962
+    dependencySet(group: 'org.eclipse.angus', version: '2.1.0-M1') {
+      entry 'angus-activation'
+    }
   }
 }
 
