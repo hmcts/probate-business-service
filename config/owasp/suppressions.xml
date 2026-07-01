@@ -53,4 +53,17 @@
   <suppress until = "2026-07-13">
     <cve>CVE-2026-41843</cve>
   </suppress>
+  <suppress until = "2026-07-13">
+    <notes><![CDATA[
+   file name: jackson-databind-2.22.0.jar
+   file name: jackson-databind-3.0.1.jar
+   ]]></notes>
+    <cve>CVE-2026-54512</cve>
+    <cve>CVE-2026-54513</cve>
+    <cve>CVE-2026-54514</cve>
+    <cve>CVE-2026-54515</cve>
+    <cve>CVE-2026-54516</cve>
+    <cve>CVE-2026-54517</cve>
+    <cve>CVE-2026-54518</cve>
+  </suppress>
 </suppressions>
