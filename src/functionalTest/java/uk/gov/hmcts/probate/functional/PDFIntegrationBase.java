@@ -25,18 +25,16 @@ public abstract class PDFIntegrationBase<T> extends IntegrationTestBase {
                 .when().post(businessServiceUrl + documentURL)
                 .then().assertThat().statusCode(200);
 
-        PDDocument pdfDocument = Loader.loadPDF(response.extract().asByteArray());
-        try {
-            return new PDFTextStripper().getText(pdfDocument).replaceAll("\\n", "").replaceAll(" ", "");
-        } finally {
-            pdfDocument.close();
+        try (PDDocument pdfDocument = Loader.loadPDF(response.extract().asByteArray())) {
+            return new PDFTextStripper().getText(pdfDocument).replaceAll("\\n", "").replace(" ", "");
         }
     }
 
     String parsedString(String string) {
-        return string.replaceAll(" ", "").replaceAll("\\n", "");
+        return string.replace(" ", "").replaceAll("\\n", "");
     }
 
+    @SuppressWarnings("unchecked")
     T getJsonObject(String jsonFileName, Class clazz) throws Exception {
         String jsonString = utils.getJsonFromFile(jsonFileName);
         ObjectMapper mapper = new ObjectMapper();

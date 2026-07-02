@@ -133,13 +133,13 @@ def versions = [
         applicationInsightsVersion    : '3.7.9',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonDatabind               : '2.22.0',
+        jacksonVersion                : '2.22.0',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '8.0.0',
         lombok                        : '1.18.46',
         pact_version                  : '4.1.11',
-        probateCommons                : '2.2.19',
+        probateCommons                : '2.2.22-DTSPB-5808-v1',
         restAssured                   : '5.5.7',
         serenity                      : '5.3.10',
         serenityreporter              : '4.1.6',
@@ -154,7 +154,18 @@ def versions = [
 
 dependencyManagement {
   imports {
-    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.0'
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.3'
+  }
+  dependencies {
+    //CVE-2026-29062
+    dependencySet(group: 'tools.jackson.core', version: '3.2.0') {
+      entry 'jackson-core'
+      entry 'jackson-databind'
+    }
+    //CVE-2026-7962
+    dependencySet(group: 'org.eclipse.angus', version: '2.1.0-M1') {
+      entry 'angus-activation'
+    }
   }
 }
 
@@ -169,9 +180,8 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: versions.springCloud
-    implementation group: 'org.springframework.retry', name: 'spring-retry'
+    implementation group: 'org.springframework.retry', name: 'spring-retry', version: '2.0.13'
     implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.6.2'
-    implementation group: 'org.springframework.hateoas', name: 'spring-hateoas'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
     implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '6.0.0-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
@@ -183,8 +193,8 @@ dependencies {
     implementation group: 'org.pitest', name: 'pitest', version: '1.25.5'
     implementation 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonDatabind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonVersion
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.22'
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
@@ -217,7 +227,7 @@ dependencies {
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
     testFunctionalImplementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.4'
-    testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonDatabind
+    testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonVersion
     testFunctionalImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testFunctionalImplementation sourceSets.main.runtimeClasspath
@@ -232,7 +242,6 @@ dependencies {
     testContractImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
-    testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
     testContractRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.13.2'
     testContractImplementation sourceSets.main.runtimeClasspath
@@ -285,7 +294,7 @@ tasks.register('runAndPublishConsumerPactTests', Test) {
 
 runAndPublishConsumerPactTests.dependsOn pactTask
 
-def getCheckedOutGitCommitHash() {
+static def getCheckedOutGitCommitHash() {
     'git rev-parse --verify --short HEAD'.execute().text.trim()
 }
 
@@ -295,7 +304,6 @@ pact {
         pactBrokerUrl = System.getenv("PACT_BROKER_FULL_URL") ?: 'http://localhost:80'
         tags = [System.getenv("PACT_BRANCH_NAME") ?: 'Dev']
         version = project.pactVersion
-
     }
 }
 
@@ -312,7 +320,7 @@ tasks.register('generateAatEnvFile') {
 }
 
 run {
-  if (new Boolean(System.getenv("POINT_TO_AAT"))) {
+  if (Boolean.parseBoolean(System.getenv("POINT_TO_AAT"))) {
     print 'Exporting AAT env vars'
     doFirst {
       if (project.file('./.aat-env').exists()) {
@@ -326,7 +334,7 @@ run {
     }
   }
 
-  if (debug == 'true') {
+  if (debug) {
     jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005']
   }
 }
