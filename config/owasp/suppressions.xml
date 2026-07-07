@@ -66,4 +66,11 @@
     <cve>CVE-2026-54517</cve>
     <cve>CVE-2026-54518</cve>
   </suppress>
+  <suppress until = "2026-10-13">
+    <notes><![CDATA[
+   file name: httpcore-4.4.16.jar
+   ]]></notes>
+    <cve>CVE-2026-54399</cve>
+    <cve>CVE-2026-54428</cve>
+  </suppress>
 </suppressions>

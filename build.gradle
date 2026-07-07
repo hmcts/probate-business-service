@@ -156,6 +156,12 @@ dependencyManagement {
   imports {
     mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.0.0'
   }
+  dependencies {
+    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
+      entry 'httpcore5'
+      entry 'httpcore5-h2'
+    }
+  }
 }
 
 ext {
