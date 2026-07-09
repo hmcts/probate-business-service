@@ -171,12 +171,6 @@ dependencyManagement {
       entry 'httpcore5-h2'
     }
   }
-  dependencies {
-    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
-      entry 'httpcore5'
-      entry 'httpcore5-h2'
-    }
-  }
 }
 
 ext {
@@ -265,6 +259,9 @@ dependencies {
         implementation("commons-fileupload:commons-fileupload") {
           version { strictly(versions.commonsFileuploadVersion) }
         }
+        // CVE-2020-13956
+        implementation('org.apache.httpcomponents:httpclient:4.5.13')
+        testFunctionalImplementation('org.apache.httpcomponents:httpclient:4.5.13')
     }
 }
 
