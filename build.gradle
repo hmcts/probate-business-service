@@ -158,7 +158,7 @@ dependencyManagement {
   }
   dependencies {
     //CVE-2026-29062
-    dependencySet(group: 'tools.jackson.core', version: '3.2.0') {
+    dependencySet(group: 'tools.jackson.core', version: '3.2.1') {
       entry 'jackson-core'
       entry 'jackson-databind'
     }
