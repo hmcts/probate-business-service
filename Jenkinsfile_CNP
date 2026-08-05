@@ -1,7 +1,7 @@
 #!groovy
 import uk.gov.hmcts.contino.AppPipelineDsl
 
-@Library("Infrastructure@2.4.8")
+@Library("Infrastructure@2.4.9")
 
 String product = "probate"
 String component = "business-service"
