@@ -11,4 +11,11 @@
     ]]></notes>
     <cve>CVE-2025-21199</cve>
   </suppress>
+  <suppress until = "2026-10-24">
+    <notes><![CDATA[
+   file name: tomcat-embed-core-11.0.24.jar
+   file name: tomcat-embed-websocket-11.0.24.jar
+   ]]></notes>
+    <cve>CVE-2026-66299</cve>
+  </suppress>
 </suppressions>
