@@ -133,7 +133,7 @@ def versions = [
         applicationInsightsVersion    : '3.7.9',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonVersion                : '2.22.1',
+        jacksonVersion                : '2.22.2',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '8.0.0',
@@ -158,7 +158,7 @@ dependencyManagement {
   }
   dependencies {
     //CVE-2026-29062
-    dependencySet(group: 'tools.jackson.core', version: '3.2.1') {
+    dependencySet(group: 'tools.jackson.core', version: '3.2.2') {
       entry 'jackson-core'
       entry 'jackson-databind'
     }
