@@ -13,9 +13,9 @@
   </suppress>
   <suppress until = "2026-10-24">
     <notes><![CDATA[
-   file name: tomcat-embed-core-11.0.24.jar
-   file name: tomcat-embed-websocket-11.0.24.jar
+   file name: opentelemetry-runtime-attach-core-1.57.0-alpha.jar
    ]]></notes>
-    <cve>CVE-2026-66299</cve>
+    <packageUrl regex="true">^pkg:maven/io\.opentelemetry\.contrib/opentelemetry-runtime-attach-core@.*$</packageUrl>
+    <cve>CVE-2026-54285</cve>
   </suppress>
 </suppressions>
