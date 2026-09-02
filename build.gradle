@@ -265,6 +265,12 @@ dependencies {
     }
 }
 
+configurations.configureEach {
+  resolutionStrategy.force(
+    'org.springframework:spring-core:6.2.20',
+  )
+}
+
 tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << '-parameters'
 }
