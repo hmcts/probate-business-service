@@ -269,6 +269,20 @@ dependencies {
     }
 }
 
+configurations.all {
+  resolutionStrategy.eachDependency { details ->
+    if (details.requested.group == 'org.springframework') {
+      details.useVersion '6.2.20'
+    }
+    if (details.requested.group == 'org.springframework.cloud') {
+      details.useVersion '4.3.4'
+    }
+    if (details.requested.group == 'org.springframework.security') {
+      details.useVersion '6.5.12'
+    }
+  }
+}
+
 tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << '-parameters'
 }
