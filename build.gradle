@@ -180,10 +180,10 @@ ext {
 
 dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
-  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBootVersion
-  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
-  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: versions.springCloud
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springBootVersion
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: versions.springCloud
     implementation group: 'org.springframework.retry', name: 'spring-retry', version: '2.0.13'
     implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.6.4'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
@@ -262,7 +262,6 @@ dependencies {
         // CVE-2020-13956
         implementation('org.apache.httpcomponents:httpclient:4.5.14')
         testFunctionalImplementation('org.apache.httpcomponents:httpclient:4.5.14')
-
     }
 }
 
