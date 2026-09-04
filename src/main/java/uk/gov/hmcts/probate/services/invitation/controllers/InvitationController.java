@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.probate.services.idgeneration.IdGeneratorService;
 import uk.gov.hmcts.probate.services.invitation.InvitationService;
+import uk.gov.hmcts.reform.probate.model.ProbateType;
 import uk.gov.hmcts.reform.probate.model.multiapplicant.Invitation;
 import uk.gov.service.notify.NotificationClientException;
 
@@ -40,7 +41,7 @@ public class InvitationController {
                                   BindingResult bindingResult,
                                   @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException {
-        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE);
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE, ProbateType.PA);
     }
 
     @PostMapping(path = "/invite/bilingual/{inviteId}", consumes = MediaType.APPLICATION_JSON)
@@ -58,7 +59,7 @@ public class InvitationController {
                          BindingResult bindingResult,
                          @RequestHeader("Session-Id") String sessionId)
         throws NotificationClientException {
-        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.FALSE);
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.FALSE, ProbateType.PA);
     }
 
 
@@ -72,16 +73,57 @@ public class InvitationController {
         return inviteId;
     }
 
-    private String sendInvitation(Invitation invitation, BindingResult bindingResult, String sessionId,
-                                  Boolean isBlingual) throws NotificationClientException {
+    @PostMapping(path = "/invite-co-applicant/bilingual", consumes = MediaType.APPLICATION_JSON)
+    public String inviteIntestacyBilingual(@Valid @RequestBody Invitation encodedInvitation,
+                                  BindingResult bindingResult,
+                                  @RequestHeader("Session-Id") String sessionId)
+        throws NotificationClientException {
+        return sendInvitation(encodedInvitation, bindingResult, sessionId, Boolean.TRUE, ProbateType.INTESTACY);
+    }
+
+    @PostMapping(path = "/invite-co-applicant/bilingual/{inviteId}", consumes = MediaType.APPLICATION_JSON)
+    public void inviteIntestacyBilingual(@PathVariable("inviteId") String inviteId,
+                                  @Valid @RequestBody Invitation invitation,
+                                  BindingResult bindingResult,
+                                  @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
+        invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.TRUE);
+    }
+
+    @PostMapping(path = "/invite-co-applicant", consumes = MediaType.APPLICATION_JSON)
+    public String inviteIntestacy(@Valid @RequestBody Invitation encodedInvitation,
+                         BindingResult bindingResult,
+                         @RequestHeader("Session-Id") String sessionId)
+        throws NotificationClientException {
+        return sendInvitation(encodedInvitation, bindingResult, sessionId,
+            Boolean.FALSE, ProbateType.INTESTACY);
+    }
+
+    @PostMapping(path = "/invite-co-applicant/{inviteId}", consumes = MediaType.APPLICATION_JSON)
+    public void inviteIntestacy(@PathVariable("inviteId") String inviteId,
+                         @Valid @RequestBody Invitation invitation,
+                         BindingResult bindingResult,
+                         @RequestHeader("Session-Id") String sessionId) throws NotificationClientException {
+        LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
+        invitationService.sendIntestacyEmail(inviteId, invitation, Boolean.FALSE);
+    }
+
+    private String sendInvitation(Invitation encodedInvitation, BindingResult bindingResult, String sessionId,
+                                  Boolean isBlingual, ProbateType probateType)
+        throws NotificationClientException {
         LOGGER.info(SESSION_MSG, getSessionId(sessionId), bindingResult.getFieldErrors());
 
         Map<String, String> data = new HashMap<>();
-        data.put("firstName", invitation.getFirstName());
-        data.put("lastName", invitation.getLastName());
+        data.put("firstName", encodedInvitation.getFirstName());
+        data.put("lastName", encodedInvitation.getLastName());
 
         String linkId = idGeneratorService.generate(data);
-        invitationService.sendEmail(linkId, invitation, isBlingual);
+        if (ProbateType.INTESTACY.equals(probateType)) {
+            invitationService.sendIntestacyEmail(linkId, encodedInvitation, isBlingual);
+        } else {
+            invitationService.sendEmail(linkId, encodedInvitation, isBlingual);
+        }
+
         return linkId;
     }
 
