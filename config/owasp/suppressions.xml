@@ -86,6 +86,8 @@
     <notes><![CDATA[
             file name: spring-security-crypto-6.5.11.jar
         ]]></notes>
+    <cve>CVE-2026-47841</cve>
+    <cve>CVE-2026-47842</cve>
     <cve>CVE-2026-59270</cve>
     <cve>CVE-2026-59276</cve>
   </suppress>
