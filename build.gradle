@@ -166,7 +166,7 @@ dependencyManagement {
     dependencySet(group: 'org.eclipse.angus', version: '2.1.0-M1') {
       entry 'angus-activation'
     }
-    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
+    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.4') {
       entry 'httpcore5'
       entry 'httpcore5-h2'
     }
