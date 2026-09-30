@@ -82,6 +82,108 @@ public class ExecutorNotificationController {
         }
     }
 
+    @PostMapping(path = "/co-applicant-disagree-notification/bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantDisagreeBilingual(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            sendCoApplicantDisagreeNotification(encodedExecutorNotification, bindingResult, Boolean.TRUE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/co-applicant-disagree-notification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantDisagree(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            LOGGER.info("co-applicant-disagree-notification");
+            sendCoApplicantDisagreeNotification(encodedExecutorNotification, bindingResult, Boolean.FALSE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/co-applicant-notification/bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantSignedBilingual(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            sendCoApplicantNotification(encodedExecutorNotification, bindingResult, Boolean.TRUE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/co-applicant-notification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantSigned(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            LOGGER.info("executor-notification endpoint hit");
+            sendCoApplicantNotification(encodedExecutorNotification, bindingResult, Boolean.FALSE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/co-applicant-notification/all", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantAllSigned(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            LOGGER.info("executor all signed endpoint hit");
+            sendCoApplicantAllSignedNotification(encodedExecutorNotification, bindingResult, Boolean.FALSE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping(path = "/co-applicant-notification/all-bilingual", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> coApplicantAllSignedBilingual(
+        @Valid @RequestBody ExecutorNotification encodedExecutorNotification, BindingResult bindingResult)
+        throws NotificationClientException, UnsupportedEncodingException {
+        try {
+            sendCoApplicantAllSignedNotification(encodedExecutorNotification, bindingResult, Boolean.TRUE);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotificationClientException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    private void sendCoApplicantDisagreeNotification(ExecutorNotification encodedExecutorNotification,
+                                  BindingResult bindingResult,
+                                  Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+        LOGGER.info(LOGGING_MSG, bindingResult.getFieldErrors());
+        ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
+
+        executorNotificationService.sendCoApplicantDisagreeEmail(executorNotification, isBlingual);
+    }
+
+    private void sendCoApplicantNotification(ExecutorNotification encodedExecutorNotification,
+                                  BindingResult bindingResult,
+                                  Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
+        LOGGER.info(LOGGING_MSG, bindingResult.getFieldErrors());
+        ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
+
+        executorNotificationService.sendCoApplicantEmail(executorNotification, isBlingual);
+    }
+
+    private void sendCoApplicantAllSignedNotification(ExecutorNotification encodedExecutorNotification,
+                                           BindingResult bindingResult, Boolean isBlingual)
+        throws UnsupportedEncodingException, NotificationClientException {
+        LOGGER.info(LOGGING_MSG, bindingResult.getFieldErrors());
+        ExecutorNotification executorNotification = executorNotificationService.decodeURL(encodedExecutorNotification);
+
+        executorNotificationService.sendCoApplicantAllSignedEmail(executorNotification, isBlingual);
+    }
+
     private void sendNotification(ExecutorNotification encodedExecutorNotification,
                                   BindingResult bindingResult,
                                   Boolean isBlingual) throws UnsupportedEncodingException, NotificationClientException {
