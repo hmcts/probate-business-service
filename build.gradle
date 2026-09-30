@@ -130,10 +130,10 @@ repositories {
 }
 
 def versions = [
-        applicationInsightsVersion    : '3.7.9',
+        applicationInsightsVersion    : '3.7.10',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonVersion                : '2.22.2',
+        jacksonVersion                : '2.22.3',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '8.0.0',
@@ -158,7 +158,7 @@ dependencyManagement {
   }
   dependencies {
     //CVE-2026-29062
-    dependencySet(group: 'tools.jackson.core', version: '3.2.2') {
+    dependencySet(group: 'tools.jackson.core', version: '3.2.3') {
       entry 'jackson-core'
       entry 'jackson-databind'
     }
@@ -166,7 +166,7 @@ dependencyManagement {
     dependencySet(group: 'org.eclipse.angus', version: '2.1.0-M1') {
       entry 'angus-activation'
     }
-    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
+    dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.4') {
       entry 'httpcore5'
       entry 'httpcore5-h2'
     }
@@ -187,7 +187,7 @@ dependencies {
     implementation group: 'org.springframework.retry', name: 'spring-retry', version: '2.0.13'
     implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.6.4'
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
-    implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '6.2.0-RELEASE'
+    implementation group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '6.2.1-RELEASE'
     implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.logging
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-core', version: versions.applicationInsightsVersion
     implementation group: 'com.microsoft.azure', name: 'applicationinsights-runtime-attach', version: versions.applicationInsightsVersion
