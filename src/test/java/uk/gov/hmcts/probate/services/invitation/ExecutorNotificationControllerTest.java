@@ -116,4 +116,127 @@ public class ExecutorNotificationControllerTest {
             executorNotificationController.allSignedBilingual(executorNotification,
                 mockBindingResult).getStatusCode());
     }
+
+    @Test
+    public void shouldSendDisagree() throws UnsupportedEncodingException, NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantDisagree(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantDisagreeEmail(executorNotification, Boolean.FALSE);
+    }
+
+    @Test
+    public void shouldSendDisagreeBilingual() throws UnsupportedEncodingException, NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantDisagreeBilingual(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantDisagreeEmail(executorNotification, Boolean.TRUE);
+    }
+
+    @Test
+    public void shouldSendCoApplicantSigned() throws UnsupportedEncodingException, NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantSigned(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantEmail(executorNotification, Boolean.FALSE);
+    }
+
+    @Test
+    public void shouldSendCoApplicantSignedBilingual() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantSignedBilingual(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantEmail(executorNotification, Boolean.TRUE);
+    }
+
+    @Test
+    public void shouldSendCoApplicantAllSigned() throws UnsupportedEncodingException, NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantAllSigned(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantAllSignedEmail(executorNotification, Boolean.FALSE);
+    }
+
+    @Test
+    public void shouldSendCoApplicantAllSignedBilingual() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        executorNotificationController.coApplicantAllSignedBilingual(executorNotification, mockBindingResult);
+        verify(executorNotificationService).sendCoApplicantAllSignedEmail(executorNotification, Boolean.TRUE);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendDisagree() throws UnsupportedEncodingException, NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantDisagreeEmail(executorNotification, Boolean.FALSE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantDisagree(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantDisagree(executorNotification, mockBindingResult);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendDisagreeBilingual() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantDisagreeEmail(executorNotification, Boolean.TRUE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantDisagreeBilingual(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantDisagreeBilingual(executorNotification, mockBindingResult);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendCoApplicantSigned() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantEmail(executorNotification, Boolean.FALSE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantSigned(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantSigned(executorNotification, mockBindingResult);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendCoApplicantSignedBilingual() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantEmail(executorNotification, Boolean.TRUE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantSignedBilingual(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantSignedBilingual(executorNotification, mockBindingResult);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendCoApplicantAllSigned() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantAllSignedEmail(executorNotification, Boolean.FALSE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantAllSigned(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantAllSigned(executorNotification, mockBindingResult);
+    }
+
+    @Test
+    public void shouldThrowIfFailSendCoApplicantAllSignedBilingual() throws UnsupportedEncodingException,
+        NotificationClientException {
+        ExecutorNotification executorNotification = setUpExecutorNotification();
+        doThrow(new NotificationClientException("error"))
+            .when(executorNotificationService).sendCoApplicantAllSignedEmail(executorNotification, Boolean.TRUE);
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+            executorNotificationController.coApplicantAllSignedBilingual(executorNotification,
+                mockBindingResult).getStatusCode());
+        executorNotificationController.coApplicantAllSignedBilingual(executorNotification, mockBindingResult);
+    }
 }
