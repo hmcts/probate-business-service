@@ -229,6 +229,7 @@ dependencies {
     testFunctionalImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
     testFunctionalImplementation group: 'io.rest-assured', name: 'rest-assured', version: versions.restAssured
     testFunctionalImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
+    testFunctionalImplementation group: 'io.github.openfeign', name: 'feign-jackson', version: '13.17'
     testFunctionalImplementation group: 'com.github.hmcts', name: 'pdf-service-client', version: versions.pdfServiceClient
     testFunctionalImplementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.5'
     testFunctionalImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonVersion
