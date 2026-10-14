@@ -1,6 +1,5 @@
 package uk.gov.hmcts.probate.config;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
