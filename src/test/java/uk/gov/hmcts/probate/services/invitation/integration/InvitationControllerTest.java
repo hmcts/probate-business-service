@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,7 +40,7 @@ class InvitationControllerTest {
         Charset.forName("utf8"));
 
     private MockMvc mockMvc;
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+    private HttpMessageConverter<?> jacksonJsonHttpMessageConverter;
 
     @Autowired
     private TestUtils utils;
@@ -62,11 +62,11 @@ class InvitationControllerTest {
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
-
         Arrays.stream(converters)
-            .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+            .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
-            .ifPresent(converter -> this.mappingJackson2HttpMessageConverter = converter);
+            .ifPresent(converter ->
+                this.jacksonJsonHttpMessageConverter = converter);
     }
 
     @BeforeEach
