@@ -216,8 +216,6 @@ dependencies {
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-webmvc-test', version: versions.springBootVersion
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit_jupiter
     testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: versions.fortifyClient, classifier: 'all'
     testImplementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '3.0.8'
     testImplementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -244,7 +242,6 @@ dependencies {
 
     testContractImplementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: versions.jjwtApi
     testContractImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBootVersion
-    testContractImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit_jupiter
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'junit5', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.provider', name: 'spring', version: versions.pact_version
     testContractImplementation group: 'au.com.dius.pact.consumer', name: 'junit5', version: versions.pact_version
