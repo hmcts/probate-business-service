@@ -9,7 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
@@ -40,7 +40,7 @@ class BusinessValidationControllerTest {
         Charset.forName("utf8"));
 
     private MockMvc mockMvc;
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+    private HttpMessageConverter<?> jacksonJsonHttpMessageConverter;
 
     @Autowired
     private TestUtils utils;
@@ -53,11 +53,11 @@ class BusinessValidationControllerTest {
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
-
         Arrays.stream(converters)
-            .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+            .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
-            .ifPresent(converter -> this.mappingJackson2HttpMessageConverter = converter);
+            .ifPresent(converter ->
+                this.jacksonJsonHttpMessageConverter = converter);
     }
 
     @BeforeEach

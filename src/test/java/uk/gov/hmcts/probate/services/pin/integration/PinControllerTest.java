@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,7 +45,7 @@ class PinControllerTest {
 
     private MockMvc mockMvc;
     @SuppressWarnings("unused")
-    private HttpMessageConverter<?> mappingJackson2HttpMessageConverter;
+    private HttpMessageConverter<?> jacksonJsonHttpMessageConverter;
 
     @MockitoBean
     private NotificationClientProvider notificationClientProvider;
@@ -59,9 +59,10 @@ class PinControllerTest {
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
         Arrays.stream(converters)
-            .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+            .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
-            .ifPresent(converter -> this.mappingJackson2HttpMessageConverter = converter);
+            .ifPresent(converter ->
+                this.jacksonJsonHttpMessageConverter = converter);
     }
 
     @BeforeEach
