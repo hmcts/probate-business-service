@@ -5,21 +5,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.service.notify.NotificationClient;
 import uk.gov.service.notify.NotificationClientException;
 import uk.gov.service.notify.SendSmsResponse;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class PinControllerTest {
 
@@ -44,6 +44,7 @@ class PinControllerTest {
     private SendSmsResponse smsResponse;
 
     private MockMvc mockMvc;
+
     @SuppressWarnings("unused")
     private HttpMessageConverter<?> jacksonJsonHttpMessageConverter;
 
@@ -57,8 +58,8 @@ class PinControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-        Arrays.stream(converters)
+    void setConverters(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
+        requestMappingHandlerAdapter.getMessageConverters().stream()
             .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
             .ifPresent(converter ->
