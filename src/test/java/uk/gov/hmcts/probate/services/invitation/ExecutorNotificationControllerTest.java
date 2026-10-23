@@ -84,7 +84,7 @@ public class ExecutorNotificationControllerTest {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendEmail(executorNotification, Boolean.FALSE);
-        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+        assertEquals(HttpStatus.UNPROCESSABLE_CONTENT,
             executorNotificationController.signed(executorNotification, mockBindingResult).getStatusCode());
     }
 
@@ -93,7 +93,7 @@ public class ExecutorNotificationControllerTest {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendEmail(executorNotification, Boolean.TRUE);
-        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+        assertEquals(HttpStatus.UNPROCESSABLE_CONTENT,
             executorNotificationController.signedBilingual(executorNotification,
                 mockBindingResult).getStatusCode());
     }
@@ -103,7 +103,7 @@ public class ExecutorNotificationControllerTest {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.FALSE);
-        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, executorNotificationController.allSigned(
+        assertEquals(HttpStatus.UNPROCESSABLE_CONTENT, executorNotificationController.allSigned(
             executorNotification, mockBindingResult).getStatusCode());
     }
 
@@ -112,7 +112,7 @@ public class ExecutorNotificationControllerTest {
         ExecutorNotification executorNotification = setUpExecutorNotification();
         doThrow(new NotificationClientException("error"))
             .when(executorNotificationService).sendAllSignedEmail(executorNotification, Boolean.TRUE);
-        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY,
+        assertEquals(HttpStatus.UNPROCESSABLE_CONTENT,
             executorNotificationController.allSignedBilingual(executorNotification,
                 mockBindingResult).getStatusCode());
     }

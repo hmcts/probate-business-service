@@ -40,7 +40,7 @@ public class ExecutorNotificationController {
             sendNotification(encodedExecutorNotification, bindingResult, Boolean.TRUE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_CONTENT);
         }
     }
 
@@ -53,7 +53,7 @@ public class ExecutorNotificationController {
             sendNotification(encodedExecutorNotification, bindingResult, Boolean.FALSE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_CONTENT);
         }
     }
 
@@ -66,7 +66,7 @@ public class ExecutorNotificationController {
             sendAllSignedNotification(encodedExecutorNotification, bindingResult, Boolean.FALSE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_CONTENT);
         }
     }
 
@@ -78,7 +78,7 @@ public class ExecutorNotificationController {
             sendAllSignedNotification(encodedExecutorNotification, bindingResult, Boolean.TRUE);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotificationClientException e) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_CONTENT);
         }
     }
 
