@@ -24,6 +24,9 @@ spring:
     name: probate-business-service
   config:
     import: "optional:configtree:/mnt/secrets/probate/"
+  http:
+    converters:
+      preferred-json-mapper: jackson2
 
   messages:
     basename: messages
