@@ -34,7 +34,7 @@ spring:
     encoding: UTF-8
   main:
     allow-bean-definition-overriding: true
-  jackson:
+  jackson2:
     serialization:
       wrap_root_value: false
     deserialization:
