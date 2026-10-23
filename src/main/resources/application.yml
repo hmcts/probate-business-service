@@ -27,7 +27,12 @@ spring:
   http:
     converters:
       preferred-json-mapper: jackson2
-
+  cloud:
+    openfeign:
+      client:
+        config:
+          idam-s2s-auth-health:
+            decoder: uk.gov.hmcts.probate.config.ServiceAuthHealthDecoder
   messages:
     basename: messages
     cache-seconds: -1
