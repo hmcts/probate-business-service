@@ -3,16 +3,17 @@ package uk.gov.hmcts.probate.services.businessdocuments.unit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import uk.gov.hmcts.probate.services.businessdocuments.services.PDFGenerationService;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class BusinessDocumentControllerTest {
 
@@ -31,8 +32,8 @@ class BusinessDocumentControllerTest {
     private static final String LEGAL_DECLARATION_URL = "/businessDocument/generateLegalDeclarationPDF";
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
+        MediaType.APPLICATION_JSON.getSubtype(),
+        Charset.forName("utf8"));
 
     private MockMvc mockMvc;
     private HttpMessageConverter<?> jacksonJsonHttpMessageConverter;
@@ -43,11 +44,17 @@ class BusinessDocumentControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
     @MockitoBean
     private PDFGenerationService pdfGenerationService;
 
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
+    void setConverters() {
+        HttpMessageConverter<?>[] converters = requestMappingHandlerAdapter
+            .getMessageConverters()
+            .toArray(new HttpMessageConverter<?>[0]);
+
         Arrays.stream(converters)
             .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()

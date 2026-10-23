@@ -13,6 +13,7 @@ import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import uk.gov.hmcts.probate.services.businessvalidation.model.BusinessValidationStatus;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.businessvalidation.validators.DobBeforeDodRule;
@@ -20,7 +21,6 @@ import uk.gov.hmcts.probate.services.businessvalidation.validators.NetIHTLessTha
 import uk.gov.hmcts.probate.services.businessvalidation.validators.ValidationRule;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Locale;
 
 import static org.hamcrest.Matchers.is;
@@ -52,8 +52,8 @@ class BusinessValidationControllerTest {
     private MessageSource messageSource;
 
     @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-        Arrays.stream(converters)
+    void setConverters(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
+        requestMappingHandlerAdapter.getMessageConverters().stream()
             .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
             .ifPresent(converter ->
@@ -102,7 +102,8 @@ class BusinessValidationControllerTest {
             .andExpect(jsonPath("$.status", is(BusinessValidationStatus.FAILURE.toString())))
             .andExpect(jsonPath("$.errors[0].param", is(ValidationRule.BUSINESS_ERROR)))
             .andExpect(jsonPath("$.errors[0].code", is(DobBeforeDodRule.CODE)))
-            .andExpect(jsonPath("$.errors[0].msg", is(messageSource.getMessage("dodBeforeDob", null, Locale.UK))));
+            .andExpect(jsonPath("$.errors[0].msg", is(messageSource.getMessage(
+                "dodBeforeDob", null, Locale.UK))));
 
     }
 

@@ -3,6 +3,7 @@ package uk.gov.hmcts.probate.services.invitation.integration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
@@ -10,16 +11,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import uk.gov.hmcts.probate.services.businessvalidation.util.TestUtils;
 import uk.gov.hmcts.probate.services.notification.NotificationClientProvider;
 import uk.gov.hmcts.probate.services.persistence.PersistenceClient;
 import uk.gov.service.notify.NotificationClient;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class InvitationControllerTest {
 
@@ -61,8 +61,8 @@ class InvitationControllerTest {
     private NotificationClientProvider notificationClientProvider;
 
     @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-        Arrays.stream(converters)
+    void setConverters(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
+        requestMappingHandlerAdapter.getMessageConverters().stream()
             .filter(JacksonJsonHttpMessageConverter.class::isInstance)
             .findFirst()
             .ifPresent(converter ->
@@ -72,7 +72,6 @@ class InvitationControllerTest {
     @BeforeEach
     void setup() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
-
         when(notificationClientProvider.getClient()).thenReturn(notificationClient);
     }
 
