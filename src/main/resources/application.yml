@@ -24,14 +24,22 @@ spring:
     name: probate-business-service
   config:
     import: "optional:configtree:/mnt/secrets/probate/"
-
+  http:
+    converters:
+      preferred-json-mapper: jackson2
+  cloud:
+    openfeign:
+      client:
+        config:
+          idam-s2s-auth-health:
+            decoder: uk.gov.hmcts.probate.config.ServiceAuthHealthDecoder
   messages:
     basename: messages
     cache-seconds: -1
     encoding: UTF-8
   main:
     allow-bean-definition-overriding: true
-  jackson:
+  jackson2:
     serialization:
       wrap_root_value: false
     deserialization:
