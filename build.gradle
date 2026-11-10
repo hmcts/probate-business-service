@@ -133,7 +133,7 @@ def versions = [
         applicationInsightsVersion    : '3.7.10',
         commonsBeanutils              : '1.11.0',
         commonsFileuploadVersion      : '1.6.0',
-        jacksonVersion                : '2.22.4',
+        jacksonVersion                : '2.23.0',
         jjwtApi                       : '0.13.0',
         junit_jupiter                 : '5.12.2',
         logging                       : '8.0.0',
@@ -158,7 +158,7 @@ dependencyManagement {
   }
   dependencies {
     //CVE-2026-29062
-    dependencySet(group: 'tools.jackson.core', version: '3.2.4') {
+    dependencySet(group: 'tools.jackson.core', version: '3.3.0') {
       entry 'jackson-core'
       entry 'jackson-databind'
     }
@@ -199,7 +199,7 @@ dependencies {
     implementation group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: '0.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jacksonVersion
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jacksonVersion
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.22'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.23'
     implementation group: 'com.github.hmcts', name: 'probate-commons', version: versions.probateCommons
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: versions.springDocOpenUi
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: versions.swaggerAnnotations
