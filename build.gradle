@@ -149,7 +149,7 @@ def versions = [
         swaggerAnnotations            : '3.0.0',
         pdfServiceClient              : '8.0.2',
         fortifyClient                 : '1.4.10',
-        tomcat                        : '11.0.27'
+        tomcat                        : '11.0.29'
 ]
 
 dependencyManagement {
