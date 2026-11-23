@@ -178,6 +178,7 @@ ext {
 
 dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-restclient', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webmvc', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-jackson2', version: versions.springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: versions.springBootVersion
