@@ -34,7 +34,7 @@ public class IdamTokenGenerator {
     public String getUserId() {
         String userIdLocal = "" + RestAssured.given()
             .header("Authorization", userToken)
-            .get(idamUserBaseUrl + "/details")
+            .get(idamUserBaseUrl + "/o/userinfo")
             .body()
             .path("id");
 

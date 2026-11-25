@@ -95,7 +95,7 @@ public class BusinessServiceServiceAuthTokenGenerator {
         String jsonResponse = given()
             .relaxedHTTPSValidation()
             .header("Authorization", "Basic dGVzdEBURVNULkNPTToxMjM=")
-            .post(baseServiceOauth2Url + "/oauth2/authorize?response_type=code"
+            .post(baseServiceOauth2Url + "/o/token?grant_type=password&response_type=code"
                 + "&client_id=" + clientId
                 + "&redirect_uri=" + redirectUri)
             .asString();
