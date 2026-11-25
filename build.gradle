@@ -152,7 +152,7 @@ def versions = [
 
 dependencyManagement {
   imports {
-    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2025.1.5'
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2026.0.0'
   }
   dependencies {
     //CVE-2026-29062
